@@ -15,7 +15,7 @@ Download the latest version: http://en-us.x-studio365.com
 8. Supports Chinese and English.
 9. Supports SpriteSheet creation.
 
-# Code Edit features:
+# Code editing features:
 * Suport Auto detect UTF-8 encoding, and support mutli-encodings convertion.
 * Suport vscode/sublime Open Folder… feature, and support multi-program-languages syntax highlight.
 * Suport 5 code themes, Hotkey: Ctrl+Alt+NUM9
