@@ -1,5 +1,5 @@
 # x-studio365
-x-studio365 is more powerfull,lightweight and fast game develop IDE. It support Particle editing, Scene(UI) editing?Screen Adapting
+x-studio365 is more powerfull,lightweight and fast game develop IDE. It support Particle editing, Scene(UI) editing & Screen Adapting
 preview, Lua Debug & Edit & Syntax Highlighting & Outlining & Auto-completation.
 Download the latest version: http://en-us.x-studio365.com
  
