@@ -69,7 +69,11 @@ Ctrl + F2	Change All Occurences of current document
 Alt+→	Display auto-completion window
 Ctrl+Alt+Num9	Choose Code Theme(Current support 5 themes)
 
-
+|Tables         | Are           | Cool  |
+| ------------- |:-------------:| -----:|
+| col 3 is      | right-aligned | $1600 |
+| col 2 is      | centered      |   $12 |
+| zebra stripes | are neat      |    $1 |
 
 ### Donation please
 
