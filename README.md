@@ -36,8 +36,8 @@ Download the latest version: http://en-us.x-studio365.com
 * Support Comment lua source code with hotkey: Ctrl+/
 * Support View file as binary Ascii-View.
 
-# Editor short keys
-|Short Key         | Function       |
+# Editor shortcuts
+|Shortcut         | Description     |
 | ------------- |:----------------:|
 |Shift+Alt+Enter	|FullScreen|
 |Alt+ MouseWheel	|Zoom In/Out Node|
