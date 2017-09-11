@@ -71,8 +71,3 @@ Download the latest version: http://en-us.x-studio365.com
 |Alt+→	|Display auto-completion window|
 |Ctrl+Alt+Num9	|Choose Code Theme(Current support 5 themes)|
 
-### Donation please
-
-I need some funds to continue developing this free software. All contributions gratefully accepted.
-
-<a href='https://pledgie.com/campaigns/34356'><img alt='Click here to lend your support to: x-studio365 - Help me continue to develop this free IDE and make a donation at pledgie.com !' src='https://pledgie.com/campaigns/34356.png?skin_name=chrome' border='0' ></a>
