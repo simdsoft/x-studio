@@ -71,3 +71,19 @@ Download the latest version: http://en-us.x-studio365.com
 |Alt+→	|Display auto-completion window|
 |Ctrl+Alt+Num9	|Choose Code Theme(Current support 5 themes)|
 
+# How to use this editor with cocos2d-x
+1. x-studio365 specific engine:
+github.com:
+engine: https://github.com/halx99/cocos2d-x5
+3rd libs: https://github.com/halx99/cocos2d-x-external
+
+git.oschina.net:
+engine: http://git.oschina.net/halx99/cocos2d-x2
+3rd libs: http://git.oschina.net/halx99/cocos2d-x-3rd-party-libs-bin1
+
+clone the engine and 3rd, then copy or move all 3rd libs files to engine_root/external folder.
+currently, the build & run system have tested on win32&android, iOS have not test yet.
+
+2.
+
+remark: VS2015 is required.
