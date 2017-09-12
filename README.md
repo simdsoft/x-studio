@@ -72,7 +72,7 @@ Download the latest version: http://en-us.x-studio365.com
 |Ctrl+Alt+Num9	|Choose Code Theme(Current support 5 themes)|
 
 # How to use this editor with cocos2d-x
-1. Download x-studio365 specific engine.  
+1.Download x-studio365 specific engine.  
 github.com:  
 engine: https://github.com/halx99/cocos2d-x  
 3rd libs: https://github.com/halx99/cocos2d-x-external  
