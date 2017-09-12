@@ -72,9 +72,9 @@ Download the latest version: http://en-us.x-studio365.com
 |Ctrl+Alt+Num9	|Choose Code Theme(Current support 5 themes)|
 
 # How to use this editor with cocos2d-x
-1. x-studio365 specific engine:
+1. Download x-studio365 specific engine.
 github.com:
-engine: https://github.com/halx99/cocos2d-x5
+engine: https://github.com/halx99/cocos2d-x
 3rd libs: https://github.com/halx99/cocos2d-x-external
 
 git.oschina.net:
@@ -84,6 +84,11 @@ engine: http://git.oschina.net/halx99/cocos2d-x2
 clone the engine and 3rd, then copy or move all 3rd libs files to engine_root/external folder.
 currently, the build & run system have tested on win32&android, iOS have not test yet.
 
-2.
+2.Setup for new empty project: 
+There are two scripts:
+https://github.com/halx99/cocos2d-x/blob/v3/copy_missing_files_cpp.bat for empty-cpp-project.
+Anothor script copy_missing_files_lua.bat for empty-lua-project.
 
-remark: VS2015 is required.
+Config the system or user envirament COCOS2DX_ROOT to the path of engine_root, then copy the script file to the new empty project's root directory, then execute it, it will copy missing souce file automatically.
+
+3.remark: VS2015 is required.
