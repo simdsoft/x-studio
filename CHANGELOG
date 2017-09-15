@@ -1,0 +1,6 @@
+# 10.0.2600.216  
+1. Auto detect localize language and setup software language.  
+2. Fix order feature: 'Send Backward', 'Bring Fowward' display problem.  
+3. Fix some ETC1 alpha support issues.
+4. Optimize 'Open with x-studio365', now it can open .xsxproj/.vcxproj as xml format syntax highlight.
+5. Fix 'convert json to csd' does not work.  
