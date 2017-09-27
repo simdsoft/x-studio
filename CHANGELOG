@@ -1,3 +1,11 @@
+# 10.0.2600.256
+1. [UI Editing] Bugfix: Could not import some .ccs project. 
+2. [UI Editing] Bugfix: Editor will crash when save project when a modified scene was removed.  
+3. [Setup] Reduce setup package to 15MBytes. enhancement 
+4. [Lua Debugging] Bugfix: Disable/enable breakpoint through context menu does not work.  
+5. [UI Editing] Add default design size config for software settings and set 1334x750 as default  
+6. [Code Editing] Bugfix: Could not save ascii view document.  
+
 # 10.0.2600.216  
 1. Auto detect localize language and setup software language.  
 2. Fix order feature: 'Send Backward', 'Bring Fowward' display problem.  
