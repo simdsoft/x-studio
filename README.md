@@ -92,3 +92,9 @@ Anothor script copy_missing_files_lua.bat for empty-lua-project.
 Config the system or user envirament COCOS2DX_ROOT to the path of engine_root, then copy the script file to the new empty project's root directory, then execute it, it will copy missing souce file automatically.  
 
 3.remark: VS2015 is required.
+
+### Purchase Professional License
+ 
+ I need some funds to continue developing the 10.0.3000.0 milestone. If you are interest in this software, please purchase.
+ 
+ <a href='http://cn.x-studio365.com/buy.php?buy_type=1001&lang=437'>Purchase Professional License</a>
