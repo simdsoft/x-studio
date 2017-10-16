@@ -72,29 +72,11 @@ Download the latest version: http://en-us.x-studio365.com
 |Ctrl+Alt+Num9	|Choose Code Theme(Current support 5 themes)|
 
 # How to use this editor with cocos2d-x
-1.Download x-studio365 specific engine.  
-github.com:  
-engine: https://github.com/halx99/cocos2d-x  
-3rd libs: https://github.com/halx99/cocos2d-x-external  
-  
-git.oschina.net:  
-engine: http://git.oschina.net/halx99/cocos2d-x   
-3rd libs: http://git.oschina.net/halx99/cocos2d-x-3rd-party-libs-bin  
-  
-clone the engine and 3rd, then copy or move all 3rd libs files to engine_root/external folder.  
-currently, the build & run system have tested on win32&android, iOS have not test yet.  
-  
-2.Setup for new empty project:  
-There are two scripts:  
-https://github.com/halx99/cocos2d-x/blob/v3/copy_missing_files_cpp.bat for empty-cpp-project.  
-Anothor script copy_missing_files_lua.bat for empty-lua-project.  
-  
-Config the system or user envirament COCOS2DX_ROOT to the path of engine_root, then copy the script file to the new empty project's root directory, then execute it, it will copy missing souce file automatically.  
-
-3.remark: VS2015 is required.
+1. see the x-studio365 specific csb reader repo: https://github.com/halx99/libxreader  
+2. remark: VS2015 is required.
 
 ### Purchase Professional License
  
- I need some funds to continue developing the 10.0.3000.0 milestone. If you are interest in this software, please purchase.
+ If you are interest in this software, please purchase.
  
  <a href='http://cn.x-studio365.com/buy.php?buy_type=1001&lang=437'>Purchase Professional License</a>
