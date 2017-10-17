@@ -35,6 +35,7 @@ Download the latest version: http://en-us.x-studio365.com
 * Support Lua Syntax check.
 * Support Comment lua source code with hotkey: Ctrl+/
 * Support View file as binary Ascii-View.
+* Support CTRL+RightClick to show shell context menu at 'Project Explorer'
 
 # Editor shortcuts
 |Shortcut         | Description     |
@@ -80,7 +81,7 @@ Download the latest version: http://en-us.x-studio365.com
 5. (Win32) Add libxreader project as reference of x365app1 project
 
 showcase  
-![image](https://github.com/halx99/libxreader/blob/master/showcase.png)
+![image](https://github.com/halx99/x-studio365/blob/master/showcase.png)
 
 ### Purchase Professional License
  
