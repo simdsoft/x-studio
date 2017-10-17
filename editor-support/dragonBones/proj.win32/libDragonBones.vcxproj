@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\dragonBones\animation\Animation.cpp" />
+    <ClCompile Include="..\..\dragonBones\animation\AnimationState.cpp" />
+    <ClCompile Include="..\..\dragonBones\animation\TimelineState.cpp" />
+    <ClCompile Include="..\..\dragonBones\animation\WorldClock.cpp" />
+    <ClCompile Include="..\..\dragonBones\armature\Armature.cpp" />
+    <ClCompile Include="..\..\dragonBones\armature\Bone.cpp" />
+    <ClCompile Include="..\..\dragonBones\armature\Slot.cpp" />
+    <ClCompile Include="..\..\dragonBones\CCArmatureDisplay.cpp" />
+    <ClCompile Include="..\..\dragonBones\CCFactory.cpp" />
+    <ClCompile Include="..\..\dragonBones\CCSlot.cpp" />
+    <ClCompile Include="..\..\dragonBones\CCTextureData.cpp" />
+    <ClCompile Include="..\..\dragonBones\core\BaseObject.cpp" />
+    <ClCompile Include="..\..\dragonBones\events\EventObject.cpp" />
+    <ClCompile Include="..\..\dragonBones\factories\BaseFactory.cpp" />
+    <ClCompile Include="..\..\dragonBones\model\AnimationData.cpp" />
+    <ClCompile Include="..\..\dragonBones\model\ArmatureData.cpp" />
+    <ClCompile Include="..\..\dragonBones\model\DragonBonesData.cpp" />
+    <ClCompile Include="..\..\dragonBones\model\FrameData.cpp" />
+    <ClCompile Include="..\..\dragonBones\model\TimelineData.cpp" />
+    <ClCompile Include="..\..\dragonBones\parsers\DataParser.cpp" />
+    <ClCompile Include="..\..\dragonBones\parsers\JSONDataParser.cpp" />
+    <ClCompile Include="..\..\dragonBones\textures\TextureData.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\dragonBones\animation\Animation.h" />
+    <ClInclude Include="..\..\dragonBones\animation\AnimationState.h" />
+    <ClInclude Include="..\..\dragonBones\animation\BaseTimelineState.h" />
+    <ClInclude Include="..\..\dragonBones\animation\IAnimateble.h" />
+    <ClInclude Include="..\..\dragonBones\animation\TimelineState.h" />
+    <ClInclude Include="..\..\dragonBones\animation\WorldClock.h" />
+    <ClInclude Include="..\..\dragonBones\armature\Armature.h" />
+    <ClInclude Include="..\..\dragonBones\armature\Bone.h" />
+    <ClInclude Include="..\..\dragonBones\armature\IArmatureDisplay.h" />
+    <ClInclude Include="..\..\dragonBones\armature\Slot.h" />
+    <ClInclude Include="..\..\dragonBones\armature\TransformObject.h" />
+    <ClInclude Include="..\..\dragonBones\CCArmatureDisplay.h" />
+    <ClInclude Include="..\..\dragonBones\CCDragonBonesHeaders.h" />
+    <ClInclude Include="..\..\dragonBones\CCFactory.h" />
+    <ClInclude Include="..\..\dragonBones\CCSlot.h" />
+    <ClInclude Include="..\..\dragonBones\CCTextureData.h" />
+    <ClInclude Include="..\..\dragonBones\core\BaseObject.h" />
+    <ClInclude Include="..\..\dragonBones\core\DragonBones.h" />
+    <ClInclude Include="..\..\dragonBones\DragonBonesHeaders.h" />
+    <ClInclude Include="..\..\dragonBones\events\EventObject.h" />
+    <ClInclude Include="..\..\dragonBones\factories\BaseFactory.h" />
+    <ClInclude Include="..\..\dragonBones\geom\ColorTransform.h" />
+    <ClInclude Include="..\..\dragonBones\geom\Matrix.h" />
+    <ClInclude Include="..\..\dragonBones\geom\Point.h" />
+    <ClInclude Include="..\..\dragonBones\geom\Rectangle.h" />
+    <ClInclude Include="..\..\dragonBones\geom\Transform.h" />
+    <ClInclude Include="..\..\dragonBones\model\AnimationData.h" />
+    <ClInclude Include="..\..\dragonBones\model\ArmatureData.h" />
+    <ClInclude Include="..\..\dragonBones\model\DragonBonesData.h" />
+    <ClInclude Include="..\..\dragonBones\model\FrameData.h" />
+    <ClInclude Include="..\..\dragonBones\model\TimelineData.h" />
+    <ClInclude Include="..\..\dragonBones\parsers\DataParser.h" />
+    <ClInclude Include="..\..\dragonBones\parsers\JSONDataParser.h" />
+    <ClInclude Include="..\..\dragonBones\textures\TextureData.h" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{B7C2A162-DEC9-4418-972E-240AB3CBFCAC}</ProjectGuid>
+    <RootNamespace>libDragonBones</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '12.0'">v120</PlatformToolset>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '12.0' and exists('$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A')">v120_xp</PlatformToolset>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '14.0'">v140</PlatformToolset>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '14.0' and exists('$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A')">v140_xp</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '12.0'">v120</PlatformToolset>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '12.0' and exists('$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A')">v120_xp</PlatformToolset>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '14.0'">v140</PlatformToolset>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' == '14.0' and exists('$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A')">v140_xp</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\..\..\2d\cocos2d_headers.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\..\..\2d\cocos2d_headers.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(SolutionDir)$(Configuration).win32\</OutDir>
+    <IntDir>$(Configuration).win32\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)$(Configuration).win32\</OutDir>
+    <IntDir>$(Configuration).win32\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>
+      </SDLCheck>
+      <AdditionalIncludeDirectories>$(EngineRoot);$(EngineRoot)cocos\editor-support;$(EngineRoot)extensions;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_LIB;COCOS2DXWIN32_EXPORTS;GL_GLEXT_PROTOTYPES;COCOS2D_DEBUG=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DisableSpecificWarnings>4267;4251;4244;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <MinimalRebuild>false</MinimalRebuild>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MinSpace</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>
+      </SDLCheck>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_LIB;COCOS2DXWIN32_EXPORTS;GL_GLEXT_PROTOTYPES;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(EngineRoot);$(EngineRoot)cocos\editor-support;$(EngineRoot)extensions;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

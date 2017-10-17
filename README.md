@@ -72,8 +72,15 @@ Download the latest version: http://en-us.x-studio365.com
 |Ctrl+Alt+Num9	|Choose Code Theme(Current support 5 themes)|
 
 # How to use this editor with cocos2d-x
-1. see the x-studio365 specific csb reader repo: https://github.com/halx99/libxreader  
-2. remark: VS2015 is required.
+1. Create a empty project by official cocos2d-x engine console command, such as x365app1
+2. Overrite 'editor-support'  
+3. (Win32) Exclude 'cocostudio' at libcocos2d project explorer from visual studio project.  
+ pitfall: if compile libcocos2d has link error, please make sure remove all compile source files from libcocos2d.
+4. (Win32) Add 'editor-support/cocostudio/proj.win32/libxreader.vcxproj' and 'editor-support/dragonBones/proj.win32/libDragonBones.vcxproj' to solution  
+5. (Win32) Add libxreader project as reference of x365app1 project
+
+showcase  
+![image](https://github.com/halx99/libxreader/blob/master/showcase.png)
 
 ### Purchase Professional License
  
