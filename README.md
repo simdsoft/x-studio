@@ -68,6 +68,7 @@ Download the latest version: http://en-us.x-studio365.com
 |Ctrl + P	|Quick search file in project|
 |Ctrl + R	|Quick search Lua function in current document.|
 |Ctrl + Tab	|Quick switch opened document in stack|
+|Ctrl + Q |Quick switch active x-studio365 process instances(project is open)|
 |Ctrl + F2	|Change All Occurences of current document|
 |Alt+→	|Display auto-completion window|
 |Ctrl+Alt+Num9	|Choose Code Theme(Current support 5 themes)|
