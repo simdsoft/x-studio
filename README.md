@@ -73,6 +73,7 @@ Download the latest version: http://en-us.x-studio365.com
 |Alt+→	|Display auto-completion window|
 |Ctrl+Alt+Num9	|Choose Code Theme(Current support 5 themes)|
 |Ctrl + Shift + D|temp copy&paste without clipboard occupation|
+|Ctrl + RightClick Project Explorer| Display desktop shell context menu|
 
 # How to use this editor with cocos2d-x
 1. Create a empty project by official cocos2d-x engine console command, such as x365app1
