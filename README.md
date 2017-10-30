@@ -35,6 +35,7 @@ Download the latest version: http://en-us.x-studio365.com
 * Support Lua Syntax check.
 * Support Comment lua source code with hotkey: Ctrl+/
 * Support View file as binary Ascii-View.
+* Support CTRL+RightClick to show shell context menu at 'Project Explorer'
 
 # Editor shortcuts
 |Shortcut         | Description     |
@@ -59,7 +60,7 @@ Download the latest version: http://en-us.x-studio365.com
 |Shift+F3	|Find Prev|
 |Ctrl+Shift+U	|Convert selected text to uppercase |
 |Ctrl+U	|Convert selected text to lowercase|
-|Alt + |MouseMove block select text|
+|Alt + MouseMove| block select text|
 |Ctrl + Shift + F	|Find All in files|
 |Ctrl + D	|Select Next occurency text|
 |Ctrl + E	|copy selected text and paste at end of current line|
@@ -67,9 +68,12 @@ Download the latest version: http://en-us.x-studio365.com
 |Ctrl + P	|Quick search file in project|
 |Ctrl + R	|Quick search Lua function in current document.|
 |Ctrl + Tab	|Quick switch opened document in stack|
+|Ctrl + Q |Quick switch active x-studio365 process instances(project is open)|
 |Ctrl + F2	|Change All Occurences of current document|
 |Alt+→	|Display auto-completion window|
 |Ctrl+Alt+Num9	|Choose Code Theme(Current support 5 themes)|
+|Ctrl + Shift + D|temp copy&paste without clipboard occupation|
+|Ctrl + RightClick Project Explorer| Display desktop shell context menu|
 
 # How to use this editor with cocos2d-x
 1. Create a empty project by official cocos2d-x engine console command, such as x365app1
@@ -80,7 +84,7 @@ Download the latest version: http://en-us.x-studio365.com
 5. (Win32) Add libxreader project as reference of x365app1 project
 
 showcase  
-![image](https://github.com/halx99/libxreader/blob/master/showcase.png)
+![image](https://github.com/halx99/x-studio365/blob/master/showcase.png)
 
 ### Purchase Professional License
  
