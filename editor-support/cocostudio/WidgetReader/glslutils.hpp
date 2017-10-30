@@ -814,13 +814,13 @@ namespace glslutils
 
     bool enableNodeIntelliShading(cocos2d::Node* node,
         bool noMVP,
-        cocos2d::Vec3& hsv,
+        const cocos2d::Vec3& hsv,
         const cocos2d::Vec3& filter = cocos2d::Vec3(1.0f, 0.45f, 0.3109),
         bool forceShading = false,
         const cocos2d::Vec3& hsvShading = cocos2d::Vec3::ZERO);
 
     void updateNodeHsv(cocos2d::Node* node,
-        cocos2d::Vec3& hsv, 
+        const cocos2d::Vec3& hsv, 
         const cocos2d::Vec3& filter = cocos2d::Vec3(1.0f, 0.45f, 0.3109), 
         bool forceShading = false, 
         const cocos2d::Vec3& hsvShading = cocos2d::Vec3::ZERO);

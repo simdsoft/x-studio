@@ -1,4 +1,4 @@
-// ParseBinary IDL file
+// ParseBinary IDL file, version: 10.0.1080.0
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // !! When adding new pairs to the maps below,         !!
 // !! please add to the last position of the map.      !!
@@ -60,7 +60,7 @@ table WidgetOptions
     customProperty:string; 
     callBackType:string;
     callBackName:string;
-	layoutComponent:LayoutComponentTable;
+    layoutComponent:LayoutComponentTable;
 }
 
 table LayoutComponentTable

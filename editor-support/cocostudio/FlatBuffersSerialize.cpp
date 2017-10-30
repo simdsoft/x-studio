@@ -56,6 +56,8 @@
 #include "editor-support/cocostudio/WidgetReader/PageViewReader/PageViewReader.h"
 #include "editor-support/cocostudio/WidgetReader/ListViewReader/ListViewReader.h"
 
+#include "editor-support/cocostudio/WidgetReader/TextFieldReader/TextFieldExReader.h"
+
 #include "tinyxml2.h"
 #include "flatbuffers/flatbuffers.h"
 #include "flatbuffers/util.h"
@@ -109,6 +111,7 @@ FlatBuffersSerialize::FlatBuffersSerialize()
     CREATE_CLASS_NODE_READER_INFO(ScrollViewReader);
     CREATE_CLASS_NODE_READER_INFO(PageViewReader);
     CREATE_CLASS_NODE_READER_INFO(ListViewReader);
+    CREATE_CLASS_NODE_READER_INFO(TextFieldExReader);
 
 }
 
@@ -192,7 +195,7 @@ std::string FlatBuffersSerialize::serializeFlatBuffersWithXMLBuffer(const std::s
             if (attribute)
                 thiz->_csdVersion = attribute->Value();
 
-            thiz->_csdVersion = "10.0.2100.0";
+            thiz->_csdVersion = "10.0.3000.0";
         }
 
         if (strcmp("Content", element->Name()) == 0)

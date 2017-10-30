@@ -64,6 +64,8 @@ struct PageViewOptions;
 
 struct ListViewOptions;
 
+struct TextFieldExOptions;
+
 struct ProjectNodeOptions;
 
 struct ComponentOptions;
@@ -4218,6 +4220,228 @@ inline flatbuffers::Offset<ListViewOptions> CreateListViewOptionsDirect(
       directionType ? _fbb.CreateString(directionType) : 0,
       horizontalType ? _fbb.CreateString(horizontalType) : 0,
       verticalType ? _fbb.CreateString(verticalType) : 0);
+}
+
+struct TextFieldExOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+  enum {
+    VT_NODEOPTIONS = 4,
+    VT_FONTRESOURCE = 6,
+    VT_FONTNAME = 8,
+    VT_FONTSIZE = 10,
+    VT_TEXT = 12,
+    VT_PLACEHOLDERTEXT = 14,
+    VT_PASSWORDENABLED = 16,
+    VT_PASSWORDSTYLETEXT = 18,
+    VT_MAXLENGTH = 20,
+    VT_TEXTCOLOR = 22,
+    VT_PLACEHOLDERCOLOR = 24,
+    VT_CURSORCOLOR = 26,
+    VT_ENABLED = 28,
+    VT_EDITABLE = 30,
+    VT_ISLOCALIZED = 32
+  };
+  const WidgetOptions *nodeOptions() const {
+    return GetPointer<const WidgetOptions *>(VT_NODEOPTIONS);
+  }
+  const ResourceData *fontResource() const {
+    return GetPointer<const ResourceData *>(VT_FONTRESOURCE);
+  }
+  const flatbuffers::String *fontName() const {
+    return GetPointer<const flatbuffers::String *>(VT_FONTNAME);
+  }
+  int32_t fontSize() const {
+    return GetField<int32_t>(VT_FONTSIZE, 0);
+  }
+  const flatbuffers::String *text() const {
+    return GetPointer<const flatbuffers::String *>(VT_TEXT);
+  }
+  const flatbuffers::String *placeholderText() const {
+    return GetPointer<const flatbuffers::String *>(VT_PLACEHOLDERTEXT);
+  }
+  bool passwordEnabled() const {
+    return GetField<uint8_t>(VT_PASSWORDENABLED, 0) != 0;
+  }
+  const flatbuffers::String *passwordStyleText() const {
+    return GetPointer<const flatbuffers::String *>(VT_PASSWORDSTYLETEXT);
+  }
+  int32_t maxLength() const {
+    return GetField<int32_t>(VT_MAXLENGTH, 0);
+  }
+  const Color *textColor() const {
+    return GetStruct<const Color *>(VT_TEXTCOLOR);
+  }
+  const Color *placeholderColor() const {
+    return GetStruct<const Color *>(VT_PLACEHOLDERCOLOR);
+  }
+  const Color *cursorColor() const {
+    return GetStruct<const Color *>(VT_CURSORCOLOR);
+  }
+  bool enabled() const {
+    return GetField<uint8_t>(VT_ENABLED, 1) != 0;
+  }
+  bool editable() const {
+    return GetField<uint8_t>(VT_EDITABLE, 1) != 0;
+  }
+  bool isLocalized() const {
+    return GetField<uint8_t>(VT_ISLOCALIZED, 0) != 0;
+  }
+  bool Verify(flatbuffers::Verifier &verifier) const {
+    return VerifyTableStart(verifier) &&
+           VerifyField<flatbuffers::uoffset_t>(verifier, VT_NODEOPTIONS) &&
+           verifier.VerifyTable(nodeOptions()) &&
+           VerifyField<flatbuffers::uoffset_t>(verifier, VT_FONTRESOURCE) &&
+           verifier.VerifyTable(fontResource()) &&
+           VerifyField<flatbuffers::uoffset_t>(verifier, VT_FONTNAME) &&
+           verifier.Verify(fontName()) &&
+           VerifyField<int32_t>(verifier, VT_FONTSIZE) &&
+           VerifyField<flatbuffers::uoffset_t>(verifier, VT_TEXT) &&
+           verifier.Verify(text()) &&
+           VerifyField<flatbuffers::uoffset_t>(verifier, VT_PLACEHOLDERTEXT) &&
+           verifier.Verify(placeholderText()) &&
+           VerifyField<uint8_t>(verifier, VT_PASSWORDENABLED) &&
+           VerifyField<flatbuffers::uoffset_t>(verifier, VT_PASSWORDSTYLETEXT) &&
+           verifier.Verify(passwordStyleText()) &&
+           VerifyField<int32_t>(verifier, VT_MAXLENGTH) &&
+           VerifyField<Color>(verifier, VT_TEXTCOLOR) &&
+           VerifyField<Color>(verifier, VT_PLACEHOLDERCOLOR) &&
+           VerifyField<Color>(verifier, VT_CURSORCOLOR) &&
+           VerifyField<uint8_t>(verifier, VT_ENABLED) &&
+           VerifyField<uint8_t>(verifier, VT_EDITABLE) &&
+           VerifyField<uint8_t>(verifier, VT_ISLOCALIZED) &&
+           verifier.EndTable();
+  }
+};
+
+struct TextFieldExOptionsBuilder {
+  flatbuffers::FlatBufferBuilder &fbb_;
+  flatbuffers::uoffset_t start_;
+  void add_nodeOptions(flatbuffers::Offset<WidgetOptions> nodeOptions) {
+    fbb_.AddOffset(TextFieldExOptions::VT_NODEOPTIONS, nodeOptions);
+  }
+  void add_fontResource(flatbuffers::Offset<ResourceData> fontResource) {
+    fbb_.AddOffset(TextFieldExOptions::VT_FONTRESOURCE, fontResource);
+  }
+  void add_fontName(flatbuffers::Offset<flatbuffers::String> fontName) {
+    fbb_.AddOffset(TextFieldExOptions::VT_FONTNAME, fontName);
+  }
+  void add_fontSize(int32_t fontSize) {
+    fbb_.AddElement<int32_t>(TextFieldExOptions::VT_FONTSIZE, fontSize, 0);
+  }
+  void add_text(flatbuffers::Offset<flatbuffers::String> text) {
+    fbb_.AddOffset(TextFieldExOptions::VT_TEXT, text);
+  }
+  void add_placeholderText(flatbuffers::Offset<flatbuffers::String> placeholderText) {
+    fbb_.AddOffset(TextFieldExOptions::VT_PLACEHOLDERTEXT, placeholderText);
+  }
+  void add_passwordEnabled(bool passwordEnabled) {
+    fbb_.AddElement<uint8_t>(TextFieldExOptions::VT_PASSWORDENABLED, static_cast<uint8_t>(passwordEnabled), 0);
+  }
+  void add_passwordStyleText(flatbuffers::Offset<flatbuffers::String> passwordStyleText) {
+    fbb_.AddOffset(TextFieldExOptions::VT_PASSWORDSTYLETEXT, passwordStyleText);
+  }
+  void add_maxLength(int32_t maxLength) {
+    fbb_.AddElement<int32_t>(TextFieldExOptions::VT_MAXLENGTH, maxLength, 0);
+  }
+  void add_textColor(const Color *textColor) {
+    fbb_.AddStruct(TextFieldExOptions::VT_TEXTCOLOR, textColor);
+  }
+  void add_placeholderColor(const Color *placeholderColor) {
+    fbb_.AddStruct(TextFieldExOptions::VT_PLACEHOLDERCOLOR, placeholderColor);
+  }
+  void add_cursorColor(const Color *cursorColor) {
+    fbb_.AddStruct(TextFieldExOptions::VT_CURSORCOLOR, cursorColor);
+  }
+  void add_enabled(bool enabled) {
+    fbb_.AddElement<uint8_t>(TextFieldExOptions::VT_ENABLED, static_cast<uint8_t>(enabled), 1);
+  }
+  void add_editable(bool editable) {
+    fbb_.AddElement<uint8_t>(TextFieldExOptions::VT_EDITABLE, static_cast<uint8_t>(editable), 1);
+  }
+  void add_isLocalized(bool isLocalized) {
+    fbb_.AddElement<uint8_t>(TextFieldExOptions::VT_ISLOCALIZED, static_cast<uint8_t>(isLocalized), 0);
+  }
+  TextFieldExOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+        : fbb_(_fbb) {
+    start_ = fbb_.StartTable();
+  }
+  TextFieldExOptionsBuilder &operator=(const TextFieldExOptionsBuilder &);
+  flatbuffers::Offset<TextFieldExOptions> Finish() {
+    const auto end = fbb_.EndTable(start_, 15);
+    auto o = flatbuffers::Offset<TextFieldExOptions>(end);
+    return o;
+  }
+};
+
+inline flatbuffers::Offset<TextFieldExOptions> CreateTextFieldExOptions(
+    flatbuffers::FlatBufferBuilder &_fbb,
+    flatbuffers::Offset<WidgetOptions> nodeOptions = 0,
+    flatbuffers::Offset<ResourceData> fontResource = 0,
+    flatbuffers::Offset<flatbuffers::String> fontName = 0,
+    int32_t fontSize = 0,
+    flatbuffers::Offset<flatbuffers::String> text = 0,
+    flatbuffers::Offset<flatbuffers::String> placeholderText = 0,
+    bool passwordEnabled = false,
+    flatbuffers::Offset<flatbuffers::String> passwordStyleText = 0,
+    int32_t maxLength = 0,
+    const Color *textColor = 0,
+    const Color *placeholderColor = 0,
+    const Color *cursorColor = 0,
+    bool enabled = true,
+    bool editable = true,
+    bool isLocalized = false) {
+  TextFieldExOptionsBuilder builder_(_fbb);
+  builder_.add_cursorColor(cursorColor);
+  builder_.add_placeholderColor(placeholderColor);
+  builder_.add_textColor(textColor);
+  builder_.add_maxLength(maxLength);
+  builder_.add_passwordStyleText(passwordStyleText);
+  builder_.add_placeholderText(placeholderText);
+  builder_.add_text(text);
+  builder_.add_fontSize(fontSize);
+  builder_.add_fontName(fontName);
+  builder_.add_fontResource(fontResource);
+  builder_.add_nodeOptions(nodeOptions);
+  builder_.add_isLocalized(isLocalized);
+  builder_.add_editable(editable);
+  builder_.add_enabled(enabled);
+  builder_.add_passwordEnabled(passwordEnabled);
+  return builder_.Finish();
+}
+
+inline flatbuffers::Offset<TextFieldExOptions> CreateTextFieldExOptionsDirect(
+    flatbuffers::FlatBufferBuilder &_fbb,
+    flatbuffers::Offset<WidgetOptions> nodeOptions = 0,
+    flatbuffers::Offset<ResourceData> fontResource = 0,
+    const char *fontName = nullptr,
+    int32_t fontSize = 0,
+    const char *text = nullptr,
+    const char *placeholderText = nullptr,
+    bool passwordEnabled = false,
+    const char *passwordStyleText = nullptr,
+    int32_t maxLength = 0,
+    const Color *textColor = 0,
+    const Color *placeholderColor = 0,
+    const Color *cursorColor = 0,
+    bool enabled = true,
+    bool editable = true,
+    bool isLocalized = false) {
+  return flatbuffers::CreateTextFieldExOptions(
+      _fbb,
+      nodeOptions,
+      fontResource,
+      fontName ? _fbb.CreateString(fontName) : 0,
+      fontSize,
+      text ? _fbb.CreateString(text) : 0,
+      placeholderText ? _fbb.CreateString(placeholderText) : 0,
+      passwordEnabled,
+      passwordStyleText ? _fbb.CreateString(passwordStyleText) : 0,
+      maxLength,
+      textColor,
+      placeholderColor,
+      cursorColor,
+      enabled,
+      editable,
+      isLocalized);
 }
 
 struct ProjectNodeOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {

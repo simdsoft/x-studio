@@ -80,7 +80,7 @@ USING_NS_CC;
 
 bool glslutils::enableNodeIntelliShading(cocos2d::Node* node,
     bool noMVP,
-    cocos2d::Vec3& hsv,
+    const cocos2d::Vec3& hsv,
     const cocos2d::Vec3& filter,
     bool forceShading,
     const cocos2d::Vec3& hsvShading)
@@ -96,12 +96,12 @@ bool glslutils::enableNodeIntelliShading(cocos2d::Node* node,
     node->setGLProgramState(GLProgramState::create(glProgram));
 
     updateNodeHsv(node, hsv, filter, forceShading, hsvShading);
-    
+
     return true;
 }
 
 void glslutils::updateNodeHsv(cocos2d::Node* node,
-    cocos2d::Vec3& hsv,
+    const cocos2d::Vec3& hsv,
     const cocos2d::Vec3& filter,
     bool forceShading,
     const cocos2d::Vec3& hsvShading)

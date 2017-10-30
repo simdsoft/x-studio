@@ -81,6 +81,7 @@
 #include "editor-support/cocostudio/WidgetReader/ControlSwitchReader/ControlSwitchReader.h"
 #include "editor-support/cocostudio/WidgetReader/RadioButtonReader/RadioButtonReader.h"
 #include "editor-support/cocostudio/WidgetReader/RadioButtonReader/RadioButtonGroupReader.h"
+#include "editor-support/cocostudio/WidgetReader/TextFieldReader/TextFieldExReader.h"
 
 #include "flatbuffers/flatbuffers.h"
 #include "flatbuffers/util.h"
@@ -203,7 +204,7 @@ CSLoader::CSLoader()
     , _jsonPath("")
     , _monoCocos2dxVersion("")
     , _rootNode(nullptr)
-    , _csBuildID("10.0.2100.0")
+    , _csBuildID("10.0.3000.0")
 {
     CREATE_CLASS_NODE_READER_INFO(NodeReader);
     CREATE_CLASS_NODE_READER_INFO(SingleNodeReader);
@@ -242,6 +243,8 @@ CSLoader::CSLoader()
     CREATE_CLASS_NODE_READER_INFO(ControlSwitchReader);
     CREATE_CLASS_NODE_READER_INFO(RadioButtonReader);
     CREATE_CLASS_NODE_READER_INFO(RadioButtonGroupReader);
+
+    CREATE_CLASS_NODE_READER_INFO(TextFieldExReader);
 }
 
 void CSLoader::purge()

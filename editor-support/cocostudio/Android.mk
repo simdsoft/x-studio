@@ -70,6 +70,7 @@ WidgetReader/SliderReader/SliderReader.cpp \
 WidgetReader/TextAtlasReader/TextAtlasReader.cpp \
 WidgetReader/TextBMFontReader/TextBMFontReader.cpp \
 WidgetReader/TextFieldReader/TextFieldReader.cpp \
+WidgetReader/TextFieldReader/TextFieldExReader.cpp \
 WidgetReader/TextReader/TextReader.cpp \
 WidgetReader/Node3DReader/Node3DReader.cpp \
 WidgetReader/Sprite3DReader/Sprite3DReader.cpp \
@@ -93,7 +94,8 @@ WidgetCallBackHandlerProtocol.cpp \
 WidgetReader/ArmatureNodeReader/ArmatureNodeReader.cpp \
 WidgetReader/TabControlReader/TabControlReader.cpp \
 CCComExtensionData.cpp \
-CocoStudio.cpp
+CocoStudio.cpp \
+UITextFieldEx.cpp
 
 
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/..
