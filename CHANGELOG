@@ -1,3 +1,24 @@
+# 10.0.3000.0  
+1. [UI Editing] Upgrade csb reader to 10.0.3000.0, export TextFieldEx to csb.  
+2. [UI Editing] Bugfix: Node Order operation context menu problem.  
+3. [UI Editing] Bugfix: load csb, Layout plist is missing when save.  
+4. [Project Explorer] Add folder reference support.   
+5. [Project Explorer] New file templates  
+6. [Unity Lua Debugging] Could not attach to unity, sync 32bit debugging features to 64bit application  
+7. [Code Editing] Add temp copy&paste without clipboard occupation, shortcut: Ctrl + Shift + D  
+8. [Application Manager] Multi-process quick switch.  
+9. [Lua Debugging] Control the calltip width limition.  
+10. [Lua Debugging] Debug toobar buttons chould not display when Attach To Process.  
+11. [Lua Debugging] Attach To Process breakpoint chould not hit for cocos2d-x games.  
+12. [Lua Debugging] Delete/Disable breakpoints by context menu does not affects at runtime  
+13. [Project Explorer] Improve performance of CTRL+P feature find file in project.  
+14. [UI Editing] Bugfix: Add particle with context menu will crash.  
+15. [Project Manager] Optimize project temporary file manager  
+16. [Project Explorer] Add shell context menu support for project explorer  
+17. [Project Manager] Switch project may block and crash.  
+18. [Project Manager] Improve last opened documents speed with virtual document content load.  
+19. [Main Program] Version check has bug.  
+
 # 10.0.2600.256
 1. [UI Editing] Bugfix: Could not import some .ccs project. 
 2. [UI Editing] Bugfix: Editor will crash when save project when a modified scene was removed.  
