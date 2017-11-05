@@ -1,4 +1,4 @@
-# 10.0.3000.21
+# 10.0.3000.21 (2017.11.6)
 1. [UI Editing] Could not save Text shadow effect properties bug  
 2. [UI Editing] The rotation property could export to csd.  
 3. [UI Editing] Object inspector, visible button could not trigger scene modify flag 
