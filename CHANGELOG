@@ -1,3 +1,14 @@
+# 10.0.3000.21
+1. [UI Editing] Could not save Text shadow effect properties bug  
+2. [UI Editing] The rotation property could export to csd.  
+3. [UI Editing] Object inspector, visible button could not trigger scene modify flag 
+4. [UI Editing] Object Inspector delete object by key 'DEL'
+5. [Project Explorer] Find in files could affect reference folders  
+6. [UI Editing] Make sure Scene always visible when open a design ui.  
+7. [UI Editing] Object inspector, rename not correct.  
+8. [UI Editing] Publish .json will missing panel when it's only has one child  
+9. [UI Editing] Make Scene background color changeable.  
+
 # 10.0.3000.0  
 1. [UI Editing] Upgrade csb reader to 10.0.3000.0, export TextFieldEx to csb.  
 2. [UI Editing] Bugfix: Node Order operation context menu problem.  
