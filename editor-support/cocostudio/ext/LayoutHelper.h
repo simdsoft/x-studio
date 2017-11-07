@@ -1,6 +1,6 @@
 //
 // Copyright (c) 2014-2017 purelib,x-studio365 - All Rights Reserved
-// This module is used by x-studio365 UI Editor layout UI elements
+// This module is used by x-studio365 UI Editor to layout UI elements
 // It's very useful for programer to operate UI elements in runtime,
 // so, we publish it to here.
 // usage:
@@ -694,139 +694,139 @@ namespace purelib {
         ** @remark:
         */
         /// <summary>
-        /// Ë®Æ½¾ÓÖĞ
+        /// æ°´å¹³å±…ä¸­
         /// </summary>
         /// <param name="nodes"></param>
         static void centerHorizontally(const std::vector<Node*>& nodes);
 
         /// <summary>
-        /// ´¹Ö±¾ÓÖĞ
+        /// å‚ç›´å±…ä¸­
         /// </summary>
         /// <param name="nodes"></param>
         static void centerVertically(const std::vector<Node*>& nodes);
 
         /// <summary>
-        /// ¾ÓÖĞ
+        /// å±…ä¸­
         /// </summary>
         /// <param name="nodes"></param>
         static void centerHoriVerti(const std::vector<Node*>& nodes);
 
         /// <summary>
-        /// ×ó¶ÔÆë
+        /// å·¦å¯¹é½
         /// </summary>
         /// <param name="nodes"></param>
         static void alignLefts(const std::vector<Node*>& nodes);
 
         /// <summary>
-        /// ÓÒ¶ÔÆë
+        /// å³å¯¹é½
         /// </summary>
         /// <param name="nodes"></param>
         static void alignRights(const std::vector<Node*>& nodes);
 
         /// <summary>
-        /// ¶¥¶Ë¶ÔÆë
+        /// é¡¶ç«¯å¯¹é½
         /// </summary>
         /// <param name="nodes"></param>
         static void alignTops(const std::vector<Node*>& nodes);
 
         /// <summary>
-        /// µ×¶Ë¶ÔÆë
+        /// åº•ç«¯å¯¹é½
         /// </summary>
         /// <param name="nodes"></param>
         static void alignBottoms(const std::vector<Node*>& nodes);
 
         /// <summary>
-        /// Ë®Æ½¶ÔÆë
+        /// æ°´å¹³å¯¹é½
         /// </summary>
         /// <param name="nodes"></param>
         static void alignHorizontals(const std::vector<Node*>& nodes);
 
         /// <summary>
-        /// ´¹Ö±¶ÔÆë
+        /// å‚ç›´å¯¹é½
         /// </summary>
         /// <param name="nodes"></param>
         static void alignVerticals(const std::vector<Node*>& nodes);
 
         /// <summary>
-        /// ÖĞĞÄÔ­µã¶ÔÆë
+        /// ä¸­å¿ƒåŸç‚¹å¯¹é½
         /// </summary>
         /// <param name="nodes"></param>
         static void alignCenters(const std::vector<Node*>& nodes);
 
         /// <summary>
-        /// Ê¹¿í¶ÈÏàµÈ
+        /// ä½¿å®½åº¦ç›¸ç­‰
         /// </summary>
         /// <param name="nodes"></param>
         static void makeSameWidth(const std::vector<Node*>& nodes);
 
         /// <summary>
-        /// Ê¹¸ß¶ÈÏàµÈ
+        /// ä½¿é«˜åº¦ç›¸ç­‰
         /// </summary>
         /// <param name="nodes"></param>
         static void makeSameHeight(const std::vector<Node*>& nodes);
 
         /// <summary>
-        /// Ê¹µÃ´óĞ¡ÏàµÈ
+        /// ä½¿å¾—å¤§å°ç›¸ç­‰
         /// </summary>
         /// <param name="nodes"></param>
         static void makeSameSize(const std::vector<Node*>& nodes);
 
         /// <summary>
-        /// Ê¹Ë®Æ½¼ä¾àÏàµÈ
+        /// ä½¿æ°´å¹³é—´è·ç›¸ç­‰
         /// </summary>
         /// <param name="nodes"></param>
         static void makeHorizontalSpacingEqual(std::vector<Node*>& nodes);
 
         /// <summary>
-        /// Ê¹´¹Ö±¼ä¾àÏàµÈ
+        /// ä½¿å‚ç›´é—´è·ç›¸ç­‰
         /// </summary>
         /// <param name="nodes"></param>
         static void makeVerticalSpacingEqual(std::vector<Node*>& nodes);
 
         /// <summary>
-        /// Ôö¼ÓË®Æ½¼ä¾à
+        /// å¢åŠ æ°´å¹³é—´è·
         /// </summary>
         /// <param name="nodes"></param>
         static void increaseHorizontalSpacing(std::vector<Node*>& nodes, float theSpacing);
 
         /// <summary>
-        /// Ôö¼Ó´¹Ö±¼ä¾à
+        /// å¢åŠ å‚ç›´é—´è·
         /// </summary>
         /// <param name="nodes"></param>
         static void increaseVerticalSpacing(std::vector<Node*>& nodes, float theSpacing);
 
         /// <summary>
-        /// ¼õÉÙË®Æ½¼ä¾à
+        /// å‡å°‘æ°´å¹³é—´è·
         /// </summary>
         /// <param name="nodes"></param>
         static void decreaseHorizontalSpacing(std::vector<Node*>& nodes, float theSpacing);
 
         /// <summary>
-        /// ¼õÉÙ´¹Ö±¼ä¾à
+        /// å‡å°‘å‚ç›´é—´è·
         /// </summary>
         /// <param name="nodes"></param>
         static void decreaseVerticalSpacing(std::vector<Node*>& nodes, float theSpacing);
 
         /// <summary>
-        /// ÒÆ³ıË®Æ½¼ä¾à
+        /// ç§»é™¤æ°´å¹³é—´è·
         /// </summary>
         /// <param name="nodes"></param>
         static void removeHorizontalSpacing(const std::vector<Node*>& nodes);
 
         /// <summary>
-        /// ÒÆ³ı´¹Ö±¼ä¾à
+        /// ç§»é™¤å‚ç›´é—´è·
         /// </summary>
         /// <param name="nodes"></param>
         static void removeVerticalSpacing(const std::vector<Node*>& nodes);
 
         /// <summary>
-        /// Ê¹Ë®Æ½¼ä¾àÏàµÈ maybe for internal use
+        /// ä½¿æ°´å¹³é—´è·ç›¸ç­‰ maybe for internal use
         /// </summary>
         /// <param name="nodes"></param>
         static void makeHorizontalSpacingEqual(const std::vector<Node*>& nodes, float theSpacing);
 
         /// <summary>
-        /// Ê¹´¹Ö±¼ä¾àÏàµÈ maybe for internal use
+        /// ä½¿å‚ç›´é—´è·ç›¸ç­‰ maybe for internal use
         /// </summary>
         /// <param name="nodes"></param>
         static void makeVerticalSpacingEqual(const std::vector<Node*>& nodes, float theSpacing);
