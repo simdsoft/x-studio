@@ -242,6 +242,8 @@ namespace ui {
         , cursorPos(0)
         , touchCursorControlEnabled(true)
         , cursorVisible(false)
+        , _continuousTouchDelayTimerID(nullptr)
+        , _continuousTouchDelayTime(0.6)
     {
     }
 
@@ -353,20 +355,41 @@ namespace ui {
 
     void TextFieldEx::enableIME(Node* control)
     {
+        if (touchListener != nullptr) {
+            return;
+        }
         touchListener = EventListenerTouchOneByOne::create();
 
         if (control == nullptr)
             control = this;
 
-        touchListener->onTouchBegan = [](Touch*, Event*){ return true; };
+        touchListener->onTouchBegan = [=](Touch* touch, Event*){
+            bool focus = (engine_inj_checkVisibility(this) && this->editable && this->enabled && engine_inj_containsTouchPoint(control, touch));
+
+            if (this->_continuousTouchDelayTimerID != nullptr) {
+                simple_timer::kill(this->_continuousTouchDelayTimerID);
+                this->_continuousTouchDelayTimerID = nullptr;
+            }
+
+            if (focus && this->cursorVisible) {
+                auto worldPoint = touch->getLocation();
+                this->_continuousTouchDelayTimerID = simple_timer::delay(this->_continuousTouchDelayTime, [=]() {
+                    this->_continuousTouchCallback(worldPoint);
+                });
+            }
+            return true; 
+        };
         touchListener->onTouchEnded = [control, this](Touch* touch, Event* e) {
+            if (this->_continuousTouchDelayTimerID != nullptr) {
+                simple_timer::kill(this->_continuousTouchDelayTimerID);
+                this->_continuousTouchDelayTimerID = nullptr;
+            }
 
-            if (!engine_inj_checkVisibility(this) || !this->editable || !this->enabled)
-                return;
+            bool focus = (engine_inj_checkVisibility(this) && this->editable && this->enabled && engine_inj_containsTouchPoint(control, touch));
 
-            if (engine_inj_containsTouchPoint(control, touch))
+            if (focus)
             {
-                if (!this->cursor->isVisible())
+                if (!this->cursorVisible)
                     openIME();
                 if (this->touchCursorControlEnabled) {
                     auto renderLabelPoint = renderLabel->convertToNodeSpace(touch->getLocation());
@@ -525,7 +548,7 @@ namespace ui {
             // bool needUpdatePos
             this->setString(sText);
 
-            __moveCursor(1);
+            __moveCursor(n); 
 
             // this->contentDirty = true;
             // __updateCursorPosition();

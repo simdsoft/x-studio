@@ -2,7 +2,7 @@
 
 #include "editor-support/cocostudio/WidgetReader/TextFieldReader/TextFieldExReader.h"
 
-#include "editor-support/cocostudio/UITextFieldEx.h"
+#include "editor-support/cocostudio/ext/UITextFieldEx.h"
 #include "platform/CCFileUtils.h"
 #include "editor-support/cocostudio/CocoLoader.h"
 #include "editor-support/cocostudio/CSParseBinary_generated.h"

@@ -95,7 +95,9 @@ WidgetReader/ArmatureNodeReader/ArmatureNodeReader.cpp \
 WidgetReader/TabControlReader/TabControlReader.cpp \
 CCComExtensionData.cpp \
 CocoStudio.cpp \
-UITextFieldEx.cpp
+ext/SimpleTimer.cpp \
+ext/UITextFieldEx.cpp \
+ext/LayoutHelper.cpp
 
 
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/..

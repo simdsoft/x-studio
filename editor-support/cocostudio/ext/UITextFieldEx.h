@@ -7,6 +7,8 @@
 #include "cocos2d.h"
 #include "editor-support/cocostudio/CocosStudioExport.h"
 
+#include "SimpleTimer.h"
+
 NS_CC_BEGIN
 
 namespace ui {
@@ -50,6 +52,11 @@ namespace ui {
         // input text property
         virtual void               setString(const std::string& text);
         virtual const std::string& getString() const;
+
+        // Continuous touch event trigger support.
+        void setContinuousTouchDelayTime(float delay) { _continuousTouchDelayTime = delay;  }
+        float getContinuousTouchDelayTime() const { return _continuousTouchDelayTime; }
+        void setContinuousTouchCallback(std::function<void(const Point& worldPoint)> callback) { _continuousTouchCallback = std::move(callback); }
 
         // place holder text property
         // place holder text displayed when there is no text in the text field.
@@ -163,6 +170,10 @@ namespace ui {
         float                       asteriskWidth;
 
         int                         _fontType;
+
+        simple_timer::TIMER_ID      _continuousTouchDelayTimerID;
+        float                       _continuousTouchDelayTime;
+        std::function<void(const Point& worldPoint)>   _continuousTouchCallback;
     };
 
     // end of input group
