@@ -98,7 +98,7 @@ ext/glslutils.cpp \
 ext/SimpleTimer.cpp \
 ext/UITextFieldEx.cpp \
 ext/LayoutHelper.cpp \
-SpineSkeletonDataCache.cpp
+ext/SpineSkeletonDataCache.cpp
 
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/..
 
