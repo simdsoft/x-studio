@@ -124,6 +124,9 @@ namespace ui {
         */
         virtual bool detachWithIME();
 
+        void keyboardDidShow(IMEKeyboardNotificationInfo& /*info*/) override;
+        void keyboardDidHide(IMEKeyboardNotificationInfo& /*info*/) override;
+
         void         updateContentSize(void);
 
         void         __initCursor(int height, int width = 6, const Color4B& color = Color4B::WHITE);
@@ -175,6 +178,8 @@ namespace ui {
         simple_timer::TIMER_ID      _continuousTouchDelayTimerID;
         float                       _continuousTouchDelayTime;
         std::function<void(const Point& worldPoint)>   _continuousTouchCallback;
+
+        bool                        _keyboardVisible;
     };
 
     // end of input group
