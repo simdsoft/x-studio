@@ -77,9 +77,8 @@ Download the latest version: http://en-us.x-studio365.com
 
 # How to use this editor with cocos2d-x
 1. Create a empty project by official cocos2d-x engine console command, such as x365app1
-2. Overrite 'editor-support'  
-3. (Win32) Exclude 'cocostudio' at libcocos2d project explorer from visual studio project.  
- pitfall: if compile libcocos2d has link error, please make sure remove all compile source files from libcocos2d.
+2. Overrite 'editor-support' & 'external/flatbuffers'
+3. (Win32) Exclude 'cocostudio',GameNode3DReader.cpp,Light3DReader.cpp from libcocos2d project explorer.  
 4. (Win32) Add 'editor-support/cocostudio/proj.win32/libxreader.vcxproj' and 'editor-support/dragonBones/proj.win32/libDragonBones.vcxproj' to solution  
 5. (Win32) Add libxreader project as reference of x365app1 project
 
