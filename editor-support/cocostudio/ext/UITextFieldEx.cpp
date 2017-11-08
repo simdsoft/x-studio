@@ -373,9 +373,11 @@ namespace ui {
 
             if (focus && this->cursorVisible) {
                 auto worldPoint = touch->getLocation();
-                this->_continuousTouchDelayTimerID = simple_timer::delay(this->_continuousTouchDelayTime, [=]() {
-                    this->_continuousTouchCallback(worldPoint);
-                });
+                if (this->_continuousTouchCallback) {
+                    this->_continuousTouchDelayTimerID = simple_timer::delay(this->_continuousTouchDelayTime, [=]() {
+                        this->_continuousTouchCallback(worldPoint);
+                    });
+                }
             }
             return true; 
         };
@@ -547,8 +549,8 @@ namespace ui {
 
             // bool needUpdatePos
             this->setString(sText);
-
-            __moveCursor(n); 
+            while (n-- > 0)
+                __moveCursor(1);
 
             // this->contentDirty = true;
             // __updateCursorPosition();

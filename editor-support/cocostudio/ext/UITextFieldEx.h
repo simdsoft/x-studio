@@ -101,13 +101,14 @@ namespace ui {
         void openIME(void);
         void closeIME(void);
 
+        virtual void insertText(const char * text, size_t len) override;
     protected:
         //////////////////////////////////////////////////////////////////////////
 
 
         virtual bool canAttachWithIME() override;
         virtual bool canDetachWithIME() override;
-        virtual void insertText(const char * text, size_t len) override;
+        
         virtual void deleteBackward() override;
         virtual const std::string& getContentText() override;
 
