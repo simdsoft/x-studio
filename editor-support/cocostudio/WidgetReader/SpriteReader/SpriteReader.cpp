@@ -35,7 +35,7 @@
 
 #include "tinyxml2.h"
 #include "flatbuffers/flatbuffers.h"
-#include "editor-support/cocostudio/WidgetReader/glslutils.hpp"
+#include "editor-support/cocostudio/ext/glslutils.hpp"
 
 USING_NS_CC;
 using namespace flatbuffers;

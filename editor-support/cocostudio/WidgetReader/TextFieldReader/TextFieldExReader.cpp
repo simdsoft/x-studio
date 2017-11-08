@@ -319,8 +319,8 @@ namespace cocostudio
 
         bool fileExist = false;
         std::string errorFilePath = "";
-        auto resourceData = cocos2d::wext::makeResourceData(options->fontResource());
-        std::string& path = resourceData.file;
+        auto resourceData = options->fontResource(); // cocos2d::wext::makeResourceData(options->fontResource());
+        std::string path = resourceData->path()->c_str();
         // cocos2d::wext::onBeforeLoadObjectAsset(textField, resourceData, 0);
         if (path != "")
         {

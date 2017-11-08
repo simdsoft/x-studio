@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -15,7 +15,7 @@
     <ProjectGuid>{98A51BA9-FC3A-415B-AC8F-8C7BD464E93E}</ProjectGuid>
     <RootNamespace>cocos2d-x.win32</RootNamespace>
     <Keyword>Win32Proj</Keyword>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -25,6 +25,7 @@
     <PlatformToolset Condition="'$(VisualStudioVersion)' == '12.0' and exists('$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A')">v120_xp</PlatformToolset>
     <PlatformToolset Condition="'$(VisualStudioVersion)' == '14.0'">v140</PlatformToolset>
     <PlatformToolset Condition="'$(VisualStudioVersion)' == '14.0' and exists('$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A')">v140_xp</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
@@ -33,6 +34,7 @@
     <PlatformToolset Condition="'$(VisualStudioVersion)' == '12.0' and exists('$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A')">v120_xp</PlatformToolset>
     <PlatformToolset Condition="'$(VisualStudioVersion)' == '14.0'">v140</PlatformToolset>
     <PlatformToolset Condition="'$(VisualStudioVersion)' == '14.0' and exists('$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A')">v140_xp</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -197,6 +199,7 @@
     <ClCompile Include="..\CocoLoader.cpp" />
     <ClCompile Include="..\CocoStudio.cpp" />
     <ClCompile Include="..\DictionaryHelper.cpp" />
+    <ClCompile Include="..\ext\glslutils.cpp" />
     <ClCompile Include="..\FlatBuffersSerialize.cpp" />
     <ClCompile Include="..\LocalizationManager.cpp" />
     <ClCompile Include="..\TriggerBase.cpp" />
@@ -210,13 +213,11 @@
     <ClCompile Include="..\WidgetReader\ControlSwitchReader\ControlSwitchReader.cpp" />
     <ClCompile Include="..\WidgetReader\GameMapReader\GameMapReader.cpp" />
     <ClCompile Include="..\WidgetReader\GameNode3DReader\GameNode3DReader.cpp" />
-    <ClCompile Include="..\WidgetReader\glslutils.cpp" />
     <ClCompile Include="..\WidgetReader\ImageViewReader\ImageViewReader.cpp" />
     <ClCompile Include="..\WidgetReader\LayoutReader\LayoutReader.cpp" />
     <ClCompile Include="..\WidgetReader\Light3DReader\Light3DReader.cpp" />
     <ClCompile Include="..\WidgetReader\ListViewReader\ListViewReader.cpp" />
     <ClCompile Include="..\WidgetReader\LoadingBarReader\LoadingBarReader.cpp" />
-    <ClCompile Include="..\WidgetReader\matrix3f.cpp" />
     <ClCompile Include="..\WidgetReader\NodeReaderProtocol.cpp" />
     <ClCompile Include="..\WidgetReader\NodeReader\NodeReader.cpp" />
     <ClCompile Include="..\WidgetReader\PageViewReader\PageViewReader.cpp" />
@@ -235,6 +236,7 @@
     <ClCompile Include="..\WidgetReader\TabControlReader\TabControlReader.cpp" />
     <ClCompile Include="..\WidgetReader\TextAtlasReader\TextAtlasReader.cpp" />
     <ClCompile Include="..\WidgetReader\TextBMFontReader\TextBMFontReader.cpp" />
+    <ClCompile Include="..\WidgetReader\TextFieldReader\TextFieldExReader.cpp" />
     <ClCompile Include="..\WidgetReader\TextFieldReader\TextFieldReader.cpp" />
     <ClCompile Include="..\WidgetReader\TextReader\TextReader.cpp" />
     <ClCompile Include="..\WidgetReader\Node3DReader\Node3DReader.cpp" />
@@ -307,13 +309,11 @@
     <ClInclude Include="..\WidgetReader\ControlSwitchReader\ControlSwitchReader.h" />
     <ClInclude Include="..\WidgetReader\GameMapReader\GameMapReader.h" />
     <ClInclude Include="..\WidgetReader\GameNode3DReader\GameNode3DReader.h" />
-    <ClInclude Include="..\WidgetReader\glslutils.hpp" />
     <ClInclude Include="..\WidgetReader\ImageViewReader\ImageViewReader.h" />
     <ClInclude Include="..\WidgetReader\LayoutReader\LayoutReader.h" />
     <ClInclude Include="..\WidgetReader\Light3DReader\Light3DReader.h" />
     <ClInclude Include="..\WidgetReader\ListViewReader\ListViewReader.h" />
     <ClInclude Include="..\WidgetReader\LoadingBarReader\LoadingBarReader.h" />
-    <ClInclude Include="..\WidgetReader\matrix3f.hpp" />
     <ClInclude Include="..\WidgetReader\NodeReaderDefine.h" />
     <ClInclude Include="..\WidgetReader\NodeReaderProtocol.h" />
     <ClInclude Include="..\WidgetReader\NodeReader\NodeReader.h" />
@@ -335,6 +335,7 @@
     <ClInclude Include="..\WidgetReader\TabControlReader\TabControlReader.h" />
     <ClInclude Include="..\WidgetReader\TextAtlasReader\TextAtlasReader.h" />
     <ClInclude Include="..\WidgetReader\TextBMFontReader\TextBMFontReader.h" />
+    <ClInclude Include="..\WidgetReader\TextFieldReader\TextFieldExReader.h" />
     <ClInclude Include="..\WidgetReader\TextFieldReader\TextFieldReader.h" />
     <ClInclude Include="..\WidgetReader\TextReader\TextReader.h" />
     <ClInclude Include="..\WidgetReader\Node3DReader\Node3DReader.h" />

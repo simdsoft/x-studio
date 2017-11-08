@@ -23,7 +23,7 @@
  ****************************************************************************/
 
 #include "editor-support/cocostudio/WidgetReader/SpineSkeletonReader/SpineSkeletonReader.h"
-#include "editor-support/spine/SkeletonDataCache.h"
+#include "editor-support/cocostudio/ext/SpineSkeletonDataCache.h"
 
 #include "2d/CCSprite.h"
 #include "2d/CCSpriteFrameCache.h"
@@ -214,7 +214,7 @@ namespace cocostudio
 
         auto options = (SpineSkeletonOptions*)spriteOptions;
 
-        auto sharedData = spine::SkeletonDataCache::getInstance()->addData(options->dataFile()->c_str(), options->atlasFile()->c_str(), 1.0f/*TODO:*/);
+        auto sharedData = SpineSkeletonDataCache::getInstance()->addData(options->dataFile()->c_str(), options->atlasFile()->c_str(), 1.0f/*TODO:*/);
         auto implNode = spine::SkeletonAnimation::createWithData(sharedData->data);
         implNode->setAnimation(0, options->animation()->c_str(), options->loop());
         implNode->setSkin(options->animation()->c_str());

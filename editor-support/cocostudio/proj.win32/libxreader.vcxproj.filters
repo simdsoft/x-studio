@@ -139,6 +139,9 @@
     <Filter Include="cocostudio\armature\utils">
       <UniqueIdentifier>{cb78807b-cb84-4450-aaf7-eb97b74a0c73}</UniqueIdentifier>
     </Filter>
+    <Filter Include="cocostudio\ext">
+      <UniqueIdentifier>{41c64b7d-084c-487e-91b4-a308890082c9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\CCSGUIReader.cpp">
@@ -318,12 +321,6 @@
     <ClCompile Include="..\WidgetReader\RadioButtonReader\RadioButtonGroupReader.cpp">
       <Filter>cocostudio\reader\WidgetReader\RadioButtonReader</Filter>
     </ClCompile>
-    <ClCompile Include="..\WidgetReader\glslutils.cpp">
-      <Filter>cocostudio\reader\WidgetReader</Filter>
-    </ClCompile>
-    <ClCompile Include="..\WidgetReader\matrix3f.cpp">
-      <Filter>cocostudio\reader\WidgetReader</Filter>
-    </ClCompile>
     <ClCompile Include="..\CCActionFrame.cpp">
       <Filter>cocostudio\action</Filter>
     </ClCompile>
@@ -404,6 +401,12 @@
     </ClCompile>
     <ClCompile Include="..\FlatBuffersSerialize.cpp">
       <Filter>cocostudio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\WidgetReader\TextFieldReader\TextFieldExReader.cpp">
+      <Filter>cocostudio\reader\WidgetReader\TextFieldReader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ext\glslutils.cpp">
+      <Filter>cocostudio\ext</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -623,12 +626,6 @@
     <ClInclude Include="..\WidgetReader\RadioButtonReader\RadioButtonGroupReader.h">
       <Filter>cocostudio\reader\WidgetReader\RadioButtonReader</Filter>
     </ClInclude>
-    <ClInclude Include="..\WidgetReader\glslutils.hpp">
-      <Filter>cocostudio\reader\WidgetReader</Filter>
-    </ClInclude>
-    <ClInclude Include="..\WidgetReader\matrix3f.hpp">
-      <Filter>cocostudio\reader\WidgetReader</Filter>
-    </ClInclude>
     <ClInclude Include="..\CCActionFrame.h">
       <Filter>cocostudio\action</Filter>
     </ClInclude>
@@ -703,6 +700,9 @@
     </ClInclude>
     <ClInclude Include="..\CCBone.h">
       <Filter>cocostudio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\WidgetReader\TextFieldReader\TextFieldExReader.h">
+      <Filter>cocostudio\reader\WidgetReader\TextFieldReader</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
