@@ -179,7 +179,7 @@ namespace ui {
         float                       _continuousTouchDelayTime;
         std::function<void(const Point& worldPoint)>   _continuousTouchCallback;
 
-        bool                        _keyboardVisible;
+        static bool                  s_keyboardVisible;
     };
 
     // end of input group

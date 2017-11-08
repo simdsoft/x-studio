@@ -217,7 +217,7 @@ namespace ui {
     //////////////////////////////////////////////////////////////////////////
     // constructor and destructor
     //////////////////////////////////////////////////////////////////////////
-
+    bool TextFieldEx::s_keyboardVisible = false;
     TextFieldEx::TextFieldEx()
         : editable(true)
         , renderLabel(nullptr)
@@ -244,7 +244,6 @@ namespace ui {
         , cursorVisible(false)
         , _continuousTouchDelayTimerID(nullptr)
         , _continuousTouchDelayTime(0.6)
-        , _keyboardVisible(false)
     {
     }
 
@@ -392,7 +391,7 @@ namespace ui {
 
             if (focus)
             {
-                if (!_keyboardVisible || !this->cursorVisible)
+                if (!s_keyboardVisible || !this->cursorVisible)
                     openIME();
                 if (this->touchCursorControlEnabled) {
                     auto renderLabelPoint = renderLabel->convertToNodeSpace(touch->getLocation());
@@ -481,12 +480,12 @@ namespace ui {
 
     void TextFieldEx::keyboardDidShow(IMEKeyboardNotificationInfo& /*info*/)
     {
-        _keyboardVisible = true;
+        s_keyboardVisible = true;
     }
 
     void TextFieldEx::keyboardDidHide(IMEKeyboardNotificationInfo& /*info*/)
     {
-        _keyboardVisible = false;
+        s_keyboardVisible = false;
     }
 
     void TextFieldEx::openIME(void)
