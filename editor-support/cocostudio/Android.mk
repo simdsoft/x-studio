@@ -43,7 +43,6 @@ TriggerBase.cpp \
 TriggerMng.cpp \
 TriggerObj.cpp \
 CocoLoader.cpp \
-WidgetReader/glslutils.cpp \
 WidgetReader/NodeReaderProtocol.cpp \
 WidgetReader/RichTextReader/RichTextReader.cpp \
 WidgetReader/RadioButtonReader/RadioButtonGroupReader.cpp \
@@ -95,10 +94,11 @@ WidgetReader/ArmatureNodeReader/ArmatureNodeReader.cpp \
 WidgetReader/TabControlReader/TabControlReader.cpp \
 CCComExtensionData.cpp \
 CocoStudio.cpp \
+ext/glslutils.cpp \
 ext/SimpleTimer.cpp \
 ext/UITextFieldEx.cpp \
-ext/LayoutHelper.cpp
-
+ext/LayoutHelper.cpp \
+SpineSkeletonDataCache.cpp
 
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/..
 

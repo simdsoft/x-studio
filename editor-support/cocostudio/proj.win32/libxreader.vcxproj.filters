@@ -408,6 +408,18 @@
     <ClCompile Include="..\ext\glslutils.cpp">
       <Filter>cocostudio\ext</Filter>
     </ClCompile>
+    <ClCompile Include="..\ext\LayoutHelper.cpp">
+      <Filter>cocostudio\ext</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ext\SimpleTimer.cpp">
+      <Filter>cocostudio\ext</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ext\SpineSkeletonDataCache.cpp">
+      <Filter>cocostudio\ext</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ext\UITextFieldEx.cpp">
+      <Filter>cocostudio\ext</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\CocosStudioExport.h">

@@ -200,6 +200,10 @@
     <ClCompile Include="..\CocoStudio.cpp" />
     <ClCompile Include="..\DictionaryHelper.cpp" />
     <ClCompile Include="..\ext\glslutils.cpp" />
+    <ClCompile Include="..\ext\LayoutHelper.cpp" />
+    <ClCompile Include="..\ext\SimpleTimer.cpp" />
+    <ClCompile Include="..\ext\SpineSkeletonDataCache.cpp" />
+    <ClCompile Include="..\ext\UITextFieldEx.cpp" />
     <ClCompile Include="..\FlatBuffersSerialize.cpp" />
     <ClCompile Include="..\LocalizationManager.cpp" />
     <ClCompile Include="..\TriggerBase.cpp" />
