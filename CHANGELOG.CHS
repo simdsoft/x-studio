@@ -1,4 +1,4 @@
-x-studio365 10.0.3000.299 【insider preview】 （2017年11月12日更新） md5: 5cb9d612463e02d8118a2e5c330ce3dd
+x-studio365 10.0.3000.299 【insider preview】 （2017年11月12日更新） md5: 32c24fe68233f1c18a7a4f19a6c46bb7
 1.[代码编辑] 记录输出窗口字体缩放大小。
 2.[代码编辑] 集成Luacheck代码质量检查工具。
 3.[工程管理] 支持通过Delete键删除文件。
