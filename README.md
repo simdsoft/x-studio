@@ -1,5 +1,5 @@
 # 最新活动: Star可免费获得7天使用时间
-将Star后截图及软件内注册邮箱发送至support@x-studio365.com即可，赠送时间将在24小时内生效。
+将Star后截图及软件内注册邮箱账号发送至support@x-studio365.com即可，赠送时间将在24小时内生效。
 
 # x-studio365
 x-studio365 is a more powerful,lightweight and fast game develop IDE. It support Particle editing, Scene(UI) editing & Screen Adapting
