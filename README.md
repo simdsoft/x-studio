@@ -1,4 +1,4 @@
-# x-studio365
+# x-studio365 2014 - 2018
 x-studio365 is a more powerful,lightweight and fast game develop IDE. It support Particle editing, Scene(UI) editing & Screen Adapting
 preview, Lua Debug & Edit & Syntax Highlighting & Outlining & Auto-completation.
 Download the latest version: http://en-us.x-studio365.com
