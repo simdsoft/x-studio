@@ -1,4 +1,4 @@
-#x-studio365 10.0.3300.33 （2018年1月7日更新） md5: c8ae8b2c9d00f40be8aed139277dcb2c
+#x-studio365 10.0.3300.33 （2018年1月7日更新） md5: ecbe4ef35e75bf70af197d7f0e2b7880
 1.[代码编辑]历史搜索记录按最近排序 
 2.[UI编辑] 场景加载，即使资源不存在也保留原始路径 
 3.[Lua调试] 增强对静态库调试断点支持，使用BabeLua调试出现Couldn't hook lua function 'lua_load' 警告后不能断点调试可以看过来.
