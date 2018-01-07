@@ -44,7 +44,7 @@ Download the latest version: http://en-us.x-studio365.com
 |Alt+ MouseWheel	|Zoom In/Out Node|
 |Ctrl+Alt+MouseWhell	|Zoom In/Out Scene|
 |Alt + MouseMove	|Move Node|
-|Ctrl + Alt + MouseMove	|Move Scene|
+|Ctrl + Alt + MouseMove / Alt + MouseMiddleButton	|Move Scene|
 |↑↓←→	|Adjust postion 1px, continue press: 2px|
 |Press Shift, |Change Node Size without width/height factor change.|
 |Press Ctrl, |Select Node Additional|
