@@ -1,4 +1,4 @@
-#x-studio365 10.0.3300.71 【hotfix】 （2018年1月25日更新） md5: 2c9af69f22422e8c2a157335bdc127bc
+#x-studio365 10.0.3300.71 【hotfix】 （2018年1月25日更新） md5: 8b892194a3d0c9c7f68a1ba9836b8fc1
 1.[UI编辑] 修复初次打开csb场景，按钮无法选中问题 
 2.[UI编辑] 优化csb导入，对于Node类型，增加是否居中配置: centerNodeType
 3.[UI编辑] 导入csb， 修复按钮点击事件丢失问题
