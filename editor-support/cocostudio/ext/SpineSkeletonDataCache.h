@@ -1,3 +1,6 @@
+//
+// Copyright (c) 2014-2018 x-studio365 - All Rights Reserved
+//
 #ifndef _SPINESKELETONDATACACHE_H_
 #define _SPINESKELETONDATACACHE_H_
 #include <cocos2d.h>
