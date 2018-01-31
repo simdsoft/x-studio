@@ -1,7 +1,7 @@
 //
-// Copyright (c) 2014-2017 purelib,x-studio365 - All Rights Reserved
+// Copyright (c) 2014-2018 x-studio365 - All Rights Reserved
 // This module is used by x-studio365 UI Editor to layout UI elements
-// It's very useful for programer to operate UI elements in runtime,
+// It's very useful for programer to operate UI elements at runtime,
 // so, we publish it to here.
 // usage:
 //      #include "cocostudio/ext/LayoutHelper"
