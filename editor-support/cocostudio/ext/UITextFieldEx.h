@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2014~2017 purelib - All Rights Reserved
+// Copyright (c) 2014-2018 x-studio365 - All Rights Reserved
 //
 #ifndef _UITEXTFIELDEX_H_
 #define _UITEXTFIELDEX_H_
