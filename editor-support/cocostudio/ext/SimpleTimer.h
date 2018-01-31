@@ -1,3 +1,6 @@
+//
+// Copyright (c) 2014-2018 x-studio365 - All Rights Reserved
+//
 #ifndef _SIMPLE_TIMER_H_
 #define _SIMPLE_TIMER_H_
 
