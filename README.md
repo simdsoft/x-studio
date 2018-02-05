@@ -37,6 +37,9 @@ Download the latest version: http://en-us.x-studio365.com
 * Support View file as binary Ascii-View.
 * Support CTRL+RightClick to show shell context menu at 'Project Explorer'
 
+#Code Editing Preview
+<a href='https://user-images.githubusercontent.com/6977319/35822413-2b5631c6-0ae7-11e8-88cb-c2548cd0d731.png'>Code Editing Preview</a>
+
 # Editor shortcuts
 |Shortcut         | Description     |
 | ------------- |:----------------:|
