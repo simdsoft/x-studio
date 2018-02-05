@@ -38,7 +38,7 @@ Download the latest version: http://en-us.x-studio365.com
 * Support CTRL+RightClick to show shell context menu at 'Project Explorer'
 
 #Code Editing Preview
-![image](https://github.com/halx99/x-studio365/blob/master/showcase.png)
+![image](https://github.com/halx99/x-studio365/blob/master/showcase2.png)  
 
 # Editor shortcuts
 |Shortcut         | Description     |
