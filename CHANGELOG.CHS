@@ -1,4 +1,4 @@
-#x-studio365 10.0.3300.166 (2018年4月9日更新）md5: 16a29fb600e3eebe0176766d7dc9b5c9</h3>
+#x-studio365 10.0.3300.166 (2018年4月9日更新）md5: 16a29fb600e3eebe0176766d7dc9b5c9
 1.【UI编辑】 进一步完善含Armature动画的导入导出csd 
 2.【UI编辑】 修复导出含Armature动画csb为ccs时，cocostudio无法正常打开csd问题
 3.【UI编辑】 修复当加载无效csb文件闪退问题
