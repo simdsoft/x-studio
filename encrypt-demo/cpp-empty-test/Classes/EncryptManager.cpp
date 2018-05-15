@@ -56,6 +56,7 @@ public:
     {
         auto data = FileUtilsImpl::getStringFromFile(filename);
         if (!data.empty() && encryptManager.isEncryptedData(data.c_str(), data.size())) {
+            data.resize(data.size() - _encryptSignature.size());
             crypto::aes::decrypt(data, encryptManager._encryptKey.c_str());
             if (encryptManager.isCompressMode()) {
                 return crypto::zlib::uncompress(data);
@@ -77,6 +78,7 @@ public:
 
         if (data.getSize() > 0 && encryptManager.isEncryptedData((const char*)data.getBytes(), data.getSize())) {
             size_t size = 0;
+            data.resize(data.size() - _encryptSignature.size());
             crypto::aes::privacy::mode_spec<>::decrypt(data.getBytes(), data.getSize(), data.getBytes(), size, encryptManager._encryptKey.c_str());
 
             if (encryptManager.isCompressMode()) {
@@ -110,6 +112,7 @@ public:
         if (data != nullptr) {
             size_t outsize = 0;
             if (encryptManager.isEncryptedData((const char*)data, *size)) {
+                *size -= static_cast<ssize_t>(_encryptSignature.size());
                 crypto::aes::privacy::mode_spec<>::decrypt(data, *size, data, outsize, encryptManager._encryptKey.c_str());
 
                 if (encryptManager.isCompressMode()) {
