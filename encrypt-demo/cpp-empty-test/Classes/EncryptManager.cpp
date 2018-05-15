@@ -218,7 +218,7 @@ void EncryptManager::setEncryptEnabled(bool bVal, const std::string& key, const 
 bool EncryptManager::isEncryptedData(const char* data, size_t len) const
 {
     return !(_encryptFlags & ENCF_SIGNATURE) ||
-        (len >= _encryptSignature.size() && 0 == memcmp(data, _encryptSignature.c_str(), len));
+       (len > _encryptSignature.size() && 0 == memcmp(data + len - _encryptSignature.size(), _encryptSignature.c_str(), _encryptSignature.size()));
 }
 
 void EncryptManager::setupHookFuncs()
