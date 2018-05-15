@@ -1,3 +1,6 @@
+//
+// Copyright (c) 2014-2018 x-studio365 - All Rights Reserved
+//
 #ifndef  _ENCRYPTMANAGER_H_
 #define  _ENCRYPTMANAGER_H_
 #include <string>
@@ -8,6 +11,13 @@ class FileUtilsEncrypt;
 class  EncryptManager {
     friend class FileUtilsEncrypt;
 public:
+    enum ENCRYPT_FLAG
+    {
+        ENCF_NOFLAGS,
+        ENCF_COMPRESS,
+        ENCF_SIGNATURE = 2,
+    };
+
     static EncryptManager *getInstance();
 
     /*
@@ -24,19 +34,25 @@ public:
     algorithm could not compress the AES-CBC encrypted data again, so we need compress data before encrypt it.
     Then final package(.apk,.ipa,.appx) will small, both of platform app pacakge use zip algorithm.
     */
-    void setEncryptEnabled(bool bVal, const std::string& key = "", const std::string& ivec = "", bool compressed = true);
+    void setEncryptEnabled(bool bVal, 
+        const std::string& key, 
+        const std::string& ivec = "", 
+        ENCRYPT_FLAG flags = ENCF_NOFLAGS);
     bool isEncryptEnabled(void) const { return _encryptEnabled; }
 
     static std::string decryptData(const std::string& encryptedData, const std::string& key, const std::string& ivec = "");
 
+    inline bool isCompressed() const { return _encryptFlags & ENCF_COMPRESS; };
+    bool isEncryptedData(const char* data, size_t len) const;
 protected:
     void setupHookFuncs();
 
 private:
     bool _encryptEnabled = false;
-    bool _compressed = true;
+    ENCRYPT_FLAG _encryptFlags = ENCF_NOFLAGS;
     std::string _encryptKey;
-    std::string _encryptIvec; // CBC mode needs
+    std::string _encryptIvec; // required by CBC mode.
+    std::string _encryptSignature;
     /// file index support, TODO: implement.
 public:
     enum class FileIndexFormat {

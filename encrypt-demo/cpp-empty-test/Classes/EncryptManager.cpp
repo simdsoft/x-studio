@@ -1,4 +1,6 @@
-
+//
+// Copyright (c) 2014-2018 x-studio365 - All Rights Reserved
+//
 #include <stdio.h>
 #include <string>
 
@@ -25,6 +27,8 @@ typedef cocos2d::FileUtilsApple FileUtilsImpl;
 #include "crypto-support/fastest_csv_parser.h"
 #include "crypto-support/ibinarystream.h"
 
+#pragma warning(disable:4996)
+
 using namespace cocos2d;
 
 class FileUtilsNoEncrypt : public FileUtilsImpl
@@ -36,6 +40,11 @@ public:
 class FileUtilsEncrypt : public FileUtilsImpl
 {
 public:
+    /**
+    pitfall:
+    For cocos2d-x v3.10, you should change FileUtilsWin32's constructor access permission from 'private' to
+    'protected'
+    */
     FileUtilsEncrypt(EncryptManager& manager) : encryptManager(manager)
     {
     }
@@ -46,18 +55,16 @@ public:
     std::string getStringFromFile(const std::string& filename) override
     {
         auto data = FileUtilsImpl::getStringFromFile(filename);
-        if (!data.empty()) {
+        if (!data.empty() && encryptManager.isEncryptedData(data.c_str(), data.size())) {
             crypto::aes::decrypt(data, encryptManager._encryptKey.c_str());
-            if (encryptManager._compressed) {
+            if (encryptManager.isCompressed()) {
                 return crypto::zlib::uncompress(data);
             }
             else {
                 return data;
             }
         }
-        else {
-            return "";
-        }
+        return data;
     }
 
     /**
@@ -67,11 +74,12 @@ public:
     Data getDataFromFile(const std::string& filename) override
     {
         auto data = FileUtilsImpl::getDataFromFile(filename);
-        if (data.getSize() > 0) {
+
+        if (data.getSize() > 0 && encryptManager.isEncryptedData((const char*)data.getBytes(), data.getSize())) {
             size_t size = 0;
             crypto::aes::privacy::mode_spec<>::decrypt(data.getBytes(), data.getSize(), data.getBytes(), size, encryptManager._encryptKey.c_str());
 
-            if (encryptManager._compressed) {
+            if (encryptManager.isCompressed()) {
                 auto uncomprData = crypto::zlib::abi::_inflate(unmanaged_string((const char*)data.getBytes(), size));
                 size = uncomprData.size();
 
@@ -99,24 +107,25 @@ public:
     virtual unsigned char* getFileData(const std::string& filename, const char* mode, ssize_t *size) override
     {
         auto data = FileUtilsImpl::getFileData(filename, mode, size);
-        if (data != nullptr && *size > 0) {
+        if (data != nullptr) {
             size_t outsize = 0;
-            crypto::aes::privacy::mode_spec<>::decrypt(data, *size, data, outsize, encryptManager._encryptKey.c_str());
+            if (encryptManager.isEncryptedData((const char*)data, *size)) {
+                crypto::aes::privacy::mode_spec<>::decrypt(data, *size, data, outsize, encryptManager._encryptKey.c_str());
 
-            if (encryptManager._compressed) {
-                auto uncomprData = crypto::zlib::abi::_inflate(unmanaged_string((const char*)data, outsize));
-                *size = uncomprData.size();
+                if (encryptManager.isCompressed()) {
+                    auto uncomprData = crypto::zlib::abi::_inflate(unmanaged_string((const char*)data, outsize));
+                    *size = uncomprData.size();
 
-                free(data);
+                    free(data);
 
-                return (unsigned char*)uncomprData.deatch();
-            }
-            else {
-                *size = static_cast<ssize_t>(outsize);
-                return data;
+                    data = (unsigned char*)uncomprData.deatch();
+                }
+                else {
+                    *size = static_cast<ssize_t>(outsize);
+                }
             }
         }
-        return nullptr;
+        return data;
     }
 
     std::string fullPathForFilename(const std::string &filename) const override
@@ -139,7 +148,7 @@ EncryptManager* EncryptManager::getInstance()
 
 std::string EncryptManager::decryptData(const std::string& encryptedData, const std::string& key, const std::string& ivec)
 {
-    std::string encrpytKey,encryptIvec;
+    std::string encrpytKey, encryptIvec;
 
     encrpytKey.resize(32);
     ::memcpy(&encrpytKey.front(), key.c_str(), (std::min)(32, (int)key.size()));
@@ -156,7 +165,7 @@ std::string EncryptManager::decryptData(const std::string& encryptedData, const 
     return crypto::aes::decrypt(encryptedData, encrpytKey.c_str());
 }
 
-void EncryptManager::setEncryptEnabled(bool bVal, const std::string& key, const std::string& ivec, bool compressed)
+void EncryptManager::setEncryptEnabled(bool bVal, const std::string& key, const std::string& ivec, ENCRYPT_FLAG flags)
 {
     if (bVal && !key.empty()) {
         _encryptKey.clear();
@@ -181,7 +190,19 @@ void EncryptManager::setEncryptEnabled(bool bVal, const std::string& key, const 
 
         setupHookFuncs();
         _encryptEnabled = bVal;
-        _compressed = compressed;
+        _encryptFlags = flags;
+
+        if (flags & ENCF_SIGNATURE)
+        {
+            _encryptSignature = _encryptIvec;
+            std::string sign(_encryptKey.c_str(), key.size());
+            int roll = (flags >> 16) & 0xffff;
+            do {
+                crypto::aes::overlapped::encrypt<crypto::aes::ECB, crypto::aes::PaddingMode::None>(_encryptSignature,
+                    sign.c_str(), 128);
+                sign = _encryptSignature;
+            } while (--roll > 0);
+        }
     }
     else {
         auto fileUtilsNoEncrypt = new FileUtilsNoEncrypt();
@@ -190,8 +211,14 @@ void EncryptManager::setEncryptEnabled(bool bVal, const std::string& key, const 
         FileUtils::setDelegate(fileUtilsNoEncrypt);
 
         _encryptEnabled = false;
-        _compressed = true;
+        _encryptFlags = ENCF_NOFLAGS;
     }
+}
+
+bool EncryptManager::isEncryptedData(const char* data, size_t len) const
+{
+    return !(_encryptFlags & ENCF_SIGNATURE) ||
+        (len >= _encryptSignature.size() && 0 == memcmp(data, _encryptSignature.c_str(), len));
 }
 
 void EncryptManager::setupHookFuncs()
@@ -244,6 +271,6 @@ void EncryptManager::enableFileIndex(const std::string& indexFile, FileIndexForm
             });
 
             _indexFileMap.emplace(std::move(key), std::move(value));
-        } while ((endl - buffer.c_str()) < buffer.size());
+        } while ((endl - buffer.c_str()) < static_cast<int>(buffer.size()));
     }
 }
