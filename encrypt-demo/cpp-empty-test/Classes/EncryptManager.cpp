@@ -57,7 +57,7 @@ public:
         auto data = FileUtilsImpl::getStringFromFile(filename);
         if (!data.empty() && encryptManager.isEncryptedData(data.c_str(), data.size())) {
             crypto::aes::decrypt(data, encryptManager._encryptKey.c_str());
-            if (encryptManager.isCompressed()) {
+            if (encryptManager.isCompressMode()) {
                 return crypto::zlib::uncompress(data);
             }
             else {
@@ -79,7 +79,7 @@ public:
             size_t size = 0;
             crypto::aes::privacy::mode_spec<>::decrypt(data.getBytes(), data.getSize(), data.getBytes(), size, encryptManager._encryptKey.c_str());
 
-            if (encryptManager.isCompressed()) {
+            if (encryptManager.isCompressMode()) {
                 auto uncomprData = crypto::zlib::abi::_inflate(unmanaged_string((const char*)data.getBytes(), size));
                 size = uncomprData.size();
 
@@ -112,7 +112,7 @@ public:
             if (encryptManager.isEncryptedData((const char*)data, *size)) {
                 crypto::aes::privacy::mode_spec<>::decrypt(data, *size, data, outsize, encryptManager._encryptKey.c_str());
 
-                if (encryptManager.isCompressed()) {
+                if (encryptManager.isCompressMode()) {
                     auto uncomprData = crypto::zlib::abi::_inflate(unmanaged_string((const char*)data, outsize));
                     *size = uncomprData.size();
 

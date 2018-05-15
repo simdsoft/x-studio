@@ -42,7 +42,7 @@ public:
 
     static std::string decryptData(const std::string& encryptedData, const std::string& key, const std::string& ivec = "");
 
-    inline bool isCompressed() const { return _encryptFlags & ENCF_COMPRESS; };
+    inline bool isCompressMode() const { return _encryptFlags & ENCF_COMPRESS; };
     bool isEncryptedData(const char* data, size_t len) const;
 protected:
     void setupHookFuncs();
