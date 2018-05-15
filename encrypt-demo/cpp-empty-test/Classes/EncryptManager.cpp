@@ -56,7 +56,7 @@ public:
     {
         auto data = FileUtilsImpl::getStringFromFile(filename);
         if (!data.empty() && encryptManager.isEncryptedData(data.c_str(), data.size())) {
-            data.resize(data.size() - _encryptSignature.size());
+            data.resize(data.size() - encryptManager._encryptSignature.size());
             crypto::aes::decrypt(data, encryptManager._encryptKey.c_str());
             if (encryptManager.isCompressMode()) {
                 return crypto::zlib::uncompress(data);
@@ -78,8 +78,7 @@ public:
 
         if (data.getSize() > 0 && encryptManager.isEncryptedData((const char*)data.getBytes(), data.getSize())) {
             size_t size = 0;
-            data.resize(data.size() - _encryptSignature.size());
-            crypto::aes::privacy::mode_spec<>::decrypt(data.getBytes(), data.getSize(), data.getBytes(), size, encryptManager._encryptKey.c_str());
+            crypto::aes::privacy::mode_spec<>::decrypt(data.getBytes(), data.getSize(), data.getBytes() - encryptManager._encryptSignature.size(), size, encryptManager._encryptKey.c_str());
 
             if (encryptManager.isCompressMode()) {
                 auto uncomprData = crypto::zlib::abi::_inflate(unmanaged_string((const char*)data.getBytes(), size));
@@ -112,7 +111,7 @@ public:
         if (data != nullptr) {
             size_t outsize = 0;
             if (encryptManager.isEncryptedData((const char*)data, *size)) {
-                *size -= static_cast<ssize_t>(_encryptSignature.size());
+                *size -= static_cast<ssize_t>(encryptManager._encryptSignature.size());
                 crypto::aes::privacy::mode_spec<>::decrypt(data, *size, data, outsize, encryptManager._encryptKey.c_str());
 
                 if (encryptManager.isCompressMode()) {
@@ -168,7 +167,7 @@ std::string EncryptManager::decryptData(const std::string& encryptedData, const 
     return crypto::aes::decrypt(encryptedData, encrpytKey.c_str());
 }
 
-void EncryptManager::setEncryptEnabled(bool bVal, const std::string& key, const std::string& ivec, ENCRYPT_FLAG flags)
+void EncryptManager::setEncryptEnabled(bool bVal, const std::string& key, const std::string& ivec, int flags)
 {
     if (bVal && !key.empty()) {
         _encryptKey.clear();
@@ -241,7 +240,7 @@ void EncryptManager::enableFileIndex(const std::string& indexFile, FileIndexForm
     this->_indexFileMap.clear();
 
     auto buffer = FileUtils::getInstance()->getStringFromFile(indexFile);
-    if (format == FileIndexFormat::Binary)
+    if (format == FileIndexFormat::BINARY)
     {
         int fileCount = 0;
         ibinarystream ibs(buffer.c_str(), buffer.size());
@@ -254,7 +253,7 @@ void EncryptManager::enableFileIndex(const std::string& indexFile, FileIndexForm
             this->_indexFileMap.emplace(std::move(key), std::move(value));
         }
     }
-    else if (format == FileIndexFormat::Csv)
+    else if (format == FileIndexFormat::CSV)
     {
         const char* endl = buffer.c_str();
         const char* cursor = nullptr;

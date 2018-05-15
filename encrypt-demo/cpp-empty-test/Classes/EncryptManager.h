@@ -8,7 +8,7 @@
 
 class FileUtilsEncrypt;
 
-class  EncryptManager {
+class  EncryptManager final {
     friend class FileUtilsEncrypt;
 public:
     enum ENCRYPT_FLAG
@@ -37,11 +37,12 @@ public:
     void setEncryptEnabled(bool bVal, 
         const std::string& key, 
         const std::string& ivec = "", 
-        ENCRYPT_FLAG flags = ENCF_NOFLAGS);
+        int flags = ENCF_NOFLAGS);
     bool isEncryptEnabled(void) const { return _encryptEnabled; }
 
     static std::string decryptData(const std::string& encryptedData, const std::string& key, const std::string& ivec = "");
 
+private:
     inline bool isCompressMode() const { return _encryptFlags & ENCF_COMPRESS; };
     bool isEncryptedData(const char* data, size_t len) const;
 protected:
@@ -49,17 +50,17 @@ protected:
 
 private:
     bool _encryptEnabled = false;
-    ENCRYPT_FLAG _encryptFlags = ENCF_NOFLAGS;
+    int _encryptFlags = ENCF_NOFLAGS;
     std::string _encryptKey;
     std::string _encryptIvec; // required by CBC mode.
     std::string _encryptSignature;
     /// file index support, TODO: implement.
 public:
     enum class FileIndexFormat {
-        Binary,
-        Csv,
+        BINARY,
+        CSV,
     };
-    void enableFileIndex(const std::string& indexFile, FileIndexFormat format = FileIndexFormat::Binary);
+    void enableFileIndex(const std::string& indexFile, FileIndexFormat format = FileIndexFormat::BINARY);
 private:
     std::string _indexFilename;
     std::unordered_map<std::string, std::string> _indexFileMap;
