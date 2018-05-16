@@ -78,7 +78,7 @@ public:
 
         if (data.getSize() > 0 && encryptManager.isEncryptedData((const char*)data.getBytes(), data.getSize())) {
             size_t size = 0;
-            crypto::aes::privacy::mode_spec<>::decrypt(data.getBytes(), data.getSize(), data.getBytes() - encryptManager._encryptSignature.size(), size, encryptManager._encryptKey.c_str());
+            crypto::aes::privacy::mode_spec<>::decrypt(data.getBytes(), data.getSize() - encryptManager._encryptSignature.size(), data.getBytes(), size, encryptManager._encryptKey.c_str());
 
             if (encryptManager.isCompressMode()) {
                 auto uncomprData = crypto::zlib::abi::_inflate(unmanaged_string((const char*)data.getBytes(), size));
