@@ -1,44 +1,56 @@
 #include "DragonBonesData.h"
+#include "UserData.h"
+#include "ArmatureData.h"
+
 
 DRAGONBONES_NAMESPACE_BEGIN
 
-DragonBonesData::DragonBonesData()
-{
-    _onClear();
-}
-DragonBonesData::~DragonBonesData()
-{
-    _onClear();
-}
-
 void DragonBonesData::_onClear()
 {
-    autoSearch = false;
-    frameRate = 0;
-    name.clear();
-
     for (const auto& pair : armatures)
     {
         pair.second->returnToPool();
     }
 
-    armatures.clear();
+    if (binary != nullptr)
+    {
+        delete binary;
+    }
 
-    _armatureNames.clear();
+    if (userData != nullptr)
+    {
+        userData->returnToPool();
+    }
+
+    autoSearch = false;
+    frameRate = 0;
+    version = "";
+    name = "";
+    frameIndices.clear();
+    cachedFrames.clear();
+    armatureNames.clear();
+    armatures.clear();
+    binary = nullptr;
+    intArray = nullptr;
+    floatArray = nullptr;
+    frameIntArray = nullptr;
+    frameFloatArray = nullptr;
+    frameArray = nullptr;
+    timelineArray = nullptr;
+    userData = nullptr;
 }
 
-void DragonBonesData::addArmature(ArmatureData * value)
+void DragonBonesData::addArmature(ArmatureData* value)
 {
-    if (value && !value->name.empty() && armatures.find(value->name) == armatures.end())
+    if (armatures.find(value->name) != armatures.end()) 
     {
-        armatures[value->name] = value;
-        _armatureNames.push_back(value->name);
-        value->parent = this;
+        DRAGONBONES_ASSERT(false, "Same armature: " + value->name);
+        return;
     }
-    else
-    {
-        DRAGONBONES_ASSERT(false, "Argument error.");
-    }
+
+    value->parent = this;
+    armatures[value->name] = value;
+    armatureNames.push_back(value->name);
 }
 
 DRAGONBONES_NAMESPACE_END

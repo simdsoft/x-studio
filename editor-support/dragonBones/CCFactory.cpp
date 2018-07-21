@@ -1,47 +1,77 @@
 #include "CCFactory.h"
-#include "CCTextureData.h"
+#include "CCTextureAtlasData.h"
 #include "CCArmatureDisplay.h"
 #include "CCSlot.h"
 
 DRAGONBONES_NAMESPACE_BEGIN
 
-static CCFactory* s_factory = nullptr;
-CCFactory* CCFactory::getInstance()
-{
-	if (s_factory != nullptr)
-		return s_factory;
-	s_factory = new CCFactory();
-	return s_factory;
-}
+DragonBones* CCFactory::_dragonBonesInstance = nullptr;
+CCFactory* CCFactory::_factory = nullptr;
 
-void CCFactory::destroyInstance()
+TextureAtlasData* CCFactory::_buildTextureAtlasData(TextureAtlasData* textureAtlasData, void* textureAtlas) const
 {
-	if (s_factory != nullptr) {
-		delete s_factory;
-		s_factory = nullptr;
-	}
-}
-
-CCFactory::CCFactory() 
-{
-    if (!EventObject::_soundEventManager) 
+    if (textureAtlasData != nullptr)
     {
-        const auto display = CCArmatureDisplay::create();
-        display->retain();
+        const auto pos = _prevPath.find_last_of("/");
+        if (pos != std::string::npos)
+        {
+            const auto basePath = _prevPath.substr(0, pos + 1);
+            textureAtlasData->imagePath = basePath + textureAtlasData->imagePath;
+        }
 
-        EventObject::_soundEventManager = display;
-    }
-}
-CCFactory::~CCFactory() 
-{
-    clear();
-}
+        if (textureAtlas != nullptr)
+        {
+            static_cast<CCTextureAtlasData*>(textureAtlasData)->setRenderTexture(static_cast<cocos2d::Texture2D*>(textureAtlas));
+        }
+        else 
+        {
+            const auto textureCache = cocos2d::Director::getInstance()->getTextureCache();
+            auto texture = textureCache->getTextureForKey(textureAtlasData->imagePath);
+            if (texture == nullptr)
+            {
+                const auto defaultPixelFormat = cocos2d::Texture2D::getDefaultAlphaPixelFormat();
+                auto pixelFormat = defaultPixelFormat;
+                switch (textureAtlasData->format)
+                {
+                    case TextureFormat::RGBA8888:
+                        pixelFormat = cocos2d::Texture2D::PixelFormat::RGBA8888;
+                        break;
 
-TextureAtlasData * CCFactory::_generateTextureAtlasData(TextureAtlasData* textureAtlasData, void* textureAtlas) const
-{
-    if (textureAtlasData)
-    {
-        static_cast<CCTextureAtlasData*>(textureAtlasData)->texture = (cocos2d::Texture2D*)textureAtlas;
+                    case TextureFormat::BGRA8888:
+                        pixelFormat = cocos2d::Texture2D::PixelFormat::BGRA8888;
+                        break;
+
+                    case TextureFormat::RGBA4444:
+                        pixelFormat = cocos2d::Texture2D::PixelFormat::RGBA4444;
+                        break;
+
+                    case TextureFormat::RGB888:
+                        pixelFormat = cocos2d::Texture2D::PixelFormat::RGB888;
+                        break;
+
+                    case TextureFormat::RGB565:
+                        pixelFormat = cocos2d::Texture2D::PixelFormat::RGB565;
+                        break;
+
+                    case TextureFormat::RGBA5551:
+                        pixelFormat = cocos2d::Texture2D::PixelFormat::RGB5A1;
+                        break;
+
+                    case TextureFormat::DEFAULT:
+                    default:
+                        break;
+                }
+
+                cocos2d::Texture2D::setDefaultAlphaPixelFormat(pixelFormat);
+                texture = textureCache->addImage(textureAtlasData->imagePath);
+                if (texture != nullptr)
+                {
+                    cocos2d::Texture2D::setDefaultAlphaPixelFormat(defaultPixelFormat);
+                }
+            }
+
+            static_cast<CCTextureAtlasData*>(textureAtlasData)->setRenderTexture(texture);
+        }
     }
     else
     {
@@ -51,96 +81,46 @@ TextureAtlasData * CCFactory::_generateTextureAtlasData(TextureAtlasData* textur
     return textureAtlasData;
 }
 
-Armature * CCFactory::_generateArmature(const BuildArmaturePackage & dataPackage) const
+Armature* CCFactory::_buildArmature(const BuildArmaturePackage& dataPackage) const
 {
     const auto armature = BaseObject::borrowObject<Armature>();
     const auto armatureDisplay = CCArmatureDisplay::create();
 
-    armature->_armatureData = dataPackage.armature;
-    armature->_skinData = dataPackage.skin;
-    armature->_animation = BaseObject::borrowObject<Animation>();
-    armature->_display = armatureDisplay;
-
     armatureDisplay->retain();
     armatureDisplay->setCascadeOpacityEnabled(true);
     armatureDisplay->setCascadeColorEnabled(true);
-    armatureDisplay->_armature = armature;
-    armature->_animation->_armature = armature;
 
-    armature->getAnimation().setAnimations(dataPackage.armature->animations);
+    armature->init(
+        dataPackage.armature,
+        armatureDisplay, armatureDisplay, _dragonBones
+    );
 
     return armature;
 }
 
-Slot * CCFactory::_generateSlot(const BuildArmaturePackage& dataPackage, const SlotDisplayDataSet& slotDisplayDataSet) const
+Slot* CCFactory::_buildSlot(const BuildArmaturePackage& dataPackage, const SlotData* slotData, Armature* armature) const
 {
     const auto slot = BaseObject::borrowObject<CCSlot>();
-    const auto slotData = slotDisplayDataSet.slot;
-    std::vector<std::pair<void*, DisplayType>> displayList;
     const auto rawDisplay = DBCCSprite::create();
 
-    slot->name = slotData->name;
-    slot->_rawDisplay = rawDisplay;
-    slot->_meshDisplay = slot->_rawDisplay;
-
-    displayList.reserve(slotDisplayDataSet.displays.size());
-    rawDisplay->retain();
     rawDisplay->setCascadeOpacityEnabled(true);
     rawDisplay->setCascadeColorEnabled(true);
     rawDisplay->setAnchorPoint(cocos2d::Vec2::ZERO);
-
-    for (const auto displayData : slotDisplayDataSet.displays)
-    {
-        switch (displayData->type)
-        {
-            case DisplayType::Image:
-                if (!displayData->texture)
-                {
-                    displayData->texture = this->_getTextureData(dataPackage.dataName, displayData->name);
-                }
-
-                displayList.push_back(std::make_pair(slot->_rawDisplay, DisplayType::Image));
-                break;
-
-            case DisplayType::Mesh:
-                if (!displayData->texture)
-                {
-                    displayData->texture = this->_getTextureData(dataPackage.dataName, displayData->name);
-                }
-
-                displayList.push_back(std::make_pair(slot->_meshDisplay, DisplayType::Mesh));
-                break;
-
-            case DisplayType::Armature:
-            {
-                const auto childArmature = buildArmature(displayData->name, dataPackage.dataName);
-                if (childArmature)
-                {
-                    childArmature->getAnimation().play();
-                }
-
-                displayList.push_back(std::make_pair(childArmature, DisplayType::Armature));
-                break;
-            }
-
-            default:
-                displayList.push_back(std::make_pair(nullptr, DisplayType::Image));
-                break;
-        }
-    }
-
-    slot->_setDisplayList(displayList);
-    slot->_zOrder = slotData->zOrder;
     rawDisplay->setLocalZOrder(slotData->zOrder);
+
+    slot->init(
+        slotData, armature,
+        rawDisplay, rawDisplay
+    );
 
     return slot;
 }
 
-DragonBonesData* CCFactory::loadDragonBonesData(const std::string& filePath, const std::string& dragonBonesName)
+DragonBonesData* CCFactory::loadDragonBonesData(const std::string& filePath, const std::string& name, float scale)
 {
-    if (!dragonBonesName.empty())
+    if (!name.empty())
     {
-        const auto existedData = this->getDragonBonesData(dragonBonesName);
+        const auto existedData = getDragonBonesData(name);
         if (existedData)
         {
             return existedData;
@@ -148,132 +128,70 @@ DragonBonesData* CCFactory::loadDragonBonesData(const std::string& filePath, con
     }
 
     const auto fullpath = cocos2d::FileUtils::getInstance()->fullPathForFilename(filePath);
-    const auto data = cocos2d::FileUtils::getInstance()->getStringFromFile(fullpath);
-    if (data.empty())
+    if (cocos2d::FileUtils::getInstance()->isFileExist(filePath)) 
     {
-        return nullptr;
-    }
+        const auto pos = fullpath.find(".json");
 
-    const auto scale = cocos2d::Director::getInstance()->getContentScaleFactor();
-    return this->parseDragonBonesData(data.c_str(), dragonBonesName, 1.f / scale);
-}
-
-TextureAtlasData* CCFactory::loadTextureAtlasData(const std::string& filePath, const std::string& dragonBonesName, float scale)
-{
-    const auto fullpath = cocos2d::FileUtils::getInstance()->fullPathForFilename(filePath);
-    const auto data = cocos2d::FileUtils::getInstance()->getStringFromFile(fullpath);
-    if (data.empty())
-    {
-        return nullptr;
-    }
-
-    const auto textureAtlasData = static_cast<CCTextureAtlasData*>(BaseFactory::parseTextureAtlasData(data.c_str(), nullptr, dragonBonesName, scale));
-
-    const auto pos = filePath.find_last_of("/");
-    if (std::string::npos != pos)
-    {
-        const auto basePath = filePath.substr(0, pos + 1);
-        textureAtlasData->imagePath = basePath + textureAtlasData->imagePath;
-    }
-    
-    _initTextureAtlasData(textureAtlasData);
-
-    return textureAtlasData;
-}
-
-TextureAtlasData* CCFactory::parseTextureAtlasData(const std::string& atlasData, const std::string& texturePath, const std::string& dragonBonesName, float scale)
-{
-    const auto textureAtlasData = static_cast<CCTextureAtlasData*>(BaseFactory::parseTextureAtlasData(atlasData.c_str(), nullptr, dragonBonesName, scale));
-    textureAtlasData->imagePath = texturePath;
-    _initTextureAtlasData(textureAtlasData);
-    
-    return textureAtlasData;
-
-}
-
-void CCFactory::_initTextureAtlasData(TextureAtlasData* atlasData)
-{
-    const auto textureCache = cocos2d::Director::getInstance()->getTextureCache();
-    auto texture = textureCache->getTextureForKey(atlasData->imagePath);
-    if (!texture)
-    {
-        const auto defaultPixelFormat = cocos2d::Texture2D::getDefaultAlphaPixelFormat();
-        auto pixelFormat = defaultPixelFormat;
-        switch (atlasData->format)
+        if (pos != std::string::npos)
         {
-            case TextureFormat::RGBA8888:
-                pixelFormat = cocos2d::Texture2D::PixelFormat::RGBA8888;
-                break;
-                
-            case TextureFormat::BGRA8888:
-                pixelFormat = cocos2d::Texture2D::PixelFormat::BGRA8888;
-                break;
-                
-            case TextureFormat::RGBA4444:
-                pixelFormat = cocos2d::Texture2D::PixelFormat::RGBA4444;
-                break;
-                
-            case TextureFormat::RGB888:
-                pixelFormat = cocos2d::Texture2D::PixelFormat::RGB888;
-                break;
-                
-            case TextureFormat::RGB565:
-                pixelFormat = cocos2d::Texture2D::PixelFormat::RGB565;
-                break;
-                
-            case TextureFormat::RGBA5551:
-                pixelFormat = cocos2d::Texture2D::PixelFormat::RGB5A1;
-                break;
-                
-            case TextureFormat::DEFAULT:
-            default:
-                break;
+            const auto data = cocos2d::FileUtils::getInstance()->getStringFromFile(filePath);
+
+            return parseDragonBonesData(data.c_str(), name, scale);
         }
-        
-        cocos2d::Texture2D::setDefaultAlphaPixelFormat(pixelFormat);
-        texture = textureCache->addImage(atlasData->imagePath);
-        cocos2d::Texture2D::setDefaultAlphaPixelFormat(defaultPixelFormat);
-    }
-    
-    static_cast<CCTextureAtlasData*>(atlasData)->texture = texture;
-}
-
-CCArmatureDisplay * CCFactory::buildArmatureDisplay(const std::string& armatureName, const std::string& dragonBonesName, const std::string& skinName) const
-{
-    const auto armature = this->buildArmature(armatureName, dragonBonesName, skinName);
-    const auto armatureDisplay = armature ? dynamic_cast<CCArmatureDisplay*>(armature->_display) : nullptr;
-    if (armatureDisplay)
-    {
-        armatureDisplay->advanceTimeBySelf(true);
-    }
-
-    return armatureDisplay;
-}
-
-cocos2d::Sprite* CCFactory::getTextureDisplay(const std::string& textureName, const std::string& dragonBonesName) const
-{
-    const auto textureData = static_cast<CCTextureData*>(this->_getTextureData(dragonBonesName, textureName));
-    if (textureData) 
-    {
-        if (!textureData->texture)
+        else
         {
-            const auto textureAtlasTexture = static_cast<CCTextureAtlasData*>(textureData->parent)->texture;
-            cocos2d::Rect rect(textureData->region.x, textureData->region.y, textureData->region.width, textureData->region.height);
-            cocos2d::Vec2 offset(0.f, 0.f);
-            cocos2d::Size originSize(textureData->region.width, textureData->region.height);
-            textureData->texture = cocos2d::SpriteFrame::createWithTexture(textureAtlasTexture, rect, textureData->rotated, offset, originSize); // TODO multiply textureAtlas
-            textureData->texture->retain();
-        }
+#if COCOS2D_VERSION >= 0x00031200
+            cocos2d::Data cocos2dData;
+            cocos2d::FileUtils::getInstance()->getContents(fullpath, &cocos2dData);
+#else
+            const auto cocos2dData = cocos2d::FileUtils::getInstance()->getDataFromFile(fullpath);
+#endif
+            const auto binary = (unsigned char*)malloc(sizeof(unsigned char)* cocos2dData.getSize());
+            memcpy(binary, cocos2dData.getBytes(), cocos2dData.getSize());
+            const auto data = parseDragonBonesData((char*)binary, name, scale);
 
-        return cocos2d::Sprite::createWithSpriteFrame(textureData->texture);
+            return data;
+        }
     }
 
     return nullptr;
 }
 
-CCArmatureDisplay* CCFactory::getSoundEventManater() const
+TextureAtlasData* CCFactory::loadTextureAtlasData(const std::string& filePath, const std::string& name, float scale)
 {
-    return dynamic_cast<CCArmatureDisplay*>(static_cast<IArmatureDisplay*>(EventObject::_soundEventManager));
+    _prevPath = cocos2d::FileUtils::getInstance()->fullPathForFilename(filePath);
+    const auto data = cocos2d::FileUtils::getInstance()->getStringFromFile(_prevPath);
+    if (data.empty())
+    {
+        return nullptr;
+    }
+
+    return static_cast<CCTextureAtlasData*>(BaseFactory::parseTextureAtlasData(data.c_str(), nullptr, name, scale));
+}
+
+CCArmatureDisplay* CCFactory::buildArmatureDisplay(const std::string& armatureName, const std::string& dragonBonesName, const std::string& skinName, const std::string& textureAtlasName) const
+{
+    const auto armature = buildArmature(armatureName, dragonBonesName, skinName, textureAtlasName);
+    if (armature != nullptr)
+    {
+        _dragonBones->getClock()->add(armature);
+
+        return static_cast<CCArmatureDisplay*>(armature->getDisplay());
+    }
+
+    return nullptr;
+}
+
+cocos2d::Sprite* CCFactory::getTextureDisplay(const std::string& textureName, const std::string& dragonBonesName) const
+{
+    const auto textureData = static_cast<CCTextureData*>(_getTextureData(dragonBonesName, textureName));
+    if (textureData != nullptr && textureData->spriteFrame != nullptr)
+    {
+        const auto display = cocos2d::Sprite::createWithSpriteFrame(textureData->spriteFrame);
+        return display;
+    }
+
+    return nullptr;
 }
 
 DRAGONBONES_NAMESPACE_END

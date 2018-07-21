@@ -1,12 +1,13 @@
 #include "CCArmatureDisplay.h"
+#include "CCSlot.h"
 
 DRAGONBONES_NAMESPACE_BEGIN
 
 CCArmatureDisplay* CCArmatureDisplay::create()
 {
     CCArmatureDisplay* displayContainer = new (std::nothrow) CCArmatureDisplay();
-
     if (displayContainer && displayContainer->init())
+    if (displayContainer)
     {
         displayContainer->autorelease();
     }
@@ -18,75 +19,103 @@ CCArmatureDisplay* CCArmatureDisplay::create()
     return displayContainer;
 }
 
-CCArmatureDisplay::CCArmatureDisplay() :
-    _armature(nullptr),
-    _dispatcher(nullptr),
-    _eventCallback(nullptr)
+void CCArmatureDisplay::dbInit(Armature* armature)
 {
-    _dispatcher = new cocos2d::EventDispatcher();
-    this->setEventDispatcher(_dispatcher);
-    _dispatcher->setEnabled(true);
+    _armature = armature;
 }
-CCArmatureDisplay::~CCArmatureDisplay() {dispose(); }
 
-void CCArmatureDisplay::_onClear()
+void CCArmatureDisplay::dbClear()
 {
-    this->setEventDispatcher(cocos2d::Director::getInstance()->getEventDispatcher());
+    setEventDispatcher(cocos2d::Director::getInstance()->getEventDispatcher());
 
     _armature = nullptr;
     CC_SAFE_RELEASE(_dispatcher);
-    this->release();
+    release();
 }
 
-void CCArmatureDisplay::_dispatchEvent(EventObject* value)
+void CCArmatureDisplay::dispose(bool disposeProxy)
 {
-    if (_eventCallback) {
-        _eventCallback(value);
-    }
-    
-    if (_dispatcher->isEnabled()) {
-        _dispatcher->dispatchCustomEvent(value->type, value);
-    }
-}
-
-void CCArmatureDisplay::dispose()
-{
-    if (_armature) 
+    if (_armature != nullptr) 
     {
-        advanceTimeBySelf(false);
         _armature->dispose();
         _armature = nullptr;
     }
 }
 
-void CCArmatureDisplay::update(float passedTime)
+void CCArmatureDisplay::dbUpdate()
 {
-    _armature->advanceTime(passedTime);
+    const auto drawed = DragonBones::debugDraw;
+    if (drawed || _debugDraw) 
+    {
+        _debugDraw = drawed;
+        if (_debugDraw) 
+        {
+
+        }
+        else 
+        {
+            // TODO
+        }
+    }
 }
 
-void CCArmatureDisplay::advanceTimeBySelf(bool on)
+void CCArmatureDisplay::addDBEventListener(const std::string& type, const std::function<void(EventObject*)>& callback)
 {
-    if (on)
+    auto lambda = [callback](cocos2d::EventCustom* event) -> void 
     {
-        scheduleUpdate();
-    }
-    else 
-    {
-        unscheduleUpdate();
-    }
-}
-
-void CCArmatureDisplay::addEvent(const std::string& type, const std::function<void(EventObject*)>& callback)
-{
-    auto lambda = [callback](cocos2d::EventCustom* event) -> void {
         callback(static_cast<EventObject*>(event->getUserData()));
     };
     _dispatcher->addCustomEventListener(type, lambda);
 }
 
-void CCArmatureDisplay::removeEvent(const std::string& type)
+void CCArmatureDisplay::dispatchDBEvent(const std::string& type, EventObject* value)
 {
+    _dispatcher->dispatchCustomEvent(type, value);
+}
+
+void CCArmatureDisplay::removeDBEventListener(const std::string& type, const std::function<void(EventObject*)>& callback)
+{
+    // TODO
     _dispatcher->removeCustomEventListeners(type);
+}
+
+cocos2d::Rect CCArmatureDisplay::getBoundingBox() const
+{
+    auto isFirst = true;
+    float minX = 0.0f;
+    float minY = 0.0f;
+    float maxX = 0.0f;
+    float maxY = 0.0f;
+
+    for (const auto slot : _armature->getSlots())
+    {
+        if (!slot->getVisible() || !slot->getDisplay())
+        { 
+            continue;
+        }
+        
+        const auto display = static_cast<CCSlot*>(slot)->getCCDisplay();
+        const auto bounds = display->getBoundingBox();
+        if (isFirst)
+        {
+            isFirst = false;
+            minX = bounds.getMinX();
+            minY = bounds.getMinY();
+            maxX = bounds.getMaxX();
+            maxY = bounds.getMaxY();
+        }
+        else
+        {
+            minX = std::min(minX, bounds.getMinX());
+            minY = std::min(minY, bounds.getMinY());
+            maxX = std::max(maxX, bounds.getMaxX());
+            maxY = std::max(maxY, bounds.getMaxY());
+        }
+    }
+
+    cocos2d::Rect rect(minX, minY, maxX - minX, maxY - minY);
+
+    return cocos2d::RectApplyTransform(rect, getNodeToParentTransform());
 }
 
 DBCCSprite* DBCCSprite::create()
@@ -104,11 +133,6 @@ DBCCSprite* DBCCSprite::create()
 
     return sprite;
 }
-
-DBCCSprite::DBCCSprite()
-{
-}
-DBCCSprite::~DBCCSprite() {}
 
 bool DBCCSprite::_checkVisibility(const cocos2d::Mat4& transform, const cocos2d::Size& size, const cocos2d::Rect& rect)
 {
@@ -148,9 +172,9 @@ void DBCCSprite::draw(cocos2d::Renderer* renderer, const cocos2d::Mat4& transfor
 {
 #if CC_USE_CULLING
 #if COCOS2D_VERSION >= 0x00031400
-    const auto& rect = this->_polyInfo.getRect();
+    const auto& rect = _polyInfo.getRect();
 #else
-    const auto& rect = this->_polyInfo.rect;
+    const auto& rect = _polyInfo.rect;
 #endif
     
     // Don't do calculate the culling if the transform was not updated
@@ -196,13 +220,7 @@ void DBCCSprite::draw(cocos2d::Renderer* renderer, const cocos2d::Mat4& transfor
 
 cocos2d::PolygonInfo& DBCCSprite::getPolygonInfoModify()
 {
-    return this->_polyInfo;
+    return _polyInfo;
 }
-
-#if COCOS2D_VERSION >= 0x00031400
-void DBCCSprite::setRenderMode(RenderMode m) {
-    _renderMode = m;
-}
-#endif
 
 DRAGONBONES_NAMESPACE_END

@@ -1,147 +1,204 @@
+/**
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2012-2018 DragonBones team and other contributors
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of
+ * this software and associated documentation files (the "Software"), to deal in
+ * the Software without restriction, including without limitation the rights to
+ * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+ * the Software, and to permit persons to whom the Software is furnished to do so,
+ * subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+ * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+ * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+ * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+ * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
 #ifndef DRAGONBONES_TIMELINE_STATE_H
 #define DRAGONBONES_TIMELINE_STATE_H
 
 #include "BaseTimelineState.h"
 
 DRAGONBONES_NAMESPACE_BEGIN
-
-class Bone;
-class Slot;
-
-class AnimationTimelineState final : public TimelineState<AnimationFrameData, AnimationData>
+/**
+ * @internal
+ */
+class ActionTimelineState : public TimelineState
 {
-    BIND_CLASS_TYPE(AnimationTimelineState);
+    BIND_CLASS_TYPE_A(ActionTimelineState);
 
-private:
-    bool _isStarted;
-
-public:
-    AnimationTimelineState();
-    ~AnimationTimelineState();
-
-private:
-    DRAGONBONES_DISALLOW_COPY_AND_ASSIGN(AnimationTimelineState);
+    void _onCrossFrame(unsigned frameIndex) const;
 
 protected:
-    void _onClear() override;
-    void _onCrossFrame(AnimationFrameData* frame);
+    virtual void _onArriveAtFrame() override {}
+    virtual void _onUpdateFrame() override {}
 
 public:
-    void fadeIn(Armature* armature, AnimationState* animationState, AnimationData* timelineData, float time) override;
-    void update(float time) override;
+    void update(float passedTime) override;
     void setCurrentTime(float value);
 };
-
-class BoneTimelineState final : public TweenTimelineState<BoneFrameData, BoneTimelineData>
+/**
+ * @internal
+ */
+class ZOrderTimelineState : public TimelineState 
 {
-    BIND_CLASS_TYPE(BoneTimelineState);
+    BIND_CLASS_TYPE_A(ZOrderTimelineState);
+
+protected:
+    virtual void _onArriveAtFrame() override;
+    virtual void _onUpdateFrame() override {}
+};
+/**
+ * @internal
+ */
+class BoneAllTimelineState : public BoneTimelineState
+{
+    BIND_CLASS_TYPE_A(BoneAllTimelineState);
+
+protected:
+    virtual void _onArriveAtFrame() override;
+    virtual void _onUpdateFrame() override;
 
 public:
-    Bone* bone;
+    virtual void fadeOut() override;
+};
+/**
+ * @internal
+ */
+class BoneTranslateTimelineState : public BoneTimelineState
+{
+    BIND_CLASS_TYPE_A(BoneTranslateTimelineState);
 
-private:
-    TweenType _tweenTransform;
-    TweenType _tweenRotate;
-    TweenType _tweenScale;
-    Transform* _boneTransform;
-    Transform* _originTransform;
-    Transform _transform;
-    Transform _currentTransform;
-    Transform _durationTransform;
+protected:
+    virtual void _onArriveAtFrame() override;
+    virtual void _onUpdateFrame() override;
+};
+/**
+ * @internal
+ */
+class BoneRotateTimelineState : public BoneTimelineState
+{
+    BIND_CLASS_TYPE_A(BoneRotateTimelineState);
+
+protected:
+    virtual void _onArriveAtFrame() override;
+    virtual void _onUpdateFrame() override;
 
 public:
-    BoneTimelineState();
-    ~BoneTimelineState();
+    virtual void fadeOut() override;
+};
+/**
+ * @internal
+ */
+class BoneScaleTimelineState : public BoneTimelineState
+{
+    BIND_CLASS_TYPE_A(BoneScaleTimelineState);
+
+protected:
+    virtual void _onArriveAtFrame() override;
+    virtual void _onUpdateFrame() override;
+};
+/**
+ * @internal
+ */
+class SlotDislayTimelineState : public SlotTimelineState
+{
+    BIND_CLASS_TYPE_A(SlotDislayTimelineState);
+
+protected:
+    virtual void _onArriveAtFrame() override;
+};
+/**
+ * @internal
+ */
+class SlotColorTimelineState : public SlotTimelineState
+{
+    BIND_CLASS_TYPE_B(SlotColorTimelineState);
 
 private:
-    DRAGONBONES_DISALLOW_COPY_AND_ASSIGN(BoneTimelineState);
+    bool _dirty;
+    int* _current;
+    int* _delta;
+    float* _result;
+
+public:
+    SlotColorTimelineState() :
+        _current(new int[8]{ 0 }),
+        _delta(new int[8]{ 0 }),
+        _result(new float[8]{ 0.0f })
+    { 
+        _onClear(); 
+    }
+    ~SlotColorTimelineState()
+    {
+        _onClear();
+
+        delete _current;
+        delete _delta;
+        delete _result;
+    }
 
 protected:
     void _onClear() override;
-    void _onArriveAtFrame(bool isUpdate) override;
-    void _onUpdateFrame(bool isUpdate) override;
+    void _onArriveAtFrame() override;
+    void _onUpdateFrame() override;
 
 public:
-    void fadeIn(Armature* armature, AnimationState* animationState, BoneTimelineData* timelineData, float time) override;
     void fadeOut() override;
-    void update(float time) override;
+    void update(float passedTime) override;
 };
-
-class SlotTimelineState final : public TweenTimelineState<SlotFrameData, SlotTimelineData>
+/**
+ * @internal
+ */
+class DeformTimelineState : public SlotTimelineState
 {
-    BIND_CLASS_TYPE(SlotTimelineState);
+    BIND_CLASS_TYPE_A(DeformTimelineState);
 
 public:
-    Slot* slot;
+    unsigned vertexOffset;
 
 private:
-    bool _colorDirty;
-    TweenType _tweenColor;
-    ColorTransform* _slotColor;
-    ColorTransform _color;
-    ColorTransform _durationColor;
-
-public:
-    SlotTimelineState();
-    ~SlotTimelineState();
-
-private:
-    DRAGONBONES_DISALLOW_COPY_AND_ASSIGN(SlotTimelineState);
+    bool _dirty;
+    unsigned _frameFloatOffset;
+    unsigned _deformCount;
+    unsigned _valueCount;
+    unsigned _valueOffset;
+    std::vector<float> _current;
+    std::vector<float> _delta;
+    std::vector<float> _result;
 
 protected:
-    void _onClear() override;
-    void _onArriveAtFrame(bool isUpdate) override;
-    void _onUpdateFrame(bool isUpdate) override;
+    virtual void _onClear() override;
+    virtual void _onArriveAtFrame() override;
+    virtual void _onUpdateFrame() override;
 
 public:
-    void fadeIn(Armature* armature, AnimationState* animationState, SlotTimelineData* timelineData, float time) override;
-    void fadeOut() override;
-    void update(float time) override;
+    virtual void init(Armature* armature, AnimationState* animationState, TimelineData* timelineData) override;
+    virtual void fadeOut() override;
+    virtual void update(float passedTime) override;
 };
 
-class FFDTimelineState final : public TweenTimelineState<ExtensionFrameData, FFDTimelineData>
+/**
+ * @internal
+ */
+class IKConstraintTimelineState : public ConstraintTimelineState 
 {
-    BIND_CLASS_TYPE(FFDTimelineState);
-
-public:
-    Slot* slot;
+    BIND_CLASS_TYPE_A(IKConstraintTimelineState);
 
 private:
-    TweenType _tweenFFD;
-    std::vector<float>* _slotFFDVertices;
-    ExtensionFrameData* _durationFFDFrame;
-    std::vector<float> _ffdVertices;
-
-public:
-    FFDTimelineState();
-    ~FFDTimelineState();
-
-private:
-    DRAGONBONES_DISALLOW_COPY_AND_ASSIGN(FFDTimelineState);
+    float _current;
+    float _delta;
 
 protected:
-    void _onClear() override;
-    void _onArriveAtFrame(bool isUpdate) override;
-    void _onUpdateFrame(bool isUpdate) override;
-
-public:
-    void fadeIn(Armature* armature, AnimationState* animationState, FFDTimelineData* timelineData, float time) override;
-    void update(float time) override;
-};
-
-class ZOrderTimelineState final : public TweenTimelineState<ZOrderFrameData, ZOrderTimelineData>
-{
-    BIND_CLASS_TYPE(ZOrderTimelineState);
-
-public:
-    ZOrderTimelineState();
-    ~ZOrderTimelineState();
-
-private:
-    DRAGONBONES_DISALLOW_COPY_AND_ASSIGN(ZOrderTimelineState);
-
-protected:
-    void _onArriveAtFrame(bool isUpdate) override;
+    virtual void _onClear() override;
+    virtual void _onArriveAtFrame() override;
+    virtual void _onUpdateFrame() override;
 };
 
 DRAGONBONES_NAMESPACE_END
