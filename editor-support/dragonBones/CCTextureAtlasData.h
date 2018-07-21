@@ -33,7 +33,7 @@ DRAGONBONES_NAMESPACE_BEGIN
  * @language en_US
  */
 /**
- * Cocos2d è´´å›¾é›†æ•°æ®ã€‚
+ * Cocos2d ÌùÍ¼¼¯Êı¾İ¡£
  * @version DragonBones 3.0
  * @language zh_CN
  */
@@ -69,7 +69,7 @@ public:
      * @language en_US
      */
     /**
-     * Cocos2d è´´å›¾ã€‚
+     * Cocos2d ÌùÍ¼¡£
      * @version DragonBones 3.0
      * @language zh_CN
      */

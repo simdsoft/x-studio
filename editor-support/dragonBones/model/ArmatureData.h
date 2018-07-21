@@ -36,7 +36,7 @@ DRAGONBONES_NAMESPACE_BEGIN
  * @language en_US
  */
 /**
- * - éª¨æ¶æ•°æ®ã€‚
+ * - ¹Ç¼ÜÊı¾İ¡£
  * @version DragonBones 3.0
  * @language zh_CN
  */
@@ -55,7 +55,7 @@ public:
      * @language en_US
      */
     /**
-     * - åŠ¨ç”»å¸§ç‡ã€‚
+     * - ¶¯»­Ö¡ÂÊ¡£
      * @version DragonBones 3.0
      * @language zh_CN
      */
@@ -74,7 +74,7 @@ public:
      * @language en_US
      */
     /**
-     * - éª¨æ¶åç§°ã€‚
+     * - ¹Ç¼ÜÃû³Æ¡£
      * @version DragonBones 3.0
      * @language zh_CN
      */
@@ -89,7 +89,7 @@ public:
      * @language en_US
      */
     /**
-     * - æ‰€æœ‰çš„åŠ¨ç”»æ•°æ®åç§°ã€‚
+     * - ËùÓĞµÄ¶¯»­Êı¾İÃû³Æ¡£
      * @version DragonBones 3.0
      * @language zh_CN
      */
@@ -136,7 +136,7 @@ public:
      * @language en_US
      */
     /**
-     * - é»˜è®¤æ’æ§½æ•°æ®ã€‚
+     * - Ä¬ÈÏ²å²ÛÊı¾İ¡£
      * @version DragonBones 4.5
      * @language zh_CN
      */
@@ -147,7 +147,7 @@ public:
      * @language en_US
      */
     /**
-     * - é»˜è®¤åŠ¨ç”»æ•°æ®ã€‚
+     * - Ä¬ÈÏ¶¯»­Êı¾İ¡£
      * @version DragonBones 4.5
      * @language zh_CN
      */
@@ -226,8 +226,8 @@ public:
      * @language en_US
      */
     /**
-     * - è·å–ç‰¹å®šçš„éª¨éª¼æ•°æ®ã€‚
-     * @param boneName - éª¨éª¼åç§°ã€‚
+     * - »ñÈ¡ÌØ¶¨µÄ¹Ç÷ÀÊı¾İ¡£
+     * @param boneName - ¹Ç÷ÀÃû³Æ¡£
      * @version DragonBones 3.0
      * @language zh_CN
      */
@@ -242,8 +242,8 @@ public:
      * @language en_US
      */
     /**
-     * - è·å–ç‰¹å®šçš„æ’æ§½æ•°æ®ã€‚
-     * @param slotName - æ’æ§½åç§°ã€‚
+     * - »ñÈ¡ÌØ¶¨µÄ²å²ÛÊı¾İ¡£
+     * @param slotName - ²å²ÛÃû³Æ¡£
      * @version DragonBones 3.0
      * @language zh_CN
      */
@@ -265,8 +265,8 @@ public:
      * @language en_US
      */
     /**
-     * - è·å–ç‰¹å®šçš®è‚¤æ•°æ®ã€‚
-     * @param skinName - çš®è‚¤åç§°ã€‚
+     * - »ñÈ¡ÌØ¶¨Æ¤·ôÊı¾İ¡£
+     * @param skinName - Æ¤·ôÃû³Æ¡£
      * @version DragonBones 3.0
      * @language zh_CN
      */
@@ -285,8 +285,8 @@ public:
      * @language en_US
      */
     /**
-     * - è·å–ç‰¹å®šçš„åŠ¨ç”»æ•°æ®ã€‚
-     * @param animationName - åŠ¨ç”»åç§°ã€‚
+     * - »ñÈ¡ÌØ¶¨µÄ¶¯»­Êı¾İ¡£
+     * @param animationName - ¶¯»­Ãû³Æ¡£
      * @version DragonBones 3.0
      * @language zh_CN
      */
@@ -324,7 +324,7 @@ public: // For WebAssembly.
  * @language en_US
  */
 /**
- * - éª¨éª¼æ•°æ®ã€‚
+ * - ¹Ç÷ÀÊı¾İ¡£
  * @version DragonBones 3.0
  * @language zh_CN
  */
@@ -355,7 +355,7 @@ public:
      * @language en_US
      */
     /**
-     * - éª¨éª¼é•¿åº¦ã€‚
+     * - ¹Ç÷À³¤¶È¡£
      * @version DragonBones 3.0
      * @language zh_CN
      */
@@ -366,7 +366,7 @@ public:
      * @language en_US
      */
     /**
-     * - éª¨éª¼åç§°ã€‚
+     * - ¹Ç÷ÀÃû³Æ¡£
      * @version DragonBones 3.0
      * @language zh_CN
      */
@@ -385,7 +385,7 @@ public:
      * @language en_US
      */
     /**
-     * - çˆ¶éª¨éª¼æ•°æ®ã€‚
+     * - ¸¸¹Ç÷ÀÊı¾İ¡£
      * @version DragonBones 3.0
      * @language zh_CN
      */
@@ -418,7 +418,7 @@ public: // For WebAssembly.
  * @language en_US
  */
 /**
- * - æ’æ§½æ•°æ®ã€‚
+ * - ²å²ÛÊı¾İ¡£
  * @version DragonBones 3.0
  * @language zh_CN
  */
@@ -455,7 +455,7 @@ public:
      * @language en_US
      */
     /**
-     * - æ’æ§½åç§°ã€‚
+     * - ²å²ÛÃû³Æ¡£
      * @version DragonBones 3.0
      * @language zh_CN
      */
@@ -474,7 +474,7 @@ public:
      * @language en_US
      */
     /**
-     * - çˆ¶éª¨éª¼æ•°æ®ã€‚
+     * - ¸¸¹Ç÷ÀÊı¾İ¡£
      * @version DragonBones 3.0
      * @language zh_CN
      */

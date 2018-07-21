@@ -35,8 +35,8 @@ DRAGONBONES_NAMESPACE_BEGIN
  * @language en_US
  */
 /**
- * - é¾™éª¨æ•°æ®ã€‚
- * ä¸€ä¸ªé¾™éª¨æ•°æ®åŒ…å«å¤šä¸ªéª¨æ¶æ•°æ®ã€‚
+ * - Áú¹ÇÊı¾İ¡£
+ * Ò»¸öÁú¹ÇÊı¾İ°üº¬¶à¸ö¹Ç¼ÜÊı¾İ¡£
  * @see dragonBones.ArmatureData
  * @version DragonBones 3.0
  * @language zh_CN
@@ -56,7 +56,7 @@ public:
      * @language en_US
      */
     /**
-     * - åŠ¨ç”»å¸§é¢‘ã€‚
+     * - ¶¯»­Ö¡Æµ¡£
      * @version DragonBones 3.0
      * @language zh_CN
      */
@@ -67,7 +67,7 @@ public:
      * @language en_US
      */
     /**
-     * - æ•°æ®ç‰ˆæœ¬ã€‚
+     * - Êı¾İ°æ±¾¡£
      * @version DragonBones 3.0
      * @language zh_CN
      */
@@ -79,8 +79,8 @@ public:
      * @language en_US
      */
     /**
-     * - é¾™éª¨æ•°æ®åç§°ã€‚
-     * è¯¥åç§°ä¸é¾™éª¨é¡¹ç›®åä¿æŒä¸€è‡´ã€‚
+     * - Áú¹ÇÊı¾İÃû³Æ¡£
+     * ¸ÃÃû³ÆÓëÁú¹ÇÏîÄ¿Ãû±£³ÖÒ»ÖÂ¡£
      * @version DragonBones 3.0
      * @language zh_CN
      */
@@ -99,7 +99,7 @@ public:
      * @language en_US
      */
     /**
-     * - æ‰€æœ‰çš„éª¨æ¶æ•°æ®åç§°ã€‚
+     * - ËùÓĞµÄ¹Ç¼ÜÊı¾İÃû³Æ¡£
      * @version DragonBones 3.0
      * @language zh_CN
      */
@@ -161,8 +161,8 @@ public:
      * @language en_US
      */
     /**
-     * - è·å–ç‰¹å®šçš„éª¨æ¶æ•°æ®ã€‚
-     * @param armatureName - éª¨æ¶æ•°æ®åç§°ã€‚
+     * - »ñÈ¡ÌØ¶¨µÄ¹Ç¼ÜÊı¾İ¡£
+     * @param armatureName - ¹Ç¼ÜÊı¾İÃû³Æ¡£
      * @version DragonBones 3.0
      * @language zh_CN
      */

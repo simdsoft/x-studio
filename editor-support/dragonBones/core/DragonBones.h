@@ -153,7 +153,7 @@ enum class ArmatureType
  * @language en_US
  */
 /**
- * - åç§»æ¨¡å¼ã€‚
+ * - Æ«ÒÆÄ£Ê½¡£
  * @version DragonBones 5.5
  * @language zh_CN
  */
@@ -181,7 +181,7 @@ enum class DisplayType
  * @language en_US
  */
 /**
- * - è¾¹ç•Œæ¡†ç±»å‹ã€‚
+ * - ±ß½ç¿òÀàĞÍ¡£
  * @version DragonBones 5.0
  * @language zh_CN
  */
@@ -263,7 +263,7 @@ enum class TimelineType {
  * @language en_US
  */
 /**
- * - åŠ¨ç”»æ·¡å‡ºæ¨¡å¼ã€‚
+ * - ¶¯»­µ­³öÄ£Ê½¡£
  * @version DragonBones 4.5
  * @language zh_CN
  */
@@ -273,7 +273,7 @@ enum class AnimationFadeOutMode {
      * @language en_US
      */
     /**
-     * - ä¸æ·¡å‡ºä»»ä½•çš„åŠ¨ç”»çŠ¶æ€ã€‚
+     * - ²»µ­³öÈÎºÎµÄ¶¯»­×´Ì¬¡£
      * @language zh_CN
      */
     None,
@@ -282,7 +282,7 @@ enum class AnimationFadeOutMode {
      * @language en_US
      */
     /**
-     * - æ·¡å‡ºåŒå±‚çš„åŠ¨ç”»çŠ¶æ€ã€‚
+     * - µ­³öÍ¬²ãµÄ¶¯»­×´Ì¬¡£
      * @language zh_CN
      */
     SameLayer,
@@ -291,7 +291,7 @@ enum class AnimationFadeOutMode {
      * @language en_US
      */
     /**
-     * - æ·¡å‡ºåŒç»„çš„åŠ¨ç”»çŠ¶æ€ã€‚
+     * - µ­³öÍ¬×éµÄ¶¯»­×´Ì¬¡£
      * @language zh_CN
      */
     SameGroup,
@@ -300,7 +300,7 @@ enum class AnimationFadeOutMode {
      * @language en_US
      */
     /**
-     * - æ·¡å‡ºåŒå±‚å¹¶ä¸”åŒç»„çš„åŠ¨ç”»çŠ¶æ€ã€‚
+     * - µ­³öÍ¬²ã²¢ÇÒÍ¬×éµÄ¶¯»­×´Ì¬¡£
      * @language zh_CN
      */
     SameLayerAndGroup,
@@ -309,7 +309,7 @@ enum class AnimationFadeOutMode {
      * @language en_US
      */
     /**
-     * - æ·¡å‡ºæ‰€æœ‰çš„åŠ¨ç”»çŠ¶æ€ã€‚
+     * - µ­³öËùÓĞµÄ¶¯»­×´Ì¬¡£
      * @language zh_CN
      */
     All,
@@ -318,7 +318,7 @@ enum class AnimationFadeOutMode {
      * @language en_US
      */
     /**
-     * - ä¸æ›¿æ¢åŒåçš„åŠ¨ç”»çŠ¶æ€ã€‚
+     * - ²»Ìæ»»Í¬ÃûµÄ¶¯»­×´Ì¬¡£
      * @language zh_CN
      */
     Single

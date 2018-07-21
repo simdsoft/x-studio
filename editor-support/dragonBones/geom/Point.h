@@ -32,7 +32,7 @@ DRAGONBONES_NAMESPACE_BEGIN
  * @language en_US
  */
 /**
- * - Point å¯¹è±¡è¡¨ç¤ºäºŒç»´åæ ‡ç³»ç»Ÿä¸­çš„æŸä¸ªä½ç½®ã€‚
+ * - Point ¶ÔÏó±íÊ¾¶şÎ¬×ø±êÏµÍ³ÖĞµÄÄ³¸öÎ»ÖÃ¡£
  * @version DragonBones 3.0
  * @language zh_CN
  */
@@ -52,7 +52,7 @@ public:
      * @language en_US
      */
     /**
-     * - è¯¥ç‚¹çš„æ°´å¹³åæ ‡ã€‚
+     * - ¸ÃµãµÄË®Æ½×ø±ê¡£
      * @default 0.0
      * @version DragonBones 3.0
      * @language zh_CN
@@ -65,7 +65,7 @@ public:
      * @language en_US
      */
     /**
-     * - è¯¥ç‚¹çš„å‚ç›´åæ ‡ã€‚
+     * - ¸ÃµãµÄ´¹Ö±×ø±ê¡£
      * @default 0.0
      * @version DragonBones 3.0
      * @language zh_CN
@@ -84,9 +84,9 @@ public:
      * @language en_US
      */
     /**
-     * - åˆ›å»ºä¸€ä¸ª egret.Point å¯¹è±¡.è‹¥ä¸ä¼ å…¥ä»»ä½•å‚æ•°ï¼Œå°†ä¼šåˆ›å»ºä¸€ä¸ªä½äºï¼ˆ0ï¼Œ0ï¼‰ä½ç½®çš„ç‚¹ã€‚
-     * @param x - è¯¥å¯¹è±¡çš„xå±æ€§å€¼ï¼Œé»˜è®¤ä¸º 0.0ã€‚
-     * @param y - è¯¥å¯¹è±¡çš„yå±æ€§å€¼ï¼Œé»˜è®¤ä¸º 0.0ã€‚
+     * - ´´½¨Ò»¸ö egret.Point ¶ÔÏó.Èô²»´«ÈëÈÎºÎ²ÎÊı£¬½«»á´´½¨Ò»¸öÎ»ÓÚ£¨0£¬0£©Î»ÖÃµÄµã¡£
+     * @param x - ¸Ã¶ÔÏóµÄxÊôĞÔÖµ£¬Ä¬ÈÏÎª 0.0¡£
+     * @param y - ¸Ã¶ÔÏóµÄyÊôĞÔÖµ£¬Ä¬ÈÏÎª 0.0¡£
      * @version DragonBones 3.0
      * @language zh_CN
      */

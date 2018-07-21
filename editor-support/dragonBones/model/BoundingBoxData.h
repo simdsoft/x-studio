@@ -36,7 +36,7 @@ DRAGONBONES_NAMESPACE_BEGIN
  * @language en_US
  */
 /**
- * - è¾¹ç•Œæ¡†æ•°æ®åŸºç±»ã€‚
+ * - ±ß½ç¿òÊı¾İ»ùÀà¡£
  * @see dragonBones.RectangleData
  * @see dragonBones.EllipseData
  * @see dragonBones.PolygonData
@@ -54,7 +54,7 @@ public:
      * @language en_US
      */
     /**
-     * - è¾¹ç•Œæ¡†ç±»å‹ã€‚
+     * - ±ß½ç¿òÀàĞÍ¡£
      * @version DragonBones 5.0
      * @language zh_CN
      */
@@ -82,7 +82,7 @@ public:
      * @language en_US
      */
     /**
-     * - æ£€æŸ¥è¾¹ç•Œæ¡†æ˜¯å¦åŒ…å«ç‰¹å®šç‚¹ã€‚ï¼ˆæœ¬åœ°åæ ‡ç³»ï¼‰
+     * - ¼ì²é±ß½ç¿òÊÇ·ñ°üº¬ÌØ¶¨µã¡££¨±¾µØ×ø±êÏµ£©
      * @version DragonBones 5.0
      * @language zh_CN
      */
@@ -93,7 +93,7 @@ public:
      * @language en_US
      */
     /**
-     * - æ£€æŸ¥è¾¹ç•Œæ¡†æ˜¯å¦ä¸ç‰¹å®šçº¿æ®µç›¸äº¤ã€‚ï¼ˆæœ¬åœ°åæ ‡ç³»ï¼‰
+     * - ¼ì²é±ß½ç¿òÊÇ·ñÓëÌØ¶¨Ïß¶ÎÏà½»¡££¨±¾µØ×ø±êÏµ£©
      * @version DragonBones 5.0
      * @language zh_CN
      */
@@ -114,7 +114,7 @@ public: // For WebAssembly.
  * @language en_US
  */
 /**
- * - çŸ©å½¢è¾¹ç•Œæ¡†æ•°æ®ã€‚
+ * - ¾ØĞÎ±ß½ç¿òÊı¾İ¡£
  * @version DragonBones 5.1
  * @language zh_CN
  */
@@ -169,7 +169,7 @@ protected:
  * @language en_US
  */
 /**
- * - æ¤­åœ†è¾¹ç•Œæ¡†æ•°æ®ã€‚
+ * - ÍÖÔ²±ß½ç¿òÊı¾İ¡£
  * @version DragonBones 5.1
  * @language zh_CN
  */
@@ -211,7 +211,7 @@ protected:
  * @language en_US
  */
 /**
- * - å¤šè¾¹å½¢è¾¹ç•Œæ¡†æ•°æ®ã€‚
+ * - ¶à±ßĞÎ±ß½ç¿òÊı¾İ¡£
  * @version DragonBones 5.1
  * @language zh_CN
  */
@@ -244,7 +244,7 @@ public:
      * @language en_US
      */
     /**
-     * - å¤šè¾¹å½¢é¡¶ç‚¹ã€‚
+     * - ¶à±ßĞÎ¶¥µã¡£
      * @version DragonBones 5.1
      * @language zh_CN
      */

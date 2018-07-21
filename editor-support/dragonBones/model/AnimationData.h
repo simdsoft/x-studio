@@ -32,7 +32,7 @@ DRAGONBONES_NAMESPACE_BEGIN
  * @language en_US
  */
 /**
- * - åŠ¨ç”»æ•°æ®ã€‚
+ * - ¶¯»­Êı¾İ¡£
  * @version DragonBones 3.0
  * @language zh_CN
  */
@@ -62,7 +62,7 @@ public:
      * @language en_US
      */
     /**
-     * - åŠ¨ç”»çš„å¸§æ•°ã€‚
+     * - ¶¯»­µÄÖ¡Êı¡£
      * @version DragonBones 3.0
      * @language zh_CN
      */
@@ -73,7 +73,7 @@ public:
      * @language en_US
      */
     /**
-     * - åŠ¨ç”»çš„æ’­æ”¾æ¬¡æ•°ã€‚ [0: æ— é™å¾ªç¯æ’­æ”¾, [1~N]: å¾ªç¯æ’­æ”¾ N æ¬¡]
+     * - ¶¯»­µÄ²¥·Å´ÎÊı¡£ [0: ÎŞÏŞÑ­»·²¥·Å, [1~N]: Ñ­»·²¥·Å N ´Î]
      * @version DragonBones 3.0
      * @language zh_CN
      */
@@ -84,7 +84,7 @@ public:
      * @language en_US
      */
     /**
-     * - åŠ¨ç”»çš„æŒç»­æ—¶é—´ã€‚ ï¼ˆä»¥ç§’ä¸ºå•ä½ï¼‰
+     * - ¶¯»­µÄ³ÖĞøÊ±¼ä¡£ £¨ÒÔÃëÎªµ¥Î»£©
      * @version DragonBones 3.0
      * @language zh_CN
      */
@@ -99,7 +99,7 @@ public:
      * @language en_US
      */
     /**
-     * - åŠ¨ç”»çš„æ·¡å…¥æ—¶é—´ã€‚ ï¼ˆä»¥ç§’ä¸ºå•ä½ï¼‰
+     * - ¶¯»­µÄµ­ÈëÊ±¼ä¡£ £¨ÒÔÃëÎªµ¥Î»£©
      * @version DragonBones 3.0
      * @language zh_CN
      */
@@ -114,7 +114,7 @@ public:
      * @language en_US
      */
     /**
-     * - åŠ¨ç”»åç§°ã€‚
+     * - ¶¯»­Ãû³Æ¡£
      * @version DragonBones 3.0
      * @language zh_CN
      */

@@ -34,7 +34,7 @@ DRAGONBONES_NAMESPACE_BEGIN
  * @language en_US
  */
 /**
- * - éª¨æ¶ä»£ç†æ¥å£ï¼Œå¯¹æ¥çš„å¼•æ“éœ€è¦å¯¹å…¶è¿›è¡Œå…·ä½“å®ç°ã€‚
+ * - ¹Ç¼Ü´úÀí½Ó¿Ú£¬¶Ô½ÓµÄÒıÇæĞèÒª¶ÔÆä½øĞĞ¾ßÌåÊµÏÖ¡£
  * @see dragonBones.Armature
  * @version DragonBones 5.0
  * @language zh_CN
@@ -68,9 +68,9 @@ public:
      * @language en_US
      */
     /**
-     * - é‡Šæ”¾è¯¥å®ä¾‹å’Œéª¨æ¶ã€‚ ï¼ˆéª¨æ¶ä¼šå›æ”¶åˆ°å¯¹è±¡æ± ï¼‰
+     * - ÊÍ·Å¸ÃÊµÀıºÍ¹Ç¼Ü¡£ £¨¹Ç¼Ü»á»ØÊÕµ½¶ÔÏó³Ø£©
      * @example
-     * TypeScript é£æ ¼ï¼Œä»…ä¾›å‚è€ƒã€‚
+     * TypeScript ·ç¸ñ£¬½ö¹©²Î¿¼¡£
      * <pre>
      *     removeChild(armatureDisplay);
      *     armatureDisplay.dispose();
@@ -85,7 +85,7 @@ public:
      * @language en_US
      */
     /**
-     * - éª¨æ¶ã€‚
+     * - ¹Ç¼Ü¡£
      * @version DragonBones 4.5
      * @language zh_CN
      */
@@ -96,7 +96,7 @@ public:
      * @language en_US
      */
     /**
-     * - åŠ¨ç”»æ’­æ”¾å™¨ã€‚
+     * - ¶¯»­²¥·ÅÆ÷¡£
      * @version DragonBones 3.0
      * @language zh_CN
      */

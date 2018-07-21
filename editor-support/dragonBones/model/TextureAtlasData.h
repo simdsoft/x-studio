@@ -33,7 +33,7 @@ DRAGONBONES_NAMESPACE_BEGIN
  * @language en_US
  */
 /**
- * - è´´å›¾é›†æ•°æ®ã€‚
+ * - ÌùÍ¼¼¯Êı¾İ¡£
  * @version DragonBones 3.0
  * @language zh_CN
  */
@@ -65,7 +65,7 @@ public:
      * @language en_US
      */
     /**
-     * - è´´å›¾é›†åç§°ã€‚
+     * - ÌùÍ¼¼¯Ãû³Æ¡£
      * @version DragonBones 3.0
      * @language zh_CN
      */
@@ -76,7 +76,7 @@ public:
      * @language en_US
      */
     /**
-     * - è´´å›¾é›†å›¾ç‰‡è·¯å¾„ã€‚
+     * - ÌùÍ¼¼¯Í¼Æ¬Â·¾¶¡£
      * @version DragonBones 3.0
      * @language zh_CN
      */

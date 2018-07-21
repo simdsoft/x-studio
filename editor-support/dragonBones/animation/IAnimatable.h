@@ -35,8 +35,8 @@ DRAGONBONES_NAMESPACE_BEGIN
  * @language en_US
  */
 /**
- * - æ’­æ”¾åŠ¨ç”»æ¥å£ã€‚ (Armature å’Œ WordClock éƒ½å®ç°äº†è¯¥æ¥å£)
- * ä»»ä½•å®ç°äº†æ­¤æ¥å£çš„å®ä¾‹éƒ½å¯ä»¥æ·»åŠ åˆ° WorldClock å®ä¾‹ä¸­ï¼Œç”± WorldClock å®ä¾‹ç»Ÿä¸€æ›´æ–°æ—¶é—´ã€‚
+ * - ²¥·Å¶¯»­½Ó¿Ú¡£ (Armature ºÍ WordClock ¶¼ÊµÏÖÁË¸Ã½Ó¿Ú)
+ * ÈÎºÎÊµÏÖÁË´Ë½Ó¿ÚµÄÊµÀı¶¼¿ÉÒÔÌí¼Óµ½ WorldClock ÊµÀıÖĞ£¬ÓÉ WorldClock ÊµÀıÍ³Ò»¸üĞÂÊ±¼ä¡£
  * @see dragonBones.WorldClock
  * @see dragonBones.Armature
  * @version DragonBones 3.0
@@ -54,8 +54,8 @@ public:
      * @language en_US
      */
     /**
-     * - æ›´æ–°æ—¶é—´ã€‚
-     * @param passedTime - å‰è¿›çš„æ—¶é—´ã€‚ ï¼ˆä»¥ç§’ä¸ºå•ä½ï¼‰
+     * - ¸üĞÂÊ±¼ä¡£
+     * @param passedTime - Ç°½øµÄÊ±¼ä¡£ £¨ÒÔÃëÎªµ¥Î»£©
      * @version DragonBones 3.0
      * @language zh_CN
      */
@@ -72,12 +72,12 @@ public:
      * @language en_US
      */
     /**
-     * - å½“å‰æ‰€å±çš„ WordClock å®ä¾‹ã€‚
+     * - µ±Ç°ËùÊôµÄ WordClock ÊµÀı¡£
      * @example
-     * TypeScript é£æ ¼ï¼Œä»…ä¾›å‚è€ƒã€‚
+     * TypeScript ·ç¸ñ£¬½ö¹©²Î¿¼¡£
      * <pre>
-     *     armature.clock = factory.clock; // å°†éª¨æ¶æ·»åŠ åˆ°æ—¶é’Ÿã€‚
-     *     armature.clock = null; // å°†éª¨æ¶ä»æ—¶é’Ÿç§»é™¤ã€‚
+     *     armature.clock = factory.clock; // ½«¹Ç¼ÜÌí¼Óµ½Ê±ÖÓ¡£
+     *     armature.clock = null; // ½«¹Ç¼Ü´ÓÊ±ÖÓÒÆ³ı¡£
      * </pre>
      * @version DragonBones 5.0
      * @language zh_CN

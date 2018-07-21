@@ -9,27 +9,39 @@ LOCAL_ARM_MODE := arm
 
 LOCAL_SRC_FILES := \
 animation/Animation.cpp \
-model/AnimationData.cpp \
 animation/AnimationState.cpp \
+animation/BaseTimelineState.cpp \
+animation/TimelineState.cpp \
+animation/WorldClock.cpp \
 armature/Armature.cpp \
-model/ArmatureData.cpp \
-factories/BaseFactory.cpp \
-core/BaseObject.cpp \
 armature/Bone.cpp \
+armature/Constraint.cpp \
+armature/DeformVertices.cpp \
+armature/Slot.cpp \
+armature/TransformObject.cpp \
+core/BaseObject.cpp \
+core/DragonBones.cpp \
+event/EventObject.cpp \
+factory/BaseFactory.cpp \
+geom/Point.cpp \
+model/AnimationConfig.cpp \
+model/AnimationData.cpp \
+model/ArmatureData.cpp \
+model/BoundingBoxData.cpp \
+model/CanvasData.cpp \
+model/ConstraintData.cpp \
+model/DisplayData.cpp \
+model/DragonBonesData.cpp \
+model/SkinData.cpp \
+model/TextureAtlasData.cpp \
+model/UserData.cpp \
+parser/BinaryDataParser.cpp \
+parser/DataParser.cpp \
+parser/JSONDataParser.cpp \
 CCArmatureDisplay.cpp \
 CCFactory.cpp \
 CCSlot.cpp \
-CCTextureData.cpp \
-parsers/DataParser.cpp \
-model/DragonBonesData.cpp \
-events/EventObject.cpp \
-model/FrameData.cpp \
-parsers/JSONDataParser.cpp \
-armature/Slot.cpp \
-textures/TextureData.cpp \
-model/TimelineData.cpp \
-animation/TimelineState.cpp \
-animation/WorldClock.cpp
+CCTextureAtlasData.cpp
 
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/..
 
