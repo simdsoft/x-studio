@@ -6,5 +6,5 @@
 4. Integrate the dragonbonse 5.5 runtime.
 
 **Usage:**
-1.Delete folder cocos/audio/android of your project.
+1.Delete folder cocos/audio/android of your project.  
 2.Copy all folders of this directory to your project & overrite.
