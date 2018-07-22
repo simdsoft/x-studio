@@ -5,6 +5,10 @@
 3. Fix some audio engine issue, delay execute audio finish callback(When application play a new audio at the callback, my cause crash).
 4. Integrate the dragonbonse 5.5 runtime.
 
-**Usage:**
-1.Delete folder cocos/audio/android of your project.  
-2.Copy all folders of this directory to your project & overrite.
+**Install Full:**
+1. Delete folder ```cocos/audio/android``` of your project.  
+2. Copy all folders of this directory to your project & overrite.
+
+**Install Audio:**
+1. Delete folder ```cocos/audio/android``` of your project. 
+2. Copy the folder ```external/android-specific``` to your project at the same location.
