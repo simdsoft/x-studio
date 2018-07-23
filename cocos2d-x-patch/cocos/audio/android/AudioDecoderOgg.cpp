@@ -65,7 +65,7 @@ namespace cocos2d { namespace experimental {
 
     static int ov_fclose_r(void* handle) {
         AAsset_close((AAsset*)handle);
-	return 0;
+        return 0;
     }
     
     AudioDecoderOgg::AudioDecoderOgg()
