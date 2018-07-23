@@ -65,6 +65,7 @@ namespace cocos2d { namespace experimental {
 
     static int ov_fclose_r(void* handle) {
         AAsset_close((AAsset*)handle);
+	return 0;
     }
     
     AudioDecoderOgg::AudioDecoderOgg()
@@ -78,7 +79,7 @@ namespace cocos2d { namespace experimental {
 
     bool AudioDecoderOgg::open(const char* path)
     {
-		std::string fullPath = FileUtils::getInstance()->fullPathForFilename(path);
+        std::string fullPath = FileUtils::getInstance()->fullPathForFilename(path);
         int iret = -1;
         if(fullPath[0] != '/') {
             off_t start = 0, length = 0;
