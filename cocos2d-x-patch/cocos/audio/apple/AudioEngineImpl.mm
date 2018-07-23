@@ -484,7 +484,7 @@ ALuint AudioEngineImpl::findValidSource()
 
 void AudioEngineImpl::setVolume(uintptr_t audioID,float volume)
 {
-    std::unique_lock<std::recursive_mutex> lck(_threadMutex);
+    std::unique_lock<std::mutex> lck(_threadMutex);
     auto iter = _audioPlayers.find(audioID);
     if(iter == _audioPlayers.end())
         return;
@@ -499,14 +499,14 @@ void AudioEngineImpl::setVolume(uintptr_t audioID,float volume)
 
         auto error = alGetError();
         if (error != AL_NO_ERROR) {
-            ALOGE("%s: audio id = %d, error = %x", __PRETTY_FUNCTION__,audioID,error);
+            ALOGE("%s: audio id = %zu, error = %x", __PRETTY_FUNCTION__,audioID,error);
         }
     }
 }
 
 void AudioEngineImpl::setLoop(uintptr_t audioID, bool loop)
 {
-    std::unique_lock<std::recursive_mutex> lck(_threadMutex);
+    std::unique_lock<std::mutex> lck(_threadMutex);
     auto iter = _audioPlayers.find(audioID);
     if(iter == _audioPlayers.end())
         return;
@@ -527,7 +527,7 @@ void AudioEngineImpl::setLoop(uintptr_t audioID, bool loop)
 
             auto error = alGetError();
             if (error != AL_NO_ERROR) {
-                ALOGE("%s: audio id = %d, error = %x", __PRETTY_FUNCTION__,audioID,error);
+                ALOGE("%s: audio id = %zu, error = %x", __PRETTY_FUNCTION__,audioID,error);
             }
         }
     }
@@ -538,7 +538,7 @@ void AudioEngineImpl::setLoop(uintptr_t audioID, bool loop)
 
 bool AudioEngineImpl::pause(uintptr_t audioID)
 {
-    std::unique_lock<std::recursive_mutex> lck(_threadMutex);
+    std::unique_lock<std::mutex> lck(_threadMutex);
     auto iter = _audioPlayers.find(audioID);
     if(iter == _audioPlayers.end())
         return true;
@@ -553,7 +553,7 @@ bool AudioEngineImpl::pause(uintptr_t audioID)
     auto error = alGetError();
     if (error != AL_NO_ERROR) {
         ret = false;
-        ALOGE("%s: audio id = %d, error = %x", __PRETTY_FUNCTION__,audioID,error);
+        ALOGE("%s: audio id = %zu, error = %x", __PRETTY_FUNCTION__,audioID,error);
     }
 
     return ret;
@@ -562,7 +562,7 @@ bool AudioEngineImpl::pause(uintptr_t audioID)
 bool AudioEngineImpl::resume(uintptr_t audioID)
 {
     bool ret = true;
-    std::unique_lock<std::recursive_mutex> lck(_threadMutex);
+    std::unique_lock<std::mutex> lck(_threadMutex);
     auto iter = _audioPlayers.find(audioID);
     if(iter == _audioPlayers.end())
         return true;
@@ -575,7 +575,7 @@ bool AudioEngineImpl::resume(uintptr_t audioID)
     auto error = alGetError();
     if (error != AL_NO_ERROR) {
         ret = false;
-        ALOGE("%s: audio id = %d, error = %x", __PRETTY_FUNCTION__,audioID,error);
+        ALOGE("%s: audio id = %zu, error = %x", __PRETTY_FUNCTION__,audioID,error);
     }
 
     return ret;
@@ -583,7 +583,7 @@ bool AudioEngineImpl::resume(uintptr_t audioID)
 
 void AudioEngineImpl::stop(uintptr_t audioID)
 {
-    std::unique_lock<std::recursive_mutex> lck(_threadMutex);
+    std::unique_lock<std::mutex> lck(_threadMutex);
     auto iter = _audioPlayers.find(audioID);
     if(iter == _audioPlayers.end())
         return;
@@ -630,7 +630,7 @@ float AudioEngineImpl::getCurrentTime(uintptr_t audioID)
 
             auto error = alGetError();
             if (error != AL_NO_ERROR) {
-                ALOGE("%s, audio id:%d,error code:%x", __PRETTY_FUNCTION__,audioID,error);
+                ALOGE("%s, audio id:%zu,error code:%x", __PRETTY_FUNCTION__,audioID,error);
             }
         }
     }
@@ -655,7 +655,7 @@ bool AudioEngineImpl::setCurrentTime(uintptr_t audioID, float time)
         else {
             if (player->_audioCache->_framesRead != player->_audioCache->_totalFrames &&
                 (time * player->_audioCache->_sampleRate) > player->_audioCache->_framesRead) {
-                ALOGE("%s: audio id = %d", __PRETTY_FUNCTION__,audioID);
+                ALOGE("%s: audio id = %zu", __PRETTY_FUNCTION__,audioID);
                 break;
             }
 
@@ -663,7 +663,7 @@ bool AudioEngineImpl::setCurrentTime(uintptr_t audioID, float time)
 
             auto error = alGetError();
             if (error != AL_NO_ERROR) {
-                ALOGE("%s: audio id = %d, error = %x", __PRETTY_FUNCTION__,audioID,error);
+                ALOGE("%s: audio id = %zu, error = %x", __PRETTY_FUNCTION__,audioID,error);
             }
             ret = true;
         }
@@ -674,7 +674,7 @@ bool AudioEngineImpl::setCurrentTime(uintptr_t audioID, float time)
 
 void AudioEngineImpl::setFinishCallback(uintptr_t audioID, const std::function<void (uintptr_t, const std::string &)> &callback)
 {
-    std::unique_lock<std::recursive_mutex> lck(_threadMutex);
+    std::unique_lock<std::mutex> lck(_threadMutex);
     auto iter = _audioPlayers.find(audioID);
     if(iter == _audioPlayers.end())
         return;
