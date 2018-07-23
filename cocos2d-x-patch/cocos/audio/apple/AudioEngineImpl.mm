@@ -400,7 +400,7 @@ AudioCache* AudioEngineImpl::preload(const std::string& filePath, std::function<
     return audioCache;
 }
 
-uintptr_t AudioEngineImpl::play2d(const std::string &filePath ,bool loop ,float volume)
+AUDIO_ID AudioEngineImpl::play2d(const std::string &filePath ,bool loop ,float volume)
 {
     if (s_ALDevice == nullptr) {
         return AudioEngine::INVALID_AUDIO_ID;
@@ -442,7 +442,7 @@ uintptr_t AudioEngineImpl::play2d(const std::string &filePath ,bool loop ,float 
     return _currentAudioID;
 }
 
-void AudioEngineImpl::_play2d(AudioCache *cache, uintptr_t audioID)
+void AudioEngineImpl::_play2d(AudioCache *cache, AUDIO_ID audioID)
 {
     _threadMutex.lock();
     //Note: It maybe in sub thread or main thread :(
@@ -482,7 +482,7 @@ ALuint AudioEngineImpl::findValidSource()
     return sourceId;
 }
 
-void AudioEngineImpl::setVolume(uintptr_t audioID,float volume)
+void AudioEngineImpl::setVolume(AUDIO_ID audioID,float volume)
 {
     std::unique_lock<std::mutex> lck(_threadMutex);
     auto iter = _audioPlayers.find(audioID);
@@ -504,7 +504,7 @@ void AudioEngineImpl::setVolume(uintptr_t audioID,float volume)
     }
 }
 
-void AudioEngineImpl::setLoop(uintptr_t audioID, bool loop)
+void AudioEngineImpl::setLoop(AUDIO_ID audioID, bool loop)
 {
     std::unique_lock<std::mutex> lck(_threadMutex);
     auto iter = _audioPlayers.find(audioID);
@@ -536,7 +536,7 @@ void AudioEngineImpl::setLoop(uintptr_t audioID, bool loop)
     }
 }
 
-bool AudioEngineImpl::pause(uintptr_t audioID)
+bool AudioEngineImpl::pause(AUDIO_ID audioID)
 {
     std::unique_lock<std::mutex> lck(_threadMutex);
     auto iter = _audioPlayers.find(audioID);
@@ -559,7 +559,7 @@ bool AudioEngineImpl::pause(uintptr_t audioID)
     return ret;
 }
 
-bool AudioEngineImpl::resume(uintptr_t audioID)
+bool AudioEngineImpl::resume(AUDIO_ID audioID)
 {
     bool ret = true;
     std::unique_lock<std::mutex> lck(_threadMutex);
@@ -581,7 +581,7 @@ bool AudioEngineImpl::resume(uintptr_t audioID)
     return ret;
 }
 
-void AudioEngineImpl::stop(uintptr_t audioID)
+void AudioEngineImpl::stop(AUDIO_ID audioID)
 {
     std::unique_lock<std::mutex> lck(_threadMutex);
     auto iter = _audioPlayers.find(audioID);
@@ -608,7 +608,7 @@ void AudioEngineImpl::stopAll()
     update(0.0f);
 }
 
-float AudioEngineImpl::getDuration(uintptr_t audioID)
+float AudioEngineImpl::getDuration(AUDIO_ID audioID)
 {
     auto player = _audioPlayers[audioID];
     if(player->_ready){
@@ -618,7 +618,7 @@ float AudioEngineImpl::getDuration(uintptr_t audioID)
     }
 }
 
-float AudioEngineImpl::getCurrentTime(uintptr_t audioID)
+float AudioEngineImpl::getCurrentTime(AUDIO_ID audioID)
 {
     float ret = 0.0f;
     auto player = _audioPlayers[audioID];
@@ -638,7 +638,7 @@ float AudioEngineImpl::getCurrentTime(uintptr_t audioID)
     return ret;
 }
 
-bool AudioEngineImpl::setCurrentTime(uintptr_t audioID, float time)
+bool AudioEngineImpl::setCurrentTime(AUDIO_ID audioID, float time)
 {
     bool ret = false;
     auto player = _audioPlayers[audioID];
@@ -672,7 +672,7 @@ bool AudioEngineImpl::setCurrentTime(uintptr_t audioID, float time)
     return ret;
 }
 
-void AudioEngineImpl::setFinishCallback(uintptr_t audioID, const std::function<void (uintptr_t, const std::string &)> &callback)
+void AudioEngineImpl::setFinishCallback(AUDIO_ID audioID, const std::function<void (AUDIO_ID, const std::string &)> &callback)
 {
     std::unique_lock<std::mutex> lck(_threadMutex);
     auto iter = _audioPlayers.find(audioID);
@@ -688,7 +688,7 @@ void AudioEngineImpl::setFinishCallback(uintptr_t audioID, const std::function<v
 void AudioEngineImpl::update(float dt)
 {
     ALint sourceState;
-    uintptr_t audioID;
+    AUDIO_ID audioID;
     AudioPlayer* player;
     ALuint alSource;
 

@@ -33,6 +33,7 @@
 #include <unordered_map>
 
 #include "base/CCRef.h"
+#include "audio/win32/AudioMacros.h"
 #include "audio/win32/AudioCache.h"
 #include "audio/win32/AudioPlayer.h"
 
@@ -50,17 +51,17 @@ public:
     ~AudioEngineImpl();
 
     bool init();
-    uintptr_t play2d(const std::string &fileFullPath ,bool loop ,float volume);
-    void setVolume(uintptr_t audioID,float volume);
-    void setLoop(uintptr_t audioID, bool loop);
-    bool pause(uintptr_t audioID);
-    bool resume(uintptr_t audioID);
-    void stop(uintptr_t audioID);
+    AUDIO_ID play2d(const std::string &fileFullPath ,bool loop ,float volume);
+    void setVolume(AUDIO_ID audioID,float volume);
+    void setLoop(AUDIO_ID audioID, bool loop);
+    bool pause(AUDIO_ID audioID);
+    bool resume(AUDIO_ID audioID);
+    void stop(AUDIO_ID audioID);
     void stopAll();
-    float getDuration(uintptr_t audioID);
-    float getCurrentTime(uintptr_t audioID);
-    bool setCurrentTime(uintptr_t audioID, float time);
-    void setFinishCallback(uintptr_t audioID, const std::function<void (uintptr_t, const std::string &)> &callback);
+    float getDuration(AUDIO_ID audioID);
+    float getCurrentTime(AUDIO_ID audioID);
+    bool setCurrentTime(AUDIO_ID audioID, float time);
+    void setFinishCallback(AUDIO_ID audioID, const std::function<void (AUDIO_ID, const std::string &)> &callback);
 
     void uncache(const std::string& filePath);
     void uncacheAll();
@@ -68,7 +69,7 @@ public:
     void update(float dt);
 
 private:
-    void _play2d(AudioCache *cache, uintptr_t audioID);
+    void _play2d(AudioCache *cache, AUDIO_ID audioID);
 
     ALuint _alSources[MAX_AUDIOINSTANCES];
 
@@ -79,7 +80,7 @@ private:
     std::unordered_map<std::string, AudioCache> _audioCaches;
 
     //audioID,AudioInfo
-    std::unordered_map<uintptr_t, AudioPlayer*>  _audioPlayers;
+    std::unordered_map<AUDIO_ID, AudioPlayer*>  _audioPlayers;
     std::mutex _threadMutex;
 
     //finish callbacks
@@ -87,7 +88,7 @@ private:
 
     bool _lazyInitLoop;
 
-    uintptr_t _currentAudioID;
+    AUDIO_ID _currentAudioID;
     Scheduler* _scheduler;
 };
 }

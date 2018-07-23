@@ -48,7 +48,7 @@ using namespace cocos2d;
 using namespace cocos2d::experimental;
 
 namespace {
-    uintptr_t __idIndex = 0;
+unsigned int __idIndex = 0;
 }
 
 AudioPlayer::AudioPlayer()

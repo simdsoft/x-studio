@@ -39,8 +39,9 @@
 #else
 #include <AL/al.h>
 #endif
+
+#include "audio/android/AudioMacros.h"
 #include "platform/CCPlatformMacros.h"
-// #include "object_pool.h"
 
 NS_CC_BEGIN
 namespace experimental{
@@ -73,7 +74,7 @@ protected:
 
     float _volume;
     bool _loop;
-    std::function<void (uintptr_t, const std::string &)> _finishCallbak;
+    std::function<void (AUDIO_ID, const std::string &)> _finishCallbak;
 
     bool _isDestroyed;
     bool _removeByAudioEngine;
@@ -92,7 +93,7 @@ protected:
 
     std::mutex _play2dMutex;
 
-    uintptr_t _id;
+    unsigned int _id;
     friend class AudioEngineImpl;
 };
 

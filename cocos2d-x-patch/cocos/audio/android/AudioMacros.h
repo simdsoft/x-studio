@@ -59,3 +59,7 @@ do { \
         ALOGE("(" QUOTEME(condition) ") failed, message: " fmt, ##__VA_ARGS__); \
         break; \
     }
+
+#if !defined(AUDIO_ID)
+#define AUDIO_ID int
+#endif

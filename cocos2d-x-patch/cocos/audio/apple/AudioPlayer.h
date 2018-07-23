@@ -86,7 +86,7 @@ protected:
 
     std::mutex _play2dMutex;
 
-    uintptr_t _id;
+    unsigned int _id;
 
     friend class AudioEngineImpl;
 };
