@@ -1,7 +1,7 @@
 /****************************************************************************
  Copyright (c) 2016-2017 Chukong Technologies Inc.
  Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
- Copyright (c) 2018 x-studio365 @HALX99.
+ Copyright (c) 2018 HALX99.
 
  http://www.cocos2d-x.org
 
@@ -27,8 +27,7 @@
 #include "audio/android/AudioDecoderMp3.h"
 #include "audio/android/AudioMacros.h"
 #include "platform/CCFileUtils.h"
-//yht
-//#include "CCConsole.h"
+
 #include "mpg123.h"
 
 #include "platform/android/CCFileUtils-android.h"
