@@ -28,7 +28,7 @@ THE SOFTWARE.
 #include "audio/android/AudioDecoderManager.h"
 #include "audio/android/AudioDecoderOgg.h"
 #include "audio/android/AudioDecoderMp3.h"
-#include "audio/android/AudioMacros.h"
+#include "audio/include/AudioMacros.h"
 #include "platform/CCFileUtils.h"
 #include "mpg123.h"
 

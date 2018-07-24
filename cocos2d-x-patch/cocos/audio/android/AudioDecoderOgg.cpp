@@ -25,7 +25,7 @@
  ****************************************************************************/
 
 #include "audio/android/AudioDecoderOgg.h"
-#include "audio/android/AudioMacros.h"
+#include "audio/include/AudioMacros.h"
 #include "platform/CCFileUtils.h"
 
 #include "platform/android/CCFileUtils-android.h"

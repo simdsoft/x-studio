@@ -10,8 +10,7 @@ if(WINDOWS)
         audio/win32/AudioDecoder.h
         audio/win32/MciPlayer.h
         audio/win32/AudioPlayer.h
-        audio/win32/AudioDecoderOgg.h
-        audio/win32/AudioMacros.h
+        audio/win32/AudioDecoderOgg.h        
         audio/win32/AudioEngineImpl.h
         audio/win32/AudioDecoderMp3.h
         audio/win32/AudioCache.h
@@ -77,7 +76,6 @@ elseif(APPLE)
     set(COCOS_AUDIO_PLATFORM_HEADER
         audio/apple/AudioDecoder.h
         audio/apple/AudioPlayer.h
-        audio/apple/AudioMacros.h
         audio/apple/AudioCache.h
         audio/apple/AudioEngineImpl.h
         )
@@ -143,6 +141,7 @@ endif()
 set(COCOS_AUDIO_HEADER
     audio/include/AudioEngine.h
     audio/include/Export.h
+    audio/include/AudioMacros.h
     audio/include/SimpleAudioEngine.h
     ${COCOS_AUDIO_PLATFORM_HEADER}
     )

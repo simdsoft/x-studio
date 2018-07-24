@@ -24,7 +24,7 @@
  ****************************************************************************/
 
 #include "audio/win32/AudioDecoderOgg.h"
-#include "audio/win32/AudioMacros.h"
+#include "audio/include/AudioMacros.h"
 #include "platform/CCFileUtils.h"
 
 #define LOG_TAG "AudioDecoderOgg"

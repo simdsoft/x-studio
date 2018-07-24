@@ -39,7 +39,7 @@
 #include <AL/al.h>
 #endif
 #include "platform/CCPlatformMacros.h"
-#include "audio/win32/AudioMacros.h"
+#include "audio/include/AudioMacros.h"
 
 NS_CC_BEGIN
 namespace experimental{

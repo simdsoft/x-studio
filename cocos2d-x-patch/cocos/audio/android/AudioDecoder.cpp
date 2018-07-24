@@ -25,7 +25,7 @@
  ****************************************************************************/
 
 #include "audio/android/AudioDecoder.h"
-#include "audio/android/AudioMacros.h"
+#include "audio/include/AudioMacros.h"
 #include "platform/CCFileUtils.h"
 
 #define LOG_TAG "AudioDecoder"

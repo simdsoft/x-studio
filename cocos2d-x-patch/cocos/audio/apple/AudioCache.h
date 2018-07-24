@@ -36,7 +36,7 @@
 #include <vector>
 
 #include "platform/CCPlatformMacros.h"
-#include "audio/apple/AudioMacros.h"
+#include "audio/include/AudioMacros.h"
 
 NS_CC_BEGIN
 namespace experimental{

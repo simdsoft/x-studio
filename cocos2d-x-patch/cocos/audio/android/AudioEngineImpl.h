@@ -34,7 +34,7 @@
 #include <unordered_map>
 
 #include "base/CCRef.h"
-#include "audio/android/AudioMacros.h"
+#include "audio/include/AudioMacros.h"
 #include "audio/android/AudioCache.h"
 #include "audio/android/AudioPlayer.h"
 

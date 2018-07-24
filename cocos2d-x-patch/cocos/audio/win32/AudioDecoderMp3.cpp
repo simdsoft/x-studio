@@ -24,7 +24,7 @@
  ****************************************************************************/
 
 #include "audio/win32/AudioDecoderMp3.h"
-#include "audio/win32/AudioMacros.h"
+#include "audio/include/AudioMacros.h"
 #include "platform/CCFileUtils.h"
 
 #include "base/CCConsole.h"

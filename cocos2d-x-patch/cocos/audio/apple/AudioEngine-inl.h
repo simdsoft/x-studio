@@ -34,7 +34,7 @@
 #include <list>
 
 #include "base/CCRef.h"
-#include "audio/apple/AudioMacros.h"
+#include "audio/include/AudioMacros.h"
 #include "audio/apple/AudioCache.h"
 #include "audio/apple/AudioPlayer.h"
 

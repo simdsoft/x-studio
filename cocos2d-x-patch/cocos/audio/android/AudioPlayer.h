@@ -40,7 +40,7 @@
 #include <AL/al.h>
 #endif
 
-#include "audio/android/AudioMacros.h"
+#include "audio/include/AudioMacros.h"
 #include "platform/CCPlatformMacros.h"
 
 NS_CC_BEGIN

@@ -38,7 +38,7 @@
 #else
 #include <AL/al.h>
 #endif
-#include "audio/win32/AudioMacros.h"
+#include "audio/include/AudioMacros.h"
 #include "platform/CCPlatformMacros.h"
 
 NS_CC_BEGIN
