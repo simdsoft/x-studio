@@ -1,7 +1,7 @@
 /****************************************************************************
- Copyright (c) 2015-2016 Chukong Technologies Inc.
+ Copyright (c) 2014-2016 Chukong Technologies Inc.
  Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
-
+ Copyright (c) 2018 HALX99.
  http://www.cocos2d-x.org
 
  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -22,24 +22,26 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
+#pragma once
+#ifndef __AUDIO_ENGINE_IMPL_H_
+#define __AUDIO_ENGINE_IMPL_H_
+
 #include "platform/CCPlatformConfig.h"
 
 #if CC_TARGET_PLATFORM == CC_PLATFORM_LINUX
 
-#ifndef __AUDIO_ENGINE_LINUX_H_
-#define __AUDIO_ENGINE_LINUX_H_
-
-#include <functional>
-#include <iostream>
-#include <map>
-#include "fmod.hpp"
-#include "fmod_errors.h"
-#include "audio/include/AudioEngine.h"
+#include <unordered_map>
 
 #include "base/CCRef.h"
+#include "audio/include/AudioMacros.h"
+#include "audio/linux/AudioCache.h"
+#include "audio/linux/AudioPlayer.h"
 
 NS_CC_BEGIN
-    namespace experimental{
+
+class Scheduler;
+
+namespace experimental {
 #define MAX_AUDIOINSTANCES 32
 
 class CC_DLL AudioEngineImpl : public cocos2d::Ref
@@ -47,63 +49,50 @@ class CC_DLL AudioEngineImpl : public cocos2d::Ref
 public:
     AudioEngineImpl();
     ~AudioEngineImpl();
-    
+
     bool init();
-    int play2d(const std::string &fileFullPath ,bool loop ,float volume);
-    void setVolume(int audioID,float volume);
-    void setLoop(int audioID, bool loop);
-    bool pause(int audioID);
-    bool resume(int audioID);
-    bool stop(int audioID);
+    AUDIO_ID play2d(const std::string &fileFullPath ,bool loop ,float volume);
+    void setVolume(AUDIO_ID audioID,float volume);
+    void setLoop(AUDIO_ID audioID, bool loop);
+    bool pause(AUDIO_ID audioID);
+    bool resume(AUDIO_ID audioID);
+    void stop(AUDIO_ID audioID);
     void stopAll();
-    float getDuration(int audioID);
-    float getCurrentTime(int audioID);
-    bool setCurrentTime(int audioID, float time);
-    void setFinishCallback(int audioID, const std::function<void (int, const std::string &)> &callback);
-    
+    float getDuration(AUDIO_ID audioID);
+    float getCurrentTime(AUDIO_ID audioID);
+    bool setCurrentTime(AUDIO_ID audioID, float time);
+    void setFinishCallback(AUDIO_ID audioID, const std::function<void (AUDIO_ID, const std::string &)> &callback);
+
     void uncache(const std::string& filePath);
     void uncacheAll();
-    
-
-    int preload(const std::string& filePath, std::function<void(bool isSuccess)> callback);
-    
+    AudioCache* preload(const std::string& filePath, std::function<void(bool)> callback);
     void update(float dt);
-    
-    /**
-     * used internally by ffmod callback 
-     */ 
-    void onSoundFinished(FMOD::Channel * channel); 
-    
-private:
-  
-    /**
-    * returns null if a sound with the given path is not found
-    */
-    FMOD::Sound * findSound(const std::string &path);
-  
-    FMOD::Channel * getChannel(FMOD::Sound *);
-  
-    struct ChannelInfo{
-        int id;
-        std::string path; 
-        FMOD::Sound * sound;
-        FMOD::Channel * channel; 
-        bool loop; 
-        float volume; 
-        std::function<void (int, const std::string &)> callback;
-    };
-    
-    std::map<int, ChannelInfo> mapChannelInfo;
 
-    std::map<std::string, int> mapId;
-    
-    std::map<std::string, FMOD::Sound *> mapSound;  
-    
-    FMOD::System* pSystem;
-    
+private:
+    void _play2d(AudioCache *cache, AUDIO_ID audioID);
+
+    ALuint _alSources[MAX_AUDIOINSTANCES];
+
+    //source,used
+    std::unordered_map<ALuint, bool> _alSourceUsed;
+
+    //filePath,bufferInfo
+    std::unordered_map<std::string, AudioCache> _audioCaches;
+
+    //audioID,AudioInfo
+    std::unordered_map<AUDIO_ID, AudioPlayer*>  _audioPlayers;
+    std::mutex _threadMutex;
+
+    //finish callbacks
+    std::vector<std::function<void()>> _finishCallbacks;
+
+    bool _lazyInitLoop;
+
+    AUDIO_ID _currentAudioID;
+    Scheduler* _scheduler;
 };
 }
 NS_CC_END
-#endif // __AUDIO_ENGINE_LINUX_H_
+#endif // __AUDIO_ENGINE_INL_H_
 #endif
 

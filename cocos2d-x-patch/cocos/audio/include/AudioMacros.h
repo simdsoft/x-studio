@@ -28,6 +28,8 @@
 
 #include "platform/CCPlatformConfig.h"
 
+#include <functional>
+
 #define QUEUEBUFFER_NUM (3)
 #define QUEUEBUFFER_TIME_STEP (0.05f)
 
@@ -42,7 +44,7 @@
 #define AUDIO_LOG(fmt, ...)  \
   OutputDebugStringA(StringUtils::format( (fmt "\r\n"),  ##__VA_ARGS__ ).c_str())
 
-#elif CC_TARGET_PLATFORM == CC_PLATFORM_IOS
+#elif CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_LINUX
 #define AUDIO_LOG(fmt,...) printf(fmt "\n", ##__VA_ARGS__)
 #endif
 

@@ -19,7 +19,6 @@ if(WINDOWS)
     set(COCOS_AUDIO_PLATFORM_SRC
         audio/win32/SimpleAudioEngine.cpp
         audio/win32/MciPlayer.cpp
-        audio/win32/MciPlayer.h
         audio/win32/AudioEngineImpl.cpp
         audio/win32/AudioCache.cpp
         audio/win32/AudioPlayer.cpp
@@ -61,13 +60,24 @@ elseif(ANDROID)
 
 elseif(LINUX)
     set(COCOS_AUDIO_PLATFORM_HEADER
-        audio/linux/AudioEngine-linux.h
+        audio/linux/AudioDecoderManager.h
+        audio/linux/AudioDecoder.h
+        audio/linux/AudioPlayer.h
+        audio/linux/AudioDecoderOgg.h        
+        audio/linux/AudioEngineImpl.h
+        audio/linux/AudioDecoderMp3.h
+        audio/linux/AudioCache.h
         )
 
     set(COCOS_AUDIO_PLATFORM_SRC
         audio/linux/SimpleAudioEngine.cpp
-        audio/linux/AudioEngine-linux.h
-        audio/linux/AudioEngine-linux.cpp
+        audio/linux/AudioEngineImpl.cpp
+        audio/linux/AudioCache.cpp
+        audio/linux/AudioPlayer.cpp
+        audio/linux/AudioDecoder.cpp
+        audio/linux/AudioDecoderManager.cpp
+        audio/linux/AudioDecoderMp3.cpp
+        audio/linux/AudioDecoderOgg.cpp
         )
 
 elseif(APPLE)

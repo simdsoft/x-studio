@@ -32,7 +32,7 @@
 #include "audio/win32/AudioCache.h"
 #include "platform/CCFileUtils.h"
 #include "audio/win32/AudioDecoderManager.h"
-#include "audio/win32/Audiodecoder.h"
+#include "audio/win32/AudioDecoder.h"
 
 #define VERY_VERY_VERBOSE_LOGGING
 #ifdef VERY_VERY_VERBOSE_LOGGING

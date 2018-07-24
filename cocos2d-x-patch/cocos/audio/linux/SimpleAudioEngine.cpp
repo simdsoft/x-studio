@@ -169,7 +169,7 @@ void SimpleAudioEngine::setEffectsVolume(float volume)
  *
  * @note Full support is under development, now there are limitations:
  *     - no pitch effect on Samsung Galaxy S2 with OpenSL backend enabled;
- *     - no pitch/pan/gain on win32.
+ *     - no pitch/pan/gain on linux.
  */
 unsigned int SimpleAudioEngine::playEffect(const char* filePath, bool loop, float pitch, float pan, float gain)
 {

@@ -41,7 +41,7 @@
 #elif CC_TARGET_PLATFORM == CC_PLATFORM_WINRT
 #include "audio/winrt/AudioEngine-winrt.h"
 #elif CC_TARGET_PLATFORM == CC_PLATFORM_LINUX
-#include "audio/linux/AudioEngine-linux.h"
+#include "audio/linux/AudioEngineImpl.h"
 #elif CC_TARGET_PLATFORM == CC_PLATFORM_TIZEN
 #include "audio/tizen/AudioEngine-tizen.h"
 #endif

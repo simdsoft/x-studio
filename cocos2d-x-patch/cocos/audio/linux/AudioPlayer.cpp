@@ -1,8 +1,7 @@
 /****************************************************************************
- Copyright (c) 2014-2017 Chukong Technologies Inc.
+ Copyright (c) 2014-2016 Chukong Technologies Inc.
  Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
  Copyright (c) 2018 HALX99.
-
  http://www.cocos2d-x.org
 
  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -28,13 +27,12 @@
 
 #include "platform/CCPlatformConfig.h"
 
-#if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
-#include "audio/android/log.h"
-#include "audio/android/AudioPlayer.h"
-#include "audio/android/AudioCache.h"
+#if CC_TARGET_PLATFORM == CC_PLATFORM_LINUX
+#include "audio/linux/AudioPlayer.h"
+#include "audio/linux/AudioCache.h"
 #include "platform/CCFileUtils.h"
-#include "audio/android/AudioDecoderManager.h"
-#include "audio/android/AudioDecoder.h"
+#include "audio/linux/AudioDecoderManager.h"
+#include "audio/linux/AudioDecoder.h"
 
 #define VERY_VERY_VERBOSE_LOGGING
 #ifdef VERY_VERY_VERBOSE_LOGGING
@@ -42,7 +40,6 @@
 #else
 #define ALOGVV(...) do{} while(false)
 #endif
-
 
 using namespace cocos2d;
 using namespace cocos2d::experimental;
@@ -131,7 +128,7 @@ void AudioPlayer::destroy()
     ALOGVV("Before alSourceStop");
     alSourceStop(_alSource); CHECK_AL_ERROR_DEBUG();
     ALOGVV("Before alSourcei");
-    alSourcei(_alSource, AL_BUFFER, 0); CHECK_AL_ERROR_DEBUG();
+    alSourcei(_alSource, AL_BUFFER, NULL); CHECK_AL_ERROR_DEBUG();
 
     _removeByAudioEngine = true;
 
@@ -146,11 +143,8 @@ void AudioPlayer::setCache(AudioCache* cache)
 
 bool AudioPlayer::play2d()
 {
-    std::unique_lock<std::mutex> lck(_play2dMutex);
+    _play2dMutex.lock();
     ALOGV("AudioPlayer::play2d, _alSource: %u, player id=%u", _alSource, _id);
-    
-    if (_isDestroyed)
-        return false;
 
     /*********************************************************************/
     /*       Note that it may be in sub thread or in main thread.       **/
@@ -241,6 +235,7 @@ bool AudioPlayer::play2d()
         _removeByAudioEngine = true;
     }
 
+    _play2dMutex.unlock();
     return ret;
 }
 
@@ -300,12 +295,7 @@ void AudioPlayer::rotateBufferThread(int offsetFrame)
                             break;
                         }
                     }
-                    /*
-                     While the source is playing, alSourceUnqueueBuffers can be called to remove buffers which have
-                     already played. Those buffers can then be filled with new data or discarded. New or refilled
-                     buffers can then be attached to the playing source using alSourceQueueBuffers. As long as there is
-                     always a new buffer to play in the queue, the source will continue to play.
-                     */
+
                     ALuint bid;
                     alSourceUnqueueBuffers(_alSource, 1, &bid);
                     alBufferData(bid, _audioCache->_format, tmpBuffer, framesRead * decoder->getBytesPerFrame(), decoder->getSampleRate());
