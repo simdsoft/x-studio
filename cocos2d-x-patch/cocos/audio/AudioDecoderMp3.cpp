@@ -23,6 +23,7 @@
  THE SOFTWARE.
  ****************************************************************************/
 
+#define LOG_TAG "AudioDecoderMp3"
 #include "audio/include/AudioDecoderMp3.h"
 #include "audio/include/AudioMacros.h"
 #include "platform/CCFileUtils.h"
@@ -30,12 +31,40 @@
 #include "base/CCConsole.h"
 #include "mpg123.h"
 
-#define LOG_TAG "AudioDecoderMp3"
+#include "platform/android/CCFileUtils-android.h"
+#include <jni.h>
+#include <android/asset_manager.h>
+#include <android/asset_manager_jni.h>
+#include <unistd.h>
+#include <errno.h>
 
 namespace cocos2d { namespace experimental {
 
     static bool __mp3Inited = false;
+    
+#if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
+    static AAsset*  mpg123_open_r(const char* path)
+    {
+        AAssetManager* asMgr = FileUtilsAndroid::getAssetManager();
+        AAsset* asset = AAssetManager_open(FileUtilsAndroid::getAssetManager(), path, AASSET_MODE_UNKNOWN);
+        return asset;
+    }
 
+    static ssize_t mpg123_read_r(void * handle, void * buffer, size_t count)
+    {
+        return AAsset_read((AAsset*)handle, buffer, count);
+    }
+
+    static off_t mpg123_lseek_r(void * handle, off_t offset, int whence)
+    {
+        return AAsset_seek((AAsset*)handle, offset, whence);
+    }
+
+    void mpg123_close_r(void* handle) {
+        AAsset_close((AAsset*)handle);
+    }
+#endif
+    
     bool AudioDecoderMp3::lazyInit()
     {
         bool ret = true;
@@ -91,14 +120,51 @@ namespace cocos2d { namespace experimental {
                 ALOGE("Basic setup goes wrong: %s", mpg123_plain_strerror(error));
                 break;
             }
+            
+#if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
+            if(fullPath[0] != '/') {
+                std::string relativePath;
+                size_t position = fullPath.find("assets/");
+                if (0 == position)
+                {
+                    // "assets/" is at the beginning of the path and we don't want it
+                    relativePath = fullPath.substr(strlen("assets/"));
+                } else
+                {
+                    relativePath = fullPath;
+                }
+                auto stream = mpg123_open_r(relativePath.c_str());
+                if(stream == nullptr) {
+                    ALOGE("Trouble with mpg123(1): %s\n", strerror(errno) );
+                    break;
+                }
 
+                mpg123_replace_reader_handle(_mpg123handle, mpg123_read_r, mpg123_lseek_r, mpg123_close_r);
+
+                if (mpg123_open_handle(_mpg123handle, stream) != MPG123_OK
+                    || mpg123_getformat(_mpg123handle, &rate, &channel, &mp3Encoding) != MPG123_OK)
+                {
+                    ALOGE("Trouble with mpg123(2): %s\n", mpg123_strerror(_mpg123handle) );
+                    break;
+                }
+            }
+            else {
+                if (mpg123_open(_mpg123handle, fullPath.c_str()) != MPG123_OK
+                    || mpg123_getformat(_mpg123handle, &rate, &channel, &mp3Encoding) != MPG123_OK)
+                {
+                    ALOGE("Trouble with mpg123(2): %s\n", mpg123_strerror(_mpg123handle) );
+                    break;
+                }
+            }
+
+#else
             if (mpg123_open(_mpg123handle, FileUtils::getInstance()->getSuitableFOpen(fullPath).c_str()) != MPG123_OK
                 || mpg123_getformat(_mpg123handle, &rate, &channel, &mp3Encoding) != MPG123_OK)
             {
                 ALOGE("Trouble with mpg123: %s\n", mpg123_strerror(_mpg123handle) );
                 break;
             }
-
+#endif
             _channelCount = channel;
             _sampleRate = rate;
 

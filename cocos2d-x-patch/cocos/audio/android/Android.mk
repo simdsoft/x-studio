@@ -7,14 +7,14 @@ LOCAL_MODULE := audioengine_static
 
 LOCAL_MODULE_FILENAME := libaudioengine
 
-LOCAL_SRC_FILES := AudioEngineImpl.cpp \
+LOCAL_SRC_FILES := ../AudioEngineImpl.cpp \
                    ../AudioEngine.cpp \
-                   AudioDecoder.cpp \
-                   AudioDecoderOgg.cpp \
-                   AudioDecoderMp3.cpp \
-                   AudioCache.cpp \
-                   AudioDecoderManager.cpp \
-                   AudioPlayer.cpp \
+                   ../AudioDecoder.cpp \
+                   ../AudioDecoderOgg.cpp \
+                   ../AudioDecoderMp3.cpp \
+                   ../AudioCache.cpp \
+                   ../AudioDecoderManager.cpp \
+                   ../AudioPlayer.cpp \
                    utils/Utils.cpp
 
 

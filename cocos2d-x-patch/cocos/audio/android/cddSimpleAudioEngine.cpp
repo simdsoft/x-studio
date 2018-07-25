@@ -80,3 +80,39 @@ namespace CocosDenshion {
     void SimpleAudioEngine::preloadEffect(const char* pszFilePath) { }
     void SimpleAudioEngine::unloadEffect(const char* pszFilePath) { }
 }
+
+
+
+// It's invoked from javaactivity-android.cpp
+// Audio focus values synchronized with which in cocos/platform/android/java/src/org/cocos2dx/lib/Cocos2dxActivity.java
+static const int AUDIOFOCUS_GAIN = 0;
+static const int AUDIOFOCUS_LOST = 1;
+static const int AUDIOFOCUS_LOST_TRANSIENT = 2;
+static const int AUDIOFOCUS_LOST_TRANSIENT_CAN_DUCK = 3;
+void cocos_audioengine_focus_change(int focusChange)
+{
+    if (focusChange < AUDIOFOCUS_GAIN || focusChange > AUDIOFOCUS_LOST_TRANSIENT_CAN_DUCK)
+    {
+        CCLOGERROR("cocos_audioengine_focus_change: unknown value: %d", focusChange);
+        return;
+    }
+    CCLOG("cocos_audioengine_focus_change: %d", focusChange);
+    
+    // TODO: 
+    //~ __currentAudioFocus = focusChange;
+
+    //~ if (__impl == nullptr)
+    //~ {
+    //~     CCLOGWARN("cocos_audioengine_focus_change: AudioEngineImpl isn't ready!");
+    //~     return;
+    //~ }
+
+    //~ if (__currentAudioFocus == AUDIOFOCUS_GAIN)
+    //~ {
+    //~     __impl->setAudioFocusForAllPlayers(true);
+    //~ }
+    //~ else
+    //~ {
+    //~     __impl->setAudioFocusForAllPlayers(false);
+    //~ }
+}

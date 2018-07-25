@@ -34,14 +34,13 @@ elseif(ANDROID)
         audio/android/ccdandroidUtils.h
         audio/android/jni/cddandroidAndroidJavaEngine.h
         audio/android/utils/Utils.h
-        audio/android/AudioEngineImpl.h
-        audio/android/AudioCache.h
-        audio/android/AudioDecoder.h
-        audio/android/AudioDecoderManager.h
-        audio/android/AudioDecoderMp3.h
-        audio/android/AudioDecoderOgg.h
-        audio/android/AudioPlayer.h
-        audio/android/log.h
+        audio/include/AudioEngineImpl.h
+        audio/include/AudioCache.h
+        audio/include/AudioDecoder.h
+        audio/include/AudioDecoderManager.h
+        audio/include/AudioDecoderMp3.h
+        audio/include/AudioDecoderOgg.h
+        audio/include/AudioPlayer.h
         )
 
     set(COCOS_AUDIO_PLATFORM_SRC
@@ -49,13 +48,13 @@ elseif(ANDROID)
         audio/android/ccdandroidUtils.cpp
         audio/android/jni/cddandroidAndroidJavaEngine.cpp
         audio/android/utils/Utils.cpp
-        audio/android/AudioEngineImpl.cpp
-        audio/android/AudioCache.cpp
-        audio/android/AudioDecoder.cpp
-        audio/android/AudioDecoderManager.cpp
-        audio/android/AudioDecoderMp3.cpp
-        audio/android/AudioDecoderOgg.cpp
-        audio/android/AudioPlayer.cpp
+        audio/AudioEngineImpl.cpp
+        audio/AudioCache.cpp
+        audio/AudioDecoder.cpp
+        audio/AudioDecoderManager.cpp
+        audio/AudioDecoderMp3.cpp
+        audio/AudioDecoderOgg.cpp
+        audio/AudioPlayer.cpp
         )
 
 elseif(LINUX)
