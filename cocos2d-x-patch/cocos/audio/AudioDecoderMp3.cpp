@@ -31,12 +31,14 @@
 #include "base/CCConsole.h"
 #include "mpg123.h"
 
+#if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
 #include "platform/android/CCFileUtils-android.h"
 #include <jni.h>
 #include <android/asset_manager.h>
 #include <android/asset_manager_jni.h>
 #include <unistd.h>
 #include <errno.h>
+#endif
 
 namespace cocos2d { namespace experimental {
 
