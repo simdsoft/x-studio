@@ -44,8 +44,6 @@
 #include "platform/CCFileUtils.h"
 #include "audio/win32/AudioDecoderManager.h"
 
-#include <windows.h>
-
 using namespace cocos2d;
 using namespace cocos2d::experimental;
 
