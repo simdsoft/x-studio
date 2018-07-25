@@ -1,7 +1,7 @@
 /****************************************************************************
  Copyright (c) 2014-2016 Chukong Technologies Inc.
  Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
- Copyright (c) 2018 HALX99.
+
  http://www.cocos2d-x.org
 
  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -27,75 +27,90 @@
 
 #include "platform/CCPlatformConfig.h"
 
-#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
-
 #include <string>
-#include <condition_variable>
 #include <mutex>
-#include <thread>
+#include <vector>
+#include <memory>
 #ifdef OPENAL_PLAIN_INCLUDES
 #include <al.h>
 #else
 #include <AL/al.h>
 #endif
-#include "audio/include/AudioMacros.h"
 #include "platform/CCPlatformMacros.h"
+#include "audio/include/AudioMacros.h"
 
 NS_CC_BEGIN
 namespace experimental{
 
-class AudioCache;
 class AudioEngineImpl;
+class AudioPlayer;
 
-class CC_DLL AudioPlayer
+class CC_DLL AudioCache
 {
 public:
-    AudioPlayer();
-    ~AudioPlayer();
 
-    void destroy();
+    enum class State
+    {
+        INITIAL,
+        LOADING,
+        READY,
+        FAILED
+    };
 
-    //queue buffer related stuff
-    bool setTime(float time);
-    float getTime() { return _currTime;}
-    bool setLoop(bool loop);
+    AudioCache();
+    ~AudioCache();
 
-    bool isFinished() const;
+    void addPlayCallback(const std::function<void()>& callback);
+
+    void addLoadCallback(const std::function<void(bool)>& callback);
 
 protected:
-    void setCache(AudioCache* cache);
-    void rotateBufferThread(int offsetFrame);
-    bool play2d();
+    void setSkipReadDataTask(bool isSkip) { _isSkipReadDataTask = isSkip; };
+    void readDataTask(unsigned int selfId);
 
-    AudioCache* _audioCache;
+    void invokingPlayCallbacks();
 
-    float _volume;
-    bool _loop;
-    std::function<void (AUDIO_ID, const std::string &)> _finishCallbak;
+    void invokingLoadCallbacks();
 
-    bool _isDestroyed;
-    bool _removeByAudioEngine;
-    bool _ready;
-    ALuint _alSource;
+    //pcm data related stuff
+    ALenum _format;
+    ALsizei _sampleRate;
+    float _duration;
+    uint32_t _totalFrames;
+    uint32_t _framesRead;
 
-    //play by circular buffer
-    float _currTime;
-    bool _streamingSource;
-    ALuint _bufferIds[3];
-    std::thread* _rotateBufferThread;
-    std::condition_variable _sleepCondition;
-    std::mutex _sleepMutex;
-    bool _timeDirty;
-    bool _isRotateThreadExited;
+    /*Cache related stuff;
+     * Cache pcm data when sizeInBytes less than PCMDATA_CACHEMAXSIZE
+     */
+    ALuint _alBufferId;
+    char* _pcmData;
 
-    std::mutex _play2dMutex;
+    /*Queue buffer related stuff
+     *  Streaming in OpenAL when sizeInBytes greater then PCMDATA_CACHEMAXSIZE
+     */
+    char* _queBuffers[QUEUEBUFFER_NUM];
+    ALsizei _queBufferSize[QUEUEBUFFER_NUM];
+    uint32_t _queBufferFrames;
 
+    std::mutex _playCallbackMutex;
+    std::vector< std::function<void()> > _playCallbacks;
+
+    // loadCallbacks doesn't need mutex since it's invoked only in Cocos thread.
+    std::vector< std::function<void(bool)> > _loadCallbacks;
+
+    std::mutex _readDataTaskMutex;
+
+    State _state;
+
+    std::shared_ptr<bool> _isDestroyed;
+    std::string _fileFullPath;
     unsigned int _id;
+    bool _isLoadingFinished;
+    bool _isSkipReadDataTask;
+
     friend class AudioEngineImpl;
+    friend class AudioPlayer;
 };
 
 }
 NS_CC_END
-
-#endif //CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
-

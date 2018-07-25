@@ -25,16 +25,16 @@
 
 #pragma once
 
-#include "audio/win32/AudioDecoder.h"
+#include "audio/include/AudioDecoder.h"
 
-#include "vorbis/vorbisfile.h"
+struct mpg123_handle_struct;
 
 namespace cocos2d { namespace experimental {
 
 /**
  * @brief The class for decoding compressed audio file to PCM buffer.
  */
-class AudioDecoderOgg : public AudioDecoder
+class AudioDecoderMp3 : public AudioDecoder
 {
 public:
     /**
@@ -71,10 +71,14 @@ public:
     virtual uint32_t tell() const override;
 
 protected:
-    AudioDecoderOgg();
-    ~AudioDecoderOgg();
 
-    OggVorbis_File _vf;
+    AudioDecoderMp3();
+    ~AudioDecoderMp3();
+
+    static bool lazyInit();
+    static void destroy();
+
+    struct mpg123_handle_struct* _mpg123handle;
 
     friend class AudioDecoderManager;
 };

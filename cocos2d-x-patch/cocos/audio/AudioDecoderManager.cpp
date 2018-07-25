@@ -1,7 +1,8 @@
 /****************************************************************************
 Copyright (c) 2016 Chukong Technologies Inc.
 Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
-
+Copyright (c) 2018 HALX99.
+ 
 http://www.cocos2d-x.org
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -25,17 +26,15 @@ THE SOFTWARE.
 
 #define LOG_TAG "AudioDecoderManager"
 
-#include "audio/win32/AudioDecoderManager.h"
-#include "audio/win32/AudioDecoderOgg.h"
-#include "audio/win32/AudioDecoderMp3.h"
+#include "audio/include/AudioDecoderManager.h"
+#include "audio/include/AudioDecoderOgg.h"
+#include "audio/include/AudioDecoderMp3.h"
 #include "audio/include/AudioMacros.h"
 #include "platform/CCFileUtils.h"
 #include "base/CCConsole.h"
 #include "mpg123.h"
 
 namespace cocos2d { namespace experimental {
-
-static bool __mp3Inited = false;
 
 bool AudioDecoderManager::init()
 {

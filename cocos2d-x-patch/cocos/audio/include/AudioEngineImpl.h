@@ -28,14 +28,12 @@
 
 #include "platform/CCPlatformConfig.h"
 
-#if CC_TARGET_PLATFORM == CC_PLATFORM_LINUX
-
 #include <unordered_map>
 
 #include "base/CCRef.h"
 #include "audio/include/AudioMacros.h"
-#include "audio/linux/AudioCache.h"
-#include "audio/linux/AudioPlayer.h"
+#include "audio/include/AudioCache.h"
+#include "audio/include/AudioPlayer.h"
 
 NS_CC_BEGIN
 
@@ -94,5 +92,4 @@ private:
 }
 NS_CC_END
 #endif // __AUDIO_ENGINE_INL_H_
-#endif
 

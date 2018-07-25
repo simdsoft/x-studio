@@ -1,6 +1,7 @@
 /****************************************************************************
  Copyright (c) 2014-2016 Chukong Technologies Inc.
  Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+ Copyright (c) 2018 HALX99.
 
  http://www.cocos2d-x.org
 
@@ -27,15 +28,13 @@
 
 #include "platform/CCPlatformConfig.h"
 
-#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
-
-#include "audio/win32/AudioCache.h"
+#include "audio/include/AudioCache.h"
 #include <thread>
 #include "base/CCDirector.h"
 #include "base/CCScheduler.h"
 
-#include "audio/win32/AudioDecoderManager.h"
-#include "audio/win32/AudioDecoder.h"
+#include "audio/include/AudioDecoderManager.h"
+#include "audio/include/AudioDecoder.h"
 
 #define VERY_VERY_VERBOSE_LOGGING
 #ifdef VERY_VERY_VERBOSE_LOGGING
@@ -107,7 +106,7 @@ AudioCache::~AudioCache()
         }
         else
         {
-            ALOGW("AudioCache (%p), id=%u, buffer isn't ready, state=%d", this, _id, _state);
+            ALOGW("AudioCache (%p), id=%u, buffer isn't ready, state=%d", this, _id, (int)_state);
         }
 
         free(_pcmData);
@@ -312,7 +311,7 @@ void AudioCache::addPlayCallback(const std::function<void()>& callback)
             break;
 
         default:
-            ALOGE("Invalid state: %d", _state);
+            ALOGE("Invalid state: %d", (int)_state);
             break;
     }
 }
@@ -346,7 +345,7 @@ void AudioCache::addLoadCallback(const std::function<void(bool)>& callback)
             break;
 
         default:
-            ALOGE("Invalid state: %d", _state);
+            ALOGE("Invalid state: %d", (int)_state);
             break;
     }
 }
@@ -377,4 +376,3 @@ void AudioCache::invokingLoadCallbacks()
     });
 }
 
-#endif

@@ -27,8 +27,6 @@
 
 #include "platform/CCPlatformConfig.h"
 
-#if CC_TARGET_PLATFORM == CC_PLATFORM_LINUX
-
 #include <string>
 #include <condition_variable>
 #include <mutex>
@@ -97,5 +95,4 @@ protected:
 }
 NS_CC_END
 
-#endif //CC_TARGET_PLATFORM == CC_PLATFORM_LINUX
 

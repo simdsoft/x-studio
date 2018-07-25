@@ -2,6 +2,7 @@
  Copyright (c) 2014-2016 Chukong Technologies Inc.
  Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
  Copyright (c) 2018 HALX99.
+ 
  http://www.cocos2d-x.org
 
  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -27,12 +28,11 @@
 
 #include "platform/CCPlatformConfig.h"
 
-#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
-#include "audio/win32/AudioPlayer.h"
-#include "audio/win32/AudioCache.h"
+#include "audio/include/AudioPlayer.h"
+#include "audio/include/AudioCache.h"
 #include "platform/CCFileUtils.h"
-#include "audio/win32/AudioDecoderManager.h"
-#include "audio/win32/AudioDecoder.h"
+#include "audio/include/AudioDecoderManager.h"
+#include "audio/include/AudioDecoder.h"
 
 #define VERY_VERY_VERBOSE_LOGGING
 #ifdef VERY_VERY_VERBOSE_LOGGING
@@ -128,7 +128,7 @@ void AudioPlayer::destroy()
     ALOGVV("Before alSourceStop");
     alSourceStop(_alSource); CHECK_AL_ERROR_DEBUG();
     ALOGVV("Before alSourcei");
-    alSourcei(_alSource, AL_BUFFER, NULL); CHECK_AL_ERROR_DEBUG();
+    alSourcei(_alSource, AL_BUFFER, 0); CHECK_AL_ERROR_DEBUG();
 
     _removeByAudioEngine = true;
 
@@ -373,4 +373,3 @@ bool AudioPlayer::setTime(float time)
     return false;
 }
 
-#endif

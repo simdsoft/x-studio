@@ -27,9 +27,7 @@
 
 #include "platform/CCPlatformConfig.h"
 
-#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
-
-#include "audio/win32/AudioEngineImpl.h"
+#include "audio/include/AudioEngineImpl.h"
 
 #ifdef OPENAL_PLAIN_INCLUDES
 #include "alc.h"
@@ -42,7 +40,7 @@
 #include "base/CCDirector.h"
 #include "base/CCScheduler.h"
 #include "platform/CCFileUtils.h"
-#include "audio/win32/AudioDecoderManager.h"
+#include "audio/include/AudioDecoderManager.h"
 
 using namespace cocos2d;
 using namespace cocos2d::experimental;
@@ -469,4 +467,3 @@ void AudioEngineImpl::uncacheAll()
     _audioCaches.clear();
 }
 
-#endif

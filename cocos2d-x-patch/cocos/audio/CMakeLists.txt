@@ -6,26 +6,26 @@ set(COCOS_AUDIO_SRC
 if(WINDOWS)
 
     set(COCOS_AUDIO_PLATFORM_HEADER
-        audio/win32/AudioDecoderManager.h
-        audio/win32/AudioDecoder.h
         audio/win32/MciPlayer.h
-        audio/win32/AudioPlayer.h
-        audio/win32/AudioDecoderOgg.h        
-        audio/win32/AudioEngineImpl.h
-        audio/win32/AudioDecoderMp3.h
-        audio/win32/AudioCache.h
+        audio/include/AudioDecoderManager.h
+        audio/include/AudioDecoder.h
+        audio/include/AudioPlayer.h
+        audio/include/AudioDecoderOgg.h        
+        audio/include/AudioEngineImpl.h
+        audio/include/AudioDecoderMp3.h
+        audio/include/AudioCache.h
         )
 
     set(COCOS_AUDIO_PLATFORM_SRC
         audio/win32/SimpleAudioEngine.cpp
         audio/win32/MciPlayer.cpp
         audio/win32/AudioEngineImpl.cpp
-        audio/win32/AudioCache.cpp
-        audio/win32/AudioPlayer.cpp
-        audio/win32/AudioDecoder.cpp
-        audio/win32/AudioDecoderManager.cpp
-        audio/win32/AudioDecoderMp3.cpp
-        audio/win32/AudioDecoderOgg.cpp
+        audio/AudioCache.cpp
+        audio/AudioPlayer.cpp
+        audio/AudioDecoder.cpp
+        audio/AudioDecoderManager.cpp
+        audio/AudioDecoderMp3.cpp
+        audio/AudioDecoderOgg.cpp
         )
 
 elseif(ANDROID)
@@ -60,24 +60,24 @@ elseif(ANDROID)
 
 elseif(LINUX)
     set(COCOS_AUDIO_PLATFORM_HEADER
-        audio/linux/AudioDecoderManager.h
-        audio/linux/AudioDecoder.h
-        audio/linux/AudioPlayer.h
-        audio/linux/AudioDecoderOgg.h        
-        audio/linux/AudioEngineImpl.h
-        audio/linux/AudioDecoderMp3.h
-        audio/linux/AudioCache.h
+        audio/include/AudioDecoderManager.h
+        audio/include/AudioDecoder.h
+        audio/include/AudioPlayer.h
+        audio/include/AudioDecoderOgg.h        
+        audio/include/AudioEngineImpl.h
+        audio/include/AudioDecoderMp3.h
+        audio/include/AudioCache.h
         )
 
     set(COCOS_AUDIO_PLATFORM_SRC
         audio/linux/SimpleAudioEngine.cpp
-        audio/linux/AudioEngineImpl.cpp
-        audio/linux/AudioCache.cpp
-        audio/linux/AudioPlayer.cpp
-        audio/linux/AudioDecoder.cpp
-        audio/linux/AudioDecoderManager.cpp
-        audio/linux/AudioDecoderMp3.cpp
-        audio/linux/AudioDecoderOgg.cpp
+        audio/AudioEngineImpl.cpp
+        audio/AudioCache.cpp
+        audio/AudioPlayer.cpp
+        audio/AudioDecoder.cpp
+        audio/AudioDecoderManager.cpp
+        audio/AudioDecoderMp3.cpp
+        audio/AudioDecoderOgg.cpp
         )
 
 elseif(APPLE)

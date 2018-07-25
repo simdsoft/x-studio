@@ -23,7 +23,7 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "audio/linux/AudioDecoderMp3.h"
+#include "audio/include/AudioDecoderMp3.h"
 #include "audio/include/AudioMacros.h"
 #include "platform/CCFileUtils.h"
 
