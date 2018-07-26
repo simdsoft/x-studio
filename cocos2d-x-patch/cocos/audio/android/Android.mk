@@ -12,9 +12,11 @@ LOCAL_SRC_FILES := ../AudioEngineImpl.cpp \
                    ../AudioDecoder.cpp \
                    ../AudioDecoderOgg.cpp \
                    ../AudioDecoderMp3.cpp \
+                   ../AudioDecoderWav.cpp \
                    ../AudioCache.cpp \
                    ../AudioDecoderManager.cpp \
                    ../AudioPlayer.cpp \
+                   ../AudioFileHelper.cpp \
                    utils/Utils.cpp
 
 

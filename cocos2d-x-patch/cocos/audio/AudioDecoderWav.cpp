@@ -117,11 +117,10 @@ int wav_open(const std::string& fullPath, WAV_FILE* wavf)
                 return -1;
             }
 
+            uint32_t chunk;
             // Find "data" chunk.
-            while (!::eof(fd))
+            while (::read(fd, &chunk, sizeof(uint32_t)) == sizeof(uint32_t))
             {
-                uint32_t chunk;
-                ::read(fd, &chunk, sizeof(uint32_t));
                 wavf->PcmDataOffset += 4;
 
                 if (chunk == 0x61746164)

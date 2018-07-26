@@ -11,6 +11,7 @@
 #include <android/asset_manager_jni.h>
 #include <unistd.h>
 #include <errno.h>
+#include <fcntl.h>
 #endif
 
 int openAudioFile(const std::string& path)
@@ -29,22 +30,22 @@ int openAudioFile(const std::string& path)
         {
             relativePath = path;
         }
-        AAssetManager* asMgr = FileUtilsAndroid::getAssetManager();
-        AAsset* asset = AAssetManager_open(FileUtilsAndroid::getAssetManager(), path, AASSET_MODE_UNKNOWN);
+        AAssetManager* asMgr = cocos2d::FileUtilsAndroid::getAssetManager();
+        AAsset* asset = AAssetManager_open(asMgr, relativePath.c_str(), AASSET_MODE_UNKNOWN);
         if (asset == nullptr)
             return -1;
 
-        int fd = AAsset_openFileDescriptor();
+        int fd = AAsset_openFileDescriptor(asset, &start, &length);
         AAsset_close(asset);
         return fd;
     }
     else {
-        return ::open(path.c_str(), O_RDONLY, S_IRXU);
+        return ::open(path.c_str(), O_RDONLY, S_IRUSR);
     }
 #elif CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
     return ::_open(path.c_str(), O_BINARY | O_RDONLY, S_IREAD);
 #else
-    return ::open(path.c_str(), O_RDONLY, S_IRXU);
+     return ::open(path.c_str(), O_RDONLY, S_IRUSR);
 #endif
 }
 
