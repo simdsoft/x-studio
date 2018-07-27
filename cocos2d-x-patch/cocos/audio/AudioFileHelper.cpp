@@ -8,6 +8,8 @@
 #include <android/asset_manager_jni.h>
 #endif
 
+#include <sys/stat.h>
+
 AudioFileHelper::AudioFileHelper() : _fd(-1), _start(0), _length(0)
 {
 }
