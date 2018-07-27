@@ -11,4 +11,20 @@
 #endif
 #include <fcntl.h>
 
-int openAudioFile(const std::string& path);
+class AudioFile {
+public:
+    AudioFile();
+    ~AudioFile();
+
+    bool open(const std::string& path);
+    int close();
+
+    int seek(long offset, int origin);
+    int read(void* buf, unsigned int size);
+
+private:
+    int _fd;
+    off_t _start;
+    off_t _length;
+};
+

@@ -27,6 +27,7 @@
 #pragma once
 
 #include "audio/include/AudioDecoder.h"
+#include "audio/include/AudioFileHelper.h"
 
 #pragma pack(1)
  // http://soundfile.sapp.org/doc/WaveFormat/
@@ -55,7 +56,7 @@ typedef struct WAV_FILE
     uint16_t ExtraParamSize;
     uint32_t Samples;
     uint32_t ChannelMask;
-    int FileHandle;
+    AudioFile File;
 };
 
 namespace cocos2d { namespace experimental {

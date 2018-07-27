@@ -56,17 +56,18 @@ static const GUID WavSubTypeIEEE_FLOAT = {
     0x00000003, 0x0000, 0x0010, { 0x80, 0x00, 0x00, 0xaa, 0x00, 0x38, 0x9b, 0x71 }
 };
 
-int wav_open(const std::string& fullPath, WAV_FILE* wavf)
+bool wav_open(const std::string& fullPath, WAV_FILE* wavf)
 {
-    int fd = openAudioFile(fullPath);
-    if (fd < 0)
-        return -1;
-
+    bool succeed = wavf->File.open(fullPath);
+    if (!succeed)
+        return false;
+    
+    auto& file = wavf->File;
     wavf->PcmDataOffset = 0;
 
     // Read to BitsPerSample
     int bytesToRead = offsetof(struct WAV_FILE_HEADER, Subchunk2ID) - offsetof(struct WAV_FILE_HEADER, ChunkID);
-    ::read(fd, &wavf->FileHeader, bytesToRead);
+    file.read(&wavf->FileHeader, bytesToRead);
     wavf->PcmDataOffset += bytesToRead;
 
     // check somthings
@@ -78,34 +79,34 @@ int wav_open(const std::string& fullPath, WAV_FILE* wavf)
         do {
             // Note: 8-bit samples are stored as unsigned bytes, ranging from 0 to 255. 16-bit samples are stored as 2's-complement signed integers, ranging from -32768 to 32767.
             // data
-            ::read(fd, &h->Subchunk2ID, sizeof(uint32_t));    // 0x61746164, "data"
-            ::read(fd, &h->Subchunk2Size, sizeof(uint32_t)); 
+            file.read(&h->Subchunk2ID, sizeof(uint32_t));    // 0x61746164, "data"
+            file.read(&h->Subchunk2Size, sizeof(uint32_t)); 
             wavf->PcmDataOffset += 8;
 
             if (h->Subchunk2ID == 0x61746164) { // Skip other non "data" chunk
                 break;
             }
             else {
-                lseek(fd, h->Subchunk2Size, SEEK_CUR);
+                file.seek(h->Subchunk2Size, SEEK_CUR);
                 wavf->PcmDataOffset += h->Subchunk2Size;
             }
         } while (true);
     }
     else if (h->Subchunk1Size > 16 && h->AudioFormat == 0xFFFE)
     {
-        ::read(fd, &wavf->ExtraParamSize, sizeof(uint16_t));
+        file.read(&wavf->ExtraParamSize, sizeof(uint16_t));
         wavf->PcmDataOffset += 2;
 
         if (wavf->ExtraParamSize == 22)
         {
             // if cbSize is set to 22 => WAVEFORMATEXTENSIBLE
-            ::read(fd, &wavf->Samples, sizeof(uint16_t));
+            file.read(&wavf->Samples, sizeof(uint16_t));
 
             // DWORD dwChannelMask; which channels are present in stream
-            ::read(fd, &wavf->ChannelMask, sizeof(uint32_t));
+            file.read(&wavf->ChannelMask, sizeof(uint32_t));
 
             GUID GuidSubFormat = { 0 };
-            ::read(fd, &GuidSubFormat, sizeof(GUID));
+            file.read(&GuidSubFormat, sizeof(GUID));
 
             wavf->PcmDataOffset += 22;
 
@@ -113,13 +114,13 @@ int wav_open(const std::string& fullPath, WAV_FILE* wavf)
             if (!IsEqualGUID(GuidSubFormat, WavSubTypePCM)
                 && !IsEqualGUID(GuidSubFormat, WavSubTypeIEEE_FLOAT))
             {
-                ::close(fd);
-                return -1;
+                file.close();
+                return false;
             }
 
             uint32_t chunk;
             // Find "data" chunk.
-            while (::read(fd, &chunk, sizeof(uint32_t)) == sizeof(uint32_t))
+            while (file.read(&chunk, sizeof(uint32_t)) == sizeof(uint32_t))
             {
                 wavf->PcmDataOffset += 4;
 
@@ -127,7 +128,7 @@ int wav_open(const std::string& fullPath, WAV_FILE* wavf)
                 {
                     // "data" chunk
                     h->Subchunk2ID = chunk;  // 0x61746164, "data"
-                    ::read(fd, &h->Subchunk2Size, sizeof(uint32_t)); 
+                    file.read(&h->Subchunk2Size, sizeof(uint32_t));
                     wavf->PcmDataOffset += 4;
                     break;
                 }
@@ -135,53 +136,52 @@ int wav_open(const std::string& fullPath, WAV_FILE* wavf)
                 {
                     // Read other non "data" chunks.
                     uint32_t chunkSize;
-                    ::read(fd, &chunkSize, sizeof(uint32_t));
+                    file.read(&chunkSize, sizeof(uint32_t));
 
                     wavf->PcmDataOffset += 4;
 
-                    ::lseek(fd, chunkSize, SEEK_CUR); // skip only
+                    file.seek(chunkSize, SEEK_CUR); // skip only
                     wavf->PcmDataOffset += (int)chunkSize;
                 }
             }
         }
         else
         {
-            ::close(fd);
-            return -1;
+            file.close();
+            return false;
         }
     }
     else
     {
-        ::close(fd);
+        file.close();
         return -1;
     }
 
     wavf->BytesPerFrame = h->BitsPerSample / 8 * h->NumChannels;
-    wavf->FileHandle = fd;
 
-    return 0;
+    return true;
 }
 
 int wav_read(WAV_FILE* wavf, char* pcmBuf, size_t bytesToRead)
 {
-    return ::read(wavf->FileHandle, pcmBuf, bytesToRead);
+    return wavf->File.read(pcmBuf, bytesToRead);
 }
 
 int wav_pcm_seek(WAV_FILE* wavf, int frameOffset)
 {
     auto offset = frameOffset * wavf->BytesPerFrame + wavf->PcmDataOffset;
-    return ::lseek(wavf->FileHandle, offset, SEEK_SET) >= 0 ? 0 : -1;
+    return wavf->File.seek(offset, SEEK_SET) >= 0 ? 0 : -1;
 }
 
 int wav_pcm_tell(WAV_FILE* wavf)
 {
-    auto offset = ::lseek(wavf->FileHandle, 0, SEEK_CUR);
+    auto offset = wavf->File.seek(0, SEEK_CUR);
     return (offset - wavf->PcmDataOffset) / wavf->BytesPerFrame;
 }
 
 int wav_close(WAV_FILE* wavf)
 {
-    return ::close(wavf->FileHandle);
+    return  wavf->File.close();
 }
 
 namespace cocos2d { namespace experimental {
@@ -199,9 +199,7 @@ namespace cocos2d { namespace experimental {
     {
         std::string fullPath = FileUtils::getInstance()->fullPathForFilename(path);
 
-        int iret = wav_open(FileUtils::getInstance()->getSuitableFOpen(fullPath).c_str(), &_wavf);
-
-        if (0 == iret)
+        if (wav_open(FileUtils::getInstance()->getSuitableFOpen(fullPath).c_str(), &_wavf))
         {
             _sampleRate = _wavf.FileHeader.SampleRate;
             _channelCount = _wavf.FileHeader.NumChannels;

@@ -14,11 +14,19 @@
 #include <fcntl.h>
 #endif
 
-int openAudioFile(const std::string& path)
+AudioFile::AudioFile() : _fd(-1), _start(0), _length(0)
+{
+}
+
+AudioFile::~AudioFile()
+{
+    this->close();
+}
+
+bool AudioFile::open(const std::string& path)
 {
 #if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
     if (path[0] != '/') {
-        off_t start = 0, length = 0;
         std::string relativePath;
         size_t position = path.find("assets/");
         if (0 == position)
@@ -35,17 +43,69 @@ int openAudioFile(const std::string& path)
         if (asset == nullptr)
             return -1;
 
-        int fd = AAsset_openFileDescriptor(asset, &start, &length);
+        _fd = AAsset_openFileDescriptor(asset, &_start, &_length);
+        this->seek(0, SEEK_SET); // seek to start auto, ready to read
         AAsset_close(asset);
-        return fd;
+        return _fd != -1;
     }
     else {
-        return ::open(path.c_str(), O_RDONLY, S_IRUSR);
+        _fd = ::open(path.c_str(), O_RDONLY, S_IRUSR);
+        return _fd != -1;
     }
 #elif CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
-    return ::_open(path.c_str(), O_BINARY | O_RDONLY, S_IREAD);
+    _fd = ::_open(path.c_str(), O_BINARY | O_RDONLY, S_IREAD);
+    return _fd != -1;
 #else
-     return ::open(path.c_str(), O_RDONLY, S_IRUSR);
+    _fd = ::open(path.c_str(), O_RDONLY, S_IRUSR);
+    return _fd != -1;
 #endif
 }
 
+int AudioFile::close()
+{
+    int iret = -1;
+    if (_fd != -1) {
+        iret = ::close(_fd);
+        _fd = -1;
+    }
+    return iret;
+}
+
+int AudioFile::seek(long offset, int origin)
+{
+#if CC_TARGET_PLATFORM != CC_PLATFORM_ANDROID
+    return ::lseek(_fd, offset, origin);
+#else
+    long result = 0;
+
+    switch (origin) {
+    case SEEK_SET:
+        result = ::lseek(_fd, _start + offset, SEEK_SET);
+        break;
+    case SEEK_CUR:
+        result = ::lseek(_fd, offset, SEEK_CUR);
+        break;
+    case SEEK_END:
+        result = ::lseek(_fd, _start + _length + offset, SEEK_SET);
+        break;
+    }
+    
+    if (result >= _start) return result - _start;
+    return -1;
+#endif
+}
+
+int AudioFile::read(void* buf, unsigned int size)
+{
+#if CC_TARGET_PLATFORM != CC_PLATFORM_ANDROID
+    return ::read(_fd, buf, size);
+#else
+    long offset = ::lseek(_fd, 0, SEEK_CUR);
+    long remain = (_start + _length - offset);
+    if (size > remain) {
+        size = remain;
+    }
+    if (size > 0) return ::read(_fd, buf, size);
+    return 0;
+#endif
+}
