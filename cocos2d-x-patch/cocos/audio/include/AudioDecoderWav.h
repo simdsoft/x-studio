@@ -29,6 +29,7 @@
 #include "audio/include/AudioDecoder.h"
 #include "audio/include/AudioFileHelper.h"
 
+#pragma pack(push)
 #pragma pack(1)
  // http://soundfile.sapp.org/doc/WaveFormat/
 typedef struct WAV_FILE_HEADER {
