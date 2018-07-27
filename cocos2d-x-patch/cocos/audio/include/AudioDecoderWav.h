@@ -30,8 +30,8 @@
 #include "audio/include/AudioFileHelper.h"
 
 #pragma pack(push,1)
- // http://soundfile.sapp.org/doc/WaveFormat/
-typedef struct WAV_FILE_HEADER {
+// http://soundfile.sapp.org/doc/WaveFormat/
+struct WAV_FILE_HEADER {
     uint32_t ChunkID;
     uint32_t ChunkSize;
     uint32_t Format;
@@ -48,7 +48,7 @@ typedef struct WAV_FILE_HEADER {
 };
 #pragma pack(pop)
 
-typedef struct WAV_FILE
+struct WAV_FILE
 {
     WAV_FILE_HEADER FileHeader;
     uint32_t PcmDataOffset;
@@ -56,7 +56,7 @@ typedef struct WAV_FILE
     uint16_t ExtraParamSize;
     uint32_t Samples;
     uint32_t ChannelMask;
-    AudioFile File;
+    AudioFileHelper FileHelper;
 };
 
 namespace cocos2d { namespace experimental {

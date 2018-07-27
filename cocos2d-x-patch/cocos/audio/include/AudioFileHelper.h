@@ -1,3 +1,4 @@
+// Copyright (c) 2018 HALX99.
 #pragma once
 
 #include "platform/CCPlatformConfig.h"
@@ -11,10 +12,12 @@
 #endif
 #include <fcntl.h>
 
-class AudioFile {
+#include "platform/CCPlatformMacros.h"
+
+class AudioFileHelper {
 public:
-    AudioFile();
-    ~AudioFile();
+    AudioFileHelper();
+    ~AudioFileHelper();
 
     bool open(const std::string& path);
     int close();

@@ -13,7 +13,9 @@ if(WINDOWS)
         audio/include/AudioDecoderOgg.h        
         audio/include/AudioEngineImpl.h
         audio/include/AudioDecoderMp3.h
+        audio/include/AudioDecoderWav.h
         audio/include/AudioCache.h
+        audio/include/AudioFileHelper.h
         )
 
     set(COCOS_AUDIO_PLATFORM_SRC
@@ -26,6 +28,8 @@ if(WINDOWS)
         audio/AudioDecoderManager.cpp
         audio/AudioDecoderMp3.cpp
         audio/AudioDecoderOgg.cpp
+        audio/AudioDecoderWav.cpp
+        audio/AudioFileHelper.cpp
         )
 
 elseif(ANDROID)
@@ -36,11 +40,13 @@ elseif(ANDROID)
         audio/android/utils/Utils.h
         audio/include/AudioEngineImpl.h
         audio/include/AudioCache.h
+        audio/include/AudioPlayer.h
         audio/include/AudioDecoder.h
         audio/include/AudioDecoderManager.h
         audio/include/AudioDecoderMp3.h
         audio/include/AudioDecoderOgg.h
-        audio/include/AudioPlayer.h
+        audio/include/AudioDecoderWav.h
+        audio/include/AudioFileHelper.h
         )
 
     set(COCOS_AUDIO_PLATFORM_SRC
@@ -50,11 +56,13 @@ elseif(ANDROID)
         audio/android/utils/Utils.cpp
         audio/AudioEngineImpl.cpp
         audio/AudioCache.cpp
+        audio/AudioPlayer.cpp
         audio/AudioDecoder.cpp
         audio/AudioDecoderManager.cpp
         audio/AudioDecoderMp3.cpp
         audio/AudioDecoderOgg.cpp
-        audio/AudioPlayer.cpp
+        audio/AudioDecoderWav.cpp
+        audio/AudioFileHelper.cpp
         )
 
 elseif(LINUX)
@@ -65,7 +73,9 @@ elseif(LINUX)
         audio/include/AudioDecoderOgg.h        
         audio/include/AudioEngineImpl.h
         audio/include/AudioDecoderMp3.h
+        audio/include/AudioDecoderWav.h
         audio/include/AudioCache.h
+        audio/include/AudioFileHelper.h
         )
 
     set(COCOS_AUDIO_PLATFORM_SRC
@@ -77,6 +87,8 @@ elseif(LINUX)
         audio/AudioDecoderManager.cpp
         audio/AudioDecoderMp3.cpp
         audio/AudioDecoderOgg.cpp
+        audio/AudioDecoderWav.cpp
+        audio/AudioFileHelper.cpp
         )
 
 elseif(APPLE)

@@ -1,29 +1,23 @@
-
+// Copyright (c) 2018 HALX99.
 #include "audio/include/AudioFileHelper.h"
-#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
-#include <io.h>
-#include <direct.h>
-#include <fcntl.h>
-#elif CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
+
+#if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
 #include "platform/android/CCFileUtils-android.h"
 #include <jni.h>
 #include <android/asset_manager.h>
 #include <android/asset_manager_jni.h>
-#include <unistd.h>
-#include <errno.h>
-#include <fcntl.h>
 #endif
 
-AudioFile::AudioFile() : _fd(-1), _start(0), _length(0)
+AudioFileHelper::AudioFileHelper() : _fd(-1), _start(0), _length(0)
 {
 }
 
-AudioFile::~AudioFile()
+AudioFileHelper::~AudioFileHelper()
 {
     this->close();
 }
 
-bool AudioFile::open(const std::string& path)
+bool AudioFileHelper::open(const std::string& path)
 {
 #if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
     if (path[0] != '/') {
@@ -61,7 +55,7 @@ bool AudioFile::open(const std::string& path)
 #endif
 }
 
-int AudioFile::close()
+int AudioFileHelper::close()
 {
     int iret = -1;
     if (_fd != -1) {
@@ -71,7 +65,7 @@ int AudioFile::close()
     return iret;
 }
 
-int AudioFile::seek(long offset, int origin)
+int AudioFileHelper::seek(long offset, int origin)
 {
 #if CC_TARGET_PLATFORM != CC_PLATFORM_ANDROID
     return ::lseek(_fd, offset, origin);
@@ -95,7 +89,7 @@ int AudioFile::seek(long offset, int origin)
 #endif
 }
 
-int AudioFile::read(void* buf, unsigned int size)
+int AudioFileHelper::read(void* buf, unsigned int size)
 {
 #if CC_TARGET_PLATFORM != CC_PLATFORM_ANDROID
     return ::read(_fd, buf, size);
