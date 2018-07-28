@@ -29,6 +29,8 @@
 
 #include "vorbis/vorbisfile.h"
 
+#include "audio/include/AudioFileHelper.h"
+
 namespace cocos2d { namespace experimental {
 
 /**
@@ -74,6 +76,7 @@ protected:
     AudioDecoderOgg();
     ~AudioDecoderOgg();
 
+    AudioFileHelper _fileHelper;
     OggVorbis_File _vf;
 
     friend class AudioDecoderManager;

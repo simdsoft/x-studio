@@ -30,10 +30,6 @@
 #include "platform/CCFileUtils.h"
 
 #if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
-#include "platform/android/CCFileUtils-android.h"
-#include <jni.h>
-#include <android/asset_manager.h>
-#include <android/asset_manager_jni.h>
 #include <unistd.h>
 #include <errno.h>
 #endif
@@ -41,35 +37,27 @@
 
 namespace cocos2d { namespace experimental {
 
-#if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
-    static AAsset* ov_fopen_r(const char* path)
-    {
-        AAssetManager* asMgr = FileUtilsAndroid::getAssetManager();
-        AAsset* asset = AAssetManager_open(FileUtilsAndroid::getAssetManager(), path, AASSET_MODE_UNKNOWN);
-        return asset;
-    };
 
     static size_t ov_fread_r(void* buffer, size_t element_size, size_t element_count, void* handle)
     {
-        return AAsset_read((AAsset*)handle, buffer, element_size * element_count);
+        return ((AudioFileHelper*)handle)->read(buffer, element_size * element_count);
     }
 
     static int ov_fseek_r(void * handle, ogg_int64_t offset, int whence)
     {
-        auto n = AAsset_seek((AAsset*)handle, offset, whence);
+        auto n = ((AudioFileHelper*)handle)->seek(offset, whence);
         return n >= 0 ? 0 : -1;
     }
     
     static long ov_ftell_r(void * handle)
     {
-        return AAsset_seek((AAsset*)handle, 0, SEEK_CUR);
+        return ((AudioFileHelper*)handle)->seek(0, SEEK_CUR);
     }
 
     static int ov_fclose_r(void* handle) {
-        AAsset_close((AAsset*)handle);
+        ((AudioFileHelper*)handle)->close();
         return 0;
     }
-#endif
     
     AudioDecoderOgg::AudioDecoderOgg()
     {
@@ -83,42 +71,20 @@ namespace cocos2d { namespace experimental {
     bool AudioDecoderOgg::open(const char* path)
     {
         std::string fullPath = FileUtils::getInstance()->fullPathForFilename(path);
-        int iret = -1;
-#if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID        
-        if(fullPath[0] != '/') {
-            off_t start = 0, length = 0;
-            std::string relativePath;
-            size_t position = fullPath.find("assets/");
-            if (0 == position)
-            {
-                // "assets/" is at the beginning of the path and we don't want it
-                relativePath = fullPath.substr(strlen("assets/"));
-            } else
-            {
-                relativePath = fullPath;
-            }
-            auto stream = ov_fopen_r(relativePath.c_str());
-            if(stream == nullptr) {
-                ALOGE("Trouble with ogg(1): %s\n", strerror(errno) );
-                return false;
-            }
-            
-            static ov_callbacks OV_CALLBACKS_AASSET = {
-                ov_fread_r,
-                ov_fseek_r,
-                ov_fclose_r,
-                ov_ftell_r
-            };
-            
-            iret = ov_open_callbacks(stream, &_vf, nullptr, 0, OV_CALLBACKS_AASSET);
+        if (!_fileHelper.open(FileUtils::getInstance()->getSuitableFOpen(fullPath)))
+        {
+            ALOGE("Trouble with ogg(1): %s\n", strerror(errno));
+            return false;
         }
-        else {
-            iret = ov_fopen(fullPath.c_str(), &_vf);
-        }
-#else
-        iret = ov_fopen(FileUtils::getInstance()->getSuitableFOpen(fullPath).c_str(), &_vf);
-#endif        
-        if (0 == iret)
+
+        static ov_callbacks OV_CALLBACKS_POSIX = {
+               ov_fread_r,
+               ov_fseek_r,
+               ov_fclose_r,
+               ov_ftell_r
+        };
+              
+        if (0 == ov_open_callbacks(&_fileHelper, &_vf, nullptr, 0, OV_CALLBACKS_POSIX))
         {
             // header
             vorbis_info* vi = ov_info(&_vf, -1);

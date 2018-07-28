@@ -10,7 +10,10 @@
 
 #include <sys/stat.h>
 
-AudioFileHelper::AudioFileHelper() : _fd(-1), _start(0), _length(0)
+AudioFileHelper::AudioFileHelper() : _fd(-1)
+#if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
+, _start(0), _length(0)
+#endif
 {
 }
 

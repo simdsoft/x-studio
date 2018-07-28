@@ -27,7 +27,9 @@ public:
 
 private:
     int _fd;
+#if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
     off_t _start;
     off_t _length;
+#endif
 };
 
