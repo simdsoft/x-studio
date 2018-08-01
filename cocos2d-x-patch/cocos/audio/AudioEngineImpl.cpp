@@ -181,7 +181,7 @@ AUDIO_ID AudioEngineImpl::play2d(const std::string &filePath ,bool loop ,float v
 
     player->setCache(audioCache);
     _threadMutex.lock();
-    _audioPlayers[++_currentAudioID] = player;
+    _audioPlayers.emplace(++_currentAudioID, player);
     _threadMutex.unlock();
 
     _alSourceUsed[alSource] = true;
