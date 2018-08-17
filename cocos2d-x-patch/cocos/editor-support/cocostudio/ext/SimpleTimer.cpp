@@ -30,18 +30,19 @@ namespace simple_timer {
     
     uintptr_t TimerObject::s_timerId = 0;
 
-    TIMER_ID loop(int n, float interval, vcallback_t callback)
+    TIMER_ID loop(unsigned int n, float interval, vcallback_t callback)
     {
-        if (n > 0 && interval > 0) {
+      if (n > 0 && interval >= 0) {
             purelib::gc::ref_ptr<TimerObject> timerObj(new TimerObject(std::move(callback)));
 
             auto timerId = reinterpret_cast<TIMER_ID>(++TimerObject::s_timerId);
 
             std::string key = StringUtils::format("SIMPLE_TIMER_%p", timerId);
+            
             Director::getInstance()->getScheduler()->schedule([timerObj](float /*dt*/) { // lambda expression hold the reference of timerObj automatically.
                 timerObj->callback_();
             }, timerId, interval, n - 1, 0, false, key);
-
+			
             return timerId;
         }
         return nullptr;

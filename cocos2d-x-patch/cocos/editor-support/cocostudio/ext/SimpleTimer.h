@@ -10,7 +10,7 @@
 namespace simple_timer {
     typedef void* TIMER_ID;
     typedef std::function<void(void)> vcallback_t;
-    CC_STUDIOP_DLL TIMER_ID loop(int n, float interval, vcallback_t callback);
+    CC_STUDIOP_DLL TIMER_ID loop(unsigned int n, float interval, vcallback_t callback);
     CC_STUDIOP_DLL TIMER_ID delay(float delay, vcallback_t callback);
     CC_STUDIOP_DLL void kill(TIMER_ID timerId);
 }
