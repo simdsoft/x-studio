@@ -1154,9 +1154,9 @@ namespace std {
 
         size_t operator()(const _Kty& _Keyval) const
         {	// hash _Keyval to size_t value by pseudorandomizing transform
-#if defined(__APPLE__)
+#if defined(__clang__)
             return std::__do_string_hash(_Keyval.data(), _Keyval.data() + _Keyval.size());
-#elif defined(__linux__)
+#elif defined(__GNUC__)
             return std::_Hash_impl::hash(_Keyval.data(), _Keyval.size() << (sizeof(_Elem) >> 1) );
 #else
             return _FNV1a_hash(_Keyval.c_str(), _Keyval.size() << ULS_ELEM_SHIFT);
