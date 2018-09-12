@@ -302,6 +302,25 @@ void AudioPlayer::rotateBufferThread(int offsetFrame)
                     alSourceQueueBuffers(_alSource, 1, &bid);
                 }
             }
+            /* Make sure the source hasn't underrun */
+            else if (sourceState != AL_PAUSED)
+            {
+                ALint queued;
+
+                /* If no buffers are queued, playback is finished */
+                alGetSourcei(_alSource, AL_BUFFERS_QUEUED, &queued);
+                if (queued == 0) {
+                    needToExitThread = true;
+                }
+                else {
+                    alSourcePlay(_alSource);
+                    if (alGetError() != AL_NO_ERROR)
+                    {
+                        ALOGE("Error restarting playback!");
+                        needToExitThread = true;
+                    }
+                }
+            }
 
             std::unique_lock<std::mutex> lk(_sleepMutex);
             if (_isDestroyed || needToExitThread) {
@@ -326,29 +345,12 @@ void AudioPlayer::rotateBufferThread(int offsetFrame)
 
 bool AudioPlayer::isFinished() const
 {
-    ALint sourceState;
-    alGetSourcei(_alSource, AL_SOURCE_STATE, &sourceState);
-    /* Make sure the source hasn't underrun */
-    if (sourceState != AL_PLAYING && sourceState != AL_PAUSED)
-    {
-        if (!_streamingSource || _isRotateThreadExited)
-            return true;
-
-        ALint queued;
-
-        /* If no buffers are queued, playback is finished */
-        alGetSourcei(_alSource, AL_BUFFERS_QUEUED, &queued);
-        if (queued == 0)
-            return true;
-
-        alSourcePlay(_alSource);
-        if (alGetError() != AL_NO_ERROR)
-        {
-            ALOGE("Error restarting playback\n");
-            return true;
-        }
+    if(_streamingSource) return _isRotateThreadExited;
+    else {
+        ALint sourceState;
+        alGetSourcei(_alSource, AL_SOURCE_STATE, &sourceState);
+        return sourceState == AL_STOPPED;
     }
-    return false;
 }
 
 bool AudioPlayer::setLoop(bool loop)
