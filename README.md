@@ -19,7 +19,7 @@ Download the latest version: http://en-us.x-studio365.com  http://cn.x-studio365
 * Support block selection with Alt key pressed, and move mouse.
 * Support Current document auto-completation
 * Support format current Lua document with hotkey: Ctrl+I
-* Support Lua Syntax check.
+* Support Lua Syntax check: Ctrl+B
 * Support Comment lua source code with hotkey: Ctrl+/
 * Support View file as binary Ascii-View.
 * Support CTRL+RightClick to show shell context menu at 'Project Explorer'
