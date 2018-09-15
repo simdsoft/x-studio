@@ -25,6 +25,7 @@ Download the latest version: http://en-us.x-studio365.com  http://cn.x-studio365
 * Support CTRL+RightClick to show shell context menu at 'Project Explorer'
 * Support Open/Save Large file (more than 100M) fastly.
 * Support capture adb log to Output View with filter feature.
+* High-performance Output view.
 
 #Code Editing Preview
 ![image](https://github.com/halx99/x-studio365/blob/master/showcase2.png)  
