@@ -3,9 +3,9 @@ x-studio365 is a powerful,lightweight and fast development IDE. It support multi
 Download the latest version: http://en-us.x-studio365.com  http://cn.x-studio365.com
  
 # Great Text/Code editing features:
-* Suport Auto detect UTF-8 encoding, and support mutli-encodings convertion.
-* Suport vscode/sublime Open Folder… feature, and support multi-program-languages syntax highlight.
-* Suport 5 code themes, Hotkey: Ctrl+Alt+NUM9
+* Support Auto detect UTF-8 encoding, and support mutli-encodings convertion.
+* Support vscode/sublime Open Folder… feature, and support multi-program-languages syntax highlight.
+* Support 5 code themes, Hotkey: Ctrl+Alt+NUM9
 * Support search project file quickly with Hotkey: Ctrl+P
 * Support search Lua functions of current document with Hotkey: Ctrl R
 * Support find all at current document with hotkey: Ctrl + F
