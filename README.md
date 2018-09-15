@@ -2,19 +2,7 @@
 x-studio365 is a powerful,lightweight and fast develop IDE. It support multi-programing languages Source Code Editing & Syntax Highlighting & Outlining & Auto-completation, Great Lua Debugging. In the future, it will support other languages debugging, such is PHP. It support Cocos2d-x Particle editing, Scene(UI) editing & Screen Adapting preview, CocosStudio .csb recovery.
 Download the latest version: http://en-us.x-studio365.com
  
-
-# Editor major features:
-1. Using cocos2d-x to render the main editor UI directly.
-2. Supports more than 20 1K-layout methods.
-3. Supports ParticleSystem Editing, import & export plist file.
-4. Supports view real adpating vision for any-size of devices.
-5. Supports import CocosStudio ccs project, and json format ui published by CocosStudio.
-6. Supports import .csb, and publish designed ui to cocosstudio(ccs), json, csd formats.
-7. Integrated AES batch encrypt/decrypt tool which work on CBC mode, and support MD5 checksum.
-8. Supports Chinese and English.
-9. Supports SpriteSheet creation.
-
-# Code editing features:
+# Great Text/Code editing features:
 * Suport Auto detect UTF-8 encoding, and support mutli-encodings convertion.
 * Suport vscode/sublime Open Folder… feature, and support multi-program-languages syntax highlight.
 * Suport 5 code themes, Hotkey: Ctrl+Alt+NUM9
@@ -35,9 +23,23 @@ Download the latest version: http://en-us.x-studio365.com
 * Support Comment lua source code with hotkey: Ctrl+/
 * Support View file as binary Ascii-View.
 * Support CTRL+RightClick to show shell context menu at 'Project Explorer'
+* Support Open/Save Large file (more than 100M) fastly.
+* Support capture adb log to Output View with filter feature.
 
 #Code Editing Preview
 ![image](https://github.com/halx99/x-studio365/blob/master/showcase2.png)  
+
+# Cocos2d-x scene editing features:
+1. Using cocos2d-x to render the main editor UI directly.
+2. Supports more than 20 1K-layout methods.
+3. Supports ParticleSystem Editing, import & export plist file.
+4. Supports view real adpating vision for any-size of devices.
+5. Supports import CocosStudio ccs project, and json format ui published by CocosStudio.
+6. Supports import .csb, and publish designed ui to cocosstudio(ccs), json, csd formats.
+7. Integrated AES batch encrypt/decrypt tool which work on CBC mode, and support MD5 checksum.
+8. Supports Chinese and English.
+9. Supports SpriteSheet creation.
+
 
 # Editor shortcuts
 |Shortcut         | Description     |
