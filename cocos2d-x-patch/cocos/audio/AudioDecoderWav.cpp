@@ -188,7 +188,7 @@ namespace cocos2d { namespace experimental {
 
     AudioDecoderWav::AudioDecoderWav()
     {
-        memset(&_wavf, 0, sizeof(_wavf));
+        memset(&_wavf, 0, offsetof(WAV_FILE, FileHelper) );
     }
 
     AudioDecoderWav::~AudioDecoderWav()
