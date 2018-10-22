@@ -29,6 +29,7 @@ Download the latest version: http://en-us.x-studio365.com  http://cn.x-studio365
 
 #Code Editing Preview
 ![image](https://github.com/halx99/x-studio365/blob/master/showcase2.png)  
+![image](https://github.com/halx99/x-studio365/blob/master/showcase3.png)  
 
 # Cocos2d-x scene editing features:
 1. Using cocos2d-x to render the main editor UI directly.
@@ -88,8 +89,7 @@ Download the latest version: http://en-us.x-studio365.com  http://cn.x-studio365
 5. (Win32) Add libxreader project as reference of x365app1 project
 
 showcase  
-![image](https://github.com/halx99/x-studio365/blob/master/showcase.png)
-
+![image](https://github.com/halx99/x-studio365/blob/master/showcase.png)  
 ### Purchase Professional License
  
  If you are interest in this software, please purchase.
