@@ -202,7 +202,7 @@ void AudioEngineInterruptionListenerCallback(void* user_data, UInt32 interruptio
         else if (isAudioSessionInterrupted)
         {
             ALOGD("Audio session is still interrupted, pause director!");
-            Director::getInstance()->pause();
+            // Director::getInstance()->pause();
         }
     }
 }
