@@ -667,7 +667,7 @@ template<typename _Elem, typename _Pr, typename _Fn> inline
             if (_Ptr != _Start) {
                 auto _Ch = *_Ptr;
                 *_Ptr = '\0';
-                bool should_brk = func(_Start);
+                bool should_brk = func(s);
 #if defined(_WIN32)
                 *_Ptr = '\\';
 #else // For unix linux like system.
@@ -681,7 +681,7 @@ template<typename _Elem, typename _Pr, typename _Fn> inline
         ++_Ptr;
     }
     if (_Start < _Ptr) {
-        func(_Start);
+        func(s);
     }
 }
 
