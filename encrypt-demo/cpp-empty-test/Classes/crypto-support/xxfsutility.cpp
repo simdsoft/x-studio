@@ -350,7 +350,7 @@ void fsutil::mkdir(std::string&& dir)
 
 void fsutil::mkdir(std::string& dir)
 {
-	nsc::dir_split(dir, [](const char* subdir) {
+	nsc::splitpath(dir, [](const char* subdir) {
 		bool should_brk = false;
 
 		if (!fsutil::exists(subdir))
@@ -550,7 +550,7 @@ TCHAR* fsutil::get_open_path(TCHAR* pBuffer, TCHAR* history, HWND   hWnd)
 
     bf.hwndOwner = hWnd;  
 
-    bf.lpszTitle = TEXT("ѡ��Ŀ¼");  
+    bf.lpszTitle = TEXT("Ñ¡ÔñÄ¿Â¼");  
 
     bf.ulFlags = BIF_RETURNONLYFSDIRS | BIF_USENEWUI;
 
