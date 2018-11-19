@@ -11,14 +11,6 @@ x-studio365 10.0.3300.980 (2018年11月20日更新）size: 17224892 md5: f45e177
 11.【Lua调试】 增加是否捕获pcall异常调试配置: catch-pcall-exception
 12.【Lua调试】 修复调试器捕获error/assert异常后未传递给被调试程序问题
 13.【Lua调试】 修复调试控制台程序，不能捕获print输出问题
-
-x-studio365 10.0.3300.980 soft.360.cn
-1.【代码编辑】 工具栏增加代码注释按钮
-2.【Lua调试】 快速监视对话框增加右键菜单支持
-3.【Lua调试】 优化悬浮变量显示获取光标位置符号功能
-4.【Lua调试】 增加是否捕获pcall异常调试配置: catch-pcall-exception
-5.【Lua调试】 修复调试器捕获error/assert异常后未传递给被调试程序问题
-6.【Lua调试】 修复调试控制台程序，不能捕获print输出问题
  
 x-studio365 10.0.3300.961 (2018年11月5日更新）size: 16918855 md5: f0bd03af04a5ff956b7fd8d946d4eb32
 1.【Lua调试】增加pcall/xpcall异常捕获，方便排查问题
