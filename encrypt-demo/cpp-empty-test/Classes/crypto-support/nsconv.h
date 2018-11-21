@@ -319,7 +319,7 @@ template<typename _CStr, typename _Fn> inline
     {
         if (_Start <= _Ptr)
             if (func(_Start, _Ptr))
-                break;
+                return;
         _Start = _Ptr + 1;
         ++_Ptr;
     }
@@ -526,7 +526,7 @@ namespace nzls {
         {
             if (_Start < _Ptr)
                 if (func(_Start, _Ptr))
-                    break;
+                    return;
             _Start = _Ptr + 1;
             ++_Ptr;
         }
