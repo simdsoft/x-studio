@@ -16,7 +16,7 @@
 
 #include <wchar.h>
 
-#include "unreal_string.h"
+#include "string_view.hpp"
 
 namespace purelib {
 
@@ -95,7 +95,7 @@ std::wstring& to_wstring(const _Nty& numeral, std::wstring& text, ios_flag radix
 
 // convert string[std::string/std::wstring] to numeric[char/short/int/long/long long/float/double].
 template<typename _Nty, typename _Elem> inline
-_Nty to_numeric(const unreal_string<_Elem, pseudo_cleaner<_Elem> >& text, ios_flag radix = std::dec)
+_Nty to_numeric(std::string_view text, ios_flag radix = std::dec)
 { 
     _Nty numeral = _Nty();
     std::basic_stringstream<_Elem> swaper;
@@ -107,7 +107,7 @@ _Nty to_numeric(const unreal_string<_Elem, pseudo_cleaner<_Elem> >& text, ios_fl
 }
 
 template<typename _Nty, typename _Elem> inline
-_Nty& to_numeric(const unreal_string<_Elem, pseudo_cleaner<_Elem> >& text, _Nty& numeral, ios_flag radix = std::dec)
+_Nty& to_numeric(std::string_view text, _Nty& numeral, ios_flag radix = std::dec)
 {
     std::basic_stringstream<_Elem> swaper;
 	swaper.precision(16);
