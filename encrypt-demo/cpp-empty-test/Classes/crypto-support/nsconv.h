@@ -1097,41 +1097,6 @@ inline std::string to_ascii(const char* utf8_text)
     return transcode(transcode(utf8_text, code_page_utf8));
 }
 
-////////////////// transcode2 ///////////////////
-
-inline std::string transcode2(const std::wstring_view& wcb, UINT cp = code_page_acp)
-{
-    if (wcb.length() == 0)
-        return "";
-    int n = WideCharToMultiByte(cp, 0, wcb.data(), wcb.length(), NULL, 0, NULL, NULL);
-    std::string buffer(n, '\0');
-    WideCharToMultiByte(cp, 0, wcb.data(), wcb.length(), &buffer.front(), wcb.length(), NULL, NULL);
-    return buffer;
-}
-
-inline std::wstring transcode2(const std::string_view& mcb, UINT cp = code_page_acp)
-{
-    if (mcb.empty())
-        return L"";
-    int n = MultiByteToWideChar(cp, 0, mcb.data(), mcb.length(), NULL, 0);
-    std::wstring buffer(n, '\0');
-    MultiByteToWideChar(cp, 0, mcb.data(), mcb.length(), &buffer.front(), mcb.length());
-    return buffer;
-}
-
-#if defined(_AFX)
-inline CString& transcode2(const std::string_view& mcb, CString& buffer, UINT cp = CP_ACP)
-{
-    if (mcb[0] == 0)
-        return buffer;
-
-    int count = MultiByteToWideChar(cp, 0, mcb.data(), mcb.length(), NULL, 0);
-    MultiByteToWideChar(cp, 0, mcb.data(), mcb.length(), buffer.GetBuffer(count), count);
-    buffer.ReleaseBufferSetLength(count);
-    return buffer;
-}
-#endif
-
 /* utils GUID
 **
 */

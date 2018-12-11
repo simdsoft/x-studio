@@ -35,21 +35,6 @@
     <ClCompile Include="..\Classes\crypto-support\crypto_wrapper.cpp">
       <Filter>crypto-support</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\crypto-support\libb64.cpp">
-      <Filter>crypto-support</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\crypto-support\md5.cpp">
-      <Filter>crypto-support</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\crypto-support\md6.cpp">
-      <Filter>crypto-support</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\crypto-support\oslib.cpp">
-      <Filter>crypto-support</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\crypto-support\xxfsutility.cpp">
-      <Filter>crypto-support</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\crypto-support\ibinarystream.cpp">
       <Filter>crypto-support</Filter>
     </ClCompile>

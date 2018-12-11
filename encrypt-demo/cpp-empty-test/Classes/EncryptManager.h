@@ -5,6 +5,7 @@
 #define  _ENCRYPTMANAGER_H_
 #include <string>
 #include <unordered_map>
+#include "crypto-support/string_view.hpp"
 
 class FileUtilsEncrypt;
 
@@ -34,17 +35,9 @@ public:
     algorithm could not compress the AES-CBC encrypted data again, so we need compress data before encrypt it.
     Then final package(.apk,.ipa,.appx) will small, both of platform app pacakge use zip algorithm.
     */
-    template<size_t keysize, size_t ivecsize>
     void setEncryptEnabled(bool bVal, 
-        const char(&key)[keysize], 
-        const char(&ivec)[ivecsize], 
-        int flags = ENCF_NOFLAGS)
-    {
-        setEncryptEnabled(bVal, std::string(key, keysize), std::string(ivec, ivecsize), flags);
-    }
-    void setEncryptEnabled(bool bVal, 
-        const std::string& key, 
-        const std::string& ivec = "", 
+        std::string_view key = "", 
+        std::string_view ivec = "",
         int flags = ENCF_NOFLAGS);
     bool isEncryptEnabled(void) const { return _encryptEnabled; }
 

@@ -83,7 +83,7 @@
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <DisableSpecificWarnings>4267;4251;4244;%(DisableSpecificWarnings)</DisableSpecificWarnings>
-      <AdditionalIncludeDirectories>.\Classes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\Classes;$(EngineRoot)external\win32-specific\zlib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <OutputFile>$(OutDir)$(ProjectName).exe</OutputFile>
@@ -149,11 +149,6 @@ xcopy "$(OutDir)..\*.dll" "$(OutDir)" /D /Y</Command>
     <ClCompile Include="..\Classes\crypto-support\crypto_utils.cpp" />
     <ClCompile Include="..\Classes\crypto-support\crypto_wrapper.cpp" />
     <ClCompile Include="..\Classes\crypto-support\ibinarystream.cpp" />
-    <ClCompile Include="..\Classes\crypto-support\libb64.cpp" />
-    <ClCompile Include="..\Classes\crypto-support\md5.cpp" />
-    <ClCompile Include="..\Classes\crypto-support\md6.cpp" />
-    <ClCompile Include="..\Classes\crypto-support\oslib.cpp" />
-    <ClCompile Include="..\Classes\crypto-support\xxfsutility.cpp" />
     <ClCompile Include="..\Classes\EncryptManager.cpp" />
     <ClCompile Include="..\Classes\HelloWorldScene.cpp" />
     <ClCompile Include="main.cpp" />

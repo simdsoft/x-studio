@@ -47,6 +47,21 @@ bool AppDelegate::applicationDidFinishLaunching()
     
     vector<string> searchPath;
 
+#if defined(_WIN32)
+    char appPath[512];
+    GetModuleFileNameA(GetModuleHandleA(NULL), appPath, 512);
+    auto n = strlen(appPath);
+    char* last_slash = nullptr;
+    for (auto i = n - 1; i > 0; --i) {
+        if (appPath[i] == '\\' || appPath[i] == '/') {
+            last_slash = &appPath[i];
+            break;
+        }
+    }
+    if (last_slash) (*last_slash) = '\0';
+    searchPath.push_back(appPath);
+#endif
+
     // In this demo, we select resource according to the frame's height.
     // If the resource size is different from design resolution size, you need to set contentScaleFactor.
     // We use the ratio of resource's height to the height of design resolution,

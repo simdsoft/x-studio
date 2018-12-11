@@ -22,8 +22,8 @@ namespace  mathext {
 /* value range: [0, 0x7fffffff] */
 static unsigned int rand(void)
 {
-	static std::random_device _s_device;
-	static std::default_random_engine _s_engine(_s_device());
+    static std::random_device _s_device;
+    static std::default_random_engine _s_engine(_s_device());
 
     return _s_engine();
 }

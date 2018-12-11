@@ -32,68 +32,17 @@
 #  define NDEBUG
 # endif
 #endif
-#include <assert.h>
 
+#include <stdio.h>
+#include <string.h>
+#include <assert.h>
 #include <stdlib.h>
 #include "aes.h"
 
-#if _HAS_OSSL
-#pragma comment(lib, "libcrypto.lib")
-#else
+#if !_HAS_OPENSSL
 
-/* crypto/aes/aes_locl.h -*- mode:C; c-file-style: "eay" -*- */
-/* ====================================================================
-* Copyright (c) 1998-2002 The OpenSSL Project.  All rights reserved.
-*
-* Redistribution and use in source and binary forms, with or without
-* modification, are permitted provided that the following conditions
-* are met:
-*
-* 1. Redistributions of source code must retain the above copyright
-*    notice, this list of conditions and the following disclaimer.
-*
-* 2. Redistributions in binary form must reproduce the above copyright
-*    notice, this list of conditions and the following disclaimer in
-*    the documentation and/or other materials provided with the
-*    distribution.
-*
-* 3. All advertising materials mentioning features or use of this
-*    software must display the following acknowledgment:
-*    "This product includes software developed by the OpenSSL Project
-*    for use in the OpenSSL Toolkit. (http://www.openssl.org/)"
-*
-* 4. The names "OpenSSL Toolkit" and "OpenSSL Project" must not be used to
-*    endorse or promote products derived from this software without
-*    prior written permission. For written permission, please contact
-*    openssl-core@openssl.org.
-*
-* 5. Products derived from this software may not be called "OpenSSL"
-*    nor may "OpenSSL" appear in their names without prior written
-*    permission of the OpenSSL Project.
-*
-* 6. Redistributions of any form whatsoever must retain the following
-*    acknowledgment:
-*    "This product includes software developed by the OpenSSL Project
-*    for use in the OpenSSL Toolkit (http://www.openssl.org/)"
-*
-* THIS SOFTWARE IS PROVIDED BY THE OpenSSL PROJECT ``AS IS'' AND ANY
-* EXPRESSED OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-* IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
-* PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE OpenSSL PROJECT OR
-* ITS CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-* SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
-* NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-* LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
-* HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
-* STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
-* ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
-* OF THE POSSIBILITY OF SUCH DAMAGE.
-* ====================================================================
-*
-*/
-
-#ifndef HEADER_AES_LOCL_H
-#define HEADER_AES_LOCL_H
+//#ifndef HEADER_AES_LOCL_H
+//#define HEADER_AES_LOCL_H
 
 //#include <openssl/e_os2.h>
 
@@ -101,9 +50,18 @@
 #error AES is disabled.
 #endif
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#if 0 // open this
+#define STRICT_ALIGNMENT 1
+#ifndef PEDANTIC
+# if defined(__i386)    || defined(__i386__)    || \
+     defined(__x86_64)  || defined(__x86_64__)  || \
+     defined(_M_IX86)   || defined(_M_AMD64)    || defined(_M_X64) || \
+     defined(__aarch64__)                       || \
+     defined(__s390__)  || defined(__s390x__)
+#  undef STRICT_ALIGNMENT
+# endif
+#endif
+#endif
 
 #if defined(_MSC_VER) && (defined(_M_IX86) || defined(_M_AMD64) || defined(_M_X64))
 # define SWAP(x) (_lrotl(x, 8) & 0x00ff00ff | _lrotr(x, 8) & 0xff00ff00)
@@ -129,8 +87,7 @@ typedef unsigned char u8;
 /* This controls loop-unrolling in aes_core.c */
 #undef FULL_UNROLL
 
-#endif /* !HEADER_AES_LOCL_H */
-
+// #endif /* !HEADER_AES_LOCL_H */
 
 #ifndef AES_ASM
 /*
@@ -710,161 +667,161 @@ static const u8 Td4[256] = {
     0xe1U, 0x69U, 0x14U, 0x63U, 0x55U, 0x21U, 0x0cU, 0x7dU,
 };
 static const u32 rcon[] = {
-	0x01000000, 0x02000000, 0x04000000, 0x08000000,
-	0x10000000, 0x20000000, 0x40000000, 0x80000000,
-	0x1B000000, 0x36000000, /* for 128-bit blocks, Rijndael never uses more than 10 rcon values */
+    0x01000000, 0x02000000, 0x04000000, 0x08000000,
+    0x10000000, 0x20000000, 0x40000000, 0x80000000,
+    0x1B000000, 0x36000000, /* for 128-bit blocks, Rijndael never uses more than 10 rcon values */
 };
 
 /**
  * Expand the cipher key into the encryption key schedule.
  */
 int ossl_aes_set_encrypt_key(const unsigned char *userKey, const int bits,
-			AES_KEY *key) {
+    AES_KEY *key) {
 
-	u32 *rk;
-   	int i = 0;
-	u32 temp;
+    u32 *rk;
+    int i = 0;
+    u32 temp;
 
-	if (!userKey || !key)
-		return -1;
-	if (bits != 128 && bits != 192 && bits != 256)
-		return -2;
+    if (!userKey || !key)
+        return -1;
+    if (bits != 128 && bits != 192 && bits != 256)
+        return -2;
 
-	rk = key->rd_key;
+    rk = key->rd_key;
 
-	if (bits==128)
-		key->rounds = 10;
-	else if (bits==192)
-		key->rounds = 12;
-	else
-		key->rounds = 14;
+    if (bits == 128)
+        key->rounds = 10;
+    else if (bits == 192)
+        key->rounds = 12;
+    else
+        key->rounds = 14;
 
-	rk[0] = GETU32(userKey     );
-	rk[1] = GETU32(userKey +  4);
-	rk[2] = GETU32(userKey +  8);
-	rk[3] = GETU32(userKey + 12);
-	if (bits == 128) {
-		while (1) {
-			temp  = rk[3];
-			rk[4] = rk[0] ^
-				(Te2[(temp >> 16) & 0xff] & 0xff000000) ^
-				(Te3[(temp >>  8) & 0xff] & 0x00ff0000) ^
-				(Te0[(temp      ) & 0xff] & 0x0000ff00) ^
-				(Te1[(temp >> 24)       ] & 0x000000ff) ^
-				rcon[i];
-			rk[5] = rk[1] ^ rk[4];
-			rk[6] = rk[2] ^ rk[5];
-			rk[7] = rk[3] ^ rk[6];
-			if (++i == 10) {
-				return 0;
-			}
-			rk += 4;
-		}
-	}
-	rk[4] = GETU32(userKey + 16);
-	rk[5] = GETU32(userKey + 20);
-	if (bits == 192) {
-		while (1) {
-			temp = rk[ 5];
-			rk[ 6] = rk[ 0] ^
-				(Te2[(temp >> 16) & 0xff] & 0xff000000) ^
-				(Te3[(temp >>  8) & 0xff] & 0x00ff0000) ^
-				(Te0[(temp      ) & 0xff] & 0x0000ff00) ^
-				(Te1[(temp >> 24)       ] & 0x000000ff) ^
-				rcon[i];
-			rk[ 7] = rk[ 1] ^ rk[ 6];
-			rk[ 8] = rk[ 2] ^ rk[ 7];
-			rk[ 9] = rk[ 3] ^ rk[ 8];
-			if (++i == 8) {
-				return 0;
-			}
-			rk[10] = rk[ 4] ^ rk[ 9];
-			rk[11] = rk[ 5] ^ rk[10];
-			rk += 6;
-		}
-	}
-	rk[6] = GETU32(userKey + 24);
-	rk[7] = GETU32(userKey + 28);
-	if (bits == 256) {
-		while (1) {
-			temp = rk[ 7];
-			rk[ 8] = rk[ 0] ^
-				(Te2[(temp >> 16) & 0xff] & 0xff000000) ^
-				(Te3[(temp >>  8) & 0xff] & 0x00ff0000) ^
-				(Te0[(temp      ) & 0xff] & 0x0000ff00) ^
-				(Te1[(temp >> 24)       ] & 0x000000ff) ^
-				rcon[i];
-			rk[ 9] = rk[ 1] ^ rk[ 8];
-			rk[10] = rk[ 2] ^ rk[ 9];
-			rk[11] = rk[ 3] ^ rk[10];
-			if (++i == 7) {
-				return 0;
-			}
-			temp = rk[11];
-			rk[12] = rk[ 4] ^
-				(Te2[(temp >> 24)       ] & 0xff000000) ^
-				(Te3[(temp >> 16) & 0xff] & 0x00ff0000) ^
-				(Te0[(temp >>  8) & 0xff] & 0x0000ff00) ^
-				(Te1[(temp      ) & 0xff] & 0x000000ff);
-			rk[13] = rk[ 5] ^ rk[12];
-			rk[14] = rk[ 6] ^ rk[13];
-			rk[15] = rk[ 7] ^ rk[14];
+    rk[0] = GETU32(userKey);
+    rk[1] = GETU32(userKey + 4);
+    rk[2] = GETU32(userKey + 8);
+    rk[3] = GETU32(userKey + 12);
+    if (bits == 128) {
+        while (1) {
+            temp = rk[3];
+            rk[4] = rk[0] ^
+                (Te2[(temp >> 16) & 0xff] & 0xff000000) ^
+                (Te3[(temp >> 8) & 0xff] & 0x00ff0000) ^
+                (Te0[(temp)& 0xff] & 0x0000ff00) ^
+                (Te1[(temp >> 24)] & 0x000000ff) ^
+                rcon[i];
+            rk[5] = rk[1] ^ rk[4];
+            rk[6] = rk[2] ^ rk[5];
+            rk[7] = rk[3] ^ rk[6];
+            if (++i == 10) {
+                return 0;
+            }
+            rk += 4;
+        }
+    }
+    rk[4] = GETU32(userKey + 16);
+    rk[5] = GETU32(userKey + 20);
+    if (bits == 192) {
+        while (1) {
+            temp = rk[5];
+            rk[6] = rk[0] ^
+                (Te2[(temp >> 16) & 0xff] & 0xff000000) ^
+                (Te3[(temp >> 8) & 0xff] & 0x00ff0000) ^
+                (Te0[(temp)& 0xff] & 0x0000ff00) ^
+                (Te1[(temp >> 24)] & 0x000000ff) ^
+                rcon[i];
+            rk[7] = rk[1] ^ rk[6];
+            rk[8] = rk[2] ^ rk[7];
+            rk[9] = rk[3] ^ rk[8];
+            if (++i == 8) {
+                return 0;
+            }
+            rk[10] = rk[4] ^ rk[9];
+            rk[11] = rk[5] ^ rk[10];
+            rk += 6;
+        }
+    }
+    rk[6] = GETU32(userKey + 24);
+    rk[7] = GETU32(userKey + 28);
+    if (bits == 256) {
+        while (1) {
+            temp = rk[7];
+            rk[8] = rk[0] ^
+                (Te2[(temp >> 16) & 0xff] & 0xff000000) ^
+                (Te3[(temp >> 8) & 0xff] & 0x00ff0000) ^
+                (Te0[(temp)& 0xff] & 0x0000ff00) ^
+                (Te1[(temp >> 24)] & 0x000000ff) ^
+                rcon[i];
+            rk[9] = rk[1] ^ rk[8];
+            rk[10] = rk[2] ^ rk[9];
+            rk[11] = rk[3] ^ rk[10];
+            if (++i == 7) {
+                return 0;
+            }
+            temp = rk[11];
+            rk[12] = rk[4] ^
+                (Te2[(temp >> 24)] & 0xff000000) ^
+                (Te3[(temp >> 16) & 0xff] & 0x00ff0000) ^
+                (Te0[(temp >> 8) & 0xff] & 0x0000ff00) ^
+                (Te1[(temp)& 0xff] & 0x000000ff);
+            rk[13] = rk[5] ^ rk[12];
+            rk[14] = rk[6] ^ rk[13];
+            rk[15] = rk[7] ^ rk[14];
 
-			rk += 8;
-        	}
-	}
-	return 0;
+            rk += 8;
+        }
+    }
+    return 0;
 }
 
 /**
  * Expand the cipher key into the decryption key schedule.
  */
 int ossl_aes_set_decrypt_key(const unsigned char *userKey, const int bits,
-			 AES_KEY *key) {
+    AES_KEY *key) {
 
-        u32 *rk;
-	int i, j, status;
-	u32 temp;
+    u32 *rk;
+    int i, j, status;
+    u32 temp;
 
-	/* first, start with an encryption schedule */
-	status = ossl_aes_set_encrypt_key(userKey, bits, key);
-	if (status < 0)
-		return status;
+    /* first, start with an encryption schedule */
+    status = ossl_aes_set_encrypt_key(userKey, bits, key);
+    if (status < 0)
+        return status;
 
-	rk = key->rd_key;
+    rk = key->rd_key;
 
-	/* invert the order of the round keys: */
-	for (i = 0, j = 4*(key->rounds); i < j; i += 4, j -= 4) {
-		temp = rk[i    ]; rk[i    ] = rk[j    ]; rk[j    ] = temp;
-		temp = rk[i + 1]; rk[i + 1] = rk[j + 1]; rk[j + 1] = temp;
-		temp = rk[i + 2]; rk[i + 2] = rk[j + 2]; rk[j + 2] = temp;
-		temp = rk[i + 3]; rk[i + 3] = rk[j + 3]; rk[j + 3] = temp;
-	}
-	/* apply the inverse MixColumn transform to all round keys but the first and the last: */
-	for (i = 1; i < (key->rounds); i++) {
-		rk += 4;
-		rk[0] =
-			Td0[Te1[(rk[0] >> 24)       ] & 0xff] ^
-			Td1[Te1[(rk[0] >> 16) & 0xff] & 0xff] ^
-			Td2[Te1[(rk[0] >>  8) & 0xff] & 0xff] ^
-			Td3[Te1[(rk[0]      ) & 0xff] & 0xff];
-		rk[1] =
-			Td0[Te1[(rk[1] >> 24)       ] & 0xff] ^
-			Td1[Te1[(rk[1] >> 16) & 0xff] & 0xff] ^
-			Td2[Te1[(rk[1] >>  8) & 0xff] & 0xff] ^
-			Td3[Te1[(rk[1]      ) & 0xff] & 0xff];
-		rk[2] =
-			Td0[Te1[(rk[2] >> 24)       ] & 0xff] ^
-			Td1[Te1[(rk[2] >> 16) & 0xff] & 0xff] ^
-			Td2[Te1[(rk[2] >>  8) & 0xff] & 0xff] ^
-			Td3[Te1[(rk[2]      ) & 0xff] & 0xff];
-		rk[3] =
-			Td0[Te1[(rk[3] >> 24)       ] & 0xff] ^
-			Td1[Te1[(rk[3] >> 16) & 0xff] & 0xff] ^
-			Td2[Te1[(rk[3] >>  8) & 0xff] & 0xff] ^
-			Td3[Te1[(rk[3]      ) & 0xff] & 0xff];
-	}
-	return 0;
+    /* invert the order of the round keys: */
+    for (i = 0, j = 4 * (key->rounds); i < j; i += 4, j -= 4) {
+        temp = rk[i]; rk[i] = rk[j]; rk[j] = temp;
+        temp = rk[i + 1]; rk[i + 1] = rk[j + 1]; rk[j + 1] = temp;
+        temp = rk[i + 2]; rk[i + 2] = rk[j + 2]; rk[j + 2] = temp;
+        temp = rk[i + 3]; rk[i + 3] = rk[j + 3]; rk[j + 3] = temp;
+    }
+    /* apply the inverse MixColumn transform to all round keys but the first and the last: */
+    for (i = 1; i < (key->rounds); i++) {
+        rk += 4;
+        rk[0] =
+            Td0[Te1[(rk[0] >> 24)] & 0xff] ^
+            Td1[Te1[(rk[0] >> 16) & 0xff] & 0xff] ^
+            Td2[Te1[(rk[0] >> 8) & 0xff] & 0xff] ^
+            Td3[Te1[(rk[0]) & 0xff] & 0xff];
+        rk[1] =
+            Td0[Te1[(rk[1] >> 24)] & 0xff] ^
+            Td1[Te1[(rk[1] >> 16) & 0xff] & 0xff] ^
+            Td2[Te1[(rk[1] >> 8) & 0xff] & 0xff] ^
+            Td3[Te1[(rk[1]) & 0xff] & 0xff];
+        rk[2] =
+            Td0[Te1[(rk[2] >> 24)] & 0xff] ^
+            Td1[Te1[(rk[2] >> 16) & 0xff] & 0xff] ^
+            Td2[Te1[(rk[2] >> 8) & 0xff] & 0xff] ^
+            Td3[Te1[(rk[2]) & 0xff] & 0xff];
+        rk[3] =
+            Td0[Te1[(rk[3] >> 24)] & 0xff] ^
+            Td1[Te1[(rk[3] >> 16) & 0xff] & 0xff] ^
+            Td2[Te1[(rk[3] >> 8) & 0xff] & 0xff] ^
+            Td3[Te1[(rk[3]) & 0xff] & 0xff];
+    }
+    return 0;
 }
 
 /*
@@ -872,71 +829,71 @@ int ossl_aes_set_decrypt_key(const unsigned char *userKey, const int bits,
  * in and out can overlap
  */
 void ossl_aes_encrypt(const unsigned char *in, unsigned char *out,
-		 const AES_KEY *key) {
+    const AES_KEY *key) {
 
-	const u32 *rk;
-	u32 s0, s1, s2, s3, t0, t1, t2, t3;
+    const u32 *rk;
+    u32 s0, s1, s2, s3, t0, t1, t2, t3;
 #ifndef FULL_UNROLL
-	int r;
+    int r;
 #endif /* ?FULL_UNROLL */
 
-	assert(in && out && key);
-	rk = key->rd_key;
+    assert(in && out && key);
+    rk = key->rd_key;
 
-	/*
-	 * map byte array block to cipher state
-	 * and add initial round key:
-	 */
-	s0 = GETU32(in     ) ^ rk[0];
-	s1 = GETU32(in +  4) ^ rk[1];
-	s2 = GETU32(in +  8) ^ rk[2];
-	s3 = GETU32(in + 12) ^ rk[3];
+    /*
+     * map byte array block to cipher state
+     * and add initial round key:
+     */
+    s0 = GETU32(in) ^ rk[0];
+    s1 = GETU32(in + 4) ^ rk[1];
+    s2 = GETU32(in + 8) ^ rk[2];
+    s3 = GETU32(in + 12) ^ rk[3];
 #ifdef FULL_UNROLL
-	/* round 1: */
-   	t0 = Te0[s0 >> 24] ^ Te1[(s1 >> 16) & 0xff] ^ Te2[(s2 >>  8) & 0xff] ^ Te3[s3 & 0xff] ^ rk[ 4];
-   	t1 = Te0[s1 >> 24] ^ Te1[(s2 >> 16) & 0xff] ^ Te2[(s3 >>  8) & 0xff] ^ Te3[s0 & 0xff] ^ rk[ 5];
-   	t2 = Te0[s2 >> 24] ^ Te1[(s3 >> 16) & 0xff] ^ Te2[(s0 >>  8) & 0xff] ^ Te3[s1 & 0xff] ^ rk[ 6];
-   	t3 = Te0[s3 >> 24] ^ Te1[(s0 >> 16) & 0xff] ^ Te2[(s1 >>  8) & 0xff] ^ Te3[s2 & 0xff] ^ rk[ 7];
-   	/* round 2: */
-   	s0 = Te0[t0 >> 24] ^ Te1[(t1 >> 16) & 0xff] ^ Te2[(t2 >>  8) & 0xff] ^ Te3[t3 & 0xff] ^ rk[ 8];
-   	s1 = Te0[t1 >> 24] ^ Te1[(t2 >> 16) & 0xff] ^ Te2[(t3 >>  8) & 0xff] ^ Te3[t0 & 0xff] ^ rk[ 9];
-   	s2 = Te0[t2 >> 24] ^ Te1[(t3 >> 16) & 0xff] ^ Te2[(t0 >>  8) & 0xff] ^ Te3[t1 & 0xff] ^ rk[10];
-   	s3 = Te0[t3 >> 24] ^ Te1[(t0 >> 16) & 0xff] ^ Te2[(t1 >>  8) & 0xff] ^ Te3[t2 & 0xff] ^ rk[11];
-	/* round 3: */
-   	t0 = Te0[s0 >> 24] ^ Te1[(s1 >> 16) & 0xff] ^ Te2[(s2 >>  8) & 0xff] ^ Te3[s3 & 0xff] ^ rk[12];
-   	t1 = Te0[s1 >> 24] ^ Te1[(s2 >> 16) & 0xff] ^ Te2[(s3 >>  8) & 0xff] ^ Te3[s0 & 0xff] ^ rk[13];
-   	t2 = Te0[s2 >> 24] ^ Te1[(s3 >> 16) & 0xff] ^ Te2[(s0 >>  8) & 0xff] ^ Te3[s1 & 0xff] ^ rk[14];
-   	t3 = Te0[s3 >> 24] ^ Te1[(s0 >> 16) & 0xff] ^ Te2[(s1 >>  8) & 0xff] ^ Te3[s2 & 0xff] ^ rk[15];
-   	/* round 4: */
-   	s0 = Te0[t0 >> 24] ^ Te1[(t1 >> 16) & 0xff] ^ Te2[(t2 >>  8) & 0xff] ^ Te3[t3 & 0xff] ^ rk[16];
-   	s1 = Te0[t1 >> 24] ^ Te1[(t2 >> 16) & 0xff] ^ Te2[(t3 >>  8) & 0xff] ^ Te3[t0 & 0xff] ^ rk[17];
-   	s2 = Te0[t2 >> 24] ^ Te1[(t3 >> 16) & 0xff] ^ Te2[(t0 >>  8) & 0xff] ^ Te3[t1 & 0xff] ^ rk[18];
-   	s3 = Te0[t3 >> 24] ^ Te1[(t0 >> 16) & 0xff] ^ Te2[(t1 >>  8) & 0xff] ^ Te3[t2 & 0xff] ^ rk[19];
-	/* round 5: */
-   	t0 = Te0[s0 >> 24] ^ Te1[(s1 >> 16) & 0xff] ^ Te2[(s2 >>  8) & 0xff] ^ Te3[s3 & 0xff] ^ rk[20];
-   	t1 = Te0[s1 >> 24] ^ Te1[(s2 >> 16) & 0xff] ^ Te2[(s3 >>  8) & 0xff] ^ Te3[s0 & 0xff] ^ rk[21];
-   	t2 = Te0[s2 >> 24] ^ Te1[(s3 >> 16) & 0xff] ^ Te2[(s0 >>  8) & 0xff] ^ Te3[s1 & 0xff] ^ rk[22];
-   	t3 = Te0[s3 >> 24] ^ Te1[(s0 >> 16) & 0xff] ^ Te2[(s1 >>  8) & 0xff] ^ Te3[s2 & 0xff] ^ rk[23];
-   	/* round 6: */
-   	s0 = Te0[t0 >> 24] ^ Te1[(t1 >> 16) & 0xff] ^ Te2[(t2 >>  8) & 0xff] ^ Te3[t3 & 0xff] ^ rk[24];
-   	s1 = Te0[t1 >> 24] ^ Te1[(t2 >> 16) & 0xff] ^ Te2[(t3 >>  8) & 0xff] ^ Te3[t0 & 0xff] ^ rk[25];
-   	s2 = Te0[t2 >> 24] ^ Te1[(t3 >> 16) & 0xff] ^ Te2[(t0 >>  8) & 0xff] ^ Te3[t1 & 0xff] ^ rk[26];
-   	s3 = Te0[t3 >> 24] ^ Te1[(t0 >> 16) & 0xff] ^ Te2[(t1 >>  8) & 0xff] ^ Te3[t2 & 0xff] ^ rk[27];
-	/* round 7: */
-   	t0 = Te0[s0 >> 24] ^ Te1[(s1 >> 16) & 0xff] ^ Te2[(s2 >>  8) & 0xff] ^ Te3[s3 & 0xff] ^ rk[28];
-   	t1 = Te0[s1 >> 24] ^ Te1[(s2 >> 16) & 0xff] ^ Te2[(s3 >>  8) & 0xff] ^ Te3[s0 & 0xff] ^ rk[29];
-   	t2 = Te0[s2 >> 24] ^ Te1[(s3 >> 16) & 0xff] ^ Te2[(s0 >>  8) & 0xff] ^ Te3[s1 & 0xff] ^ rk[30];
-   	t3 = Te0[s3 >> 24] ^ Te1[(s0 >> 16) & 0xff] ^ Te2[(s1 >>  8) & 0xff] ^ Te3[s2 & 0xff] ^ rk[31];
-   	/* round 8: */
-   	s0 = Te0[t0 >> 24] ^ Te1[(t1 >> 16) & 0xff] ^ Te2[(t2 >>  8) & 0xff] ^ Te3[t3 & 0xff] ^ rk[32];
-   	s1 = Te0[t1 >> 24] ^ Te1[(t2 >> 16) & 0xff] ^ Te2[(t3 >>  8) & 0xff] ^ Te3[t0 & 0xff] ^ rk[33];
-   	s2 = Te0[t2 >> 24] ^ Te1[(t3 >> 16) & 0xff] ^ Te2[(t0 >>  8) & 0xff] ^ Te3[t1 & 0xff] ^ rk[34];
-   	s3 = Te0[t3 >> 24] ^ Te1[(t0 >> 16) & 0xff] ^ Te2[(t1 >>  8) & 0xff] ^ Te3[t2 & 0xff] ^ rk[35];
-	/* round 9: */
-   	t0 = Te0[s0 >> 24] ^ Te1[(s1 >> 16) & 0xff] ^ Te2[(s2 >>  8) & 0xff] ^ Te3[s3 & 0xff] ^ rk[36];
-   	t1 = Te0[s1 >> 24] ^ Te1[(s2 >> 16) & 0xff] ^ Te2[(s3 >>  8) & 0xff] ^ Te3[s0 & 0xff] ^ rk[37];
-   	t2 = Te0[s2 >> 24] ^ Te1[(s3 >> 16) & 0xff] ^ Te2[(s0 >>  8) & 0xff] ^ Te3[s1 & 0xff] ^ rk[38];
-   	t3 = Te0[s3 >> 24] ^ Te1[(s0 >> 16) & 0xff] ^ Te2[(s1 >>  8) & 0xff] ^ Te3[s2 & 0xff] ^ rk[39];
+    /* round 1: */
+    t0 = Te0[s0 >> 24] ^ Te1[(s1 >> 16) & 0xff] ^ Te2[(s2 >>  8) & 0xff] ^ Te3[s3 & 0xff] ^ rk[ 4];
+    t1 = Te0[s1 >> 24] ^ Te1[(s2 >> 16) & 0xff] ^ Te2[(s3 >>  8) & 0xff] ^ Te3[s0 & 0xff] ^ rk[ 5];
+    t2 = Te0[s2 >> 24] ^ Te1[(s3 >> 16) & 0xff] ^ Te2[(s0 >>  8) & 0xff] ^ Te3[s1 & 0xff] ^ rk[ 6];
+    t3 = Te0[s3 >> 24] ^ Te1[(s0 >> 16) & 0xff] ^ Te2[(s1 >>  8) & 0xff] ^ Te3[s2 & 0xff] ^ rk[ 7];
+    /* round 2: */
+    s0 = Te0[t0 >> 24] ^ Te1[(t1 >> 16) & 0xff] ^ Te2[(t2 >>  8) & 0xff] ^ Te3[t3 & 0xff] ^ rk[ 8];
+    s1 = Te0[t1 >> 24] ^ Te1[(t2 >> 16) & 0xff] ^ Te2[(t3 >>  8) & 0xff] ^ Te3[t0 & 0xff] ^ rk[ 9];
+    s2 = Te0[t2 >> 24] ^ Te1[(t3 >> 16) & 0xff] ^ Te2[(t0 >>  8) & 0xff] ^ Te3[t1 & 0xff] ^ rk[10];
+    s3 = Te0[t3 >> 24] ^ Te1[(t0 >> 16) & 0xff] ^ Te2[(t1 >>  8) & 0xff] ^ Te3[t2 & 0xff] ^ rk[11];
+    /* round 3: */
+    t0 = Te0[s0 >> 24] ^ Te1[(s1 >> 16) & 0xff] ^ Te2[(s2 >>  8) & 0xff] ^ Te3[s3 & 0xff] ^ rk[12];
+    t1 = Te0[s1 >> 24] ^ Te1[(s2 >> 16) & 0xff] ^ Te2[(s3 >>  8) & 0xff] ^ Te3[s0 & 0xff] ^ rk[13];
+    t2 = Te0[s2 >> 24] ^ Te1[(s3 >> 16) & 0xff] ^ Te2[(s0 >>  8) & 0xff] ^ Te3[s1 & 0xff] ^ rk[14];
+    t3 = Te0[s3 >> 24] ^ Te1[(s0 >> 16) & 0xff] ^ Te2[(s1 >>  8) & 0xff] ^ Te3[s2 & 0xff] ^ rk[15];
+    /* round 4: */
+    s0 = Te0[t0 >> 24] ^ Te1[(t1 >> 16) & 0xff] ^ Te2[(t2 >>  8) & 0xff] ^ Te3[t3 & 0xff] ^ rk[16];
+    s1 = Te0[t1 >> 24] ^ Te1[(t2 >> 16) & 0xff] ^ Te2[(t3 >>  8) & 0xff] ^ Te3[t0 & 0xff] ^ rk[17];
+    s2 = Te0[t2 >> 24] ^ Te1[(t3 >> 16) & 0xff] ^ Te2[(t0 >>  8) & 0xff] ^ Te3[t1 & 0xff] ^ rk[18];
+    s3 = Te0[t3 >> 24] ^ Te1[(t0 >> 16) & 0xff] ^ Te2[(t1 >>  8) & 0xff] ^ Te3[t2 & 0xff] ^ rk[19];
+    /* round 5: */
+    t0 = Te0[s0 >> 24] ^ Te1[(s1 >> 16) & 0xff] ^ Te2[(s2 >>  8) & 0xff] ^ Te3[s3 & 0xff] ^ rk[20];
+    t1 = Te0[s1 >> 24] ^ Te1[(s2 >> 16) & 0xff] ^ Te2[(s3 >>  8) & 0xff] ^ Te3[s0 & 0xff] ^ rk[21];
+    t2 = Te0[s2 >> 24] ^ Te1[(s3 >> 16) & 0xff] ^ Te2[(s0 >>  8) & 0xff] ^ Te3[s1 & 0xff] ^ rk[22];
+    t3 = Te0[s3 >> 24] ^ Te1[(s0 >> 16) & 0xff] ^ Te2[(s1 >>  8) & 0xff] ^ Te3[s2 & 0xff] ^ rk[23];
+    /* round 6: */
+    s0 = Te0[t0 >> 24] ^ Te1[(t1 >> 16) & 0xff] ^ Te2[(t2 >>  8) & 0xff] ^ Te3[t3 & 0xff] ^ rk[24];
+    s1 = Te0[t1 >> 24] ^ Te1[(t2 >> 16) & 0xff] ^ Te2[(t3 >>  8) & 0xff] ^ Te3[t0 & 0xff] ^ rk[25];
+    s2 = Te0[t2 >> 24] ^ Te1[(t3 >> 16) & 0xff] ^ Te2[(t0 >>  8) & 0xff] ^ Te3[t1 & 0xff] ^ rk[26];
+    s3 = Te0[t3 >> 24] ^ Te1[(t0 >> 16) & 0xff] ^ Te2[(t1 >>  8) & 0xff] ^ Te3[t2 & 0xff] ^ rk[27];
+    /* round 7: */
+    t0 = Te0[s0 >> 24] ^ Te1[(s1 >> 16) & 0xff] ^ Te2[(s2 >>  8) & 0xff] ^ Te3[s3 & 0xff] ^ rk[28];
+    t1 = Te0[s1 >> 24] ^ Te1[(s2 >> 16) & 0xff] ^ Te2[(s3 >>  8) & 0xff] ^ Te3[s0 & 0xff] ^ rk[29];
+    t2 = Te0[s2 >> 24] ^ Te1[(s3 >> 16) & 0xff] ^ Te2[(s0 >>  8) & 0xff] ^ Te3[s1 & 0xff] ^ rk[30];
+    t3 = Te0[s3 >> 24] ^ Te1[(s0 >> 16) & 0xff] ^ Te2[(s1 >>  8) & 0xff] ^ Te3[s2 & 0xff] ^ rk[31];
+    /* round 8: */
+    s0 = Te0[t0 >> 24] ^ Te1[(t1 >> 16) & 0xff] ^ Te2[(t2 >>  8) & 0xff] ^ Te3[t3 & 0xff] ^ rk[32];
+    s1 = Te0[t1 >> 24] ^ Te1[(t2 >> 16) & 0xff] ^ Te2[(t3 >>  8) & 0xff] ^ Te3[t0 & 0xff] ^ rk[33];
+    s2 = Te0[t2 >> 24] ^ Te1[(t3 >> 16) & 0xff] ^ Te2[(t0 >>  8) & 0xff] ^ Te3[t1 & 0xff] ^ rk[34];
+    s3 = Te0[t3 >> 24] ^ Te1[(t0 >> 16) & 0xff] ^ Te2[(t1 >>  8) & 0xff] ^ Te3[t2 & 0xff] ^ rk[35];
+    /* round 9: */
+    t0 = Te0[s0 >> 24] ^ Te1[(s1 >> 16) & 0xff] ^ Te2[(s2 >>  8) & 0xff] ^ Te3[s3 & 0xff] ^ rk[36];
+    t1 = Te0[s1 >> 24] ^ Te1[(s2 >> 16) & 0xff] ^ Te2[(s3 >>  8) & 0xff] ^ Te3[s0 & 0xff] ^ rk[37];
+    t2 = Te0[s2 >> 24] ^ Te1[(s3 >> 16) & 0xff] ^ Te2[(s0 >>  8) & 0xff] ^ Te3[s1 & 0xff] ^ rk[38];
+    t3 = Te0[s3 >> 24] ^ Te1[(s0 >> 16) & 0xff] ^ Te2[(s1 >>  8) & 0xff] ^ Te3[s2 & 0xff] ^ rk[39];
     if (key->rounds > 10) {
         /* round 10: */
         s0 = Te0[t0 >> 24] ^ Te1[(t1 >> 16) & 0xff] ^ Te2[(t2 >>  8) & 0xff] ^ Te3[t3 & 0xff] ^ rk[40];
@@ -969,28 +926,28 @@ void ossl_aes_encrypt(const unsigned char *in, unsigned char *out,
     r = key->rounds >> 1;
     for (;;) {
         t0 =
-            Te0[(s0 >> 24)       ] ^
+            Te0[(s0 >> 24)] ^
             Te1[(s1 >> 16) & 0xff] ^
-            Te2[(s2 >>  8) & 0xff] ^
-            Te3[(s3      ) & 0xff] ^
+            Te2[(s2 >> 8) & 0xff] ^
+            Te3[(s3)& 0xff] ^
             rk[4];
         t1 =
-            Te0[(s1 >> 24)       ] ^
+            Te0[(s1 >> 24)] ^
             Te1[(s2 >> 16) & 0xff] ^
-            Te2[(s3 >>  8) & 0xff] ^
-            Te3[(s0      ) & 0xff] ^
+            Te2[(s3 >> 8) & 0xff] ^
+            Te3[(s0)& 0xff] ^
             rk[5];
         t2 =
-            Te0[(s2 >> 24)       ] ^
+            Te0[(s2 >> 24)] ^
             Te1[(s3 >> 16) & 0xff] ^
-            Te2[(s0 >>  8) & 0xff] ^
-            Te3[(s1      ) & 0xff] ^
+            Te2[(s0 >> 8) & 0xff] ^
+            Te3[(s1)& 0xff] ^
             rk[6];
         t3 =
-            Te0[(s3 >> 24)       ] ^
+            Te0[(s3 >> 24)] ^
             Te1[(s0 >> 16) & 0xff] ^
-            Te2[(s1 >>  8) & 0xff] ^
-            Te3[(s2      ) & 0xff] ^
+            Te2[(s1 >> 8) & 0xff] ^
+            Te3[(s2)& 0xff] ^
             rk[7];
 
         rk += 8;
@@ -999,63 +956,63 @@ void ossl_aes_encrypt(const unsigned char *in, unsigned char *out,
         }
 
         s0 =
-            Te0[(t0 >> 24)       ] ^
+            Te0[(t0 >> 24)] ^
             Te1[(t1 >> 16) & 0xff] ^
-            Te2[(t2 >>  8) & 0xff] ^
-            Te3[(t3      ) & 0xff] ^
+            Te2[(t2 >> 8) & 0xff] ^
+            Te3[(t3)& 0xff] ^
             rk[0];
         s1 =
-            Te0[(t1 >> 24)       ] ^
+            Te0[(t1 >> 24)] ^
             Te1[(t2 >> 16) & 0xff] ^
-            Te2[(t3 >>  8) & 0xff] ^
-            Te3[(t0      ) & 0xff] ^
+            Te2[(t3 >> 8) & 0xff] ^
+            Te3[(t0)& 0xff] ^
             rk[1];
         s2 =
-            Te0[(t2 >> 24)       ] ^
+            Te0[(t2 >> 24)] ^
             Te1[(t3 >> 16) & 0xff] ^
-            Te2[(t0 >>  8) & 0xff] ^
-            Te3[(t1      ) & 0xff] ^
+            Te2[(t0 >> 8) & 0xff] ^
+            Te3[(t1)& 0xff] ^
             rk[2];
         s3 =
-            Te0[(t3 >> 24)       ] ^
+            Te0[(t3 >> 24)] ^
             Te1[(t0 >> 16) & 0xff] ^
-            Te2[(t1 >>  8) & 0xff] ^
-            Te3[(t2      ) & 0xff] ^
+            Te2[(t1 >> 8) & 0xff] ^
+            Te3[(t2)& 0xff] ^
             rk[3];
     }
 #endif /* ?FULL_UNROLL */
     /*
-	 * apply last round and
-	 * map cipher state to byte array block:
-	 */
-	s0 =
-		(Te2[(t0 >> 24)       ] & 0xff000000) ^
-		(Te3[(t1 >> 16) & 0xff] & 0x00ff0000) ^
-		(Te0[(t2 >>  8) & 0xff] & 0x0000ff00) ^
-		(Te1[(t3      ) & 0xff] & 0x000000ff) ^
-		rk[0];
-	PUTU32(out     , s0);
-	s1 =
-		(Te2[(t1 >> 24)       ] & 0xff000000) ^
-		(Te3[(t2 >> 16) & 0xff] & 0x00ff0000) ^
-		(Te0[(t3 >>  8) & 0xff] & 0x0000ff00) ^
-		(Te1[(t0      ) & 0xff] & 0x000000ff) ^
-		rk[1];
-	PUTU32(out +  4, s1);
-	s2 =
-		(Te2[(t2 >> 24)       ] & 0xff000000) ^
-		(Te3[(t3 >> 16) & 0xff] & 0x00ff0000) ^
-		(Te0[(t0 >>  8) & 0xff] & 0x0000ff00) ^
-		(Te1[(t1      ) & 0xff] & 0x000000ff) ^
-		rk[2];
-	PUTU32(out +  8, s2);
-	s3 =
-		(Te2[(t3 >> 24)       ] & 0xff000000) ^
-		(Te3[(t0 >> 16) & 0xff] & 0x00ff0000) ^
-		(Te0[(t1 >>  8) & 0xff] & 0x0000ff00) ^
-		(Te1[(t2      ) & 0xff] & 0x000000ff) ^
-		rk[3];
-	PUTU32(out + 12, s3);
+     * apply last round and
+     * map cipher state to byte array block:
+     */
+    s0 =
+        (Te2[(t0 >> 24)] & 0xff000000) ^
+        (Te3[(t1 >> 16) & 0xff] & 0x00ff0000) ^
+        (Te0[(t2 >> 8) & 0xff] & 0x0000ff00) ^
+        (Te1[(t3)& 0xff] & 0x000000ff) ^
+        rk[0];
+    PUTU32(out, s0);
+    s1 =
+        (Te2[(t1 >> 24)] & 0xff000000) ^
+        (Te3[(t2 >> 16) & 0xff] & 0x00ff0000) ^
+        (Te0[(t3 >> 8) & 0xff] & 0x0000ff00) ^
+        (Te1[(t0)& 0xff] & 0x000000ff) ^
+        rk[1];
+    PUTU32(out + 4, s1);
+    s2 =
+        (Te2[(t2 >> 24)] & 0xff000000) ^
+        (Te3[(t3 >> 16) & 0xff] & 0x00ff0000) ^
+        (Te0[(t0 >> 8) & 0xff] & 0x0000ff00) ^
+        (Te1[(t1)& 0xff] & 0x000000ff) ^
+        rk[2];
+    PUTU32(out + 8, s2);
+    s3 =
+        (Te2[(t3 >> 24)] & 0xff000000) ^
+        (Te3[(t0 >> 16) & 0xff] & 0x00ff0000) ^
+        (Te0[(t1 >> 8) & 0xff] & 0x0000ff00) ^
+        (Te1[(t2)& 0xff] & 0x000000ff) ^
+        rk[3];
+    PUTU32(out + 12, s3);
 }
 
 /*
@@ -1063,24 +1020,24 @@ void ossl_aes_encrypt(const unsigned char *in, unsigned char *out,
  * in and out can overlap
  */
 void ossl_aes_decrypt(const unsigned char *in, unsigned char *out,
-		 const AES_KEY *key) {
+    const AES_KEY *key) {
 
-	const u32 *rk;
-	u32 s0, s1, s2, s3, t0, t1, t2, t3;
+    const u32 *rk;
+    u32 s0, s1, s2, s3, t0, t1, t2, t3;
 #ifndef FULL_UNROLL
-	int r;
+    int r;
 #endif /* ?FULL_UNROLL */
 
-	assert(in && out && key);
-	rk = key->rd_key;
+    assert(in && out && key);
+    rk = key->rd_key;
 
-	/*
-	 * map byte array block to cipher state
-	 * and add initial round key:
-	 */
-    s0 = GETU32(in     ) ^ rk[0];
-    s1 = GETU32(in +  4) ^ rk[1];
-    s2 = GETU32(in +  8) ^ rk[2];
+    /*
+     * map byte array block to cipher state
+     * and add initial round key:
+     */
+    s0 = GETU32(in) ^ rk[0];
+    s1 = GETU32(in + 4) ^ rk[1];
+    s2 = GETU32(in + 8) ^ rk[2];
     s3 = GETU32(in + 12) ^ rk[3];
 #ifdef FULL_UNROLL
     /* round 1: */
@@ -1152,7 +1109,7 @@ void ossl_aes_decrypt(const unsigned char *in, unsigned char *out,
             t3 = Td0[s3 >> 24] ^ Td1[(s2 >> 16) & 0xff] ^ Td2[(s1 >>  8) & 0xff] ^ Td3[s0 & 0xff] ^ rk[55];
         }
     }
-	rk += key->rounds << 2;
+    rk += key->rounds << 2;
 #else  /* !FULL_UNROLL */
     /*
      * Nr - 1 full rounds:
@@ -1160,28 +1117,28 @@ void ossl_aes_decrypt(const unsigned char *in, unsigned char *out,
     r = key->rounds >> 1;
     for (;;) {
         t0 =
-            Td0[(s0 >> 24)       ] ^
+            Td0[(s0 >> 24)] ^
             Td1[(s3 >> 16) & 0xff] ^
-            Td2[(s2 >>  8) & 0xff] ^
-            Td3[(s1      ) & 0xff] ^
+            Td2[(s2 >> 8) & 0xff] ^
+            Td3[(s1)& 0xff] ^
             rk[4];
         t1 =
-            Td0[(s1 >> 24)       ] ^
+            Td0[(s1 >> 24)] ^
             Td1[(s0 >> 16) & 0xff] ^
-            Td2[(s3 >>  8) & 0xff] ^
-            Td3[(s2      ) & 0xff] ^
+            Td2[(s3 >> 8) & 0xff] ^
+            Td3[(s2)& 0xff] ^
             rk[5];
         t2 =
-            Td0[(s2 >> 24)       ] ^
+            Td0[(s2 >> 24)] ^
             Td1[(s1 >> 16) & 0xff] ^
-            Td2[(s0 >>  8) & 0xff] ^
-            Td3[(s3      ) & 0xff] ^
+            Td2[(s0 >> 8) & 0xff] ^
+            Td3[(s3)& 0xff] ^
             rk[6];
         t3 =
-            Td0[(s3 >> 24)       ] ^
+            Td0[(s3 >> 24)] ^
             Td1[(s2 >> 16) & 0xff] ^
-            Td2[(s1 >>  8) & 0xff] ^
-            Td3[(s0      ) & 0xff] ^
+            Td2[(s1 >> 8) & 0xff] ^
+            Td3[(s0)& 0xff] ^
             rk[7];
 
         rk += 8;
@@ -1190,63 +1147,63 @@ void ossl_aes_decrypt(const unsigned char *in, unsigned char *out,
         }
 
         s0 =
-            Td0[(t0 >> 24)       ] ^
+            Td0[(t0 >> 24)] ^
             Td1[(t3 >> 16) & 0xff] ^
-            Td2[(t2 >>  8) & 0xff] ^
-            Td3[(t1      ) & 0xff] ^
+            Td2[(t2 >> 8) & 0xff] ^
+            Td3[(t1)& 0xff] ^
             rk[0];
         s1 =
-            Td0[(t1 >> 24)       ] ^
+            Td0[(t1 >> 24)] ^
             Td1[(t0 >> 16) & 0xff] ^
-            Td2[(t3 >>  8) & 0xff] ^
-            Td3[(t2      ) & 0xff] ^
+            Td2[(t3 >> 8) & 0xff] ^
+            Td3[(t2)& 0xff] ^
             rk[1];
         s2 =
-            Td0[(t2 >> 24)       ] ^
+            Td0[(t2 >> 24)] ^
             Td1[(t1 >> 16) & 0xff] ^
-            Td2[(t0 >>  8) & 0xff] ^
-            Td3[(t3      ) & 0xff] ^
+            Td2[(t0 >> 8) & 0xff] ^
+            Td3[(t3)& 0xff] ^
             rk[2];
         s3 =
-            Td0[(t3 >> 24)       ] ^
+            Td0[(t3 >> 24)] ^
             Td1[(t2 >> 16) & 0xff] ^
-            Td2[(t1 >>  8) & 0xff] ^
-            Td3[(t0      ) & 0xff] ^
+            Td2[(t1 >> 8) & 0xff] ^
+            Td3[(t0)& 0xff] ^
             rk[3];
     }
 #endif /* ?FULL_UNROLL */
     /*
-	 * apply last round and
-	 * map cipher state to byte array block:
-	 */
-   	s0 =
-   		(Td4[(t0 >> 24)       ] << 24) ^
-   		(Td4[(t3 >> 16) & 0xff] << 16) ^
-   		(Td4[(t2 >>  8) & 0xff] <<  8) ^
-   		(Td4[(t1      ) & 0xff])       ^
-   		rk[0];
-	PUTU32(out     , s0);
-   	s1 =
-   		(Td4[(t1 >> 24)       ] << 24) ^
-   		(Td4[(t0 >> 16) & 0xff] << 16) ^
-   		(Td4[(t3 >>  8) & 0xff] <<  8) ^
-   		(Td4[(t2      ) & 0xff])       ^
-   		rk[1];
-	PUTU32(out +  4, s1);
-   	s2 =
-   		(Td4[(t2 >> 24)       ] << 24) ^
-   		(Td4[(t1 >> 16) & 0xff] << 16) ^
-   		(Td4[(t0 >>  8) & 0xff] <<  8) ^
-   		(Td4[(t3      ) & 0xff])       ^
-   		rk[2];
-	PUTU32(out +  8, s2);
-   	s3 =
-   		(Td4[(t3 >> 24)       ] << 24) ^
-   		(Td4[(t2 >> 16) & 0xff] << 16) ^
-   		(Td4[(t1 >>  8) & 0xff] <<  8) ^
-   		(Td4[(t0      ) & 0xff])       ^
-   		rk[3];
-	PUTU32(out + 12, s3);
+     * apply last round and
+     * map cipher state to byte array block:
+     */
+    s0 =
+        (Td4[(t0 >> 24)] << 24) ^
+        (Td4[(t3 >> 16) & 0xff] << 16) ^
+        (Td4[(t2 >> 8) & 0xff] << 8) ^
+        (Td4[(t1)& 0xff]) ^
+        rk[0];
+    PUTU32(out, s0);
+    s1 =
+        (Td4[(t1 >> 24)] << 24) ^
+        (Td4[(t0 >> 16) & 0xff] << 16) ^
+        (Td4[(t3 >> 8) & 0xff] << 8) ^
+        (Td4[(t2)& 0xff]) ^
+        rk[1];
+    PUTU32(out + 4, s1);
+    s2 =
+        (Td4[(t2 >> 24)] << 24) ^
+        (Td4[(t1 >> 16) & 0xff] << 16) ^
+        (Td4[(t0 >> 8) & 0xff] << 8) ^
+        (Td4[(t3)& 0xff]) ^
+        rk[2];
+    PUTU32(out + 8, s2);
+    s3 =
+        (Td4[(t3 >> 24)] << 24) ^
+        (Td4[(t2 >> 16) & 0xff] << 16) ^
+        (Td4[(t1 >> 8) & 0xff] << 8) ^
+        (Td4[(t0)& 0xff]) ^
+        rk[3];
+    PUTU32(out + 12, s3);
 }
 
 #else /* AES_ASM */
@@ -1286,166 +1243,166 @@ static const u8 Te4[256] = {
     0x41U, 0x99U, 0x2dU, 0x0fU, 0xb0U, 0x54U, 0xbbU, 0x16U
 };
 static const u32 rcon[] = {
-	0x01000000, 0x02000000, 0x04000000, 0x08000000,
-	0x10000000, 0x20000000, 0x40000000, 0x80000000,
-	0x1B000000, 0x36000000, /* for 128-bit blocks, Rijndael never uses more than 10 rcon values */
+    0x01000000, 0x02000000, 0x04000000, 0x08000000,
+    0x10000000, 0x20000000, 0x40000000, 0x80000000,
+    0x1B000000, 0x36000000, /* for 128-bit blocks, Rijndael never uses more than 10 rcon values */
 };
 
 /**
  * Expand the cipher key into the encryption key schedule.
  */
 int ossl_aes_set_encrypt_key(const unsigned char *userKey, const int bits,
-			AES_KEY *key) {
-	u32 *rk;
-   	int i = 0;
-	u32 temp;
+    AES_KEY *key) {
+    u32 *rk;
+    int i = 0;
+    u32 temp;
 
-	if (!userKey || !key)
-		return -1;
-	if (bits != 128 && bits != 192 && bits != 256)
-		return -2;
+    if (!userKey || !key)
+        return -1;
+    if (bits != 128 && bits != 192 && bits != 256)
+        return -2;
 
-	rk = key->rd_key;
+    rk = key->rd_key;
 
-	if (bits==128)
-		key->rounds = 10;
-	else if (bits==192)
-		key->rounds = 12;
-	else
-		key->rounds = 14;
+    if (bits==128)
+        key->rounds = 10;
+    else if (bits==192)
+        key->rounds = 12;
+    else
+        key->rounds = 14;
 
-	rk[0] = GETU32(userKey     );
-	rk[1] = GETU32(userKey +  4);
-	rk[2] = GETU32(userKey +  8);
-	rk[3] = GETU32(userKey + 12);
-	if (bits == 128) {
-		while (1) {
-			temp  = rk[3];
-			rk[4] = rk[0] ^
-				(Te4[(temp >> 16) & 0xff] << 24) ^
-				(Te4[(temp >>  8) & 0xff] << 16) ^
-				(Te4[(temp      ) & 0xff] << 8) ^
-				(Te4[(temp >> 24)       ]) ^
-				rcon[i];
-			rk[5] = rk[1] ^ rk[4];
-			rk[6] = rk[2] ^ rk[5];
-			rk[7] = rk[3] ^ rk[6];
-			if (++i == 10) {
-				return 0;
-			}
-			rk += 4;
-		}
-	}
-	rk[4] = GETU32(userKey + 16);
-	rk[5] = GETU32(userKey + 20);
-	if (bits == 192) {
-		while (1) {
-			temp = rk[ 5];
-			rk[ 6] = rk[ 0] ^
-				(Te4[(temp >> 16) & 0xff] << 24) ^
-				(Te4[(temp >>  8) & 0xff] << 16) ^
-				(Te4[(temp      ) & 0xff] << 8) ^
-				(Te4[(temp >> 24)       ]) ^
-				rcon[i];
-			rk[ 7] = rk[ 1] ^ rk[ 6];
-			rk[ 8] = rk[ 2] ^ rk[ 7];
-			rk[ 9] = rk[ 3] ^ rk[ 8];
-			if (++i == 8) {
-				return 0;
-			}
-			rk[10] = rk[ 4] ^ rk[ 9];
-			rk[11] = rk[ 5] ^ rk[10];
-			rk += 6;
-		}
-	}
-	rk[6] = GETU32(userKey + 24);
-	rk[7] = GETU32(userKey + 28);
-	if (bits == 256) {
-		while (1) {
-			temp = rk[ 7];
-			rk[ 8] = rk[ 0] ^
-				(Te4[(temp >> 16) & 0xff] << 24) ^
-				(Te4[(temp >>  8) & 0xff] << 16) ^
-				(Te4[(temp      ) & 0xff] << 8) ^
-				(Te4[(temp >> 24)       ]) ^
-				rcon[i];
-			rk[ 9] = rk[ 1] ^ rk[ 8];
-			rk[10] = rk[ 2] ^ rk[ 9];
-			rk[11] = rk[ 3] ^ rk[10];
-			if (++i == 7) {
-				return 0;
-			}
-			temp = rk[11];
-			rk[12] = rk[ 4] ^
-				(Te4[(temp >> 24)       ] << 24) ^
-				(Te4[(temp >> 16) & 0xff] << 16) ^
-				(Te4[(temp >>  8) & 0xff] << 8) ^
-				(Te4[(temp      ) & 0xff]);
-			rk[13] = rk[ 5] ^ rk[12];
-			rk[14] = rk[ 6] ^ rk[13];
-			rk[15] = rk[ 7] ^ rk[14];
+    rk[0] = GETU32(userKey     );
+    rk[1] = GETU32(userKey +  4);
+    rk[2] = GETU32(userKey +  8);
+    rk[3] = GETU32(userKey + 12);
+    if (bits == 128) {
+        while (1) {
+            temp  = rk[3];
+            rk[4] = rk[0] ^
+                (Te4[(temp >> 16) & 0xff] << 24) ^
+                (Te4[(temp >>  8) & 0xff] << 16) ^
+                (Te4[(temp      ) & 0xff] << 8) ^
+                (Te4[(temp >> 24)       ]) ^
+                rcon[i];
+            rk[5] = rk[1] ^ rk[4];
+            rk[6] = rk[2] ^ rk[5];
+            rk[7] = rk[3] ^ rk[6];
+            if (++i == 10) {
+                return 0;
+            }
+            rk += 4;
+        }
+    }
+    rk[4] = GETU32(userKey + 16);
+    rk[5] = GETU32(userKey + 20);
+    if (bits == 192) {
+        while (1) {
+            temp = rk[ 5];
+            rk[ 6] = rk[ 0] ^
+                (Te4[(temp >> 16) & 0xff] << 24) ^
+                (Te4[(temp >>  8) & 0xff] << 16) ^
+                (Te4[(temp      ) & 0xff] << 8) ^
+                (Te4[(temp >> 24)       ]) ^
+                rcon[i];
+            rk[ 7] = rk[ 1] ^ rk[ 6];
+            rk[ 8] = rk[ 2] ^ rk[ 7];
+            rk[ 9] = rk[ 3] ^ rk[ 8];
+            if (++i == 8) {
+                return 0;
+            }
+            rk[10] = rk[ 4] ^ rk[ 9];
+            rk[11] = rk[ 5] ^ rk[10];
+            rk += 6;
+        }
+    }
+    rk[6] = GETU32(userKey + 24);
+    rk[7] = GETU32(userKey + 28);
+    if (bits == 256) {
+        while (1) {
+            temp = rk[ 7];
+            rk[ 8] = rk[ 0] ^
+                (Te4[(temp >> 16) & 0xff] << 24) ^
+                (Te4[(temp >>  8) & 0xff] << 16) ^
+                (Te4[(temp      ) & 0xff] << 8) ^
+                (Te4[(temp >> 24)       ]) ^
+                rcon[i];
+            rk[ 9] = rk[ 1] ^ rk[ 8];
+            rk[10] = rk[ 2] ^ rk[ 9];
+            rk[11] = rk[ 3] ^ rk[10];
+            if (++i == 7) {
+                return 0;
+            }
+            temp = rk[11];
+            rk[12] = rk[ 4] ^
+                (Te4[(temp >> 24)       ] << 24) ^
+                (Te4[(temp >> 16) & 0xff] << 16) ^
+                (Te4[(temp >>  8) & 0xff] << 8) ^
+                (Te4[(temp      ) & 0xff]);
+            rk[13] = rk[ 5] ^ rk[12];
+            rk[14] = rk[ 6] ^ rk[13];
+            rk[15] = rk[ 7] ^ rk[14];
 
-			rk += 8;
-        	}
-	}
-	return 0;
+            rk += 8;
+        }
+    }
+    return 0;
 }
 
 /**
  * Expand the cipher key into the decryption key schedule.
  */
 int ossl_aes_set_decrypt_key(const unsigned char *userKey, const int bits,
-			 AES_KEY *key) {
+    AES_KEY *key) {
 
-        u32 *rk;
-	int i, j, status;
-	u32 temp;
+    u32 *rk;
+    int i, j, status;
+    u32 temp;
 
-	/* first, start with an encryption schedule */
-	status = ossl_aes_set_encrypt_key(userKey, bits, key);
-	if (status < 0)
-		return status;
+    /* first, start with an encryption schedule */
+    status = ossl_aes_set_encrypt_key(userKey, bits, key);
+    if (status < 0)
+        return status;
 
-	rk = key->rd_key;
+    rk = key->rd_key;
 
-	/* invert the order of the round keys: */
-	for (i = 0, j = 4*(key->rounds); i < j; i += 4, j -= 4) {
-		temp = rk[i    ]; rk[i    ] = rk[j    ]; rk[j    ] = temp;
-		temp = rk[i + 1]; rk[i + 1] = rk[j + 1]; rk[j + 1] = temp;
-		temp = rk[i + 2]; rk[i + 2] = rk[j + 2]; rk[j + 2] = temp;
-		temp = rk[i + 3]; rk[i + 3] = rk[j + 3]; rk[j + 3] = temp;
-	}
-	/* apply the inverse MixColumn transform to all round keys but the first and the last: */
-	for (i = 1; i < (key->rounds); i++) {
-		rk += 4;
-		for (j = 0; j < 4; j++) {
-			u32 tp1, tp2, tp4, tp8, tp9, tpb, tpd, tpe, m;
+    /* invert the order of the round keys: */
+    for (i = 0, j = 4*(key->rounds); i < j; i += 4, j -= 4) {
+        temp = rk[i    ]; rk[i    ] = rk[j    ]; rk[j    ] = temp;
+        temp = rk[i + 1]; rk[i + 1] = rk[j + 1]; rk[j + 1] = temp;
+        temp = rk[i + 2]; rk[i + 2] = rk[j + 2]; rk[j + 2] = temp;
+        temp = rk[i + 3]; rk[i + 3] = rk[j + 3]; rk[j + 3] = temp;
+    }
+    /* apply the inverse MixColumn transform to all round keys but the first and the last: */
+    for (i = 1; i < (key->rounds); i++) {
+        rk += 4;
+        for (j = 0; j < 4; j++) {
+            u32 tp1, tp2, tp4, tp8, tp9, tpb, tpd, tpe, m;
 
-			tp1 = rk[j];
-			m = tp1 & 0x80808080;
-			tp2 = ((tp1 & 0x7f7f7f7f) << 1) ^
-				((m - (m >> 7)) & 0x1b1b1b1b);
-			m = tp2 & 0x80808080;
-			tp4 = ((tp2 & 0x7f7f7f7f) << 1) ^
-				((m - (m >> 7)) & 0x1b1b1b1b);
-			m = tp4 & 0x80808080;
-			tp8 = ((tp4 & 0x7f7f7f7f) << 1) ^
-				((m - (m >> 7)) & 0x1b1b1b1b);
-			tp9 = tp8 ^ tp1;
-			tpb = tp9 ^ tp2;
-			tpd = tp9 ^ tp4;
-			tpe = tp8 ^ tp4 ^ tp2;
+            tp1 = rk[j];
+            m = tp1 & 0x80808080;
+            tp2 = ((tp1 & 0x7f7f7f7f) << 1) ^
+                ((m - (m >> 7)) & 0x1b1b1b1b);
+            m = tp2 & 0x80808080;
+            tp4 = ((tp2 & 0x7f7f7f7f) << 1) ^
+                ((m - (m >> 7)) & 0x1b1b1b1b);
+            m = tp4 & 0x80808080;
+            tp8 = ((tp4 & 0x7f7f7f7f) << 1) ^
+                ((m - (m >> 7)) & 0x1b1b1b1b);
+            tp9 = tp8 ^ tp1;
+            tpb = tp9 ^ tp2;
+            tpd = tp9 ^ tp4;
+            tpe = tp8 ^ tp4 ^ tp2;
 #if defined(ROTATE)
-			rk[j] = tpe ^ ROTATE(tpd,16) ^
-				ROTATE(tp9,24) ^ ROTATE(tpb,8);
+            rk[j] = tpe ^ ROTATE(tpd,16) ^
+                ROTATE(tp9,24) ^ ROTATE(tpb,8);
 #else
-			rk[j] = tpe ^ (tpd >> 16) ^ (tpd << 16) ^ 
-				(tp9 >> 8) ^ (tp9 << 24) ^
-				(tpb >> 24) ^ (tpb << 8);
+            rk[j] = tpe ^ (tpd >> 16) ^ (tpd << 16) ^ 
+                (tp9 >> 8) ^ (tp9 << 24) ^
+                (tpb >> 24) ^ (tpb << 8);
 #endif
-		}
-	}
-	return 0;
+        }
+    }
+    return 0;
 }
 
 #endif /* AES_ASM */
@@ -1587,7 +1544,7 @@ int ossl_crypto_xts128_encrypt(const XTS128_CONTEXT *ctx, const unsigned char iv
     const unsigned char *inp, unsigned char *out, size_t len, int enc);
 
 
-/* crypto/aes/aes_ecb.c -*- mode:C; c-file-style: "eay" -*- */
+/* AES ecb: copies from crypto/aes/aes_ecb.c -*- mode:C; c-file-style: "eay" -*- */
 /* ====================================================================
 * Copyright (c) 1998-2002 The OpenSSL Project.  All rights reserved.
 *
@@ -1638,18 +1595,8 @@ int ossl_crypto_xts128_encrypt(const XTS128_CONTEXT *ctx, const unsigned char iv
 *
 */
 
-#ifndef AES_DEBUG
-# ifndef NDEBUG
-#  define NDEBUG
-# endif
-#endif
-#include <assert.h>
-
-#include "aes.h"
-//#include "aes_locl.h"
-
 // ECB copy from Aes_ecb.c
-void osl_aes_ecb_encrypt(const unsigned char *in, unsigned char *out,
+void ossl_aes_ecb_encrypt(const unsigned char *in, unsigned char *out,
     const AES_KEY *key, const int enc)
 {
 
@@ -1911,13 +1858,13 @@ void ossl_aes_bi_ige_encrypt(const unsigned char *in, unsigned char *out,
             memcpy(tmp, out, AES_BLOCK_SIZE);
             for (n = 0; n < AES_BLOCK_SIZE; ++n)
                 out[n] ^= iv[n];
-            /*			hexdump(stdout, "out ^ iv", out, AES_BLOCK_SIZE); */
+            /*            hexdump(stdout, "out ^ iv", out, AES_BLOCK_SIZE); */
             ossl_aes_encrypt(out, out, key);
-            /*			hexdump(stdout,"enc", out, AES_BLOCK_SIZE); */
-            /*			hexdump(stdout,"iv2", iv2, AES_BLOCK_SIZE); */
+            /*            hexdump(stdout,"enc", out, AES_BLOCK_SIZE); */
+            /*            hexdump(stdout,"iv2", iv2, AES_BLOCK_SIZE); */
             for (n = 0; n < AES_BLOCK_SIZE; ++n)
                 out[n] ^= iv2[n];
-            /*			hexdump(stdout,"out", out, AES_BLOCK_SIZE); */
+            /*            hexdump(stdout,"out", out, AES_BLOCK_SIZE); */
             iv = out;
             memcpy(prev, tmp, AES_BLOCK_SIZE);
             iv2 = prev;
@@ -1973,13 +1920,7 @@ void ossl_aes_bi_ige_encrypt(const unsigned char *in, unsigned char *out,
 
 
 ////////////////////////////// implementions ///////////////////////////
-/// copy from cbc128.c
-#ifndef MODES_DEBUG
-# ifndef NDEBUG
-#  define NDEBUG
-# endif
-#endif
-#include <assert.h>
+/// AES cbc128 copies from cbc128.c
 
 // define STRICT_ALIGNMENT 1
 
@@ -2000,7 +1941,7 @@ void ossl_crypto_cbc128_encrypt(const unsigned char *in, unsigned char *out,
     if (STRICT_ALIGNMENT &&
         ((size_t)in | (size_t)out | (size_t)ivec) % sizeof(size_t) != 0) {
         while (len >= 16) {
-            for (n = 0; n<16; ++n)
+            for (n = 0; n < 16; ++n)
                 out[n] = in[n] ^ iv[n];
             (*block)(out, out, key);
             iv = out;
@@ -2011,7 +1952,7 @@ void ossl_crypto_cbc128_encrypt(const unsigned char *in, unsigned char *out,
     }
     else {
         while (len >= 16) {
-            for (n = 0; n<16; n += sizeof(size_t))
+            for (n = 0; n < 16; n += sizeof(size_t))
                 *(size_t*)(out + n) =
                 *(size_t*)(in + n) ^ *(size_t*)(iv + n);
             (*block)(out, out, key);
@@ -2023,9 +1964,9 @@ void ossl_crypto_cbc128_encrypt(const unsigned char *in, unsigned char *out,
     }
 #endif
     while (len) {
-        for (n = 0; n<16 && n<len; ++n)
+        for (n = 0; n < 16 && n < len; ++n)
             out[n] = in[n] ^ iv[n];
-        for (; n<16; ++n)
+        for (; n < 16; ++n)
             out[n] = iv[n];
         (*block)(out, out, key);
         iv = out;
@@ -2054,7 +1995,7 @@ void ossl_crypto_cbc128_decrypt(const unsigned char *in, unsigned char *out,
             ((size_t)in | (size_t)out | (size_t)ivec) % sizeof(size_t) != 0) {
             while (len >= 16) {
                 (*block)(in, out, key);
-                for (n = 0; n<16; ++n)
+                for (n = 0; n < 16; ++n)
                     out[n] ^= iv[n];
                 iv = in;
                 len -= 16;
@@ -2065,7 +2006,7 @@ void ossl_crypto_cbc128_decrypt(const unsigned char *in, unsigned char *out,
         else {
             while (len >= 16) {
                 (*block)(in, out, key);
-                for (n = 0; n<16; n += sizeof(size_t))
+                for (n = 0; n < 16; n += sizeof(size_t))
                     *(size_t *)(out + n) ^= *(size_t *)(iv + n);
                 iv = in;
                 len -= 16;
@@ -2081,7 +2022,7 @@ void ossl_crypto_cbc128_decrypt(const unsigned char *in, unsigned char *out,
             unsigned char c;
             while (len >= 16) {
                 (*block)(in, tmp.c, key);
-                for (n = 0; n<16; ++n) {
+                for (n = 0; n < 16; ++n) {
                     c = in[n];
                     out[n] = tmp.c[n] ^ ivec[n];
                     ivec[n] = c;
@@ -2095,7 +2036,7 @@ void ossl_crypto_cbc128_decrypt(const unsigned char *in, unsigned char *out,
             size_t c;
             while (len >= 16) {
                 (*block)(in, tmp.c, key);
-                for (n = 0; n<16; n += sizeof(size_t)) {
+                for (n = 0; n < 16; n += sizeof(size_t)) {
                     c = *(size_t *)(in + n);
                     *(size_t *)(out + n) =
                         *(size_t *)(tmp.c + n) ^ *(size_t *)(ivec + n);
@@ -2111,13 +2052,13 @@ void ossl_crypto_cbc128_decrypt(const unsigned char *in, unsigned char *out,
     while (len) {
         unsigned char c;
         (*block)(in, tmp.c, key);
-        for (n = 0; n<16 && n<len; ++n) {
+        for (n = 0; n < 16 && n < len; ++n) {
             c = in[n];
             out[n] = tmp.c[n] ^ ivec[n];
             ivec[n] = c;
         }
         if (len <= 16) {
-            for (; n<16; ++n)
+            for (; n < 16; ++n)
                 ivec[n] = in[n];
             break;
         }
@@ -2127,15 +2068,7 @@ void ossl_crypto_cbc128_decrypt(const unsigned char *in, unsigned char *out,
     }
 }
 
-/// copy from cfb128.c
-
-#ifndef MODES_DEBUG
-# ifndef NDEBUG
-#  define NDEBUG
-# endif
-#endif
-#include <assert.h>
-
+/// AES cfb128: copies from cfb128.c
 /* The input and output encrypted as though 128bit cfb mode is being
 * used.  The extra state information to record how much of the
 * 128bit block we have used is contained in *num;
@@ -2154,7 +2087,7 @@ void ossl_crypto_cfb128_encrypt(const unsigned char *in, unsigned char *out,
 
     if (enc) {
 #if !defined(OPENSSL_SMALL_FOOTPRINT)
-        if (16 % sizeof(size_t) == 0) do {	/* always true actually */
+        if (16 % sizeof(size_t) == 0) do {    /* always true actually */
             while (n && len) {
                 *(out++) = ivec[n] ^= *(in++);
                 --len;
@@ -2166,7 +2099,7 @@ void ossl_crypto_cfb128_encrypt(const unsigned char *in, unsigned char *out,
 #endif
             while (len >= 16) {
                 (*block)(ivec, ivec, key);
-                for (; n<16; n += sizeof(size_t)) {
+                for (; n < 16; n += sizeof(size_t)) {
                     *(size_t*)(out + n) =
                         *(size_t*)(ivec + n) ^= *(size_t*)(in + n);
                 }
@@ -2187,7 +2120,7 @@ void ossl_crypto_cfb128_encrypt(const unsigned char *in, unsigned char *out,
         } while (0);
         /* the rest would be commonly eliminated by x86* compiler */
 #endif
-        while (l<len) {
+        while (l < len) {
             if (n == 0) {
                 (*block)(ivec, ivec, key);
             }
@@ -2199,7 +2132,7 @@ void ossl_crypto_cfb128_encrypt(const unsigned char *in, unsigned char *out,
     }
     else {
 #if !defined(OPENSSL_SMALL_FOOTPRINT)
-        if (16 % sizeof(size_t) == 0) do {	/* always true actually */
+        if (16 % sizeof(size_t) == 0) do {    /* always true actually */
             while (n && len) {
                 unsigned char c;
                 *(out++) = ivec[n] ^ (c = *(in++)); ivec[n] = c;
@@ -2212,7 +2145,7 @@ void ossl_crypto_cfb128_encrypt(const unsigned char *in, unsigned char *out,
 #endif
             while (len >= 16) {
                 (*block)(ivec, ivec, key);
-                for (; n<16; n += sizeof(size_t)) {
+                for (; n < 16; n += sizeof(size_t)) {
                     size_t t = *(size_t*)(in + n);
                     *(size_t*)(out + n) = *(size_t*)(ivec + n) ^ t;
                     *(size_t*)(ivec + n) = t;
@@ -2235,7 +2168,7 @@ void ossl_crypto_cfb128_encrypt(const unsigned char *in, unsigned char *out,
         } while (0);
         /* the rest would be commonly eliminated by x86* compiler */
 #endif
-        while (l<len) {
+        while (l < len) {
             unsigned char c;
             if (n == 0) {
                 (*block)(ivec, ivec, key);
@@ -2258,17 +2191,17 @@ static void cfbr_encrypt_block(const unsigned char *in, unsigned char *out,
     int n, rem, num;
     unsigned char ovec[16 * 2 + 1];  /* +1 because we dererefence (but don't use) one byte off the end */
 
-    if (nbits <= 0 || nbits>128) return;
+    if (nbits <= 0 || nbits > 128) return;
 
     /* fill in the first half of the new IV with the current IV */
     memcpy(ovec, ivec, 16);
     /* construct the new IV */
     (*block)(ivec, ivec, key);
     num = (nbits + 7) / 8;
-    if (enc)	/* encrypt the input */
+    if (enc)    /* encrypt the input */
         for (n = 0; n < num; ++n)
             out[n] = (ovec[16 + n] = in[n] ^ ivec[n]);
-    else		/* decrypt the input */
+    else        /* decrypt the input */
         for (n = 0; n < num; ++n)
             out[n] = (ovec[16 + n] = in[n]) ^ ivec[n];
     /* shift ovec left... */
@@ -2295,7 +2228,7 @@ void ossl_crypto_cfb128_1_encrypt(const unsigned char *in, unsigned char *out,
     assert(in && out && key && ivec && num);
     assert(*num == 0);
 
-    for (n = 0; n<bits; ++n)
+    for (n = 0; n < bits; ++n)
     {
         c[0] = (in[n / 8] & (1 << (7 - n % 8))) ? 0x80 : 0;
         cfbr_encrypt_block(c, d, 1, key, ivec, enc, block);
@@ -2314,12 +2247,12 @@ void ossl_crypto_cfb128_8_encrypt(const unsigned char *in, unsigned char *out,
     assert(in && out && key && ivec && num);
     assert(*num == 0);
 
-    for (n = 0; n<length; ++n)
+    for (n = 0; n < length; ++n)
         cfbr_encrypt_block(&in[n], &out[n], 8, key, ivec, enc, block);
 }
 
 
-/// copy from openssl/crypto/modes/ctr128.c
+/// AES ctr128 copies from openssl/crypto/modes/ctr128.c
 /* NOTE: the IV/counter CTR mode is big-endian.  The code itself
 * is endian-neutral. */
 
@@ -2400,7 +2333,7 @@ void ossl_crypto_ctr128_encrypt(const unsigned char *in, unsigned char *out,
         while (len >= 16) {
             (*block)(ivec, ecount_buf, key);
             ctr128_inc_aligned(ivec);
-            for (; n<16; n += sizeof(size_t))
+            for (; n < 16; n += sizeof(size_t))
                 *(size_t *)(out + n) =
                 *(size_t *)(in + n) ^ *(size_t *)(ecount_buf + n);
             len -= 16;
@@ -2421,7 +2354,7 @@ void ossl_crypto_ctr128_encrypt(const unsigned char *in, unsigned char *out,
     } while (0);
     /* the rest would be commonly eliminated by x86* compiler */
 #endif
-    while (l<len) {
+    while (l < len) {
         if (n == 0) {
             (*block)(ivec, ecount_buf, key);
             ctr128_inc(ivec);
@@ -2474,7 +2407,7 @@ void ossl_crypto_ctr128_encrypt_ctr32(const unsigned char *in, unsigned char *ou
         * Below condition is practically never met, but it has to
         * be checked for code correctness.
         */
-        if (sizeof(size_t)>sizeof(unsigned int) && blocks>(1U << 28))
+        if (sizeof(size_t)>sizeof(unsigned int) && blocks > (1U << 28))
             blocks = (1U << 28);
         /*
         * As (*func) operates on 32-bit counter, caller
@@ -2491,7 +2424,7 @@ void ossl_crypto_ctr128_encrypt_ctr32(const unsigned char *in, unsigned char *ou
         /* (*ctr) does not update ivec, caller does: */
         PUTU32(ivec + 12, ctr32);
         /* ... overflow was detected, propogate carry. */
-        if (ctr32 == 0)	ctr96_inc(ivec);
+        if (ctr32 == 0)    ctr96_inc(ivec);
         blocks *= 16;
         len -= blocks;
         out += blocks;
@@ -2502,7 +2435,7 @@ void ossl_crypto_ctr128_encrypt_ctr32(const unsigned char *in, unsigned char *ou
         (*func)(ecount_buf, ecount_buf, 1, key, ivec);
         ++ctr32;
         PUTU32(ivec + 12, ctr32);
-        if (ctr32 == 0)	ctr96_inc(ivec);
+        if (ctr32 == 0)    ctr96_inc(ivec);
         while (len--) {
             out[n] = in[n] ^ ecount_buf[n];
             ++n;
@@ -2552,7 +2485,7 @@ void ossl_crypto_ofb128_encrypt(const unsigned char *in, unsigned char *out,
 #endif
         while (len >= 16) {
             (*block)(ivec, ivec, key);
-            for (; n<16; n += sizeof(size_t))
+            for (; n < 16; n += sizeof(size_t))
                 *(size_t*)(out + n) =
                 *(size_t*)(in + n) ^ *(size_t*)(ivec + n);
             len -= 16;
@@ -2572,7 +2505,7 @@ void ossl_crypto_ofb128_encrypt(const unsigned char *in, unsigned char *out,
     } while (0);
     /* the rest would be commonly eliminated by x86* compiler */
 #endif
-    while (l<len) {
+    while (l < len) {
         if (n == 0) {
             (*block)(ivec, ivec, key);
         }
@@ -2590,5 +2523,6 @@ void ossl_aes_ofb128_encrypt(const unsigned char *in, unsigned char *out,
 {
     ossl_crypto_ofb128_encrypt(in, out, length, key, ivec, num, (block128_f)ossl_aes_encrypt);
 }
+/////////// modes end /////////////
 
 #endif

@@ -11,6 +11,7 @@
 #include "crypto-support/crypto_wrapper.h"
 #include "crypto-support/nsconv.h"
 #include "crypto-support/oslib.h"
+using namespace purelib;
 
 USING_NS_CC;
 
@@ -56,12 +57,6 @@ bool HelloWorld::init()
 
     auto visibleSize = Director::getInstance()->getVisibleSize();
     auto origin = Director::getInstance()->getVisibleOrigin();
-
-    auto bval = xstrtob("True");
-
-    std::string oring = "ababhello";
-    strstr(oring.c_str(), "hello");
-    
 #if 0
     /////////////////////////////
     // 2. add a menu item with "X" image, which is clicked to quit the program
@@ -80,23 +75,11 @@ bool HelloWorld::init()
     this->addChild(menu, 1);
 #endif
 
-#if 0 // test text encrypt
-    EncryptManager::getInstance()->setEncryptEnabled(true,
-        nsc::hex2bin("f5cac53155c3826baa2518149d6381b7bcd74ab0cf97db1ca3f3b4813ebcac09"),
-        nsc::hex2bin("8ed7ec623af53ece6b2c636918cf2447")
-    );
-
-    auto encryptFileData = FileUtils::getInstance()->getStringFromFile("encrypt_test.txt");
-
-    EncryptManager::getInstance()->setEncryptEnabled(false);
-
-    auto noencryptFileData = FileUtils::getInstance()->getStringFromFile("encrypt_test1.txt");
-#endif
-
-#if 0 // test picture, encrypted by encrypt tool with compressed
+#if 1 // test picture, encrypted by encrypt tool with compressed
     EncryptManager::getInstance()->setEncryptEnabled(true,
         nsc::hex2bin("614e3f91aeeaba641508f4da12b1e6f46b4e8787bb19d6ddb364568786cfa005"),
-        nsc::hex2bin("4585e519ca7539dff6b01c2de5957b2b")
+        nsc::hex2bin("4585e519ca7539dff6b01c2de5957b2b"),
+        EncryptManager::ENCF_COMPRESS
     );
 
     auto sprite1 = Sprite::create("encrypt_tool/qq20170708223017.png");
@@ -106,26 +89,28 @@ bool HelloWorld::init()
     EncryptManager::getInstance()->setEncryptEnabled(false);
 #endif
 
-#if 0 // test picture, encrypted by encrypt tool without compressed
+#if 1 // test picture, encrypted by encrypt tool without compressed
     EncryptManager::getInstance()->setEncryptEnabled(true,
         nsc::hex2bin("614e3f91aeeaba641508f4da12b1e6f46b4e8787bb19d6ddb364568786cfa005"),
         nsc::hex2bin("4585e519ca7539dff6b01c2de5957b2b"),
-        false
+        0
     );
 
-    auto sprite1 = Sprite::create("encrypt_tool/qq20170708223017_nc.png");
-    this->addChild(sprite1, 1);
-    sprite1->setScale(0.2);
-    centerNode(sprite1);
+    auto sprite2 = Sprite::create("encrypt_tool/qq20170708223017_nc.png");
+    this->addChild(sprite2, 1);
+    sprite2->setScale(0.2);
+    centerNode(sprite2);
 
     EncryptManager::getInstance()->setEncryptEnabled(false);
 #endif
 
-    EncryptManager::getInstance()->setEncryptEnabled(true, "262381263");
+#if 0
+    EncryptManager::getInstance()->setEncryptEnabled(true, "262381263", "", EncryptManager::ENCF_COMPRESS);
 
     /////////////////////////////
     // 3. add your codes below...
     this->addChild(CSLoader::createNode("scene1.csb"));
+#endif
 
 #if 0
     // github.com/cocos2d/cocos2d-x issues: #16399 The latest Label calculate Size seems not correct with some .ttf font

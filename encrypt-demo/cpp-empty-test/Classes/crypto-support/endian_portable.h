@@ -160,9 +160,11 @@ int64_t ntohv(int64_t value)
 
 }; // namespace thelib
 
+#define LENGTH_FIELD_TYPE uint32_t
+
 #endif
 /*
-* Copyright (c) 2012-2015 by X.D. Guo  ALL RIGHTS RESERVED.
+* Copyright (c) 2012-2018 by HALX99  ALL RIGHTS RESERVED.
 * Consult your license regarding permissions and restrictions.
 **/
 

@@ -2,7 +2,7 @@
 *                                                                           *
 * politedef.h -- Basic politeness library Definitions                       *
 *                                                                           *
-* Copyright (c) X.D. Guo. All rights reserved.                              *
+* Copyright (c) HALX99. All rights reserved.                                *
 *                                                                           *
 ****************************************************************************/
 
@@ -10,26 +10,20 @@
 #define _POLITEDEF_H_
 
 #ifndef _POLITE_VERSION
-#define _POLITE_VERSION "1.0.1"
+#define _POLITE_VERSION "1.0.18"
 #endif
 
 #if defined(_MSC_VER)
 #    if _MSC_VER >= 1600
-#        define __cpp0x 1
+#        define __POLITE_CXX11 1
 #    endif
 #else // For __GNUC__
 #    if __cplusplus >= 201103L
-#        define __cpp0x 1
+#        define __POLITE_CXX11 1
 #    endif
 #endif
 
-#ifdef __cpp0x
-#    define __cpp11       __cpp0x
-#    define __cxx0x       __cpp11
-#    define __cxx11       __cxx0x
-#endif
-
-#ifndef __cxx11
+#ifndef __POLITE_CXX11
 #  define nullptr         0
 #endif
 
@@ -58,7 +52,7 @@
 typedef unsigned long u_long;
 typedef long long llong;
 typedef unsigned long long u_llong;
-#if /*defined(__cxx11) || */defined(__GNUC__)
+#if defined(__cxx11) || defined(__GNUC__)
 #include <stdint.h>
 #else
 typedef signed __int8 int8_t;
@@ -247,9 +241,17 @@ namespace polite = ::purelib;
 #define _HAS_STD_THREAD 1
 #endif
 
+#if !defined(__WORDSIZE)
+#if defined(_M_X64) || defined(_WIN64) || defined(__LP64__) || defined(_LP64) || defined(__x86_64) 
+#define __WORDSIZE 64
+#else
+#define __WORDSIZE 32
+#endif
+#endif
+
 #endif /* _POLITEDEF_H_ */
 /*
-* Copyright (c) 2012-2014 by X.D. Guo ALL RIGHTS RESERVED.
+* Copyright (c) 2012-2018 by HALX99, ALL RIGHTS RESERVED.
 * Consult your license regarding permissions and restrictions.
 ***/
 

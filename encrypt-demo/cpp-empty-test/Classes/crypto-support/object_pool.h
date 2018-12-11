@@ -1,178 +1,224 @@
-// object_pool.h: a simple object pool implementation
+// object_pool.h: a simple & high-performance object pool implementation v1.3
 #ifndef _OBJECT_POOL_H_
 #define _OBJECT_POOL_H_
+
 #include "politedef.h"
-#if defined(_ENABLE_MULTITHREAD)
-#include "thread_synch.h"
-#endif
 #include <assert.h>
+#include <stdlib.h>
+#include <memory>
+#include <mutex>
+
+#define OBJECT_POOL_HEADER_ONLY
+
+#if defined(OBJECT_POOL_HEADER_ONLY)
+#define OBJECT_POOL_DECL inline
+#else
+#define OBJECT_POOL_DECL
+#endif
+
+#pragma warning(push)
+#pragma warning(disable:4200)
 
 namespace purelib {
-#if defined(_ENABLE_MULTITHREAD)
-using namespace asy;
-#endif
 namespace gc {
 
-template<typename _Ty, size_t _ElemCount = 512>
-class object_pool 
-{
-    static const size_t elem_size = sz_align(sizeof(_Ty), sizeof(void*));
+#define POOL_ESTIMATE_SIZE(element_type) sz_align(sizeof(element_type), sizeof(void*))
 
-    typedef struct free_link_node
-    { 
-        free_link_node* next; 
-    } *free_link;
-
-    typedef struct chunk_link_node
+namespace detail {
+    class object_pool
     {
-        char             data[elem_size * _ElemCount];
-        chunk_link_node* next;
-    } *chunk_link;
+        typedef struct free_link_node
+        {
+            free_link_node* next;
+        } *free_link;
 
-    object_pool(const object_pool&);
-    void operator= (const object_pool&);
+        typedef struct chunk_link_node
+        {
+            chunk_link_node* next;
+            char data[0];
+        } *chunk_link;
+
+        object_pool(const object_pool&) = delete;
+        void operator= (const object_pool&) = delete;
+
+    public:
+        OBJECT_POOL_DECL object_pool(size_t element_size, size_t element_count);
+
+        OBJECT_POOL_DECL virtual ~object_pool(void);
+
+        OBJECT_POOL_DECL void purge(void);
+
+        OBJECT_POOL_DECL void cleanup(void);
+
+        OBJECT_POOL_DECL void* get(void);
+        OBJECT_POOL_DECL void release(void* _Ptr);
+
+    private:
+        OBJECT_POOL_DECL void* allocate_from_chunk(void);
+        OBJECT_POOL_DECL void* allocate_from_process_heap(void);
+        
+        OBJECT_POOL_DECL free_link_node* tidy_chunk(chunk_link chunk);
+
+    private:
+        free_link        free_link_; // link to free head
+        chunk_link       chunk_; // chunk link
+        const size_t     element_size_;
+        const size_t     element_count_;
+
+#if defined(_DEBUG)
+        size_t           allocated_count_; // allocated count 
+#endif
+    };
+    
+#define DEFINE_OBJECT_POOL_ALLOCATION(ELEMENT_TYPE,ELEMENT_COUNT) \
+public: \
+    static void * operator new(size_t /*size*/) \
+    { \
+        return get_pool().get(); \
+    } \
+    \
+    static void * operator new(size_t /*size*/, std::nothrow_t) \
+    { \
+        return get_pool().get(); \
+    } \
+    \
+    static void operator delete(void *p) \
+    { \
+        get_pool().release(p); \
+    } \
+    \
+    static purelib::gc::detail::object_pool& get_pool() \
+    { \
+        static purelib::gc::detail::object_pool s_pool(POOL_ESTIMATE_SIZE(ELEMENT_TYPE), ELEMENT_COUNT); \
+        return s_pool; \
+    }
+
+// The thread safe edition
+#define DEFINE_CONCURRENT_OBJECT_POOL_ALLOCATION(ELEMENT_TYPE,ELEMENT_COUNT) \
+public: \
+    static void * operator new(size_t /*size*/) \
+    { \
+        return get_pool().allocate(); \
+    } \
+    \
+    static void * operator new(size_t /*size*/, std::nothrow_t) \
+    { \
+        return get_pool().allocate(); \
+    } \
+    \
+    static void operator delete(void *p) \
+    { \
+        get_pool().deallocate(p); \
+    } \
+    \
+    static purelib::gc::object_pool<ELEMENT_TYPE, std::mutex>& get_pool() \
+    { \
+        static purelib::gc::object_pool<ELEMENT_TYPE, std::mutex> s_pool(ELEMENT_COUNT); \
+        return s_pool; \
+    }
+
+#define DECLARE_OBJECT_POOL_ALLOCATION(ELEMENT_TYPE) \
+public: \
+    static void * operator new(size_t /*size*/); \
+    static void * operator new(size_t /*size*/, std::nothrow_t); \
+    static void operator delete(void *p); \
+    static purelib::gc::detail::object_pool& get_pool();
+    
+#define IMPLEMENT_OBJECT_POOL_ALLOCATION(ELEMENT_TYPE,ELEMENT_COUNT) \
+    void * ELEMENT_TYPE::operator new(size_t /*size*/) \
+    { \
+        return get_pool().get(); \
+    } \
+    \
+    void * ELEMENT_TYPE::operator new(size_t /*size*/, std::nothrow_t) \
+    { \
+        return get_pool().get(); \
+    } \
+    \
+    void ELEMENT_TYPE::operator delete(void *p) \
+    { \
+        get_pool().release(p); \
+    } \
+    \
+    purelib::gc::detail::object_pool& ELEMENT_TYPE::get_pool() \
+    { \
+        static purelib::gc::detail::object_pool s_pool(POOL_ESTIMATE_SIZE(ELEMENT_TYPE), ELEMENT_COUNT); \
+        return s_pool; \
+    }
+};
+
+template<typename _Ty, typename _Mutex = void>
+class object_pool : public detail::object_pool
+{
+    object_pool(const object_pool&) = delete;
+    void operator= (const object_pool&) = delete;
 
 public:
-    object_pool(void) : _Myhead(nullptr), _Mychunk(nullptr), _Mycount(0)
+    object_pool(size_t _ElemCount = 512) : detail::object_pool(POOL_ESTIMATE_SIZE(_Ty), _ElemCount)
     {
-        this->_Enlarge();
-    }
-
-    ~object_pool(void)
-    {
-#if defined(_ENABLE_MULTITHREAD)
-        scoped_lock<thread_mutex> guard(this->_Mylock);
-#endif
-
-        this->purge();
-    }
-
-    void cleanup(void)
-    {
-        if(this->_Mychunk == nullptr) {
-            return;
-        }
-
-        free_link_node* prev = nullptr;
-        chunk_link_node* chunk = this->_Mychunk;
-        for (; chunk != nullptr; chunk = chunk->next) 
-        {
-            char* begin     = chunk->data; 
-            char* rbegin    = begin + (_ElemCount - 1) * elem_size; 
-
-            if(prev != nullptr)
-                prev->next = reinterpret_cast<free_link>(begin);
-            for (char* ptr = begin; ptr < rbegin; ptr += elem_size )
-            { 
-                reinterpret_cast<free_link_node*>(ptr)->next = reinterpret_cast<free_link_node*>(ptr + elem_size);
-            } 
-
-            prev = reinterpret_cast <free_link_node*>(rbegin); 
-        } 
-
-        this->_Myhead = reinterpret_cast<free_link_node*>(this->_Mychunk->data);
-        this->_Mycount = 0;
-    }
-
-    void purge(void)
-    {
-        chunk_link_node* ptr = this->_Mychunk;
-        while (ptr != nullptr) 
-        {
-            chunk_link_node* deleting = ptr;
-            ptr = ptr->next;
-            free(deleting);
-        }
-        _Myhead = nullptr;
-        _Mychunk = nullptr;
-        _Mycount = 0;
-    }
-
-    size_t count(void) const
-    {
-        return _Mycount;
     }
 
     template<typename..._Args>
-    _Ty* new_object(_Args...args)
+    _Ty* construct(const _Args&...args)
     {
-        return new (get()) _Ty(args...);
+        return new (allocate()) _Ty(args...);
     }
 
-	void delete_object(void* _Ptr)
-	{
-		((_Ty*)_Ptr)->~_Ty(); // call the destructor
-		release(_Ptr);
-	}
-
-    // if the type is not pod, you may be use placement new to call the constructor,
-    // for example: _Ty* obj = new(pool.get()) _Ty(arg1,arg2,...);
-    void* get(void) 
+    void destroy(void* _Ptr)
     {
-#if defined(_ENABLE_MULTITHREAD)
-        scoped_lock<thread_mutex>  guard(this->_Mylock);
-#endif
-
-        if (nullptr == this->_Myhead) 
-        { 
-            this->_Enlarge(); 
-        }
-        free_link_node* ptr = this->_Myhead;
-        this->_Myhead = ptr->next;
-        ++_Mycount;
-        return reinterpret_cast<void*>(ptr);
+        ((_Ty*)_Ptr)->~_Ty(); // call the destructor
+        release(_Ptr);
     }
 
-    void release(void* _Ptr)
+    void* allocate()
     {
-#ifdef _DEBUG
-        //::memset(_Ptr, 0x00, sizeof(_Ty));
-#endif
-#if defined(_ENABLE_MULTITHREAD)
-        scoped_lock<thread_mutex>  guard(this->_Mylock);
-#endif
-
-        free_link_node* ptr = reinterpret_cast<free_link_node*>(_Ptr);
-        ptr->next = this->_Myhead;
-        this->_Myhead = ptr;
-        --_Mycount;
+        return get();
     }
 
-private:
-    void _Enlarge(void)
+    void deallocate(void* _Ptr)
     {
-        static_assert(_ElemCount > 0, "Invalid Element Count");
-
-        chunk_link new_chunk  = (chunk_link)malloc(sizeof(chunk_link_node)); 
-#ifdef _DEBUG
-        ::memset(new_chunk, 0x00, sizeof(chunk_link_node));
-#endif
-        new_chunk->next = this->_Mychunk; 
-        this->_Mychunk  = new_chunk; 
-
-        char* begin     = this->_Mychunk->data; 
-        char* rbegin    = begin + (_ElemCount - 1) * elem_size; 
-
-        for (char* ptr = begin; ptr < rbegin; ptr += elem_size )
-        { 
-            reinterpret_cast<free_link_node*>(ptr)->next = reinterpret_cast<free_link_node*>(ptr + elem_size);
-        } 
-
-        reinterpret_cast <free_link_node*>(rbegin)->next = nullptr; 
-        this->_Myhead = reinterpret_cast<free_link_node*>(begin); 
+        release(_Ptr);
     }
-
-private:
-    free_link        _Myhead; // link to free head
-    chunk_link       _Mychunk; // chunk link
-#if defined(_ENABLE_MULTITHREAD)
-    thread_mutex     _Mylock;  // thread mutex
-#endif
-    size_t           _Mycount; // allocated count 
 };
 
+template<typename _Ty>
+class object_pool<_Ty, std::mutex> : public detail::object_pool
+{
+public:
+    object_pool(size_t _ElemCount = 512) : detail::object_pool(POOL_ESTIMATE_SIZE(_Ty), _ElemCount)
+    {
+    }
+
+    template<typename..._Args>
+    _Ty* construct(const _Args&...args)
+    {
+        return new (allocate()) _Ty(args...);
+    }
+
+    void destroy(void* _Ptr)
+    {
+        ((_Ty*)_Ptr)->~_Ty(); // call the destructor
+        release(_Ptr);
+    }
+
+    void* allocate()
+    {
+        std::lock_guard<std::mutex> lk(this->mutex_);
+        return get();
+    }
+
+    void deallocate(void* _Ptr)
+    {
+        std::lock_guard<std::mutex> lk(this->mutex_);
+        release(_Ptr);
+    }
+
+    std::mutex mutex_;
+};
+
+
 // TEMPLATE CLASS object_pool_allocator, can't used by std::vector
-template<class _Ty, size_t _ElemCount = SZ(8,k) / sizeof(_Ty)>
+template<class _Ty, size_t _ElemCount = SZ(8, k) / sizeof(_Ty)>
 class object_pool_allocator
 {	// generic allocator for objects of class _Ty
 public:
@@ -254,65 +300,70 @@ public:
 #ifdef __cxx0x
     void construct(pointer _Ptr, _Ty&& _Val)
     {	// construct object at _Ptr with value _Val
-        new ((void*)_Ptr) _Ty(std:: forward<_Ty>(_Val));
+        new ((void*)_Ptr) _Ty(std::forward<_Ty>(_Val));
     }
 
     template<class _Other>
     void construct(pointer _Ptr, _Other&& _Val)
     {	// construct object at _Ptr with value _Val
-        new ((void*)_Ptr) _Ty(std:: forward<_Other>(_Val));
+        new ((void*)_Ptr) _Ty(std::forward<_Other>(_Val));
     }
 
     template<class _Objty,
-    class... _Types>
+        class... _Types>
         void construct(_Objty *_Ptr, _Types&&... _Args)
     {	// construct _Objty(_Types...) at _Ptr
-        ::new ((void *)_Ptr) _Objty(std:: forward<_Types>(_Args)...);
+        ::new ((void *)_Ptr) _Objty(std::forward<_Types>(_Args)...);
     }
 #endif
 
     template<class _Uty>
     void destroy(_Uty *_Ptr)
-    {	// destroy object at _Ptr, do nothing, because destructor will called in _Mempool.release(_Ptr)
-        // _Ptr->~_Uty();
+    {	// destroy object at _Ptr, do nothing
+        _Ptr->~_Uty();
     }
 
     size_type max_size() const throw()
     {	// estimate maximum array size
-        size_type _Count = (size_type)(-1) / sizeof (_Ty);
+        size_type _Count = (size_type)(-1) / sizeof(_Ty);
         return (0 < _Count ? _Count : 1);
     }
 
-// private:
-    static object_pool<_Ty, _ElemCount> _Mempool;
+    // private:
+    static object_pool<_Ty, void> _Mempool;
 };
 
 template<class _Ty,
-class _Other> inline
+    class _Other> inline
     bool operator==(const object_pool_allocator<_Ty>&,
-    const object_pool_allocator<_Other>&) throw()
+        const object_pool_allocator<_Other>&) throw()
 {	// test for allocator equality
     return (true);
 }
 
 template<class _Ty,
-class _Other> inline
+    class _Other> inline
     bool operator!=(const object_pool_allocator<_Ty>& _Left,
-    const object_pool_allocator<_Other>& _Right) throw()
+        const object_pool_allocator<_Other>& _Right) throw()
 {	// test for allocator inequality
     return (!(_Left == _Right));
 }
 
 template<class _Ty, size_t _ElemCount>
-object_pool<_Ty, _ElemCount> object_pool_allocator<_Ty, _ElemCount>::_Mempool;
+object_pool<_Ty, void> object_pool_allocator<_Ty, _ElemCount>::_Mempool(_ElemCount);
 
 }; // namespace: purelib::gc
 }; // namespace: purelib
 
+#if defined(OBJECT_POOL_HEADER_ONLY)
+#include "object_pool.cpp"
+#endif
+
+#pragma warning(pop)
 
 #endif
 /*
-* Copyright (c) 2012-2016 by halx99  ALL RIGHTS RESERVED.
+* Copyright (c) 2012-2018 by HALX99,  ALL RIGHTS RESERVED.
 * Consult your license regarding permissions and restrictions.
 **/
 

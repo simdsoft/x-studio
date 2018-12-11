@@ -26,6 +26,7 @@ typedef cocos2d::FileUtilsApple FileUtilsImpl;
 #include "crypto-support/nsconv.h"
 #include "crypto-support/fastest_csv_parser.h"
 #include "crypto-support/ibinarystream.h"
+using namespace purelib;
 
 #pragma warning(disable:4996)
 
@@ -57,7 +58,7 @@ public:
         auto data = FileUtilsImpl::getStringFromFile(filename);
         if (!data.empty() && encryptManager.isEncryptedData(data.c_str(), data.size())) {
             data.resize(data.size() - encryptManager._encryptSignature.size());
-            crypto::aes::decrypt(data, encryptManager._encryptKey.c_str());
+            crypto::aes::overlapped::decrypt(data, encryptManager._encryptKey.c_str(), AES_DEFAULT_KEY_BITS, encryptManager._encryptIvec.c_str());
             if (encryptManager.isCompressMode()) {
                 return crypto::zlib::uncompress(data);
             }
@@ -78,15 +79,15 @@ public:
 
         if (data.getSize() > 0 && encryptManager.isEncryptedData((const char*)data.getBytes(), data.getSize())) {
             size_t size = 0;
-            crypto::aes::privacy::mode_spec<>::decrypt(data.getBytes(), data.getSize() - encryptManager._encryptSignature.size(), data.getBytes(), size, encryptManager._encryptKey.c_str());
+            crypto::aes::privacy::mode_spec<>::decrypt(data.getBytes(), data.getSize() - encryptManager._encryptSignature.size(), data.getBytes(), size, encryptManager._encryptKey.c_str(), AES_DEFAULT_KEY_BITS, encryptManager._encryptIvec.c_str());
 
             if (encryptManager.isCompressMode()) {
-                auto uncomprData = crypto::zlib::abi::_inflate(unmanaged_string((const char*)data.getBytes(), size));
+                auto uncomprData = crypto::zlib::abi::_inflate(std::string_view((const char*)data.getBytes(), size));
                 size = uncomprData.size();
 
                 data.clear();
 
-                data.fastSet((unsigned char*)uncomprData.deatch(), size);
+                data.copy((unsigned char*)uncomprData.c_str(), size);
             }
             else {
                 data.fastSet(data.getBytes(), size);
@@ -112,15 +113,16 @@ public:
             size_t outsize = 0;
             if (encryptManager.isEncryptedData((const char*)data, *size)) {
                 *size -= static_cast<ssize_t>(encryptManager._encryptSignature.size());
-                crypto::aes::privacy::mode_spec<>::decrypt(data, *size, data, outsize, encryptManager._encryptKey.c_str());
+                crypto::aes::privacy::mode_spec<>::decrypt(data, *size, data, outsize, encryptManager._encryptKey.c_str(), AES_DEFAULT_KEY_BITS, encryptManager._encryptIvec.c_str());
 
                 if (encryptManager.isCompressMode()) {
-                    auto uncomprData = crypto::zlib::abi::_inflate(unmanaged_string((const char*)data, outsize));
+                    auto uncomprData = crypto::zlib::abi::_inflate(std::string_view((const char*)data, outsize));
                     *size = uncomprData.size();
 
                     free(data);
 
-                    data = (unsigned char*)uncomprData.deatch();
+                    data = (unsigned char*)malloc(uncomprData.size());
+                    if (data) memcpy(data, uncomprData.c_str(), uncomprData.size());
                 }
                 else {
                     *size = static_cast<ssize_t>(outsize);
@@ -163,11 +165,10 @@ std::string EncryptManager::decryptData(const std::string& encryptedData, const 
         encryptIvec = nsc::hex2bin("00234b89aa96fecdaf80fbf178a25621");
     }
 
-    crypto::aes::detail::set_ivec(encryptIvec.c_str(), 16);
-    return crypto::aes::decrypt(encryptedData, encrpytKey.c_str());
+    return crypto::aes::decrypt(encryptedData, encrpytKey.c_str(), AES_DEFAULT_KEY_BITS, encryptIvec.c_str());
 }
 
-void EncryptManager::setEncryptEnabled(bool bVal, const std::string& key, const std::string& ivec, int flags)
+void EncryptManager::setEncryptEnabled(bool bVal, std::string_view key, std::string_view ivec, int flags)
 {
     if (bVal && !key.empty()) {
         _encryptKey.clear();
@@ -178,17 +179,15 @@ void EncryptManager::setEncryptEnabled(bool bVal, const std::string& key, const 
         if (keysize > 32)
             keysize = 32;
 
-        ::memcpy(&_encryptKey.front(), key.c_str(), keysize);
+        ::memcpy(&_encryptKey.front(), key.data(), keysize);
 
         if (!ivec.empty()) {
             _encryptIvec.resize(16);
-            ::memcpy(&_encryptIvec.front(), ivec.c_str(), (std::min)(16, (int)ivec.size()));
+            ::memcpy(&_encryptIvec.front(), ivec.data(), (std::min)(16, (int)ivec.size()));
         }
         else {
             _encryptIvec = nsc::hex2bin("00234b89aa96fecdaf80fbf178a25621");
         }
-
-        crypto::aes::detail::set_ivec(_encryptIvec.c_str());
 
         setupHookFuncs();
         _encryptEnabled = bVal;
@@ -240,6 +239,7 @@ void EncryptManager::enableFileIndex(const std::string& indexFile, FileIndexForm
     this->_indexFileMap.clear();
 
     auto buffer = FileUtils::getInstance()->getStringFromFile(indexFile);
+    if (buffer.empty()) return;
     if (format == FileIndexFormat::BINARY)
     {
         int fileCount = 0;
@@ -255,13 +255,13 @@ void EncryptManager::enableFileIndex(const std::string& indexFile, FileIndexForm
     }
     else if (format == FileIndexFormat::CSV)
     {
-        const char* endl = buffer.c_str();
-        const char* cursor = nullptr;
+        char* endl = &buffer.front();
+        char* cursor = nullptr;
         do {
             std::string key, value;
             cursor = endl;
             auto counter = 0;
-            endl = fastest_csv_parser::csv_parse_line(cursor, [&](const char* v_start, const char* v_end) {
+            endl = fastest_csv_parser::csv_parse_line(cursor, [&](char* v_start, char* v_end) {
                 if (counter == 0)
                 {
                     key.assign(v_start, v_end - v_start);

@@ -49,19 +49,18 @@
 *
 */
 
-#ifndef HEADER_AES_H
-#define HEADER_AES_H
+#ifndef HEADER_AES_SELECTOR_H
+#define HEADER_AES_SELECTOR_H
 
-//#include <openssl/opensslconf.h>
+#include "crypto_conf.h"
 
 #ifdef OPENSSL_NO_AES
 #error AES is disabled.
 #endif
 
-#define _HAS_OSSL 1
-#define _OSSL_USE_DLL 1
+#define _USE_OSSL_DLL 1
 
-#if _HAS_OSSL
+#if _HAS_OPENSSL
 
 #ifdef _WIN32
   #if _USE_OSSL_DLL
@@ -111,7 +110,7 @@ Both sizes are in bytes.
 #define AES_MAXNR 14
 #define AES_BLOCK_SIZE 16
 
-#if _HAS_OSSL
+#if _HAS_OPENSSL
 #ifdef  __cplusplus
 extern "C" {
 #endif
@@ -179,7 +178,7 @@ extern "C" {
     //		unsigned char *out,
     //		const unsigned char *in, unsigned int inlen);
 
-#if _HAS_OSSL
+#if _HAS_OPENSSL
 #ifdef  __cplusplus
 }
 #endif
