@@ -380,10 +380,10 @@ std::vector<char> crypto::zlib::abi::gzuncompr(std::string_view in)
 }
 
 // appended zlib_inflate func
-std::string crypto::zlib::abi::_inflate(std::string_view compr)
+char* crypto::zlib::abi::_inflate(std::string_view compr, size_t& size)
 { // inflate
     int err;
-    Bytef buffer[128];
+    Bytef buffer[512];
     z_stream d_stream; /* decompression stream */
 
     // strcpy((char*)buffer, "garbage");
@@ -396,20 +396,28 @@ std::string crypto::zlib::abi::_inflate(std::string_view compr)
     d_stream.avail_in = compr.size();
     d_stream.next_out = buffer;
     d_stream.avail_out = sizeof(buffer);
-    std::string output;
+    char* output = nullptr;
+    size = 0;
     err = inflateInit(&d_stream);
     if (err != Z_OK) // TODO: log somthing
         return (output);
     // CHECK_ERR(err, "inflateInit");
-
-    output.reserve(compr.size() << 2);
+    int capacity = compr.size() << 2;
+    output = (char*)malloc(capacity);
     for (;;)
     {
         err = inflate(&d_stream, Z_NO_FLUSH);
 
         if (err == Z_STREAM_END)
         {
-            output.append((const char*)buffer, sizeof(buffer) - d_stream.avail_out);
+            int count = sizeof(buffer) - d_stream.avail_out;
+            if (capacity - size < count) {
+                capacity = count + (capacity * 3) >> 1;
+                output = (char*)realloc(output, capacity);
+            }
+
+            memcpy(output + size, buffer, count);
+            size += count;
             break;
         }
 
@@ -426,7 +434,14 @@ std::string crypto::zlib::abi::_inflate(std::string_view compr)
         if (err != Z_STREAM_END)
         {
             // *out = (unsigned char*)realloc(*out, bufferSize * BUFFER_INC_FACTOR);
-            output.append((const char*)buffer, sizeof(buffer));
+            int count = sizeof(buffer) - d_stream.avail_out;
+            if (capacity - size < count) {
+                capacity = count + (capacity * 3) >> 1;
+                output = (char*)realloc(output, capacity);
+            }
+
+            memcpy(output + size, buffer, count);
+            size += count;
 
             d_stream.next_out = buffer;
             d_stream.avail_out = sizeof(buffer);
@@ -437,7 +452,9 @@ _L_end:
     inflateEnd(&d_stream);
     if (err != Z_STREAM_END)
     {
-        output.clear();
+        free(output);
+        output = nullptr;
+        size = 0;
     }
 
     return output;

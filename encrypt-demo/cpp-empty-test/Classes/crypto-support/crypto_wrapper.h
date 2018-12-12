@@ -181,7 +181,7 @@ namespace crypto {
 
             std::vector<char> gzcompr(std::string_view in, int level = -1);
             std::vector<char> gzuncompr(std::string_view in);
-            std::string   _inflate(std::string_view in);
+            char* _inflate(std::string_view in, size_t& size); // use malloc, caller responsible for free
         };
     };
 #endif

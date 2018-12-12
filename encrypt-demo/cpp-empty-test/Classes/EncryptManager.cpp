@@ -82,12 +82,11 @@ public:
             crypto::aes::privacy::mode_spec<>::decrypt(data.getBytes(), data.getSize() - encryptManager._encryptSignature.size(), data.getBytes(), size, encryptManager._encryptKey.c_str(), AES_DEFAULT_KEY_BITS, encryptManager._encryptIvec.c_str());
 
             if (encryptManager.isCompressMode()) {
-                auto uncomprData = crypto::zlib::abi::_inflate(std::string_view((const char*)data.getBytes(), size));
-                size = uncomprData.size();
+                auto uncomprData = crypto::zlib::abi::_inflate(std::string_view((const char*)data.getBytes(), size), size);
 
                 data.clear();
 
-                data.copy((unsigned char*)uncomprData.c_str(), size);
+                data.fastSet((unsigned char*)uncomprData, size);
             }
             else {
                 data.fastSet(data.getBytes(), size);
@@ -116,13 +115,11 @@ public:
                 crypto::aes::privacy::mode_spec<>::decrypt(data, *size, data, outsize, encryptManager._encryptKey.c_str(), AES_DEFAULT_KEY_BITS, encryptManager._encryptIvec.c_str());
 
                 if (encryptManager.isCompressMode()) {
-                    auto uncomprData = crypto::zlib::abi::_inflate(std::string_view((const char*)data, outsize));
-                    *size = uncomprData.size();
+                    auto uncomprData = crypto::zlib::abi::_inflate(std::string_view((const char*)data, outsize), outsize);
+                    *size = outsize;
 
                     free(data);
-
-                    data = (unsigned char*)malloc(uncomprData.size());
-                    if (data) memcpy(data, uncomprData.c_str(), uncomprData.size());
+                    data = (unsigned char*)uncomprData;
                 }
                 else {
                     *size = static_cast<ssize_t>(outsize);
