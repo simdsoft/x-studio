@@ -49,7 +49,7 @@ SOFTWARE.
 #endif
 
 #if !defined(_HAS_STD_STRING_VIEW)
-#define _HAS_STD_STRING_VIEW 1
+#define _HAS_STD_STRING_VIEW 0
 #endif
 
 #if _HAS_STD_STRING_VIEW
