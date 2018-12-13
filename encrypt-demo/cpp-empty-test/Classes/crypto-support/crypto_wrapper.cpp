@@ -36,6 +36,11 @@
 
 #define HASH_FILE_BUFF_SIZE 1024
 
+#if !defined(_WIN32)
+#define _fseeki64 fseeko
+#define _ftelli64 ftello
+#endif
+
 static long long get_file_size(FILE *fp) {
   _fseeki64(fp, 0, SEEK_END);
   auto length = _ftelli64(fp);
