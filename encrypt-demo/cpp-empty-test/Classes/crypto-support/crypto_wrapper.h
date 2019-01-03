@@ -57,7 +57,7 @@ namespace crypto {
                 if (append) {
                     memcpy(_data + offset, start, count);
                 }
-                else {
+                else if(where != nullptr) {
                     auto to = where + count;
                     memmove(where, to, this->end() - to);
                     memcpy(where, start, count);
