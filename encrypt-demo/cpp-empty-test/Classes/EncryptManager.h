@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2014-2018 x-studio365 - All Rights Reserved
+// Copyright (c) 2014-2019 x-studio365 - All Rights Reserved
 //
 #ifndef  _ENCRYPTMANAGER_H_
 #define  _ENCRYPTMANAGER_H_

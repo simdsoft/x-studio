@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2014-2018 halx99 - All Rights Reserved
+// Copyright (c) 2014-2019 halx99 - All Rights Reserved
 //
 #ifndef _CRYPTO_WRAPPER_H_
 #define _CRYPTO_WRAPPER_H_
