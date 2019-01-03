@@ -378,7 +378,7 @@ namespace crypto {
     }
 
     template<typename _ByteSeqCont>
-    _ByteSeqCont zlib_inflate(std::string_view compr)
+    _ByteSeqCont zlib_inflate(std::string_view compr, int expected_size = -1)
     { // inflate
         int err;
         Bytef buffer[512];
@@ -400,7 +400,7 @@ namespace crypto {
             return output;
         // CHECK_ERR(err, "inflateInit");
 
-        output.reserve(compr.size() << 2);
+        output.reserve(expected_size != -1 ? expected_size : (compr.size() << 2));
         for (;;)
         {
             err = inflate(&d_stream, Z_NO_FLUSH);
@@ -443,9 +443,9 @@ namespace crypto {
 
     // inflate alias
     template<typename _ByteSeqCont>
-    _ByteSeqCont zlib_uncompress(std::string_view in)
+    _ByteSeqCont zlib_uncompress(std::string_view in, int expected_size = -1)
     {
-        return zlib_inflate<_ByteSeqCont>(in);
+        return zlib_inflate<_ByteSeqCont>(in, expected_size);
     }
 
     // gzip
@@ -514,7 +514,7 @@ namespace crypto {
     }
 
     template<typename _ByteSeqCont>
-    _ByteSeqCont zlib_gzuncompr(std::string_view compr)
+    _ByteSeqCont zlib_gzuncompr(std::string_view compr, int expected_size = -1)
     { // inflate
         int err;
         Bytef buffer[512];
@@ -535,7 +535,7 @@ namespace crypto {
         if (err != Z_OK) // TODO: log somthing
             return output;
         // CHECK_ERR(err, "inflateInit");
-        output.reserve(compr.size() << 2);
+        output.reserve(expected_size != -1 ? expected_size : (compr.size() << 2));
 
         for (;;)
         {

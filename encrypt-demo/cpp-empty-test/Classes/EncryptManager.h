@@ -4,6 +4,7 @@
 #ifndef  _ENCRYPTMANAGER_H_
 #define  _ENCRYPTMANAGER_H_
 #include <string>
+#include <stdint.h>
 #include <unordered_map>
 #include "crypto-support/string_view.hpp"
 
@@ -17,6 +18,18 @@ public:
         ENCF_NOFLAGS,
         ENCF_COMPRESS,
         ENCF_SIGNATURE = 2,
+    };
+
+    struct SignInfo
+    {
+        uint32_t mask = 0;
+        uint32_t sigval = 0;
+        union {
+            uint8_t  reserved : 6;
+            uint8_t  compressed : 2;
+            uint8_t flags = 0;
+        };
+        int32_t expected_size = -1;
     };
 
     static EncryptManager *getInstance();
@@ -44,8 +57,7 @@ public:
     static std::string decryptData(const std::string& encryptedData, const std::string& key, const std::string& ivec = "");
 
 private:
-    inline bool isCompressMode() const { return _encryptFlags & ENCF_COMPRESS; };
-    bool isEncryptedData(const char* data, size_t len) const;
+    bool parseSignInfo(char* data, size_t len, SignInfo* info) const;
 protected:
     void setupHookFuncs();
 
@@ -54,7 +66,7 @@ private:
     int _encryptFlags = ENCF_NOFLAGS;
     std::string _encryptKey;
     std::string _encryptIvec; // required by CBC mode.
-    std::string _encryptSignature;
+    std::string _encryptSignKey;
     /// file index support, TODO: implement.
 public:
     enum class FileIndexFormat {

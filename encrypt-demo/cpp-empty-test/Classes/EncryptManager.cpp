@@ -56,11 +56,12 @@ public:
     std::string getStringFromFile(const std::string& filename) override
     {
         auto data = FileUtilsImpl::getStringFromFile(filename);
-        if (!data.empty() && encryptManager.isEncryptedData(data.c_str(), data.size())) {
-            data.resize(data.size() - encryptManager._encryptSignature.size());
+        EncryptManager::SignInfo info;
+        if (!data.empty() && encryptManager.parseSignInfo(&data.front(), data.size(), &info)) {
+            data.resize(data.size() - encryptManager._encryptSignKey.size());
             crypto::aes::overlapped::decrypt(data, encryptManager._encryptKey.c_str(), AES_DEFAULT_KEY_BITS, encryptManager._encryptIvec.c_str());
-            if (encryptManager.isCompressMode()) {
-                return crypto::zlib_uncompress<std::string>(data);
+            if (info.compressed) {
+                return crypto::zlib_uncompress<std::string>(data, info.expected_size);
             }
             else {
                 return data;
@@ -76,13 +77,13 @@ public:
     Data getDataFromFile(const std::string& filename) override
     {
         auto data = FileUtilsImpl::getDataFromFile(filename);
-
-        if (data.getSize() > 0 && encryptManager.isEncryptedData((const char*)data.getBytes(), data.getSize())) {
+        EncryptManager::SignInfo info;
+        if (data.getSize() > 0 && encryptManager.parseSignInfo((char*)data.getBytes(), data.getSize(), &info)) {
             size_t size = 0;
-            crypto::aes::privacy::mode_spec<>::decrypt(data.getBytes(), data.getSize() - encryptManager._encryptSignature.size(), data.getBytes(), size, encryptManager._encryptKey.c_str(), AES_DEFAULT_KEY_BITS, encryptManager._encryptIvec.c_str());
+            crypto::aes::privacy::mode_spec<>::decrypt(data.getBytes(), data.getSize() - encryptManager._encryptSignKey.size(), data.getBytes(), size, encryptManager._encryptKey.c_str(), AES_DEFAULT_KEY_BITS, encryptManager._encryptIvec.c_str());
 
-            if (encryptManager.isCompressMode()) {
-                auto uncomprData = crypto::zlib_inflate<crypto::mutable_buffer>(std::string_view((const char*)data.getBytes(), size));
+            if (info.compressed) {
+                auto uncomprData = crypto::zlib_inflate<crypto::mutable_buffer>(std::string_view((const char*)data.getBytes(), size), info.expected_size);
 
                 data.clear();
                 data.fastSet(uncomprData.detach(), uncomprData.size());
@@ -109,12 +110,13 @@ public:
         auto data = FileUtilsImpl::getFileData(filename, mode, size);
         if (data != nullptr) {
             size_t outsize = 0;
-            if (encryptManager.isEncryptedData((const char*)data, *size)) {
-                *size -= static_cast<ssize_t>(encryptManager._encryptSignature.size());
+            EncryptManager::SignInfo info;
+            if (*size > 0 && encryptManager.parseSignInfo((char*)data, *size, &info)) {
+                *size -= static_cast<ssize_t>(encryptManager._encryptSignKey.size());
                 crypto::aes::privacy::mode_spec<>::decrypt(data, *size, data, outsize, encryptManager._encryptKey.c_str(), AES_DEFAULT_KEY_BITS, encryptManager._encryptIvec.c_str());
 
-                if (encryptManager.isCompressMode()) {
-                    auto uncomprData = crypto::zlib_inflate<crypto::mutable_buffer>(std::string_view((const char*)data, outsize));
+                if (info.compressed) {
+                    auto uncomprData = crypto::zlib_inflate<crypto::mutable_buffer>(std::string_view((const char*)data, outsize), info.expected_size);
 
                     free(data);
                     *size = uncomprData.size();
@@ -191,13 +193,13 @@ void EncryptManager::setEncryptEnabled(bool bVal, std::string_view key, std::str
 
         if (flags & ENCF_SIGNATURE)
         {
-            _encryptSignature = _encryptIvec;
+            _encryptSignKey = _encryptIvec;
             std::string sign(_encryptKey.c_str(), key.size());
             int roll = (flags >> 16) & 0xffff;
             do {
-                crypto::aes::overlapped::encrypt<crypto::aes::ECB, crypto::aes::PaddingMode::None>(_encryptSignature,
+                crypto::aes::overlapped::encrypt<crypto::aes::ECB, crypto::aes::PaddingMode::None>(_encryptSignKey,
                     sign.c_str(), 128);
-                sign = _encryptSignature;
+                sign = _encryptSignKey;
             } while (--roll > 0);
         }
     }
@@ -212,10 +214,33 @@ void EncryptManager::setEncryptEnabled(bool bVal, std::string_view key, std::str
     }
 }
 
-bool EncryptManager::isEncryptedData(const char* data, size_t len) const
+bool EncryptManager::parseSignInfo(char* data, size_t len, SignInfo* info) const
 {
-    return !(_encryptFlags & ENCF_SIGNATURE) ||
-       (len > _encryptSignature.size() && 0 == memcmp(data + len - _encryptSignature.size(), _encryptSignature.c_str(), _encryptSignature.size()));
+    if (_encryptFlags & ENCF_SIGNATURE) {
+        if (len > 16) {
+            size_t outlen = 0;
+            auto signbuf = data + len - 16;
+            crypto::aes::privacy::mode_spec<crypto::aes::ECB>::decrypt(signbuf,
+                16,
+                signbuf,
+                outlen,
+                _encryptSignKey.c_str(),
+                128);
+            if (outlen == 13) {
+                memcpy(&info->mask, signbuf, sizeof(info->mask));
+                signbuf += sizeof(info->mask);
+                memcpy(&info->sigval, signbuf, sizeof(info->sigval));
+                signbuf += sizeof(info->sigval);
+                info->flags = *((uint8_t*)signbuf);
+                return (info->mask ^ info->sigval) == 0xdeadbeef;
+            }
+        }
+        return false;
+    }
+
+    // No signature, regards all files as encrypted
+    info->compressed = this->_encryptFlags & ENCF_COMPRESS;
+    return true;
 }
 
 void EncryptManager::setupHookFuncs()
