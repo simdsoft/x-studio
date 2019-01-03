@@ -9,9 +9,141 @@
 #include "string_view.hpp"
 #include "crypto_utils.h"
 
+#if _HAS_ZLIB
+#include <zlib.h>
+#if !defined(WINRT)
+#pragma comment(lib, "libzlib.lib")
+#else
+#pragma comment(lib, "zlib.lib")
+#endif
+#endif
+
 #define AES_DEFAULT_KEY_BITS 256
 
 namespace crypto {
+
+    class mutable_buffer {
+    public:
+        mutable_buffer() :
+            _data(nullptr),
+            _size(0),
+            _capacity(0)
+        {
+        }
+        mutable_buffer(size_t size, char value)
+        {
+            resize(size);
+            memset(_data, value, size);
+        }
+        mutable_buffer(mutable_buffer&& rhs)
+        {
+            _size = rhs._size;
+            _capacity = rhs._capacity;
+            _data = rhs.detach();
+        }
+        ~mutable_buffer()
+        {
+            clear();
+            shrink_to_fit();
+        }
+        void insert(unsigned char* where, unsigned char* start, unsigned char* end)
+        {
+            size_t count = end - start;
+            if (count > 0) {
+                auto append = this->end() == where;
+                auto offset = size();
+                resize(offset + count);
+                
+                if (append) {
+                    memcpy(_data + offset, start, count);
+                }
+                else {
+                    auto to = where + count;
+                    memmove(where, to, this->end() - to);
+                    memcpy(where, start, count);
+                }
+            }
+        }
+        unsigned char& front() {
+            return *_data;
+        }
+        unsigned char* begin()
+        {
+            return (unsigned char*)_data;
+        }
+        unsigned char* end() {
+            if (!empty()) {
+                return (unsigned char*)_data + _size;
+            }
+            return nullptr;
+        }
+        void reserve(size_t capacity)
+        {
+            if (_capacity < capacity) {
+                _data = (unsigned char*)realloc(_data, capacity);
+                _capacity = capacity;
+            }
+        }
+        void resize(size_t size)
+        {
+            if (_size > size) {
+                _size = size;
+            }
+            else {
+                if (_capacity < size) {
+                    _capacity = size * 3 / 2;
+                    _data = (unsigned char*)realloc(_data, _capacity);
+                }
+                _size = size;
+            }
+        }
+        size_t size() const {
+            return _size;
+        }
+        void* data()
+        {
+            return _data;
+        }
+        void clear()
+        {
+            _size = 0;
+        }
+        bool empty() const
+        {
+            return _size == 0;
+        }
+        void shrink_to_fit()
+        {
+            if (empty()) {
+                if (_data != nullptr)
+                {
+                    free(_data);
+                    _data = nullptr;
+                }
+                _capacity = 0;
+            }
+            else {
+                if (_capacity > _size) {
+                    _data = (unsigned char*)realloc(_data, _size);
+                    _capacity = _size;
+                }
+            }
+        }
+        unsigned char* detach()
+        {
+            auto rdata = _data;
+
+            _data = nullptr;
+            _size = 0;
+            _capacity = 0;
+
+            return (unsigned char*)rdata;
+        }
+    private:
+        unsigned char* _data;
+        size_t _size;
+        size_t _capacity;
+    };
 
     namespace aes {
 
@@ -154,7 +286,6 @@ namespace crypto {
     } /* end of namespace crypto::aes */
 
 #if _HAS_ZLIB
-    namespace zlib {
         /*
         ** level values:
         ** Z_NO_COMPRESSION         0
@@ -163,27 +294,288 @@ namespace crypto {
         ** Z_DEFAULT_COMPRESSION  (-1)
         **
         */
-        std::string compress(std::string_view in, int level = -1); // zlib 1.2.8 Z_DEFAULT_COMPRESSION is -1
-        std::string uncompress(std::string_view in);
+    template<typename _ByteSeqCont>
+    _ByteSeqCont zlib_compress(std::string_view in, int level = -1)
+    {
+        // calc destLen
+        auto destLen = ::compressBound(in.size());
+        _ByteSeqCont out(destLen, '\0');
 
-        std::string deflate(std::string_view in, int level = -1); // zlib 1.2.8 Z_DEFAULT_COMPRESSION is -1
-        std::string inflate(std::string_view in);
+        // do compress
+        int ret = ::compress2((Bytef*)(&out.front()), &destLen, (const Bytef*)in.data(), in.size(), level);
 
-        std::string gzcompr(std::string_view in, int level = -1);
-        std::string gzuncompr(std::string_view in);
+        if (ret == Z_OK)
+        {
+            out.resize(destLen);
+        }
+        return (out);
+    }
 
-        namespace abi {
-            std::vector<char> compress(std::string_view in, int level = -1); // zlib 1.2.8 Z_DEFAULT_COMPRESSION is -1
-            std::vector<char> uncompress(std::string_view in);
+    template<typename _ByteSeqCont>
+    _ByteSeqCont zlib_deflate(std::string_view in, int level = -1)
+    {
+        int err;
+        Bytef buffer[512];
+        z_stream d_stream; /* compression stream */
 
-            std::vector<char> deflate(std::string_view in, int level = -1); // zlib 1.2.8 Z_DEFAULT_COMPRESSION is -1
-            std::vector<char> inflate(std::string_view in);
+        // strcpy((char*)buffer, "garbage");
 
-            std::vector<char> gzcompr(std::string_view in, int level = -1);
-            std::vector<char> gzuncompr(std::string_view in);
-            char* _inflate(std::string_view in, size_t& size); // use malloc, caller responsible for free
-        };
-    };
+        d_stream.zalloc = nullptr;
+        d_stream.zfree = nullptr;
+        d_stream.opaque = (voidpf)0;
+
+        d_stream.next_in = (Bytef*)in.data();
+        d_stream.avail_in = in.size();
+        d_stream.next_out = buffer;
+        d_stream.avail_out = sizeof(buffer);
+
+        _ByteSeqCont output;
+
+        err = deflateInit(&d_stream, level);
+        if (err != Z_OK) // TODO: log somthing
+            return (output);
+
+        output.reserve(in.size());
+
+        for (;;)
+        {
+            err = deflate(&d_stream, Z_FINISH);
+
+            if (err == Z_STREAM_END)
+            {
+                output.insert(output.end(), buffer, buffer + sizeof(buffer) - d_stream.avail_out);
+                break;
+            }
+
+            switch (err)
+            {
+            case Z_NEED_DICT:
+                err = Z_DATA_ERROR;
+            case Z_DATA_ERROR:
+            case Z_MEM_ERROR:
+                deflateEnd(&d_stream);
+                output.clear();
+                return (output);
+            }
+
+            // not enough buffer ?
+            if (err != Z_STREAM_END)
+            {
+                output.insert(output.end(), buffer, buffer + sizeof(buffer));
+
+                d_stream.next_out = buffer;
+                d_stream.avail_out = sizeof(buffer);
+            }
+        }
+
+        deflateEnd(&d_stream);
+        if (err != Z_STREAM_END)
+        {
+            output.clear();
+        }
+
+        return (output);
+    }
+
+    template<typename _ByteSeqCont>
+    _ByteSeqCont zlib_inflate(std::string_view compr)
+    { // inflate
+        int err;
+        Bytef buffer[512];
+        z_stream d_stream; /* decompression stream */
+
+        // strcpy((char*)buffer, "garbage");
+
+        d_stream.zalloc = nullptr;
+        d_stream.zfree = nullptr;
+        d_stream.opaque = (voidpf)0;
+
+        d_stream.next_in = (Bytef*)compr.data();
+        d_stream.avail_in = compr.size();
+        d_stream.next_out = buffer;
+        d_stream.avail_out = sizeof(buffer);
+        _ByteSeqCont output;
+        err = inflateInit(&d_stream);
+        if (err != Z_OK) // TODO: log somthing
+            return output;
+        // CHECK_ERR(err, "inflateInit");
+
+        output.reserve(compr.size() << 2);
+        for (;;)
+        {
+            err = inflate(&d_stream, Z_NO_FLUSH);
+
+            if (err == Z_STREAM_END)
+            {
+                output.insert(output.end(), buffer, buffer + sizeof(buffer) - d_stream.avail_out);
+                break;
+            }
+
+            switch (err)
+            {
+            case Z_NEED_DICT:
+                err = Z_DATA_ERROR;
+            case Z_DATA_ERROR:
+            case Z_MEM_ERROR:
+                goto  _L_end;
+            }
+
+            // not enough memory ?
+            if (err != Z_STREAM_END)
+            {
+                // *out = (unsigned char*)realloc(*out, bufferSize * BUFFER_INC_FACTOR);
+                output.insert(output.end(), buffer, buffer + sizeof(buffer));
+
+                d_stream.next_out = buffer;
+                d_stream.avail_out = sizeof(buffer);
+            }
+        }
+
+    _L_end:
+        inflateEnd(&d_stream);
+        if (err != Z_STREAM_END)
+        {
+            output.clear();
+        }
+
+        return (output);
+    }
+
+    // inflate alias
+    template<typename _ByteSeqCont>
+    _ByteSeqCont zlib_uncompress(std::string_view in)
+    {
+        return zlib_inflate<_ByteSeqCont>(in);
+    }
+
+    // gzip
+    /*
+    reference: http://blog.csdn.net/rainharder/article/details/26342919
+    */
+    template<typename _ByteSeqCont>
+    _ByteSeqCont zlib_gzcompr(std::string_view in, int level = -1)
+    {
+        int err;
+        Bytef buffer[512];
+        z_stream d_stream; /* compression stream */
+
+        // strcpy((char*)buffer, "garbage");
+
+        d_stream.zalloc = nullptr;
+        d_stream.zfree = nullptr;
+        d_stream.opaque = (voidpf)0;
+
+        d_stream.next_in = (Bytef*)in.data();
+        d_stream.avail_in = in.size();
+        d_stream.next_out = buffer;
+        d_stream.avail_out = sizeof(buffer);
+        _ByteSeqCont output;
+        err = deflateInit2(&d_stream, level, Z_DEFLATED, MAX_WBITS + 16/*well: normaly, gzip is: 16*/, MAX_MEM_LEVEL - 1, Z_DEFAULT_STRATEGY);
+        if (err != Z_OK) // TODO: log somthing
+            return output;
+
+        for (;;)
+        {
+            err = deflate(&d_stream, Z_FINISH);
+
+            if (err == Z_STREAM_END)
+            {
+                output.insert(output.end(), buffer, buffer + sizeof(buffer) - d_stream.avail_out);
+                break;
+            }
+
+            switch (err)
+            {
+            case Z_NEED_DICT:
+                err = Z_DATA_ERROR;
+            case Z_DATA_ERROR:
+            case Z_MEM_ERROR:
+                goto _L_end;
+            }
+
+            // not enough buffer ?
+            if (err != Z_STREAM_END)
+            {
+                output.insert(output.end(), buffer, buffer + sizeof(buffer));
+
+                d_stream.next_out = buffer;
+                d_stream.avail_out = sizeof(buffer);
+            }
+        }
+
+    _L_end:
+        deflateEnd(&d_stream);
+        if (err != Z_STREAM_END)
+        {
+            output.clear();
+        }
+
+        return output;
+    }
+
+    template<typename _ByteSeqCont>
+    _ByteSeqCont zlib_gzuncompr(std::string_view compr)
+    { // inflate
+        int err;
+        Bytef buffer[512];
+        z_stream d_stream; /* decompression stream */
+
+        // strcpy((char*)buffer, "garbage");
+
+        d_stream.zalloc = nullptr;
+        d_stream.zfree = nullptr;
+        d_stream.opaque = (voidpf)0;
+
+        d_stream.next_in = (Bytef*)compr.data();
+        d_stream.avail_in = compr.size();
+        d_stream.next_out = buffer;
+        d_stream.avail_out = sizeof(buffer);
+        _ByteSeqCont output;
+        err = inflateInit2(&d_stream, MAX_WBITS + 32/*well: normaly, gzip is: 16*/);
+        if (err != Z_OK) // TODO: log somthing
+            return output;
+        // CHECK_ERR(err, "inflateInit");
+        output.reserve(compr.size() << 2);
+
+        for (;;)
+        {
+            err = inflate(&d_stream, Z_NO_FLUSH);
+
+            if (err == Z_STREAM_END)
+            {
+                output.insert(output.end(), buffer, buffer + sizeof(buffer) - d_stream.avail_out);
+                break;
+            }
+
+            switch (err)
+            {
+            case Z_NEED_DICT:
+                err = Z_DATA_ERROR;
+            case Z_DATA_ERROR:
+            case Z_MEM_ERROR:
+                goto _L_end;
+            }
+
+            // not enough memory ?
+            if (err != Z_STREAM_END)
+            {
+                // *out = (unsigned char*)realloc(*out, bufferSize * BUFFER_INC_FACTOR);
+                output.insert(output.end(), buffer, buffer + sizeof(buffer));
+
+                d_stream.next_out = buffer;
+                d_stream.avail_out = sizeof(buffer);
+            }
+        }
+
+    _L_end:
+        inflateEnd(&d_stream);
+        if (err != Z_STREAM_END)
+        {
+            output.clear();
+        }
+
+        return output;
+    }
 #endif
 
     namespace http {

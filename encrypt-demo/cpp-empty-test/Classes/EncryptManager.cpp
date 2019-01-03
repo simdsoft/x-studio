@@ -60,7 +60,7 @@ public:
             data.resize(data.size() - encryptManager._encryptSignature.size());
             crypto::aes::overlapped::decrypt(data, encryptManager._encryptKey.c_str(), AES_DEFAULT_KEY_BITS, encryptManager._encryptIvec.c_str());
             if (encryptManager.isCompressMode()) {
-                return crypto::zlib::uncompress(data);
+                return crypto::zlib_uncompress<std::string>(data);
             }
             else {
                 return data;
@@ -82,11 +82,10 @@ public:
             crypto::aes::privacy::mode_spec<>::decrypt(data.getBytes(), data.getSize() - encryptManager._encryptSignature.size(), data.getBytes(), size, encryptManager._encryptKey.c_str(), AES_DEFAULT_KEY_BITS, encryptManager._encryptIvec.c_str());
 
             if (encryptManager.isCompressMode()) {
-                auto uncomprData = crypto::zlib::abi::_inflate(std::string_view((const char*)data.getBytes(), size), size);
+                auto uncomprData = crypto::zlib_inflate<crypto::mutable_buffer>(std::string_view((const char*)data.getBytes(), size));
 
                 data.clear();
-
-                data.fastSet((unsigned char*)uncomprData, size);
+                data.fastSet(uncomprData.detach(), uncomprData.size());
             }
             else {
                 data.fastSet(data.getBytes(), size);
@@ -115,11 +114,11 @@ public:
                 crypto::aes::privacy::mode_spec<>::decrypt(data, *size, data, outsize, encryptManager._encryptKey.c_str(), AES_DEFAULT_KEY_BITS, encryptManager._encryptIvec.c_str());
 
                 if (encryptManager.isCompressMode()) {
-                    auto uncomprData = crypto::zlib::abi::_inflate(std::string_view((const char*)data, outsize), outsize);
-                    *size = outsize;
+                    auto uncomprData = crypto::zlib_inflate<crypto::mutable_buffer>(std::string_view((const char*)data, outsize));
 
                     free(data);
-                    data = (unsigned char*)uncomprData;
+                    *size = uncomprData.size();
+                    data = (unsigned char*)uncomprData.detach();
                 }
                 else {
                     *size = static_cast<ssize_t>(outsize);
