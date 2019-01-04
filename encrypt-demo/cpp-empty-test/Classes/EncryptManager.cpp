@@ -220,20 +220,19 @@ bool EncryptManager::parseSignInfo(char* data, size_t len, SignInfo* info) const
         if (len > 16) {
             size_t outlen = 0;
             auto signbuf = data + len - 16;
-            crypto::aes::privacy::mode_spec<crypto::aes::ECB>::decrypt(signbuf,
+            crypto::aes::detail::ecb_decrypt_block(signbuf,
                 16,
                 signbuf,
-                outlen,
                 _encryptSignKey.c_str(),
                 128);
-            if (outlen == 13) {
-                memcpy(&info->mask, signbuf, sizeof(info->mask));
-                signbuf += sizeof(info->mask);
-                memcpy(&info->sigval, signbuf, sizeof(info->sigval));
-                signbuf += sizeof(info->sigval);
-                info->flags = *((uint8_t*)signbuf);
-                return (info->mask ^ info->sigval) == 0xdeadbeef;
-            }
+
+            memcpy(&info->mask, signbuf, sizeof(info->mask));
+            signbuf += sizeof(info->mask);
+            memcpy(&info->sigval, signbuf, sizeof(info->sigval));
+            signbuf += sizeof(info->sigval);
+            info->flags = *((uint8_t*)signbuf++);
+            memcpy(&info->expected_size, signbuf, sizeof(info->expected_size));
+            return (info->mask ^ info->sigval) == 0xdeadbeef;
         }
         return false;
     }

@@ -276,6 +276,9 @@ extern void (*ecb_decrypt)(const void *in, size_t inlen, void *out,
                            size_t &outlen, const void *private_key,
                            int keybits);
 
+extern void(*ecb_encrypt_block)(const void* in, size_t inlen, void* out, const void* private_key, int keybits);
+extern void(*ecb_decrypt_block)(const void* in, size_t inlen, void* out, const void* private_key, int keybits);
+
 /// AES CBC
 extern void (*cbc_encrypt)(const void *in, size_t inlen, void *out,
                            size_t outlen, const void *private_key,

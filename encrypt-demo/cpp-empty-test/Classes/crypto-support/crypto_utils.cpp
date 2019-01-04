@@ -69,6 +69,23 @@ void bin2hex(const void* source, unsigned int sourceLen,
 namespace aes {
 namespace detail {
 namespace software_impl {
+    void ecb_encrypt_block(const void* in, size_t inlen, void* out, const void* private_key, int keybits)
+    {
+        assert((inlen % AES_BLOCK_SIZE) == 0);
+
+        AES_KEY aes_key;
+        ossl_aes_set_encrypt_key((unsigned char *)private_key, keybits, &aes_key);
+        ossl_aes_encrypt((const unsigned char*)in, (unsigned char*)out, &aes_key);
+    }
+
+    void ecb_decrypt_block(const void* in, size_t inlen, void* out, const void* private_key, int keybits)
+    {
+	    assert((inlen % AES_BLOCK_SIZE) == 0);
+	
+        AES_KEY aes_key;
+        ossl_aes_set_decrypt_key((unsigned char *)private_key, keybits, &aes_key);
+        ossl_aes_decrypt((const unsigned char*)in, (unsigned char*)out, &aes_key);
+    }
 	////////////////////////// ecb encrypt/decrypt ///////////////////////////
 	void ecb_encrypt(const void* in, size_t inlen,
 		void* out, size_t outlen, const void* private_key, int keybits)
@@ -363,6 +380,9 @@ void(*ecb_encrypt)(const void* in, size_t inlen,
 void(*ecb_decrypt)(const void* in, size_t inlen,
 	void* out, size_t& outlen, const void* private_key, int keybits/*128,192,256*/);
 
+void(*ecb_encrypt_block)(const void* in, size_t inlen, void* out, const void* private_key, int keybits);
+void(*ecb_decrypt_block)(const void* in, size_t inlen, void* out, const void* private_key, int keybits);
+
 void(*cbc_encrypt)(const void* in, size_t inlen,
 	void* out, size_t outlen, const void* private_key, int keybits/*128,192,256*/, const void* ivec);
 
@@ -413,6 +433,8 @@ namespace {
 #else
 			crypto::aes::detail::ecb_encrypt       = crypto::aes::detail::software_impl::ecb_encrypt;
 			crypto::aes::detail::ecb_decrypt       = crypto::aes::detail::software_impl::ecb_decrypt;
+            crypto::aes::detail::ecb_encrypt_block = crypto::aes::detail::software_impl::ecb_encrypt_block;
+            crypto::aes::detail::ecb_decrypt_block = crypto::aes::detail::software_impl::ecb_decrypt_block;
 			crypto::aes::detail::cbc_encrypt       = crypto::aes::detail::software_impl::cbc_encrypt;
 			crypto::aes::detail::cbc_decrypt       = crypto::aes::detail::software_impl::cbc_decrypt;
             crypto::aes::detail::cbc_encrypt_init  = crypto::aes::detail::software_impl::cbc_encrypt_init;

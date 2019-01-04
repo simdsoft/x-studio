@@ -834,6 +834,7 @@ static std::string hex2bin(const std::string& hexstring, int delim = -1, bool pr
         init_state = take_low;
 
     state = init_state;
+    int prefix_count = 2; // "0x"
     for(size_t i = 0; i < len; ++i)
     {
         // skip delim
@@ -850,6 +851,10 @@ static std::string hex2bin(const std::string& hexstring, int delim = -1, bool pr
             high = char2hex(hexstring[i]);
             result.push_back( ( (uint8_t)low << 4 | (uint8_t)high ) );
             state = init_state;
+            prefix_count = 2;
+            break;
+        case skip_prefix:
+            if (--prefix_count <= 0) state = take_low;
             break;
         }
     }
@@ -880,6 +885,20 @@ static std::string bin2dec(const std::string& binary /*charstring also regard as
         }
     }
 
+    return result;
+}
+
+// translate hexstring to binary
+static std::string dec2bin(std::string_view hexstring, int delim)
+{
+    std::string hexstr(hexstring.data(), hexstring.size());
+    std::string result;
+    nzls::fast_split(&hexstr.front(), hexstr.length(), (char)delim, [&](char* start, char* end) {
+        auto endch = *end;
+        *end = '\0';
+        result.push_back((unsigned char)atoi(start));
+        *end = endch;
+    });
     return result;
 }
 
