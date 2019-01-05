@@ -61,7 +61,7 @@ public:
             data.resize(data.size() - encryptManager._encryptSignKey.size());
             crypto::aes::overlapped::decrypt(data, encryptManager._encryptKey.c_str(), AES_DEFAULT_KEY_BITS, encryptManager._encryptIvec.c_str());
             if (info.compressed) {
-                return crypto::zlib_uncompress<std::string>(data, info.expected_size);
+                return crypto::zlib_uncompress<std::string>(data, info.original_size);
             }
             else {
                 return data;
@@ -83,7 +83,7 @@ public:
             crypto::aes::privacy::mode_spec<>::decrypt(data.getBytes(), data.getSize() - encryptManager._encryptSignKey.size(), data.getBytes(), size, encryptManager._encryptKey.c_str(), AES_DEFAULT_KEY_BITS, encryptManager._encryptIvec.c_str());
 
             if (info.compressed) {
-                auto uncomprData = crypto::zlib_inflate<crypto::mutable_buffer>(std::string_view((const char*)data.getBytes(), size), info.expected_size);
+                auto uncomprData = crypto::zlib_inflate<crypto::mutable_buffer>(std::string_view((const char*)data.getBytes(), size), info.original_size);
 
                 data.clear();
                 data.fastSet(uncomprData.detach(), uncomprData.size());
@@ -116,7 +116,7 @@ public:
                 crypto::aes::privacy::mode_spec<>::decrypt(data, *size, data, outsize, encryptManager._encryptKey.c_str(), AES_DEFAULT_KEY_BITS, encryptManager._encryptIvec.c_str());
 
                 if (info.compressed) {
-                    auto uncomprData = crypto::zlib_inflate<crypto::mutable_buffer>(std::string_view((const char*)data, outsize), info.expected_size);
+                    auto uncomprData = crypto::zlib_inflate<crypto::mutable_buffer>(std::string_view((const char*)data, outsize), info.original_size);
 
                     free(data);
                     *size = uncomprData.size();
@@ -218,21 +218,25 @@ bool EncryptManager::parseSignInfo(char* data, size_t len, SignInfo* info) const
 {
     if (_encryptFlags & ENCF_SIGNATURE) {
         if (len > 16) {
-            size_t outlen = 0;
-            auto signbuf = data + len - 16;
-            crypto::aes::detail::ecb_decrypt_block(signbuf,
+
+            char signbuf[16];
+            memcpy(signbuf, data + len - 16, 16);
+            auto wrptr = signbuf;
+            crypto::aes::detail::ecb_decrypt_block(wrptr,
                 16,
-                signbuf,
+                wrptr,
                 _encryptSignKey.c_str(),
                 128);
 
-            memcpy(&info->mask, signbuf, sizeof(info->mask));
-            signbuf += sizeof(info->mask);
-            memcpy(&info->sigval, signbuf, sizeof(info->sigval));
-            signbuf += sizeof(info->sigval);
-            info->flags = *((uint8_t*)signbuf++);
-            memcpy(&info->expected_size, signbuf, sizeof(info->expected_size));
-            return (info->mask ^ info->sigval) == 0xdeadbeef;
+            memcpy(&info->mask, wrptr, sizeof(info->mask));
+            wrptr += sizeof(info->mask);
+            memcpy(&info->sigval, wrptr, sizeof(info->sigval));
+            wrptr += sizeof(info->sigval);
+            if(info->mask ^ info->sigval) == 0xdeadbeef) {
+                info->flags = *((uint8_t*)wrptr++);
+                memcpy(&info->original_size, wrptr, sizeof(info->original_size));
+                return true;
+            }
         }
         return false;
     }
