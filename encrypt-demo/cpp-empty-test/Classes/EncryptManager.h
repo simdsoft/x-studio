@@ -29,7 +29,7 @@ public:
             uint8_t  compressed : 2;
             uint8_t flags = 0;
         };
-        int32_t expected_size = -1;
+        int32_t original_size = -1;
     };
 
     static EncryptManager *getInstance();
