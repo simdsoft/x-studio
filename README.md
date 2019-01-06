@@ -38,7 +38,7 @@ Download the latest version: http://en-us.x-studio365.com  http://cn.x-studio365
 4. Supports view real adpating vision for any-size of devices.
 5. Supports import CocosStudio ccs project, and json format ui published by CocosStudio.
 6. Supports import .csb, and publish designed ui to cocosstudio(ccs), json, csd formats.
-7. Integrated AES batch encrypt/decrypt tool which work on CBC mode, and support MD5 checksum.
+7. Integrated AES batch encrypt/decrypt tool which work on CBC mode, and support MD5 checksum.(deprecated)
 8. Supports Chinese and English.
 9. Supports SpriteSheet creation.
 
