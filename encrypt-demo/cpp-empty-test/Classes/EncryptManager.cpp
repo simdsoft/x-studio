@@ -3,9 +3,12 @@
 //
 #include <stdio.h>
 #include <string>
+#include "cryptk/ibinarystream.h"
+#include <cryptk/nsconv.h>
+#include "cryptk/fastest_csv_parser.h"
+#include "cryptk/crypto_wrapper.h"
 
-#include "crypto-support/crypto_wrapper.h"
-
+#include "EncryptManager.h"
 #include "cocos2d.h"
 
 #if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
@@ -22,15 +25,29 @@ typedef cocos2d::CCFileUtilsWinRT FileUtilsImpl;
 typedef cocos2d::FileUtilsApple FileUtilsImpl;
 #endif
 
-#include "EncryptManager.h"
-#include "crypto-support/nsconv.h"
-#include "crypto-support/fastest_csv_parser.h"
-#include "crypto-support/ibinarystream.h"
+
+
 using namespace purelib;
 
 #pragma warning(disable:4996)
 
 using namespace cocos2d;
+
+#if COCOS2D_VERSION >= 0x00031701
+#define CCCOMPAT_CONST_QUALIFIER const
+#else
+#define CCCOMPAT_CONST_QUALIFIER
+#endif
+
+namespace cport {
+#if defined(_WIN32)
+    inline int strcasecmp(const char* s1, const char* s2) {
+        return stricmp(s1, s2);
+    }
+#else
+    using ::strcasecmp;
+#endif
+}
 
 class FileUtilsNoEncrypt : public FileUtilsImpl
 {
@@ -53,7 +70,7 @@ public:
     /**
     *  Gets string from a file.
     */
-    std::string getStringFromFile(const std::string& filename) override
+    std::string getStringFromFile(const std::string& filename) CCCOMPAT_CONST_QUALIFIER override
     {
         auto data = FileUtilsImpl::getStringFromFile(filename);
         EncryptManager::SignInfo info;
@@ -74,7 +91,7 @@ public:
     *  Creates binary data from a file.
     *  @return A data object.
     */
-    Data getDataFromFile(const std::string& filename) override
+    Data getDataFromFile(const std::string& filename) CCCOMPAT_CONST_QUALIFIER override
     {
         auto data = FileUtilsImpl::getDataFromFile(filename);
         EncryptManager::SignInfo info;
@@ -83,10 +100,11 @@ public:
             crypto::aes::privacy::mode_spec<>::decrypt(data.getBytes(), data.getSize() - encryptManager._encryptSignKey.size(), data.getBytes(), size, encryptManager._encryptKey.c_str(), AES_DEFAULT_KEY_BITS, encryptManager._encryptIvec.c_str());
 
             if (info.compressed) {
-                auto uncomprData = crypto::zlib_inflate<crypto::mutable_buffer>(std::string_view((const char*)data.getBytes(), size), info.original_size);
+                auto uncomprData = crypto::zlib_inflate<crypto::streambuf>(std::string_view((const char*)data.getBytes(), size), info.original_size);
+                auto tempData = uncomprData.detach(size);
 
                 data.clear();
-                data.fastSet(uncomprData.detach(), uncomprData.size());
+                data.fastSet(tempData, size);
             }
             else {
                 data.fastSet(data.getBytes(), size);
@@ -105,7 +123,7 @@ public:
     *  @return Upon success, a pointer to the data is returned, otherwise NULL.
     *  @warning Recall: you are responsible for calling free() on any Non-NULL pointer returned.
     */
-    virtual unsigned char* getFileData(const std::string& filename, const char* mode, ssize_t *size) override
+    virtual unsigned char* getFileData(const std::string& filename, const char* mode, ssize_t *size) CCCOMPAT_CONST_QUALIFIER override
     {
         auto data = FileUtilsImpl::getFileData(filename, mode, size);
         if (data != nullptr) {
@@ -116,11 +134,10 @@ public:
                 crypto::aes::privacy::mode_spec<>::decrypt(data, *size, data, outsize, encryptManager._encryptKey.c_str(), AES_DEFAULT_KEY_BITS, encryptManager._encryptIvec.c_str());
 
                 if (info.compressed) {
-                    auto uncomprData = crypto::zlib_inflate<crypto::mutable_buffer>(std::string_view((const char*)data, outsize), info.original_size);
+                    auto uncomprData = crypto::zlib_inflate<crypto::streambuf>(std::string_view((const char*)data, outsize), info.original_size);
 
                     free(data);
-                    *size = uncomprData.size();
-                    data = (unsigned char*)uncomprData.detach();
+                    data = (unsigned char*)(uncomprData.detach(*size));
                 }
                 else {
                     *size = static_cast<ssize_t>(outsize);
@@ -148,22 +165,20 @@ EncryptManager* EncryptManager::getInstance()
     return &s_EncryptManager;
 }
 
-std::string EncryptManager::decryptData(const std::string& encryptedData, const std::string& key, const std::string& ivec)
+std::string EncryptManager::decryptData(std::string data)
 {
-    std::string encrpytKey, encryptIvec;
-
-    encrpytKey.resize(32);
-    ::memcpy(&encrpytKey.front(), key.c_str(), (std::min)(32, (int)key.size()));
-
-    if (!ivec.empty()) {
-        encryptIvec.resize(16);
-        ::memcpy(&encryptIvec.front(), ivec.c_str(), (std::min)(16, (int)ivec.size()));
+    EncryptManager::SignInfo info;
+    if (!data.empty() && parseSignInfo(data.c_str(), data.size(), &info)) {
+        data.resize(data.size() - _encryptSignKey.size());
+        crypto::aes::overlapped::decrypt(data, _encryptKey.c_str(), AES_DEFAULT_KEY_BITS, _encryptIvec.c_str());
+        if (info.compressed) {
+            return crypto::zlib_uncompress<std::string>(data, info.original_size);
+        }
+        else {
+            return std::move(data);
+        }
     }
-    else {
-        encryptIvec = nsc::hex2bin("00234b89aa96fecdaf80fbf178a25621");
-    }
-
-    return crypto::aes::decrypt(encryptedData, encrpytKey.c_str(), AES_DEFAULT_KEY_BITS, encryptIvec.c_str());
+    return std::move(data);
 }
 
 void EncryptManager::setEncryptEnabled(bool bVal, std::string_view key, std::string_view ivec, int flags)
@@ -194,12 +209,13 @@ void EncryptManager::setEncryptEnabled(bool bVal, std::string_view key, std::str
         if (flags & ENCF_SIGNATURE)
         {
             _encryptSignKey = _encryptIvec;
-            std::string sign(_encryptKey.c_str(), key.size());
-            int roll = (flags >> 16) & 0xffff;
+            int roll = (flags >> 16 & 0xffff); 
+            std::string signvec(this->_encryptKey.c_str(), (std::min)(key.size(), ivec.size()));
             do {
-                crypto::aes::overlapped::encrypt<crypto::aes::ECB, crypto::aes::PaddingMode::None>(_encryptSignKey,
-                    sign.c_str(), 128);
-                sign = _encryptSignKey;
+                crypto::aes::detail::ecb_encrypt_block(_encryptSignKey.c_str(),
+                    _encryptSignKey.size(),
+                    &_encryptSignKey.front(), signvec.c_str(), 128);
+                signvec = this->_encryptSignKey;
             } while (--roll > 0);
         }
     }
@@ -214,7 +230,7 @@ void EncryptManager::setEncryptEnabled(bool bVal, std::string_view key, std::str
     }
 }
 
-bool EncryptManager::parseSignInfo(char* data, size_t len, SignInfo* info) const
+bool EncryptManager::parseSignInfo(const char* data, size_t len, SignInfo* info) const
 {
     if (_encryptFlags & ENCF_SIGNATURE) {
         if (len > 16) {
@@ -232,7 +248,7 @@ bool EncryptManager::parseSignInfo(char* data, size_t len, SignInfo* info) const
             wrptr += sizeof(info->mask);
             memcpy(&info->sigval, wrptr, sizeof(info->sigval));
             wrptr += sizeof(info->sigval);
-            if(info->mask ^ info->sigval) == 0xdeadbeef) {
+            if((info->mask ^ info->sigval) == 0xdeadbeef) {
                 info->flags = *((uint8_t*)wrptr++);
                 memcpy(&info->original_size, wrptr, sizeof(info->original_size));
                 return true;

@@ -154,7 +154,7 @@ bool wav_open(const std::string& fullPath, WAV_FILE* wavf)
     else
     {
         fileHelper.close();
-        return -1;
+        return false;
     }
 
     wavf->BytesPerFrame = h->BitsPerSample / 8 * h->NumChannels;

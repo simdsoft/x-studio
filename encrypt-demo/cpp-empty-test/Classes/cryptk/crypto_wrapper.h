@@ -21,27 +21,31 @@
 #define AES_DEFAULT_KEY_BITS 256
 
 namespace crypto {
-
-    class mutable_buffer {
+    /* A simple streambuf like std::string, std::vector<char> with operations:
+       insert, reserve, front, begin, end, and etc.
+       Currently, use c realloc/free to manage memory, and support detach(stl not support),
+       in the future, maybe it will be design as allocator support c++ new/delete, or other 
+       custom memory management.
+    */
+    class streambuf {
     public:
-        mutable_buffer() :
+        streambuf() :
             _data(nullptr),
             _size(0),
             _capacity(0)
         {
         }
-        mutable_buffer(size_t size, char value)
+        streambuf(size_t size, char value)
         {
             resize(size);
             memset(_data, value, size);
         }
-        mutable_buffer(mutable_buffer&& rhs)
+        streambuf(streambuf&& rhs)
         {
-            _size = rhs._size;
             _capacity = rhs._capacity;
-            _data = rhs.detach();
+            _data = rhs.detach(_size);
         }
-        ~mutable_buffer()
+        ~streambuf()
         {
             clear();
             shrink_to_fit();
@@ -129,9 +133,11 @@ namespace crypto {
                 }
             }
         }
-        unsigned char* detach()
+        template<typename _TSIZE>
+        unsigned char* detach(_TSIZE& size)
         {
             auto rdata = _data;
+            size = static_cast<_TSIZE>(_size);
 
             _data = nullptr;
             _size = 0;

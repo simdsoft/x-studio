@@ -6,7 +6,7 @@
 #include <string>
 #include <stdint.h>
 #include <unordered_map>
-#include "crypto-support/string_view.hpp"
+#include "cryptk/string_view.hpp"
 
 class FileUtilsEncrypt;
 
@@ -54,10 +54,10 @@ public:
         int flags = ENCF_NOFLAGS);
     bool isEncryptEnabled(void) const { return _encryptEnabled; }
 
-    static std::string decryptData(const std::string& encryptedData, const std::string& key, const std::string& ivec = "");
+    std::string decryptData(std::string data);
 
 private:
-    bool parseSignInfo(char* data, size_t len, SignInfo* info) const;
+    bool parseSignInfo(const char* data, size_t len, SignInfo* info) const;
 protected:
     void setupHookFuncs();
 

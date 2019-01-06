@@ -787,7 +787,7 @@ static std::string bin2hex(const std::string& binary /*charstring also regard as
     bool delim_needed = _Is_visible_char(delim) || delim == ' ';
 
     std::string result;
-    result.reserve((len << 1) + delim_needed ? len : 0 + prefix ? (len << 1) : 0);
+    result.reserve((len << 1) + (delim_needed ? len : 0) + (prefix ? (len << 1) : 0));
 
     
     for(size_t i = 0; i < len; ++i)
@@ -871,7 +871,7 @@ static std::string bin2dec(const std::string& binary /*charstring also regard as
     bool delim_needed = _Is_visible_char(delim) || delim == ' ';
 
     std::string result;
-    result.reserve((len << 1) + delim_needed ? len : 0);
+    result.reserve((len << 1) + (delim_needed ? len : 0));
 
     char temp[8];
     for (size_t i = 0; i < len; ++i)

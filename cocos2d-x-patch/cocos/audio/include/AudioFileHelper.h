@@ -16,7 +16,7 @@
 #include "platform/CCPlatformMacros.h"
 
 #if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
-#include "platform/android/CCFileUtilsAndroid.h"
+#include "platform/android/CCFileUtils-android.h"
 #include <jni.h>
 #include <android/asset_manager.h>
 #include <android/asset_manager_jni.h>
