@@ -175,10 +175,10 @@ std::string EncryptManager::decryptData(std::string data)
             return crypto::zlib_uncompress<std::string>(data, info.original_size);
         }
         else {
-            return std::move(data);
+            return data;
         }
     }
-    return std::move(data);
+    return data;
 }
 
 void EncryptManager::setEncryptEnabled(bool bVal, std::string_view key, std::string_view ivec, int flags)
