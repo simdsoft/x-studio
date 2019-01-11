@@ -74,7 +74,7 @@ public:
     {
         auto data = FileUtilsImpl::getStringFromFile(filename);
         EncryptManager::SignInfo info;
-        if (!data.empty() && encryptManager.parseSignInfo(&data.front(), data.size(), &info)) {
+        if (!data.empty() && encryptManager.parseSignInfo(data.c_str(), data.size(), &info)) {
             data.resize(data.size() - encryptManager._encryptSignKey.size());
             crypto::aes::overlapped::decrypt(data, encryptManager._encryptKey.c_str(), AES_DEFAULT_KEY_BITS, encryptManager._encryptIvec.c_str());
             if (info.compressed) {
