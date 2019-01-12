@@ -38,7 +38,9 @@ Download the latest version: http://en-us.x-studio365.com  http://cn.x-studio365
 4. Supports view real adpating vision for any-size of devices.
 5. Supports import CocosStudio ccs project, and json format ui published by CocosStudio.
 6. Supports import .csb, and publish designed ui to cocosstudio(ccs), json, csd formats.
-7. Integrated AES batch encrypt/decrypt tool which work on CBC mode, and support MD5 checksum.(deprecated)
+7. Provide command line common assets(.png,.lua,.json and any other files) encrypt solution.(since 10.0.3300.1001)
+   usage: x-studio365.exe -c -enc -i=d:\projects\project0\res -o=d:\projects\project0\res-enc
+    will encrypt all files with aes256 cbc and compress with zlib, the enctypt config will be stored to C:\Users\%USERNAME%\AppData\x-studio365\encrypt-cfg.xml whitch contains encrypt key & ivec, it's reqiured by the runtime: https://github.com/halx99/x-studio365/tree/master/encrypt-demo/cpp-empty-test/Classes
 8. Supports Chinese and English.
 9. Supports SpriteSheet creation.
 
