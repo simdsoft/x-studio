@@ -1,3 +1,12 @@
+x-studio365 10.0.3300.1001 (2019年1月15日更新) size:xxx md5:xxx
+1.【UI编辑】 CSD恢复，修复未能导出动画列表问题
+2.【命令行工具】 增加Cocos2d-x加密解决方案命令行工具AES-CBC模式，命令格式: 
+   x-studio365.exe -c -enc -i=d:\projects\project0\res -o=d:\projects\project0\res-enc
+   加密配置将会保存至C:\Users%USERNAME%\AppData\Local\x-studio365\encrypt-cfg.xml, 包含ivec和key
+   解密运行库: https://github.com/halx99/x-studio365/tree/master/encrypt-demo/cpp-empty-test/Classes
+3.【UI编辑】csb导入，修复打开某些导入csb可能闪退问题
+4.【软件核心】 移除AES Batch Encrypt工具，由命令行代替
+
 x-studio365 10.0.3300.999 (2019年1月1日更新) size:17383756 md5:64de49b7f9f0adb5d3fc6fed1b09f8a5
 1.【软件核心】 修复退出可能闪退问题以及其他闪退问题
 2.【Lua调试】 修复调试Unity Lua监视native导出对象导致Unity进程闪退问题
