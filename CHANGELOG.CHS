@@ -1,4 +1,4 @@
-x-studio365 10.0.3300.1001 (2019年1月15日更新) size:17300948 md5:620a7c154f33ea130f1bad94b4f85b10
+x-studio365 10.0.3300.1001 (2019年1月16日更新) size:17296185 md5:68542bb6f584b4956ade563123c4c159
 1.【UI编辑】 CSD恢复，修复未能导出动画列表问题
 2.【命令行工具】 增加Cocos2d-x加密解决方案命令行工具AES-CBC模式，命令格式: 
    x-studio365.exe -c -enc -i=d:\projects\project0\res -o=d:\projects\project0\res-enc
