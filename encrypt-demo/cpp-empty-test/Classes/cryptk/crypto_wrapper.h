@@ -10,11 +10,15 @@
 #include "crypto_utils.h"
 
 #if _HAS_ZLIB
-#include <zlib.h>
+#if defined(_WIN32)
+#include <win32-specific/zlib/include/zlib.h>
 #if !defined(WINRT)
 #pragma comment(lib, "libzlib.lib")
 #else
 #pragma comment(lib, "zlib.lib")
+#endif
+#else
+#include <zlib.h>
 #endif
 #endif
 

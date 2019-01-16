@@ -9,8 +9,8 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
-    <Filter Include="crypto-support">
-      <UniqueIdentifier>{19efe72c-58c3-4a83-a817-3b81fe7bd5b5}</UniqueIdentifier>
+    <Filter Include="Classes\cryptk">
+      <UniqueIdentifier>{c408d605-ef77-40e4-94ca-300223b2f430}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -26,17 +26,17 @@
     <ClCompile Include="..\Classes\EncryptManager.cpp">
       <Filter>Classes</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\crypto-support\aes_core.cpp">
-      <Filter>crypto-support</Filter>
+    <ClCompile Include="..\Classes\cryptk\aes_core.cpp">
+      <Filter>Classes\cryptk</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\crypto-support\crypto_utils.cpp">
-      <Filter>crypto-support</Filter>
+    <ClCompile Include="..\Classes\cryptk\crypto_utils.cpp">
+      <Filter>Classes\cryptk</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\crypto-support\crypto_wrapper.cpp">
-      <Filter>crypto-support</Filter>
+    <ClCompile Include="..\Classes\cryptk\crypto_wrapper.cpp">
+      <Filter>Classes\cryptk</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\crypto-support\ibinarystream.cpp">
-      <Filter>crypto-support</Filter>
+    <ClCompile Include="..\Classes\cryptk\ibinarystream.cpp">
+      <Filter>Classes\cryptk</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -51,15 +51,6 @@
     </ClInclude>
     <ClInclude Include="..\Classes\AppMacros.h">
       <Filter>Classes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\EncryptManager.h">
-      <Filter>Classes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\crypto-support\crypto_utils.h">
-      <Filter>crypto-support</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\crypto-support\crypto_wrapper.h">
-      <Filter>crypto-support</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
