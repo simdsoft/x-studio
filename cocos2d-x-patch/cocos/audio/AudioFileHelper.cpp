@@ -112,8 +112,10 @@ bool AudioFileHelper::open(const std::string& path, bool readonly)
                     return AAsset_seek(this->_asset, offset, origin);
                 };
                 this->__close = [=](){
-                    AAsset_close(this->_asset);
-                    this->_asset = nullptr;
+                    if(this->_asset) {
+                        AAsset_close(this->_asset);
+                        this->_asset = nullptr;
+                    }
                     return 0;
                 };
             }
