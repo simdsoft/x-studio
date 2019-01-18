@@ -61,7 +61,7 @@ public:
     /**
     pitfall:
     For cocos2d-x v3.10, you should change FileUtilsWin32's constructor access permission from 'private' to
-    'protected'
+    'protected' or 'public'
     */
     FileUtilsEncrypt(EncryptManager& manager) : encryptManager(manager)
     {
