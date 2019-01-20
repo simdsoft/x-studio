@@ -6,6 +6,6 @@ In the future, cocos2d-x engine or this runtime may be cover & fix this issue.
 I very Suggestion official engine team use the same implement getValueMapFromFile, getValueVectorFromFile as same for all platforms.  
 Also, other suggestion, deprecated tinyxml, use more fast xml parsers rapidxml/pugixml to instead.  
 
-See issues: 
+See issues:   
 https://github.com/cocos2d/cocos2d-x/issues/19325  
 https://github.com/cocos2d/cocos2d-x/issues/19326  
