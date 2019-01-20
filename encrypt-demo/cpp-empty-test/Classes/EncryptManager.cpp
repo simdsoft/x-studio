@@ -20,11 +20,11 @@ typedef cocos2d::FileUtilsAndroid FileUtilsImpl;
 #elif CC_TARGET_PLATFORM == CC_PLATFORM_WINRT
 #include "platform/winrt/CCFileUtilsWinRT.h"
 typedef cocos2d::CCFileUtilsWinRT FileUtilsImpl;
-#else /* ios or mac */
+#else /* ios or mac, pitfall you may need change this file name to EncryptManager.mm for xcode */
+#import <Foundation/Foundation.h>
 #include "platform/apple/CCFileUtils-apple.h"
 typedef cocos2d::FileUtilsApple FileUtilsImpl;
 #endif
-
 
 
 using namespace purelib;
@@ -52,12 +52,14 @@ namespace cport {
 class FileUtilsNoEncrypt : public FileUtilsImpl
 {
 public:
-    using FileUtilsImpl::init;
+    using FileUtilsImpl::init; // cocos2d-x older version compatible, such as v3.10
 };
 
 class FileUtilsEncrypt : public FileUtilsImpl
 {
 public:
+    using FileUtilsImpl::init; // cocos2d-x older version compatible, such as v3.10
+
     /**
     pitfall:
     For cocos2d-x v3.10, you should change FileUtilsWin32's constructor access permission from 'private' to
@@ -72,7 +74,22 @@ public:
     */
     std::string getStringFromFile(const std::string& filename) CCCOMPAT_CONST_QUALIFIER override
     {
+#if COCOS2D_VERSION >= 0x00031300
         auto data = FileUtilsImpl::getStringFromFile(filename);
+#elif COCOS2D_VERSION >= 0x00031200
+        /*
+         Because v3.12 original implement of getStringFromFile have: ```truncated s.resize(strlen(s.data()));```
+         so we need fix it.
+        */
+        std::string data;
+        FileUtils::getContents(filename, &data);
+#else   // COCOS2D_VERSION < V3.11.1, string will truncated by std::string strcpy's behavior.
+        Data rawData = FileUtilsImpl::getDataFromFile(filename);
+        std::string data;
+        if (!rawData.isNull()) {
+            data.assign((const char*)rawData.getBytes(), rawData.getSize());
+        }
+#endif
         EncryptManager::SignInfo info;
         if (!data.empty() && encryptManager.parseSignInfo(data.c_str(), data.size(), &info)) {
             data.resize(data.size() - encryptManager._encryptSignKey.size());
@@ -146,6 +163,15 @@ public:
         }
         return data;
     }
+
+#if COCOS2D_VERSION <= 0x00031200
+    // COCOS2D_VERSION <= v3.12, Apple needed
+    virtual ValueMap getValueMapFromFile(const std::string& filename) const override
+    {
+        auto strXml = this->getStringFromFile(filename);
+        return getValueMapFromData(strXml.c_str(), static_cast<int>(strXml.length()));
+    }
+#endif
 
     std::string fullPathForFilename(const std::string &filename) const override
     {
