@@ -42,16 +42,16 @@ namespace cocos2d { namespace experimental {
     
     static ssize_t mpg123_read_r(void * handle, void * buffer, size_t count)
     {
-        return ((AudioFileHelper*)handle)->read(buffer, count);
+        return ((AudioFileStream*)handle)->read(buffer, count);
     }
 
     static off_t mpg123_lseek_r(void * handle, off_t offset, int whence)
     {
-        return ((AudioFileHelper*)handle)->seek(offset, whence);
+        return ((AudioFileStream*)handle)->seek(offset, whence);
     }
 
     void mpg123_close_r(void* handle) {
-        ((AudioFileHelper*)handle)->close();
+        ((AudioFileStream*)handle)->close();
     }
     
     bool AudioDecoderMp3::lazyInit()
@@ -110,7 +110,7 @@ namespace cocos2d { namespace experimental {
                 break;
             }
             
-            if (!_fileHelper.open(FileUtils::getInstance()->getSuitableFOpen(fullPath)))
+            if (!_fileStream.open(FileUtils::getInstance()->getSuitableFOpen(fullPath)))
             {
                 ALOGE("Trouble with mpg123(1): %s\n", strerror(errno));
                 break;
@@ -118,7 +118,7 @@ namespace cocos2d { namespace experimental {
 
             mpg123_replace_reader_handle(_mpg123handle, mpg123_read_r, mpg123_lseek_r, mpg123_close_r);
 
-            if (mpg123_open_handle(_mpg123handle, &_fileHelper) != MPG123_OK
+            if (mpg123_open_handle(_mpg123handle, &_fileStream) != MPG123_OK
                 || mpg123_getformat(_mpg123handle, &rate, &channel, &mp3Encoding) != MPG123_OK)
             {
                 ALOGE("Trouble with mpg123(2): %s\n", mpg123_strerror(_mpg123handle));

@@ -1,4 +1,4 @@
-// Copyright (c) 2018 HALX99.
+// Copyright (c) 2018-2019 HALX99, TODO: may rename this file to AudioFileStream
 #pragma once
 
 #include "platform/CCPlatformConfig.h"
@@ -22,12 +22,31 @@
 #include <android/asset_manager_jni.h>
 #endif
 
-class CC_DLL AudioFileHelper {
-public:
-    AudioFileHelper();
-    ~AudioFileHelper();
+NS_CC_BEGIN
 
-    bool open(const std::string& path, bool readonly = true);
+struct UnzFileStream;
+union PXFileHandle {
+    int _fd = -1;
+#if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
+    AAsset* _asset;
+    UnzFileStream* _uzfs;
+#endif
+};
+
+struct PXIoF;
+
+class CC_DLL AudioFileStream {
+public:
+    AudioFileStream();
+    ~AudioFileStream();
+
+    enum Mode {
+        kModeReadOnly,
+        kModeWrite,
+        kModeAppend,
+    };
+
+    bool open(const std::string& path, int mode = kModeReadOnly);
     int close();
 
     int seek(long offset, int origin);
@@ -35,23 +54,11 @@ public:
 
     int write(const void* buf, unsigned int size);
 
-    int getFileDescriptor() const {
-        return _fd;
-    }
-private:
-    union {
-        int _fd;
-#if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
-        AAsset* _asset;
-#endif
-    };
-#if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
-    off_t _start;
-    off_t _length;
-#endif
+    operator bool() const;
 
-    std::function<int(void*, unsigned int)> __read;
-    std::function<long(long, int)> __lseek;
-    std::function<int()> __close;
+private:
+   PXFileHandle _handle;
+   const PXIoF* _iof;
 };
 
+NS_CC_END

@@ -26,7 +26,7 @@
 #pragma once
 
 #include "audio/include/AudioDecoder.h"
-#include "audio/include/AudioFileHelper.h"
+#include "audio/include/AudioFileStream.h"
 
 struct mpg123_handle_struct;
 
@@ -79,7 +79,7 @@ protected:
     static bool lazyInit();
     static void destroy();
 
-    AudioFileHelper _fileHelper;
+    AudioFileStream _fileStream;
     struct mpg123_handle_struct* _mpg123handle;
 
     friend class AudioDecoderManager;

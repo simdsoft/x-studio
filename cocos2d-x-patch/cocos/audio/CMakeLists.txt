@@ -15,7 +15,7 @@ if(WINDOWS)
         audio/include/AudioDecoderMp3.h
         audio/include/AudioDecoderWav.h
         audio/include/AudioCache.h
-        audio/include/AudioFileHelper.h
+        audio/include/AudioFileStream.h
         )
 
     set(COCOS_AUDIO_PLATFORM_SRC
@@ -29,7 +29,7 @@ if(WINDOWS)
         audio/AudioDecoderMp3.cpp
         audio/AudioDecoderOgg.cpp
         audio/AudioDecoderWav.cpp
-        audio/AudioFileHelper.cpp
+        audio/AudioFileStream.cpp
         )
 
 elseif(ANDROID)
@@ -46,7 +46,7 @@ elseif(ANDROID)
         audio/include/AudioDecoderMp3.h
         audio/include/AudioDecoderOgg.h
         audio/include/AudioDecoderWav.h
-        audio/include/AudioFileHelper.h
+        audio/include/AudioFileStream.h
         )
 
     set(COCOS_AUDIO_PLATFORM_SRC
@@ -62,7 +62,7 @@ elseif(ANDROID)
         audio/AudioDecoderMp3.cpp
         audio/AudioDecoderOgg.cpp
         audio/AudioDecoderWav.cpp
-        audio/AudioFileHelper.cpp
+        audio/AudioFileStream.cpp
         )
 
 elseif(LINUX)
@@ -75,7 +75,7 @@ elseif(LINUX)
         audio/include/AudioDecoderMp3.h
         audio/include/AudioDecoderWav.h
         audio/include/AudioCache.h
-        audio/include/AudioFileHelper.h
+        audio/include/AudioFileStream.h
         )
 
     set(COCOS_AUDIO_PLATFORM_SRC
@@ -88,7 +88,7 @@ elseif(LINUX)
         audio/AudioDecoderMp3.cpp
         audio/AudioDecoderOgg.cpp
         audio/AudioDecoderWav.cpp
-        audio/AudioFileHelper.cpp
+        audio/AudioFileStream.cpp
         )
 
 elseif(APPLE)
