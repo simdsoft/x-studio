@@ -58,6 +58,10 @@ public:
 class FileUtilsEncrypt : public FileUtilsImpl
 {
 public:
+    /*pitfall:
+	    For android, if you are use obb, you should initialize the static member `obbfile` of FileUtilsAndroid
+	    only once, and don't delete it at destructor of FileUtilsAndroid.
+	*/
     using FileUtilsImpl::init; // cocos2d-x older version compatible, such as v3.10
 
     /**
@@ -164,9 +168,9 @@ public:
         return data;
     }
 
-#if COCOS2D_VERSION <= 0x00031200
+#if COCOS2D_VERSION <= 0x00031200 && (CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
     // COCOS2D_VERSION <= v3.12, Apple needed
-    virtual ValueMap getValueMapFromFile(const std::string& filename) const override
+    virtual ValueMap getValueMapFromFile(const std::string& filename) override
     {
         auto strXml = this->getStringFromFile(filename);
         return getValueMapFromData(strXml.c_str(), static_cast<int>(strXml.length()));
