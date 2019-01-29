@@ -32,7 +32,7 @@
 #include <string>
 #include <vector>
 
-namespace crypto {
+namespace cryptk {
     
 /* basic char convertors */
 uint8_t hex2uchr(const uint8_t hex);
@@ -302,6 +302,6 @@ extern void (*cbc_decrypt_block)(cbc_block_state* state, const void *in, size_t 
                                  size_t outlen);
 }; // namespace detail
 }; // namespace aes
-}; // namespace crypto
+}; // namespace cryptk
 
 #endif /* _CRYPTO_UTILS_H_ */

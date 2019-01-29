@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <string>
 #include "cryptk/ibinarystream.h"
-#include <cryptk/nsconv.h>
+#include "cryptk/nsconv.h"
 #include "cryptk/fastest_csv_parser.h"
 #include "cryptk/crypto_wrapper.h"
 
@@ -97,9 +97,9 @@ public:
         EncryptManager::SignInfo info;
         if (!data.empty() && encryptManager.parseSignInfo(data.c_str(), data.size(), &info)) {
             data.resize(data.size() - encryptManager._encryptSignKey.size());
-            crypto::aes::overlapped::decrypt(data, encryptManager._encryptKey.c_str(), AES_DEFAULT_KEY_BITS, encryptManager._encryptIvec.c_str());
+            cryptk::aes::overlapped::decrypt(data, encryptManager._encryptKey.c_str(), AES_DEFAULT_KEY_BITS, encryptManager._encryptIvec.c_str());
             if (info.compressed) {
-                return crypto::zlib_uncompress<std::string>(data, info.original_size);
+                return cryptk::zlib_uncompress<std::string>(data, info.original_size);
             }
             else {
                 return data;
@@ -118,10 +118,10 @@ public:
         EncryptManager::SignInfo info;
         if (data.getSize() > 0 && encryptManager.parseSignInfo((char*)data.getBytes(), data.getSize(), &info)) {
             size_t size = 0;
-            crypto::aes::privacy::mode_spec<>::decrypt(data.getBytes(), data.getSize() - encryptManager._encryptSignKey.size(), data.getBytes(), size, encryptManager._encryptKey.c_str(), AES_DEFAULT_KEY_BITS, encryptManager._encryptIvec.c_str());
+            cryptk::aes::privacy::mode_spec<>::decrypt(data.getBytes(), data.getSize() - encryptManager._encryptSignKey.size(), data.getBytes(), size, encryptManager._encryptKey.c_str(), AES_DEFAULT_KEY_BITS, encryptManager._encryptIvec.c_str());
 
             if (info.compressed) {
-                auto uncomprData = crypto::zlib_inflate<crypto::streambuf>(std::string_view((const char*)data.getBytes(), size), info.original_size);
+                auto uncomprData = cryptk::zlib_inflate<cryptk::streambuf>(std::string_view((const char*)data.getBytes(), size), info.original_size);
                 auto tempData = uncomprData.detach(size);
 
                 data.clear();
@@ -152,10 +152,10 @@ public:
             EncryptManager::SignInfo info;
             if (*size > 0 && encryptManager.parseSignInfo((char*)data, *size, &info)) {
                 *size -= static_cast<ssize_t>(encryptManager._encryptSignKey.size());
-                crypto::aes::privacy::mode_spec<>::decrypt(data, *size, data, outsize, encryptManager._encryptKey.c_str(), AES_DEFAULT_KEY_BITS, encryptManager._encryptIvec.c_str());
+                cryptk::aes::privacy::mode_spec<>::decrypt(data, *size, data, outsize, encryptManager._encryptKey.c_str(), AES_DEFAULT_KEY_BITS, encryptManager._encryptIvec.c_str());
 
                 if (info.compressed) {
-                    auto uncomprData = crypto::zlib_inflate<crypto::streambuf>(std::string_view((const char*)data, outsize), info.original_size);
+                    auto uncomprData = cryptk::zlib_inflate<cryptk::streambuf>(std::string_view((const char*)data, outsize), info.original_size);
 
                     free(data);
                     data = (unsigned char*)(uncomprData.detach(*size));
@@ -200,9 +200,9 @@ std::string EncryptManager::decryptData(std::string data)
     EncryptManager::SignInfo info;
     if (!data.empty() && parseSignInfo(data.c_str(), data.size(), &info)) {
         data.resize(data.size() - _encryptSignKey.size());
-        crypto::aes::overlapped::decrypt(data, _encryptKey.c_str(), AES_DEFAULT_KEY_BITS, _encryptIvec.c_str());
+        cryptk::aes::overlapped::decrypt(data, _encryptKey.c_str(), AES_DEFAULT_KEY_BITS, _encryptIvec.c_str());
         if (info.compressed) {
-            return crypto::zlib_uncompress<std::string>(data, info.original_size);
+            return cryptk::zlib_uncompress<std::string>(data, info.original_size);
         }
         else {
             return data;
@@ -242,7 +242,7 @@ void EncryptManager::setEncryptEnabled(bool bVal, std::string_view key, std::str
             int roll = (flags >> 16 & 0xffff); 
             std::string signvec(this->_encryptKey.c_str(), (std::min)(key.size(), ivec.size()));
             do {
-                crypto::aes::detail::ecb_encrypt_block(_encryptSignKey.c_str(),
+                cryptk::aes::detail::ecb_encrypt_block(_encryptSignKey.c_str(),
                     _encryptSignKey.size(),
                     &_encryptSignKey.front(), signvec.c_str(), 128);
                 signvec = this->_encryptSignKey;
@@ -268,7 +268,7 @@ bool EncryptManager::parseSignInfo(const char* data, size_t len, SignInfo* info)
             char signbuf[16];
             memcpy(signbuf, data + len - 16, 16);
             auto wrptr = signbuf;
-            crypto::aes::detail::ecb_decrypt_block(wrptr,
+            cryptk::aes::detail::ecb_decrypt_block(wrptr,
                 16,
                 wrptr,
                 _encryptSignKey.c_str(),

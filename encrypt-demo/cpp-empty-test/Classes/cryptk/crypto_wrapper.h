@@ -24,7 +24,7 @@
 
 #define AES_DEFAULT_KEY_BITS 256
 
-namespace crypto {
+namespace cryptk {
     /* A simple streambuf like std::string, std::vector<char> with operations:
        insert, reserve, front, begin, end, and etc.
        Currently, use c realloc/free to manage memory, and support detach(stl not support),
@@ -293,7 +293,7 @@ namespace crypto {
                 inout.resize(outlen + offset);
             }
         }
-    } /* end of namespace crypto::aes */
+    } /* end of namespace cryptk::aes */
 
 #if _HAS_ZLIB
         /*

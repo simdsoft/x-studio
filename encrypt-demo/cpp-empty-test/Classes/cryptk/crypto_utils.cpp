@@ -19,7 +19,7 @@ static const unsigned char s_default_ivec[] = { \
       0xaf, 0x80, 0xfb, 0xf1, 0x78, 0xa2, 0x56, 0x21 \
 };
 
-namespace crypto {
+namespace cryptk {
 
 uint8_t     hex2chr(const uint8_t hex)
 {
@@ -411,36 +411,36 @@ namespace {
 		{
 #if _HAS_INTEL_AES_IN
 			if (check_for_aes_instructions()) {
-				crypto::aes::detail::ecb_encrypt       = crypto::aes::detail::hardware_impl::ecb_encrypt;
-                crypto::aes::detail::ecb_decrypt       = crypto::aes::detail::hardware_impl::ecb_decrypt;
-                crypto::aes::detail::cbc_encrypt       = crypto::aes::detail::hardware_impl::cbc_encrypt;
-                crypto::aes::detail::cbc_decrypt       = crypto::aes::detail::hardware_impl::cbc_decrypt;
-                crypto::aes::detail::cbc_encrypt_init  = crypto::aes::detail::hardware_impl::cbc_encrypt_init;
-                crypto::aes::detail::cbc_decrypt_init  = crypto::aes::detail::hardware_impl::cbc_decrypt_init;
-                crypto::aes::detail::cbc_encrypt_block = crypto::aes::detail::hardware_impl::cbc_encrypt_block;
-                crypto::aes::detail::cbc_decrypt_block = crypto::aes::detail::hardware_impl::cbc_decrypt_block;
+				cryptk::aes::detail::ecb_encrypt       = cryptk::aes::detail::hardware_impl::ecb_encrypt;
+                cryptk::aes::detail::ecb_decrypt       = cryptk::aes::detail::hardware_impl::ecb_decrypt;
+                cryptk::aes::detail::cbc_encrypt       = cryptk::aes::detail::hardware_impl::cbc_encrypt;
+                cryptk::aes::detail::cbc_decrypt       = cryptk::aes::detail::hardware_impl::cbc_decrypt;
+                cryptk::aes::detail::cbc_encrypt_init  = cryptk::aes::detail::hardware_impl::cbc_encrypt_init;
+                cryptk::aes::detail::cbc_decrypt_init  = cryptk::aes::detail::hardware_impl::cbc_decrypt_init;
+                cryptk::aes::detail::cbc_encrypt_block = cryptk::aes::detail::hardware_impl::cbc_encrypt_block;
+                cryptk::aes::detail::cbc_decrypt_block = cryptk::aes::detail::hardware_impl::cbc_decrypt_block;
 			}
 			else {
-				crypto::aes::detail::ecb_encrypt       = crypto::aes::detail::software_impl::ecb_encrypt;
-                crypto::aes::detail::ecb_decrypt       = crypto::aes::detail::software_impl::ecb_decrypt;
-                crypto::aes::detail::cbc_encrypt       = crypto::aes::detail::software_impl::cbc_encrypt;
-                crypto::aes::detail::cbc_decrypt       = crypto::aes::detail::software_impl::cbc_decrypt;
-                crypto::aes::detail::cbc_encrypt_init  = crypto::aes::detail::software_impl::cbc_encrypt_init;
-                crypto::aes::detail::cbc_decrypt_init  = crypto::aes::detail::software_impl::cbc_decrypt_init;
-                crypto::aes::detail::cbc_encrypt_block = crypto::aes::detail::software_impl::cbc_encrypt_block;
-                crypto::aes::detail::cbc_decrypt_block = crypto::aes::detail::software_impl::cbc_decrypt_block;
+				cryptk::aes::detail::ecb_encrypt       = cryptk::aes::detail::software_impl::ecb_encrypt;
+                cryptk::aes::detail::ecb_decrypt       = cryptk::aes::detail::software_impl::ecb_decrypt;
+                cryptk::aes::detail::cbc_encrypt       = cryptk::aes::detail::software_impl::cbc_encrypt;
+                cryptk::aes::detail::cbc_decrypt       = cryptk::aes::detail::software_impl::cbc_decrypt;
+                cryptk::aes::detail::cbc_encrypt_init  = cryptk::aes::detail::software_impl::cbc_encrypt_init;
+                cryptk::aes::detail::cbc_decrypt_init  = cryptk::aes::detail::software_impl::cbc_decrypt_init;
+                cryptk::aes::detail::cbc_encrypt_block = cryptk::aes::detail::software_impl::cbc_encrypt_block;
+                cryptk::aes::detail::cbc_decrypt_block = cryptk::aes::detail::software_impl::cbc_decrypt_block;
 			}
 #else
-			crypto::aes::detail::ecb_encrypt       = crypto::aes::detail::software_impl::ecb_encrypt;
-			crypto::aes::detail::ecb_decrypt       = crypto::aes::detail::software_impl::ecb_decrypt;
-            crypto::aes::detail::ecb_encrypt_block = crypto::aes::detail::software_impl::ecb_encrypt_block;
-            crypto::aes::detail::ecb_decrypt_block = crypto::aes::detail::software_impl::ecb_decrypt_block;
-			crypto::aes::detail::cbc_encrypt       = crypto::aes::detail::software_impl::cbc_encrypt;
-			crypto::aes::detail::cbc_decrypt       = crypto::aes::detail::software_impl::cbc_decrypt;
-            crypto::aes::detail::cbc_encrypt_init  = crypto::aes::detail::software_impl::cbc_encrypt_init;
-            crypto::aes::detail::cbc_decrypt_init  = crypto::aes::detail::software_impl::cbc_decrypt_init;
-			crypto::aes::detail::cbc_encrypt_block = crypto::aes::detail::software_impl::cbc_encrypt_block;
-			crypto::aes::detail::cbc_decrypt_block = crypto::aes::detail::software_impl::cbc_decrypt_block;
+			cryptk::aes::detail::ecb_encrypt       = cryptk::aes::detail::software_impl::ecb_encrypt;
+			cryptk::aes::detail::ecb_decrypt       = cryptk::aes::detail::software_impl::ecb_decrypt;
+            cryptk::aes::detail::ecb_encrypt_block = cryptk::aes::detail::software_impl::ecb_encrypt_block;
+            cryptk::aes::detail::ecb_decrypt_block = cryptk::aes::detail::software_impl::ecb_decrypt_block;
+			cryptk::aes::detail::cbc_encrypt       = cryptk::aes::detail::software_impl::cbc_encrypt;
+			cryptk::aes::detail::cbc_decrypt       = cryptk::aes::detail::software_impl::cbc_decrypt;
+            cryptk::aes::detail::cbc_encrypt_init  = cryptk::aes::detail::software_impl::cbc_encrypt_init;
+            cryptk::aes::detail::cbc_decrypt_init  = cryptk::aes::detail::software_impl::cbc_decrypt_init;
+			cryptk::aes::detail::cbc_encrypt_block = cryptk::aes::detail::software_impl::cbc_encrypt_block;
+			cryptk::aes::detail::cbc_decrypt_block = cryptk::aes::detail::software_impl::cbc_decrypt_block;
 #endif
 		}
 	} ;

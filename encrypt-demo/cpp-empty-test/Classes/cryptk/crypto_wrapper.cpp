@@ -42,7 +42,7 @@ static long long get_file_size(FILE *fp) {
 }
 
 #if _HAS_MD5
-std::string crypto::hash::md5(std::string_view plaintext)
+std::string cryptk::hash::md5(std::string_view plaintext)
 {
     char digest[16];
     md5_state_t pms;
@@ -51,11 +51,11 @@ std::string crypto::hash::md5(std::string_view plaintext)
     md5_finish(&pms, (md5_byte_t*)digest);
 
     std::string strHex(32, '\0');
-    crypto::bin2hex(digest, sizeof(digest), &strHex.front(), strHex.length());
+    cryptk::bin2hex(digest, sizeof(digest), &strHex.front(), strHex.length());
     return strHex;
 }
 
-std::string crypto::hash::md5raw(std::string_view plaintext)
+std::string cryptk::hash::md5raw(std::string_view plaintext)
 {
     std::string digest(16, '\0');
     md5_state_t pms;
@@ -65,7 +65,7 @@ std::string crypto::hash::md5raw(std::string_view plaintext)
     return digest;
 }
 
-std::string crypto::hash::fmd5(const char* filename)
+std::string cryptk::hash::fmd5(const char* filename)
 {
     FILE* fp = fopen(filename, "rb");
     // std::ifstream fin(filename, std::ios_base::binary);
@@ -100,14 +100,14 @@ std::string crypto::hash::fmd5(const char* filename)
     fclose(fp);
     md5_finish(&state, (unsigned char*)hash);
 
-    crypto::bin2hex(hash, sizeof(hash), &result.front(), result.size());
+    cryptk::bin2hex(hash, sizeof(hash), &result.front(), result.size());
 
     return result;
 }
 #endif
 
 #if _HAS_MD6
-std::string crypto::hash::md6(std::string_view plaintext, size_t hashByteLen)
+std::string cryptk::hash::md6(std::string_view plaintext, size_t hashByteLen)
 {
     assert(hashByteLen <= 64);
 
@@ -120,11 +120,11 @@ std::string crypto::hash::md6(std::string_view plaintext, size_t hashByteLen)
     md6_final(&state, (unsigned char*)buffer);
 
     std::string strHex(hashByteLen << 1, '\0');
-    crypto::bin2hex(buffer, hashByteLen, &strHex.front(), strHex.length());
+    cryptk::bin2hex(buffer, hashByteLen, &strHex.front(), strHex.length());
     return strHex;
 }
 
-std::string crypto::hash::md6raw(std::string_view plaintext, size_t hashByteLen)
+std::string cryptk::hash::md6raw(std::string_view plaintext, size_t hashByteLen)
 {
     std::string result(hashByteLen, '\0');
 
@@ -136,7 +136,7 @@ std::string crypto::hash::md6raw(std::string_view plaintext, size_t hashByteLen)
     return result;
 }
 
-std::string crypto::hash::fmd6(const char* filename, int hashByteLen)
+std::string cryptk::hash::fmd6(const char* filename, int hashByteLen)
 {
     std::ifstream fin;
     fin.open(filename, std::ios_base::binary);
@@ -175,14 +175,14 @@ std::string crypto::hash::fmd6(const char* filename, int hashByteLen)
     fin.close();
     md6_final(&state, (unsigned char*)hash);
 
-    crypto::bin2hex(hash, hashByteLen, &result.front(), result.size());
+    cryptk::bin2hex(hash, hashByteLen, &result.front(), result.size());
 
     return result;
 }
 #endif
 
 #if _HAS_LIBB64
-std::string crypto::http::b64dec(std::string_view ciphertext)
+std::string cryptk::http::b64dec(std::string_view ciphertext)
 {
     std::string plaintext( ciphertext.length(), '\0' );
 
@@ -194,7 +194,7 @@ std::string crypto::http::b64dec(std::string_view ciphertext)
     return plaintext;
 }
 
-std::string crypto::http::b64enc(std::string_view  plaintext)
+std::string cryptk::http::b64enc(std::string_view  plaintext)
 {
     std::string ciphertext( (plaintext.length() * 2), '\0' );
     char* wrptr = &ciphertext.front();
@@ -208,7 +208,7 @@ std::string crypto::http::b64enc(std::string_view  plaintext)
 }
 #endif
 
-std::string crypto::http::urlencode(std::string_view input)
+std::string cryptk::http::urlencode(std::string_view input)
 {
     std::string output;
     for( size_t ix = 0; ix < input.size(); ix++ )
@@ -226,15 +226,15 @@ std::string crypto::http::urlencode(std::string_view input)
         else
         {
             buf[0] = '%';
-            buf[1] = crypto::hex2uchr( (uint8_t)input[ix] >> 4 );
-            buf[2] = crypto::hex2uchr( (uint8_t)input[ix] % 16);
+            buf[1] = cryptk::hex2uchr( (uint8_t)input[ix] >> 4 );
+            buf[2] = cryptk::hex2uchr( (uint8_t)input[ix] % 16);
         }
         output += (char *)buf;
     }
     return output;
 };
 
-std::string crypto::http::urldecode(std::string_view ciphertext)
+std::string cryptk::http::urldecode(std::string_view ciphertext)
 {
     std::string result = "";
 
@@ -243,8 +243,8 @@ std::string crypto::http::urldecode(std::string_view ciphertext)
         uint8_t ch = 0;
         if(ciphertext[ix]=='%')
         {
-            ch = (crypto::uchr2hex(ciphertext[ix+1])<<4);
-            ch |= crypto::uchr2hex(ciphertext[ix+2]);
+            ch = (cryptk::uchr2hex(ciphertext[ix+1])<<4);
+            ch |= cryptk::uchr2hex(ciphertext[ix+2]);
             ix += 2;
         }
         else if(ciphertext[ix] == '+')
@@ -263,7 +263,7 @@ std::string crypto::http::urldecode(std::string_view ciphertext)
 
 /// ----------------- rsa wrappers ---------------------------
 #if _HAS_OPENSSL
-namespace crypto {
+namespace cryptk {
 
     namespace rsa {
         struct RSA_Key {
