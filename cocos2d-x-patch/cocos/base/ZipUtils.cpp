@@ -795,7 +795,7 @@ long ZipFile::uzfsSeek(UnzFileStream* uzfs, long offset, int origin)
             result = uzfs->offset + offset;
             break;
         case SEEK_END:
-            result = (long)uzfs->entry->uncompressed_size - offset;
+            result = (long)uzfs->entry->uncompressed_size + offset;
             break;
         default:;
         }
