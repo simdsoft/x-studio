@@ -151,28 +151,28 @@ bool _Is_visible_char(int _Char)
 template<typename _Elem> inline
 size_t strtrim(_Elem* _Str)
 {
-    if(NULL == _Str || !*_Str) {
+    if (NULL == _Str || !*_Str) {
         return 0;
     }
 
     _Elem* _Ptr = _Str - 1;
 
-    while(::iswspace(*(++_Ptr)) && *_Ptr ) ;
+    while (::iswspace(*(++_Ptr)) && *_Ptr);
 
     _Elem* _First = _Ptr;
     _Elem* _Last = _Ptr;
-    if(*_Ptr) {
-        while(*(++_Ptr))
-        {
-            if(::iswspace(*_Ptr)) {
+    if (*_Ptr) {
+        while (*(++_Ptr))
+        { // Store last non ws pos until got null-terminal charactor
+            if (!::iswspace(*_Ptr)) {
                 _Last = _Ptr;
             }
         }
     }
 
     size_t _Count = _Last - _First + 1;
-    if(_Ptr != _Str) {
-        ::memmove(_Str, _First, _Count);
+    if (_Ptr != _Str) {
+        ::memmove(_Str, _First, _Count << (sizeof(_Elem) >> 1));
         _Str[_Count] = '\0';
     }
 
@@ -1221,7 +1221,7 @@ std::basic_string<_Elem> create_guid_v3(void)
 
 #endif /* _NSCONV_ */
 /*
-* Copyright (c) 2012-2018 by halx99  ALL RIGHTS RESERVED.
+* Copyright (c) 2012-2019 by halx99  ALL RIGHTS RESERVED.
 * Consult your license regarding permissions and restrictions.
 **/
 

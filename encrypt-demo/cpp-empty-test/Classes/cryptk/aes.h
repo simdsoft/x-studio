@@ -58,18 +58,16 @@
 #error AES is disabled.
 #endif
 
-#define _USE_OSSL_DLL 1
-
-#if _HAS_OPENSSL
+#if _USING_OPENSSL_AES
 
 #ifdef _WIN32
-  #if _USE_OSSL_DLL
-    #define _OSSL_DLL __declspec(dllimport)
+  #if _BUILD_OPENSSL_AS_DLL
+    #define EMBED_AES_API __declspec(dllimport)
   #else
-    #define _OSSL_DLL
+    #define EMBED_AES_API
   #endif
 #else
-  #define _OSSL_DLL
+  #define EMBED_AES_API
 #endif
 
 #define ossl_aes_options  AES_options
@@ -90,7 +88,7 @@
 #define ossl_aes_unwrap_key
 
 #else
-#define _OSSL_DLL
+#define EMBED_AES_API
 #endif
 #include <stddef.h>
 
@@ -110,7 +108,7 @@ Both sizes are in bytes.
 #define AES_MAXNR 14
 #define AES_BLOCK_SIZE 16
 
-#if _HAS_OPENSSL
+#if _USING_OPENSSL_AES
 #ifdef  __cplusplus
 extern "C" {
 #endif
@@ -129,44 +127,44 @@ extern "C" {
 
     // const char *ossl_aes_options(void);
 
-    _OSSL_DLL int ossl_aes_set_encrypt_key(const unsigned char *userKey, const int bits,
+    EMBED_AES_API int ossl_aes_set_encrypt_key(const unsigned char *userKey, const int bits,
         AES_KEY *key);
-    _OSSL_DLL int ossl_aes_set_decrypt_key(const unsigned char *userKey, const int bits,
+    EMBED_AES_API int ossl_aes_set_decrypt_key(const unsigned char *userKey, const int bits,
         AES_KEY *key);
 
-    _OSSL_DLL void ossl_aes_encrypt(const unsigned char *in, unsigned char *out,
+    EMBED_AES_API void ossl_aes_encrypt(const unsigned char *in, unsigned char *out,
         const AES_KEY *key);
-    _OSSL_DLL void ossl_aes_decrypt(const unsigned char *in, unsigned char *out,
+    EMBED_AES_API void ossl_aes_decrypt(const unsigned char *in, unsigned char *out,
         const AES_KEY *key);
 
-    _OSSL_DLL void ossl_aes_ecb_encrypt(const unsigned char *in, unsigned char *out,
+    EMBED_AES_API void ossl_aes_ecb_encrypt(const unsigned char *in, unsigned char *out,
         const AES_KEY *key, const int enc);
-    _OSSL_DLL void ossl_aes_cbc_encrypt(const unsigned char *in, unsigned char *out,
+    EMBED_AES_API void ossl_aes_cbc_encrypt(const unsigned char *in, unsigned char *out,
         size_t length, const AES_KEY *key,
         unsigned char *ivec, const int enc);
-    _OSSL_DLL void ossl_aes_cfb128_encrypt(const unsigned char *in, unsigned char *out,
+    EMBED_AES_API void ossl_aes_cfb128_encrypt(const unsigned char *in, unsigned char *out,
         size_t length, const AES_KEY *key,
         unsigned char *ivec, int *num, const int enc);
-    _OSSL_DLL void ossl_aes_cfb1_encrypt(const unsigned char *in, unsigned char *out,
+    EMBED_AES_API void ossl_aes_cfb1_encrypt(const unsigned char *in, unsigned char *out,
         size_t length, const AES_KEY *key,
         unsigned char *ivec, int *num, const int enc);
-    _OSSL_DLL void ossl_aes_cfb8_encrypt(const unsigned char *in, unsigned char *out,
+    EMBED_AES_API void ossl_aes_cfb8_encrypt(const unsigned char *in, unsigned char *out,
         size_t length, const AES_KEY *key,
         unsigned char *ivec, int *num, const int enc);
-    _OSSL_DLL void ossl_aes_ofb128_encrypt(const unsigned char *in, unsigned char *out,
+    EMBED_AES_API void ossl_aes_ofb128_encrypt(const unsigned char *in, unsigned char *out,
         size_t length, const AES_KEY *key,
         unsigned char *ivec, int *num);
-    _OSSL_DLL void ossl_aes_ctr128_encrypt(const unsigned char *in, unsigned char *out,
+    EMBED_AES_API void ossl_aes_ctr128_encrypt(const unsigned char *in, unsigned char *out,
         size_t length, const AES_KEY *key,
         unsigned char ivec[AES_BLOCK_SIZE],
         unsigned char ecount_buf[AES_BLOCK_SIZE],
         unsigned int *num);
     /* NB: the IV is _two_ blocks long */
-    _OSSL_DLL void ossl_aes_ige_encrypt(const unsigned char *in, unsigned char *out,
+    EMBED_AES_API void ossl_aes_ige_encrypt(const unsigned char *in, unsigned char *out,
         size_t length, const AES_KEY *key,
         unsigned char *ivec, const int enc);
     /* NB: the IV is _four_ blocks long */
-    _OSSL_DLL void ossl_aes_bi_ige_encrypt(const unsigned char *in, unsigned char *out,
+    EMBED_AES_API void ossl_aes_bi_ige_encrypt(const unsigned char *in, unsigned char *out,
         size_t length, const AES_KEY *key,
         const AES_KEY *key2, const unsigned char *ivec,
         const int enc);
@@ -178,7 +176,7 @@ extern "C" {
     //		unsigned char *out,
     //		const unsigned char *in, unsigned int inlen);
 
-#if _HAS_OPENSSL
+#if _USING_OPENSSL_AES
 #ifdef  __cplusplus
 }
 #endif
