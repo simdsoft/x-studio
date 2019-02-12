@@ -5,6 +5,8 @@
 3. Fix some audio engine issue, delay execute audio finish callback(When application play a new audio at the callback, may cause crash)
 4. Support play wav sound file.
 5. Integrate the dragonbonse 5.5 runtime.  
+6. Upgrade unzip to 1.2.0
+7. Make obbfile read threadsafe and streaming support
   
 **Install Audio:**
 1. Delete folder ```cocos/audio``` of your project. 
