@@ -4,7 +4,7 @@
 #include <algorithm>
 
 
-#include "crypto_utils.h"
+#include "cryptk_utils.h"
 
 #if _HAS_INTEL_AES_IN
 #include "iaes_asm_interface.h"

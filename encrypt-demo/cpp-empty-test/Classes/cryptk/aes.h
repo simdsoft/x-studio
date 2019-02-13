@@ -52,13 +52,13 @@
 #ifndef HEADER_AES_SELECTOR_H
 #define HEADER_AES_SELECTOR_H
 
-#include "crypto_conf.h"
+#include "cryptk_conf.h"
 
 #ifdef OPENSSL_NO_AES
 #error AES is disabled.
 #endif
 
-#if _USING_OPENSSL_AES
+#if (_HAS_OPENSSL && _USING_OPENSSL_AES)
 
 #ifdef _WIN32
   #if _BUILD_OPENSSL_AS_DLL
@@ -89,7 +89,8 @@
 
 #else
 #define EMBED_AES_API
-#endif
+#endif /* (_HAS_OPENSSL && _USING_OPENSSL_AES) */
+
 #include <stddef.h>
 
 #define AES_ENCRYPT    1
@@ -108,7 +109,7 @@ Both sizes are in bytes.
 #define AES_MAXNR 14
 #define AES_BLOCK_SIZE 16
 
-#if _USING_OPENSSL_AES
+#if (_HAS_OPENSSL && _USING_OPENSSL_AES)
 #ifdef  __cplusplus
 extern "C" {
 #endif
@@ -176,7 +177,7 @@ extern "C" {
     //		unsigned char *out,
     //		const unsigned char *in, unsigned int inlen);
 
-#if _USING_OPENSSL_AES
+#if (_HAS_OPENSSL && _USING_OPENSSL_AES)
 #ifdef  __cplusplus
 }
 #endif

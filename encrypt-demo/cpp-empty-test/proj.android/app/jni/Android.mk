@@ -15,8 +15,8 @@ LOCAL_SRC_FILES := main.cpp \
 # x-studio365 Encrypt Solution Support Sources
 LOCAL_SRC_FILES += ../../../Classes/EncryptManager.cpp \
                    ../../../Classes/cryptk/aes_core.cpp \
-                   ../../../Classes/cryptk/crypto_utils.cpp \
-                   ../../../Classes/cryptk/crypto_wrapper.cpp \
+                   ../../../Classes/cryptk/cryptk_utils.cpp \
+                   ../../../Classes/cryptk/cryptk_wrapper.cpp \
                    ../../../Classes/cryptk/ibinarystream.cpp
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../../Classes \

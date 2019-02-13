@@ -6,7 +6,7 @@
 #include "cryptk/ibinarystream.h"
 #include "cryptk/nsconv.h"
 #include "cryptk/fastest_csv_parser.h"
-#include "cryptk/crypto_wrapper.h"
+#include "cryptk/cryptk_wrapper.h"
 
 #include "EncryptManager.h"
 #include "cocos2d.h"

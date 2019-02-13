@@ -1,4 +1,4 @@
-#include "crypto_wrapper.h"
+#include "cryptk_wrapper.h"
 #include <assert.h>
 #include <algorithm>
 #include <fstream>
@@ -7,7 +7,7 @@
 #include "md5.h"
 #endif
 
-#if _HAS_MD5
+#if _HAS_MD6
 #include "md6.h"
 #endif
 
