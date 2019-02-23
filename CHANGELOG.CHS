@@ -1,3 +1,11 @@
+x-studio365 10.0.5900.0 (2019年1月23日更新) size:17284183 md5:ca18e548f1671cb6315b98d15d668f13
+1.【代码编辑】增加Find In Files文件类型设置，提升搜索体验
+2.【加密系统】增强EncryptSystem加密命令行，增加参数说明: x-studio365 -c --help
+3.【CSD恢复】增加SkeletonNode帧动画还原支持
+4.【Lua调试】修复调试选项search-paths不生效问题
+5.【代码编辑】优化完善快速新建文件的修改监听，编码设置，保存等功能
+6.【Lua调试】增加调试选项debug-options/ignore-warning-flags, 忽略警告设置, 1. 忽略错误无源码提示，2.忽略路径错误提示
+
 x-studio365 10.0.3300.1001 (2019年1月16日更新) size:17296185 md5:68542bb6f584b4956ade563123c4c159
 1.【UI编辑】 CSD恢复，修复未能导出动画列表问题
 2.【命令行工具】 增加Cocos2d-x加密解决方案命令行工具AES-CBC模式，命令格式: 
