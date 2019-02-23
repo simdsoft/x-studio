@@ -1,4 +1,4 @@
-x-studio365 10.0.5900.0 (2019年1月23日更新) size:17284183 md5:ca18e548f1671cb6315b98d15d668f13
+x-studio365 10.0.5900.0 (2019年2月23日更新) size:17284183 md5:ca18e548f1671cb6315b98d15d668f13
 1.【代码编辑】增加Find In Files文件类型设置，提升搜索体验
 2.【加密系统】增强EncryptSystem加密命令行，增加参数说明: x-studio365 -c --help
 3.【CSD恢复】增加SkeletonNode帧动画还原支持
