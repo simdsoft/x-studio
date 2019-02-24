@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////////////////
 // A cross platform socket APIs, support ios & android & wp8 & window store
-// universal app version: 3.9.3
+// universal app version: 3.9.7
 //////////////////////////////////////////////////////////////////////////////////////////
 /*
 The MIT License (MIT)
@@ -29,114 +29,113 @@ SOFTWARE.
 #include "ibinarystream.h"
 
 #ifdef _WIN32
-#pragma comment(lib, "ws2_32.lib")
+#  pragma comment(lib, "ws2_32.lib")
 #endif
 
-ibinarystream::ibinarystream()
+ibinarystream::ibinarystream() { this->assign("", 0); }
+
+ibinarystream::ibinarystream(const void *data, int size) { this->assign(data, size); }
+
+ibinarystream::ibinarystream(const obinarystream *obs)
 {
-    this->assign("", 0);
+  auto &buffer = obs->buffer();
+  this->assign(!buffer.empty() ? buffer.data() : "", static_cast<int>(buffer.size()));
 }
 
-ibinarystream::ibinarystream(const void* data, int size)
+ibinarystream::~ibinarystream() {}
+
+void ibinarystream::assign(const void *data, int size)
 {
-    this->assign(data, size);
+  ptr_  = static_cast<const char *>(data);
+  size_ = size;
 }
 
-ibinarystream::ibinarystream(const obinarystream* obs)
+int32_t ibinarystream::read_i24()
 {
-    auto& buffer = obs->buffer();
-    this->assign(!buffer.empty() ? buffer.data() : "", buffer.size());
+  int32_t value = 0;
+  auto ptr      = consume(3);
+  memcpy(&value, ptr, 3);
+  value = ntohl(value) >> 8;
+
+  if (value >> 23)
+  {
+    return -(0x7FFFFF - (value & 0x7FFFFF)) - 1;
+  }
+  else
+  {
+    return value & 0x7FFFFF;
+  }
 }
 
-ibinarystream::~ibinarystream()
+uint32_t ibinarystream::read_u24()
 {
+  uint32_t value = 0;
+  auto ptr       = consume(3);
+  memcpy(&value, ptr, 3);
+  return ntohl(value) >> 8;
 }
 
-void ibinarystream::assign(const void* data, int size)
+void ibinarystream::read_v(std::string &oav)
 {
-    ptr_ = static_cast<const char*>(data);
-    size_ = size;
+  auto sv = read_vx<uint32_t>();
+  oav.assign(sv.data(), sv.length());
 }
 
-// TODO: rewrite a class uint24_t
-uint32_t ibinarystream::read_i24()
+void ibinarystream::read_v16(std::string &oav)
 {
-    uint32_t value = 0;
-    auto ptr = consume(3);
-    memcpy(&value, ptr, 3);
-    return ntohl(value) >> 8;
+  auto sv = read_vx<uint16_t>();
+  oav.assign(sv.data(), sv.length());
 }
 
-void ibinarystream::read_v(std::string& oav)
+void ibinarystream::read_v8(std::string &oav)
 {
-    auto sv = read_vx<LENGTH_FIELD_TYPE>();
-    oav.assign(sv.data(), sv.length());
+  auto sv = read_vx<uint8_t>();
+  oav.assign(sv.data(), sv.length());
 }
 
-std::string_view ibinarystream::read_v()
+std::string_view ibinarystream::read_v() { return read_vx<uint32_t>(); }
+std::string_view ibinarystream::read_v16() { return read_vx<uint16_t>(); }
+std::string_view ibinarystream::read_v8() { return read_vx<uint8_t>(); }
+
+void ibinarystream::read_v(void *oav, int len) { read_vx<uint32_t>().copy((char *)oav, len); }
+void ibinarystream::read_v16(void *oav, int len) { read_vx<uint16_t>().copy((char *)oav, len); }
+void ibinarystream::read_v8(void *oav, int len) { read_vx<uint8_t>().copy((char *)oav, len); }
+
+void ibinarystream::read_bytes(std::string &oav, int len)
 {
-    return read_vx<LENGTH_FIELD_TYPE>();
+  if (len > 0)
+  {
+    oav.resize(len);
+    read_bytes(&oav.front(), len);
+  }
 }
 
-void ibinarystream::read_v16(std::string& oav)
+void ibinarystream::read_bytes(void *oav, int len)
 {
-    auto sv = read_vx<uint16_t>();
-	oav.assign(sv.data(), sv.length());
-}
-
-void ibinarystream::read_v32( std::string& oav)
-{
-    auto sv = read_vx<uint32_t>();
-    oav.assign(sv.data(), sv.length());
-}
-
-void ibinarystream::read_v(void* oav, int len)
-{
-    read_vx<LENGTH_FIELD_TYPE>().copy((char*)oav, len);
-}
-
-void ibinarystream::read_v16(void* oav, int len)
-{
-    read_vx<uint16_t>().copy((char*)oav, len);
-}
-
-void ibinarystream::read_v32(void* oav, int len)
-{
-    read_vx<uint32_t>().copy((char*)oav, len);
-}
-
-void ibinarystream::read_bytes(std::string& oav, int len)
-{
-    if (len > 0) {
-        oav.resize(len);
-        read_bytes(&oav.front(), len);
-    }
-}
-
-void ibinarystream::read_bytes(void* oav, int len)
-{
-    if (len > 0) {
-        ::memcpy(oav, consume(len), len);
-    }
+  if (len > 0)
+  {
+    ::memcpy(oav, consume(len), len);
+  }
 }
 
 std::string_view ibinarystream::read_bytes(int len)
 {
-    std::string_view sv;
-    if (len > 0) {
-        sv = std::string_view(consume(len), len);
-    }
-    return sv;
+  std::string_view sv;
+  if (len > 0)
+  {
+    sv = std::string_view(consume(len), len);
+  }
+  return sv;
 }
 
-const char* ibinarystream::consume(size_t size)
+const char *ibinarystream::consume(size_t size)
 {
-    if (size_ <= 0)
-        throw std::logic_error("packet error, data insufficiently!");
+  if (size_ <= 0)
+    throw std::logic_error("packet error, data insufficiently!");
 
-    auto ptr = ptr_;
-    ptr_ += size;
-    size_ -= static_cast<int>(size);
-    
-    return ptr;
+  auto ptr = ptr_;
+  ptr_ += size;
+  size_ -= static_cast<int>(size);
+
+  return ptr;
 }
