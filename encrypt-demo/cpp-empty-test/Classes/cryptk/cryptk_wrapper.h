@@ -626,8 +626,8 @@ namespace cryptk {
 
         namespace pub {
             // supported PaddingModes : RSA_PKCS1_PADDING, RSA_PKCS1_OAEP_PADDING, RSA_SSLV23_PADDING, RSA_NO_PADDING
-            std::string encrypt(std::string_view plaintext, std::string_view keysteam, int paddingMode = PKCS1_OAEP_PADDING);
-            std::string decrypt(std::string_view cipertext, std::string_view keysteam, int paddingMode = PKCS1_PADDING);
+            std::string encrypt(std::string_view plaintext, std::string_view keystream, int paddingMode = PKCS1_OAEP_PADDING);
+            std::string decrypt(std::string_view cipertext, std::string_view keystream, int paddingMode = PKCS1_PADDING);
 
             // supported PaddingModes : RSA_PKCS1_PADDING, RSA_PKCS1_OAEP_PADDING, RSA_SSLV23_PADDING, RSA_NO_PADDING
             std::string encrypt2(std::string_view plaintext, std::string_view keyfile, int paddingMode = PKCS1_OAEP_PADDING);
@@ -636,8 +636,8 @@ namespace cryptk {
 
         namespace pri {
             // supported PaddingModes : RSA_PKCS1_PADDING, RSA_X931_PADDING, RSA_NO_PADDING
-            std::string encrypt(std::string_view plaintext, std::string_view keysteam, int paddingMode = PKCS1_PADDING);
-            std::string decrypt(std::string_view cipertext, std::string_view keysteam, int paddingMode = PKCS1_OAEP_PADDING);
+            std::string encrypt(std::string_view plaintext, std::string_view keystream, int paddingMode = PKCS1_PADDING);
+            std::string decrypt(std::string_view cipertext, std::string_view keystream, int paddingMode = PKCS1_OAEP_PADDING);
 
             // supported PaddingModes : RSA_PKCS1_PADDING, RSA_X931_PADDING, RSA_NO_PADDING
             std::string encrypt2(std::string_view plaintext, std::string_view keyfile, int paddingMode = PKCS1_PADDING);
