@@ -91,6 +91,11 @@ Download the latest version: http://en-us.x-studio365.com  http://cn.x-studio365
 4. (Win32) Add 'editor-support/cocostudio/proj.win32/libxreader.vcxproj' and 'editor-support/dragonBones/proj.win32/libDragonBones.vcxproj' to solution  
 5. (Win32) Add libxreader project as reference of x365app1 project
 
+## Android: 
+remove ```$(call import-module,flatbuffers)``` from cocos/Android.mk
+## iOS: 
+because, flatbuffers only need header at runtime. so remove the .cpp from xcode project.
+
 showcase  
 ![image](https://github.com/halx99/x-studio365/blob/master/showcase.png)  
 ### Purchase Professional License
