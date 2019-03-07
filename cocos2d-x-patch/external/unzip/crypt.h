@@ -88,7 +88,14 @@ static void init_keys(const char *passwd, uint32_t *pkeys, const z_crc_t *pcrc_3
 /* Generate cryptographically secure random numbers */
 static int cryptrand(unsigned char *buf, unsigned int len)
 {
-#ifdef _WIN32
+    /*
+    Important  This API is deprecated. New and existing software should 
+    start using Cryptography Next Generation APIs. 
+    Microsoft may remove this API in future releases.
+    see: https://docs.microsoft.com/zh-cn/windows/desktop/api/wincrypt/nf-wincrypt-cryptgenrandom
+    */
+#define CRYPTGENRANDOM_DEPRECATED 1
+#if defined(_WIN32) && !defined(CRYPTGENRANDOM_DEPRECATED)
     HCRYPTPROV provider;
     unsigned __int64 pentium_tsc[1];
     int rlen = 0;

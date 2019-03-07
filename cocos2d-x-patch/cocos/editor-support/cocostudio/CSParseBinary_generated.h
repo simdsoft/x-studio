@@ -122,17 +122,14 @@ struct BlendFrame;
 
 struct FVec3;
 
-MANUALLY_ALIGNED_STRUCT(4) RotationSkew FLATBUFFERS_FINAL_CLASS {
+FLATBUFFERS_MANUALLY_ALIGNED_STRUCT(4) RotationSkew FLATBUFFERS_FINAL_CLASS {
  private:
   float rotationSkewX_;
   float rotationSkewY_;
 
  public:
   RotationSkew() {
-    memset(this, 0, sizeof(RotationSkew));
-  }
-  RotationSkew(const RotationSkew &_o) {
-    memcpy(this, &_o, sizeof(RotationSkew));
+    memset(static_cast<void *>(this), 0, sizeof(RotationSkew));
   }
   RotationSkew(float _rotationSkewX, float _rotationSkewY)
       : rotationSkewX_(flatbuffers::EndianScalar(_rotationSkewX)),
@@ -145,19 +142,16 @@ MANUALLY_ALIGNED_STRUCT(4) RotationSkew FLATBUFFERS_FINAL_CLASS {
     return flatbuffers::EndianScalar(rotationSkewY_);
   }
 };
-STRUCT_END(RotationSkew, 8);
+FLATBUFFERS_STRUCT_END(RotationSkew, 8);
 
-MANUALLY_ALIGNED_STRUCT(4) Position FLATBUFFERS_FINAL_CLASS {
+FLATBUFFERS_MANUALLY_ALIGNED_STRUCT(4) Position FLATBUFFERS_FINAL_CLASS {
  private:
   float x_;
   float y_;
 
  public:
   Position() {
-    memset(this, 0, sizeof(Position));
-  }
-  Position(const Position &_o) {
-    memcpy(this, &_o, sizeof(Position));
+    memset(static_cast<void *>(this), 0, sizeof(Position));
   }
   Position(float _x, float _y)
       : x_(flatbuffers::EndianScalar(_x)),
@@ -170,19 +164,16 @@ MANUALLY_ALIGNED_STRUCT(4) Position FLATBUFFERS_FINAL_CLASS {
     return flatbuffers::EndianScalar(y_);
   }
 };
-STRUCT_END(Position, 8);
+FLATBUFFERS_STRUCT_END(Position, 8);
 
-MANUALLY_ALIGNED_STRUCT(4) Scale FLATBUFFERS_FINAL_CLASS {
+FLATBUFFERS_MANUALLY_ALIGNED_STRUCT(4) Scale FLATBUFFERS_FINAL_CLASS {
  private:
   float scaleX_;
   float scaleY_;
 
  public:
   Scale() {
-    memset(this, 0, sizeof(Scale));
-  }
-  Scale(const Scale &_o) {
-    memcpy(this, &_o, sizeof(Scale));
+    memset(static_cast<void *>(this), 0, sizeof(Scale));
   }
   Scale(float _scaleX, float _scaleY)
       : scaleX_(flatbuffers::EndianScalar(_scaleX)),
@@ -195,19 +186,16 @@ MANUALLY_ALIGNED_STRUCT(4) Scale FLATBUFFERS_FINAL_CLASS {
     return flatbuffers::EndianScalar(scaleY_);
   }
 };
-STRUCT_END(Scale, 8);
+FLATBUFFERS_STRUCT_END(Scale, 8);
 
-MANUALLY_ALIGNED_STRUCT(4) AnchorPoint FLATBUFFERS_FINAL_CLASS {
+FLATBUFFERS_MANUALLY_ALIGNED_STRUCT(4) AnchorPoint FLATBUFFERS_FINAL_CLASS {
  private:
   float scaleX_;
   float scaleY_;
 
  public:
   AnchorPoint() {
-    memset(this, 0, sizeof(AnchorPoint));
-  }
-  AnchorPoint(const AnchorPoint &_o) {
-    memcpy(this, &_o, sizeof(AnchorPoint));
+    memset(static_cast<void *>(this), 0, sizeof(AnchorPoint));
   }
   AnchorPoint(float _scaleX, float _scaleY)
       : scaleX_(flatbuffers::EndianScalar(_scaleX)),
@@ -220,9 +208,9 @@ MANUALLY_ALIGNED_STRUCT(4) AnchorPoint FLATBUFFERS_FINAL_CLASS {
     return flatbuffers::EndianScalar(scaleY_);
   }
 };
-STRUCT_END(AnchorPoint, 8);
+FLATBUFFERS_STRUCT_END(AnchorPoint, 8);
 
-MANUALLY_ALIGNED_STRUCT(1) Color FLATBUFFERS_FINAL_CLASS {
+FLATBUFFERS_MANUALLY_ALIGNED_STRUCT(1) Color FLATBUFFERS_FINAL_CLASS {
  private:
   uint8_t a_;
   uint8_t r_;
@@ -231,10 +219,7 @@ MANUALLY_ALIGNED_STRUCT(1) Color FLATBUFFERS_FINAL_CLASS {
 
  public:
   Color() {
-    memset(this, 0, sizeof(Color));
-  }
-  Color(const Color &_o) {
-    memcpy(this, &_o, sizeof(Color));
+    memset(static_cast<void *>(this), 0, sizeof(Color));
   }
   Color(uint8_t _a, uint8_t _r, uint8_t _g, uint8_t _b)
       : a_(flatbuffers::EndianScalar(_a)),
@@ -255,19 +240,16 @@ MANUALLY_ALIGNED_STRUCT(1) Color FLATBUFFERS_FINAL_CLASS {
     return flatbuffers::EndianScalar(b_);
   }
 };
-STRUCT_END(Color, 4);
+FLATBUFFERS_STRUCT_END(Color, 4);
 
-MANUALLY_ALIGNED_STRUCT(4) ColorVector FLATBUFFERS_FINAL_CLASS {
+FLATBUFFERS_MANUALLY_ALIGNED_STRUCT(4) ColorVector FLATBUFFERS_FINAL_CLASS {
  private:
   float vectorX_;
   float vectorY_;
 
  public:
   ColorVector() {
-    memset(this, 0, sizeof(ColorVector));
-  }
-  ColorVector(const ColorVector &_o) {
-    memcpy(this, &_o, sizeof(ColorVector));
+    memset(static_cast<void *>(this), 0, sizeof(ColorVector));
   }
   ColorVector(float _vectorX, float _vectorY)
       : vectorX_(flatbuffers::EndianScalar(_vectorX)),
@@ -280,19 +262,16 @@ MANUALLY_ALIGNED_STRUCT(4) ColorVector FLATBUFFERS_FINAL_CLASS {
     return flatbuffers::EndianScalar(vectorY_);
   }
 };
-STRUCT_END(ColorVector, 8);
+FLATBUFFERS_STRUCT_END(ColorVector, 8);
 
-MANUALLY_ALIGNED_STRUCT(4) FlatSize FLATBUFFERS_FINAL_CLASS {
+FLATBUFFERS_MANUALLY_ALIGNED_STRUCT(4) FlatSize FLATBUFFERS_FINAL_CLASS {
  private:
   float width_;
   float height_;
 
  public:
   FlatSize() {
-    memset(this, 0, sizeof(FlatSize));
-  }
-  FlatSize(const FlatSize &_o) {
-    memcpy(this, &_o, sizeof(FlatSize));
+    memset(static_cast<void *>(this), 0, sizeof(FlatSize));
   }
   FlatSize(float _width, float _height)
       : width_(flatbuffers::EndianScalar(_width)),
@@ -305,9 +284,9 @@ MANUALLY_ALIGNED_STRUCT(4) FlatSize FLATBUFFERS_FINAL_CLASS {
     return flatbuffers::EndianScalar(height_);
   }
 };
-STRUCT_END(FlatSize, 8);
+FLATBUFFERS_STRUCT_END(FlatSize, 8);
 
-MANUALLY_ALIGNED_STRUCT(4) CapInsets FLATBUFFERS_FINAL_CLASS {
+FLATBUFFERS_MANUALLY_ALIGNED_STRUCT(4) CapInsets FLATBUFFERS_FINAL_CLASS {
  private:
   float x_;
   float y_;
@@ -316,10 +295,7 @@ MANUALLY_ALIGNED_STRUCT(4) CapInsets FLATBUFFERS_FINAL_CLASS {
 
  public:
   CapInsets() {
-    memset(this, 0, sizeof(CapInsets));
-  }
-  CapInsets(const CapInsets &_o) {
-    memcpy(this, &_o, sizeof(CapInsets));
+    memset(static_cast<void *>(this), 0, sizeof(CapInsets));
   }
   CapInsets(float _x, float _y, float _width, float _height)
       : x_(flatbuffers::EndianScalar(_x)),
@@ -340,19 +316,16 @@ MANUALLY_ALIGNED_STRUCT(4) CapInsets FLATBUFFERS_FINAL_CLASS {
     return flatbuffers::EndianScalar(height_);
   }
 };
-STRUCT_END(CapInsets, 16);
+FLATBUFFERS_STRUCT_END(CapInsets, 16);
 
-MANUALLY_ALIGNED_STRUCT(4) BlendFunc FLATBUFFERS_FINAL_CLASS {
+FLATBUFFERS_MANUALLY_ALIGNED_STRUCT(4) BlendFunc FLATBUFFERS_FINAL_CLASS {
  private:
   int32_t src_;
   int32_t dst_;
 
  public:
   BlendFunc() {
-    memset(this, 0, sizeof(BlendFunc));
-  }
-  BlendFunc(const BlendFunc &_o) {
-    memcpy(this, &_o, sizeof(BlendFunc));
+    memset(static_cast<void *>(this), 0, sizeof(BlendFunc));
   }
   BlendFunc(int32_t _src, int32_t _dst)
       : src_(flatbuffers::EndianScalar(_src)),
@@ -365,10 +338,10 @@ MANUALLY_ALIGNED_STRUCT(4) BlendFunc FLATBUFFERS_FINAL_CLASS {
     return flatbuffers::EndianScalar(dst_);
   }
 };
-STRUCT_END(BlendFunc, 8);
+FLATBUFFERS_STRUCT_END(BlendFunc, 8);
 
 struct CSParseBinary FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  enum {
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_VERSION = 4,
     VT_TEXTURES = 6,
     VT_TEXTUREPNGS = 8,
@@ -396,20 +369,20 @@ struct CSParseBinary FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_VERSION) &&
-           verifier.Verify(version()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_TEXTURES) &&
-           verifier.Verify(textures()) &&
+           VerifyOffset(verifier, VT_VERSION) &&
+           verifier.VerifyString(version()) &&
+           VerifyOffset(verifier, VT_TEXTURES) &&
+           verifier.VerifyVector(textures()) &&
            verifier.VerifyVectorOfStrings(textures()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_TEXTUREPNGS) &&
-           verifier.Verify(texturePngs()) &&
+           VerifyOffset(verifier, VT_TEXTUREPNGS) &&
+           verifier.VerifyVector(texturePngs()) &&
            verifier.VerifyVectorOfStrings(texturePngs()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_NODETREE) &&
+           VerifyOffset(verifier, VT_NODETREE) &&
            verifier.VerifyTable(nodeTree()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_ACTION) &&
+           VerifyOffset(verifier, VT_ACTION) &&
            verifier.VerifyTable(action()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_ANIMATIONLIST) &&
-           verifier.Verify(animationList()) &&
+           VerifyOffset(verifier, VT_ANIMATIONLIST) &&
+           verifier.VerifyVector(animationList()) &&
            verifier.VerifyVectorOfTables(animationList()) &&
            verifier.EndTable();
   }
@@ -436,13 +409,13 @@ struct CSParseBinaryBuilder {
   void add_animationList(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<AnimationInfo>>> animationList) {
     fbb_.AddOffset(CSParseBinary::VT_ANIMATIONLIST, animationList);
   }
-  CSParseBinaryBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit CSParseBinaryBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
   CSParseBinaryBuilder &operator=(const CSParseBinaryBuilder &);
   flatbuffers::Offset<CSParseBinary> Finish() {
-    const auto end = fbb_.EndTable(start_, 6);
+    const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<CSParseBinary>(end);
     return o;
   }
@@ -474,18 +447,22 @@ inline flatbuffers::Offset<CSParseBinary> CreateCSParseBinaryDirect(
     flatbuffers::Offset<NodeTree> nodeTree = 0,
     flatbuffers::Offset<NodeAction> action = 0,
     const std::vector<flatbuffers::Offset<AnimationInfo>> *animationList = nullptr) {
+  auto version__ = version ? _fbb.CreateString(version) : 0;
+  auto textures__ = textures ? _fbb.CreateVector<flatbuffers::Offset<flatbuffers::String>>(*textures) : 0;
+  auto texturePngs__ = texturePngs ? _fbb.CreateVector<flatbuffers::Offset<flatbuffers::String>>(*texturePngs) : 0;
+  auto animationList__ = animationList ? _fbb.CreateVector<flatbuffers::Offset<AnimationInfo>>(*animationList) : 0;
   return flatbuffers::CreateCSParseBinary(
       _fbb,
-      version ? _fbb.CreateString(version) : 0,
-      textures ? _fbb.CreateVector<flatbuffers::Offset<flatbuffers::String>>(*textures) : 0,
-      texturePngs ? _fbb.CreateVector<flatbuffers::Offset<flatbuffers::String>>(*texturePngs) : 0,
+      version__,
+      textures__,
+      texturePngs__,
       nodeTree,
       action,
-      animationList ? _fbb.CreateVector<flatbuffers::Offset<AnimationInfo>>(*animationList) : 0);
+      animationList__);
 }
 
 struct NodeTree FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  enum {
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_CLASSNAME = 4,
     VT_CHILDREN = 6,
     VT_OPTIONS = 8,
@@ -505,15 +482,15 @@ struct NodeTree FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_CLASSNAME) &&
-           verifier.Verify(classname()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_CHILDREN) &&
-           verifier.Verify(children()) &&
+           VerifyOffset(verifier, VT_CLASSNAME) &&
+           verifier.VerifyString(classname()) &&
+           VerifyOffset(verifier, VT_CHILDREN) &&
+           verifier.VerifyVector(children()) &&
            verifier.VerifyVectorOfTables(children()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_OPTIONS) &&
+           VerifyOffset(verifier, VT_OPTIONS) &&
            verifier.VerifyTable(options()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_CUSTOMCLASSNAME) &&
-           verifier.Verify(customClassName()) &&
+           VerifyOffset(verifier, VT_CUSTOMCLASSNAME) &&
+           verifier.VerifyString(customClassName()) &&
            verifier.EndTable();
   }
 };
@@ -533,13 +510,13 @@ struct NodeTreeBuilder {
   void add_customClassName(flatbuffers::Offset<flatbuffers::String> customClassName) {
     fbb_.AddOffset(NodeTree::VT_CUSTOMCLASSNAME, customClassName);
   }
-  NodeTreeBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit NodeTreeBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
   NodeTreeBuilder &operator=(const NodeTreeBuilder &);
   flatbuffers::Offset<NodeTree> Finish() {
-    const auto end = fbb_.EndTable(start_, 4);
+    const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<NodeTree>(end);
     return o;
   }
@@ -565,16 +542,19 @@ inline flatbuffers::Offset<NodeTree> CreateNodeTreeDirect(
     const std::vector<flatbuffers::Offset<NodeTree>> *children = nullptr,
     flatbuffers::Offset<Options> options = 0,
     const char *customClassName = nullptr) {
+  auto classname__ = classname ? _fbb.CreateString(classname) : 0;
+  auto children__ = children ? _fbb.CreateVector<flatbuffers::Offset<NodeTree>>(*children) : 0;
+  auto customClassName__ = customClassName ? _fbb.CreateString(customClassName) : 0;
   return flatbuffers::CreateNodeTree(
       _fbb,
-      classname ? _fbb.CreateString(classname) : 0,
-      children ? _fbb.CreateVector<flatbuffers::Offset<NodeTree>>(*children) : 0,
+      classname__,
+      children__,
       options,
-      customClassName ? _fbb.CreateString(customClassName) : 0);
+      customClassName__);
 }
 
 struct Options FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  enum {
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_DATA = 4
   };
   const WidgetOptions *data() const {
@@ -582,7 +562,7 @@ struct Options FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_DATA) &&
+           VerifyOffset(verifier, VT_DATA) &&
            verifier.VerifyTable(data()) &&
            verifier.EndTable();
   }
@@ -594,13 +574,13 @@ struct OptionsBuilder {
   void add_data(flatbuffers::Offset<WidgetOptions> data) {
     fbb_.AddOffset(Options::VT_DATA, data);
   }
-  OptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit OptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
   OptionsBuilder &operator=(const OptionsBuilder &);
   flatbuffers::Offset<Options> Finish() {
-    const auto end = fbb_.EndTable(start_, 1);
+    const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<Options>(end);
     return o;
   }
@@ -615,7 +595,7 @@ inline flatbuffers::Offset<Options> CreateOptions(
 }
 
 struct WidgetOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  enum {
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_NAME = 4,
     VT_ACTIONTAG = 6,
     VT_ROTATIONSKEW = 8,
@@ -711,8 +691,8 @@ struct WidgetOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_NAME) &&
-           verifier.Verify(name()) &&
+           VerifyOffset(verifier, VT_NAME) &&
+           verifier.VerifyString(name()) &&
            VerifyField<int32_t>(verifier, VT_ACTIONTAG) &&
            VerifyField<RotationSkew>(verifier, VT_ROTATIONSKEW) &&
            VerifyField<int32_t>(verifier, VT_ZORDER) &&
@@ -728,15 +708,15 @@ struct WidgetOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
            VerifyField<uint8_t>(verifier, VT_FLIPY) &&
            VerifyField<uint8_t>(verifier, VT_IGNORESIZE) &&
            VerifyField<uint8_t>(verifier, VT_TOUCHENABLED) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_FRAMEEVENT) &&
-           verifier.Verify(frameEvent()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_CUSTOMPROPERTY) &&
-           verifier.Verify(customProperty()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_CALLBACKTYPE) &&
-           verifier.Verify(callBackType()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_CALLBACKNAME) &&
-           verifier.Verify(callBackName()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_LAYOUTCOMPONENT) &&
+           VerifyOffset(verifier, VT_FRAMEEVENT) &&
+           verifier.VerifyString(frameEvent()) &&
+           VerifyOffset(verifier, VT_CUSTOMPROPERTY) &&
+           verifier.VerifyString(customProperty()) &&
+           VerifyOffset(verifier, VT_CALLBACKTYPE) &&
+           verifier.VerifyString(callBackType()) &&
+           VerifyOffset(verifier, VT_CALLBACKNAME) &&
+           verifier.VerifyString(callBackName()) &&
+           VerifyOffset(verifier, VT_LAYOUTCOMPONENT) &&
            verifier.VerifyTable(layoutComponent()) &&
            VerifyField<uint8_t>(verifier, VT_CASCADECOLORENABLED) &&
            VerifyField<uint8_t>(verifier, VT_CASCADEOPACITYENABLED) &&
@@ -816,13 +796,13 @@ struct WidgetOptionsBuilder {
   void add_cascadeOpacityEnabled(bool cascadeOpacityEnabled) {
     fbb_.AddElement<uint8_t>(WidgetOptions::VT_CASCADEOPACITYENABLED, static_cast<uint8_t>(cascadeOpacityEnabled), 0);
   }
-  WidgetOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit WidgetOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
   WidgetOptionsBuilder &operator=(const WidgetOptionsBuilder &);
   flatbuffers::Offset<WidgetOptions> Finish() {
-    const auto end = fbb_.EndTable(start_, 23);
+    const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<WidgetOptions>(end);
     return o;
   }
@@ -905,9 +885,14 @@ inline flatbuffers::Offset<WidgetOptions> CreateWidgetOptionsDirect(
     flatbuffers::Offset<LayoutComponentTable> layoutComponent = 0,
     bool cascadeColorEnabled = false,
     bool cascadeOpacityEnabled = false) {
+  auto name__ = name ? _fbb.CreateString(name) : 0;
+  auto frameEvent__ = frameEvent ? _fbb.CreateString(frameEvent) : 0;
+  auto customProperty__ = customProperty ? _fbb.CreateString(customProperty) : 0;
+  auto callBackType__ = callBackType ? _fbb.CreateString(callBackType) : 0;
+  auto callBackName__ = callBackName ? _fbb.CreateString(callBackName) : 0;
   return flatbuffers::CreateWidgetOptions(
       _fbb,
-      name ? _fbb.CreateString(name) : 0,
+      name__,
       actionTag,
       rotationSkew,
       zOrder,
@@ -923,17 +908,17 @@ inline flatbuffers::Offset<WidgetOptions> CreateWidgetOptionsDirect(
       flipY,
       ignoreSize,
       touchEnabled,
-      frameEvent ? _fbb.CreateString(frameEvent) : 0,
-      customProperty ? _fbb.CreateString(customProperty) : 0,
-      callBackType ? _fbb.CreateString(callBackType) : 0,
-      callBackName ? _fbb.CreateString(callBackName) : 0,
+      frameEvent__,
+      customProperty__,
+      callBackType__,
+      callBackName__,
       layoutComponent,
       cascadeColorEnabled,
       cascadeOpacityEnabled);
 }
 
 struct LayoutComponentTable FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  enum {
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_POSITIONXPERCENTENABLED = 4,
     VT_POSITIONYPERCENTENABLED = 6,
     VT_POSITIONXPERCENT = 8,
@@ -1011,10 +996,10 @@ struct LayoutComponentTable FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table
            VerifyField<float>(verifier, VT_SIZEYPERCENT) &&
            VerifyField<uint8_t>(verifier, VT_STRETCHHORIZONTALENABLED) &&
            VerifyField<uint8_t>(verifier, VT_STRETCHVERTICALENABLED) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_HORIZONTALEDGE) &&
-           verifier.Verify(horizontalEdge()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_VERTICALEDGE) &&
-           verifier.Verify(verticalEdge()) &&
+           VerifyOffset(verifier, VT_HORIZONTALEDGE) &&
+           verifier.VerifyString(horizontalEdge()) &&
+           VerifyOffset(verifier, VT_VERTICALEDGE) &&
+           verifier.VerifyString(verticalEdge()) &&
            VerifyField<float>(verifier, VT_LEFTMARGIN) &&
            VerifyField<float>(verifier, VT_RIGHTMARGIN) &&
            VerifyField<float>(verifier, VT_TOPMARGIN) &&
@@ -1074,13 +1059,13 @@ struct LayoutComponentTableBuilder {
   void add_bottomMargin(float bottomMargin) {
     fbb_.AddElement<float>(LayoutComponentTable::VT_BOTTOMMARGIN, bottomMargin, 0.0f);
   }
-  LayoutComponentTableBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit LayoutComponentTableBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
   LayoutComponentTableBuilder &operator=(const LayoutComponentTableBuilder &);
   flatbuffers::Offset<LayoutComponentTable> Finish() {
-    const auto end = fbb_.EndTable(start_, 16);
+    const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<LayoutComponentTable>(end);
     return o;
   }
@@ -1142,6 +1127,8 @@ inline flatbuffers::Offset<LayoutComponentTable> CreateLayoutComponentTableDirec
     float rightMargin = 0.0f,
     float topMargin = 0.0f,
     float bottomMargin = 0.0f) {
+  auto horizontalEdge__ = horizontalEdge ? _fbb.CreateString(horizontalEdge) : 0;
+  auto verticalEdge__ = verticalEdge ? _fbb.CreateString(verticalEdge) : 0;
   return flatbuffers::CreateLayoutComponentTable(
       _fbb,
       positionXPercentEnabled,
@@ -1154,8 +1141,8 @@ inline flatbuffers::Offset<LayoutComponentTable> CreateLayoutComponentTableDirec
       sizeYPercent,
       stretchHorizontalEnabled,
       stretchVerticalEnabled,
-      horizontalEdge ? _fbb.CreateString(horizontalEdge) : 0,
-      verticalEdge ? _fbb.CreateString(verticalEdge) : 0,
+      horizontalEdge__,
+      verticalEdge__,
       leftMargin,
       rightMargin,
       topMargin,
@@ -1163,7 +1150,7 @@ inline flatbuffers::Offset<LayoutComponentTable> CreateLayoutComponentTableDirec
 }
 
 struct SingleNodeOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  enum {
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_NODEOPTIONS = 4
   };
   const WidgetOptions *nodeOptions() const {
@@ -1171,7 +1158,7 @@ struct SingleNodeOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_NODEOPTIONS) &&
+           VerifyOffset(verifier, VT_NODEOPTIONS) &&
            verifier.VerifyTable(nodeOptions()) &&
            verifier.EndTable();
   }
@@ -1183,13 +1170,13 @@ struct SingleNodeOptionsBuilder {
   void add_nodeOptions(flatbuffers::Offset<WidgetOptions> nodeOptions) {
     fbb_.AddOffset(SingleNodeOptions::VT_NODEOPTIONS, nodeOptions);
   }
-  SingleNodeOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit SingleNodeOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
   SingleNodeOptionsBuilder &operator=(const SingleNodeOptionsBuilder &);
   flatbuffers::Offset<SingleNodeOptions> Finish() {
-    const auto end = fbb_.EndTable(start_, 1);
+    const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<SingleNodeOptions>(end);
     return o;
   }
@@ -1204,7 +1191,7 @@ inline flatbuffers::Offset<SingleNodeOptions> CreateSingleNodeOptions(
 }
 
 struct SpriteOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  enum {
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_NODEOPTIONS = 4,
     VT_FILENAMEDATA = 6,
     VT_BLENDFUNC = 8,
@@ -1232,15 +1219,15 @@ struct SpriteOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_NODEOPTIONS) &&
+           VerifyOffset(verifier, VT_NODEOPTIONS) &&
            verifier.VerifyTable(nodeOptions()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_FILENAMEDATA) &&
+           VerifyOffset(verifier, VT_FILENAMEDATA) &&
            verifier.VerifyTable(fileNameData()) &&
            VerifyField<BlendFunc>(verifier, VT_BLENDFUNC) &&
            VerifyField<uint8_t>(verifier, VT_INTELLISHADINGENABLED) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_HSV) &&
+           VerifyOffset(verifier, VT_HSV) &&
            verifier.VerifyTable(hsv()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_FILTER) &&
+           VerifyOffset(verifier, VT_FILTER) &&
            verifier.VerifyTable(filter()) &&
            verifier.EndTable();
   }
@@ -1267,13 +1254,13 @@ struct SpriteOptionsBuilder {
   void add_filter(flatbuffers::Offset<FVec3> filter) {
     fbb_.AddOffset(SpriteOptions::VT_FILTER, filter);
   }
-  SpriteOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit SpriteOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
   SpriteOptionsBuilder &operator=(const SpriteOptionsBuilder &);
   flatbuffers::Offset<SpriteOptions> Finish() {
-    const auto end = fbb_.EndTable(start_, 6);
+    const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<SpriteOptions>(end);
     return o;
   }
@@ -1298,7 +1285,7 @@ inline flatbuffers::Offset<SpriteOptions> CreateSpriteOptions(
 }
 
 struct ParticleSystemOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  enum {
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_NODEOPTIONS = 4,
     VT_FILENAMEDATA = 6,
     VT_BLENDFUNC = 8
@@ -1314,9 +1301,9 @@ struct ParticleSystemOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Tabl
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_NODEOPTIONS) &&
+           VerifyOffset(verifier, VT_NODEOPTIONS) &&
            verifier.VerifyTable(nodeOptions()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_FILENAMEDATA) &&
+           VerifyOffset(verifier, VT_FILENAMEDATA) &&
            verifier.VerifyTable(fileNameData()) &&
            VerifyField<BlendFunc>(verifier, VT_BLENDFUNC) &&
            verifier.EndTable();
@@ -1335,13 +1322,13 @@ struct ParticleSystemOptionsBuilder {
   void add_blendFunc(const BlendFunc *blendFunc) {
     fbb_.AddStruct(ParticleSystemOptions::VT_BLENDFUNC, blendFunc);
   }
-  ParticleSystemOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit ParticleSystemOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
   ParticleSystemOptionsBuilder &operator=(const ParticleSystemOptionsBuilder &);
   flatbuffers::Offset<ParticleSystemOptions> Finish() {
-    const auto end = fbb_.EndTable(start_, 3);
+    const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<ParticleSystemOptions>(end);
     return o;
   }
@@ -1360,7 +1347,7 @@ inline flatbuffers::Offset<ParticleSystemOptions> CreateParticleSystemOptions(
 }
 
 struct SpineSkeletonOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  enum {
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_NODEOPTIONS = 4,
     VT_DATAFILE = 6,
     VT_ATLASFILE = 8,
@@ -1392,16 +1379,16 @@ struct SpineSkeletonOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_NODEOPTIONS) &&
+           VerifyOffset(verifier, VT_NODEOPTIONS) &&
            verifier.VerifyTable(nodeOptions()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_DATAFILE) &&
-           verifier.Verify(dataFile()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_ATLASFILE) &&
-           verifier.Verify(atlasFile()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_ANIMATION) &&
-           verifier.Verify(animation()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_SKIN) &&
-           verifier.Verify(skin()) &&
+           VerifyOffset(verifier, VT_DATAFILE) &&
+           verifier.VerifyString(dataFile()) &&
+           VerifyOffset(verifier, VT_ATLASFILE) &&
+           verifier.VerifyString(atlasFile()) &&
+           VerifyOffset(verifier, VT_ANIMATION) &&
+           verifier.VerifyString(animation()) &&
+           VerifyOffset(verifier, VT_SKIN) &&
+           verifier.VerifyString(skin()) &&
            VerifyField<uint8_t>(verifier, VT_LOOP) &&
            VerifyField<float>(verifier, VT_TIMESCALE) &&
            verifier.EndTable();
@@ -1432,13 +1419,13 @@ struct SpineSkeletonOptionsBuilder {
   void add_timeScale(float timeScale) {
     fbb_.AddElement<float>(SpineSkeletonOptions::VT_TIMESCALE, timeScale, 0.0f);
   }
-  SpineSkeletonOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit SpineSkeletonOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
   SpineSkeletonOptionsBuilder &operator=(const SpineSkeletonOptionsBuilder &);
   flatbuffers::Offset<SpineSkeletonOptions> Finish() {
-    const auto end = fbb_.EndTable(start_, 7);
+    const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<SpineSkeletonOptions>(end);
     return o;
   }
@@ -1473,19 +1460,23 @@ inline flatbuffers::Offset<SpineSkeletonOptions> CreateSpineSkeletonOptionsDirec
     const char *skin = nullptr,
     bool loop = false,
     float timeScale = 0.0f) {
+  auto dataFile__ = dataFile ? _fbb.CreateString(dataFile) : 0;
+  auto atlasFile__ = atlasFile ? _fbb.CreateString(atlasFile) : 0;
+  auto animation__ = animation ? _fbb.CreateString(animation) : 0;
+  auto skin__ = skin ? _fbb.CreateString(skin) : 0;
   return flatbuffers::CreateSpineSkeletonOptions(
       _fbb,
       nodeOptions,
-      dataFile ? _fbb.CreateString(dataFile) : 0,
-      atlasFile ? _fbb.CreateString(atlasFile) : 0,
-      animation ? _fbb.CreateString(animation) : 0,
-      skin ? _fbb.CreateString(skin) : 0,
+      dataFile__,
+      atlasFile__,
+      animation__,
+      skin__,
       loop,
       timeScale);
 }
 
 struct ControlSwitchOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  enum {
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_NODEOPTIONS = 4,
     VT_MASKIMAGE = 6,
     VT_ONIMAGE = 8,
@@ -1517,15 +1508,15 @@ struct ControlSwitchOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_NODEOPTIONS) &&
+           VerifyOffset(verifier, VT_NODEOPTIONS) &&
            verifier.VerifyTable(nodeOptions()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_MASKIMAGE) &&
+           VerifyOffset(verifier, VT_MASKIMAGE) &&
            verifier.VerifyTable(maskImage()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_ONIMAGE) &&
+           VerifyOffset(verifier, VT_ONIMAGE) &&
            verifier.VerifyTable(onImage()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_OFFIMAGE) &&
+           VerifyOffset(verifier, VT_OFFIMAGE) &&
            verifier.VerifyTable(offImage()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_THUMBIMAGE) &&
+           VerifyOffset(verifier, VT_THUMBIMAGE) &&
            verifier.VerifyTable(thumbImage()) &&
            VerifyField<uint8_t>(verifier, VT_ON) &&
            VerifyField<uint8_t>(verifier, VT_ENABLED) &&
@@ -1557,13 +1548,13 @@ struct ControlSwitchOptionsBuilder {
   void add_enabled(bool enabled) {
     fbb_.AddElement<uint8_t>(ControlSwitchOptions::VT_ENABLED, static_cast<uint8_t>(enabled), 0);
   }
-  ControlSwitchOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit ControlSwitchOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
   ControlSwitchOptionsBuilder &operator=(const ControlSwitchOptionsBuilder &);
   flatbuffers::Offset<ControlSwitchOptions> Finish() {
-    const auto end = fbb_.EndTable(start_, 7);
+    const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<ControlSwitchOptions>(end);
     return o;
   }
@@ -1590,7 +1581,7 @@ inline flatbuffers::Offset<ControlSwitchOptions> CreateControlSwitchOptions(
 }
 
 struct LayerColorOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  enum {
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_NODEOPTIONS = 4
   };
   const WidgetOptions *nodeOptions() const {
@@ -1598,7 +1589,7 @@ struct LayerColorOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_NODEOPTIONS) &&
+           VerifyOffset(verifier, VT_NODEOPTIONS) &&
            verifier.VerifyTable(nodeOptions()) &&
            verifier.EndTable();
   }
@@ -1610,13 +1601,13 @@ struct LayerColorOptionsBuilder {
   void add_nodeOptions(flatbuffers::Offset<WidgetOptions> nodeOptions) {
     fbb_.AddOffset(LayerColorOptions::VT_NODEOPTIONS, nodeOptions);
   }
-  LayerColorOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit LayerColorOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
   LayerColorOptionsBuilder &operator=(const LayerColorOptionsBuilder &);
   flatbuffers::Offset<LayerColorOptions> Finish() {
-    const auto end = fbb_.EndTable(start_, 1);
+    const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<LayerColorOptions>(end);
     return o;
   }
@@ -1631,7 +1622,7 @@ inline flatbuffers::Offset<LayerColorOptions> CreateLayerColorOptions(
 }
 
 struct GameMapOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  enum {
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_NODEOPTIONS = 4,
     VT_FILENAMEDATA = 6
   };
@@ -1643,9 +1634,9 @@ struct GameMapOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_NODEOPTIONS) &&
+           VerifyOffset(verifier, VT_NODEOPTIONS) &&
            verifier.VerifyTable(nodeOptions()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_FILENAMEDATA) &&
+           VerifyOffset(verifier, VT_FILENAMEDATA) &&
            verifier.VerifyTable(fileNameData()) &&
            verifier.EndTable();
   }
@@ -1660,13 +1651,13 @@ struct GameMapOptionsBuilder {
   void add_fileNameData(flatbuffers::Offset<ResourceData> fileNameData) {
     fbb_.AddOffset(GameMapOptions::VT_FILENAMEDATA, fileNameData);
   }
-  GameMapOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit GameMapOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
   GameMapOptionsBuilder &operator=(const GameMapOptionsBuilder &);
   flatbuffers::Offset<GameMapOptions> Finish() {
-    const auto end = fbb_.EndTable(start_, 2);
+    const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<GameMapOptions>(end);
     return o;
   }
@@ -1683,7 +1674,7 @@ inline flatbuffers::Offset<GameMapOptions> CreateGameMapOptions(
 }
 
 struct ButtonOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  enum {
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_WIDGETOPTIONS = 4,
     VT_NORMALDATA = 6,
     VT_PRESSEDDATA = 8,
@@ -1799,20 +1790,20 @@ struct ButtonOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_WIDGETOPTIONS) &&
+           VerifyOffset(verifier, VT_WIDGETOPTIONS) &&
            verifier.VerifyTable(widgetOptions()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_NORMALDATA) &&
+           VerifyOffset(verifier, VT_NORMALDATA) &&
            verifier.VerifyTable(normalData()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_PRESSEDDATA) &&
+           VerifyOffset(verifier, VT_PRESSEDDATA) &&
            verifier.VerifyTable(pressedData()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_DISABLEDDATA) &&
+           VerifyOffset(verifier, VT_DISABLEDDATA) &&
            verifier.VerifyTable(disabledData()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_FONTRESOURCE) &&
+           VerifyOffset(verifier, VT_FONTRESOURCE) &&
            verifier.VerifyTable(fontResource()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_TEXT) &&
-           verifier.Verify(text()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_FONTNAME) &&
-           verifier.Verify(fontName()) &&
+           VerifyOffset(verifier, VT_TEXT) &&
+           verifier.VerifyString(text()) &&
+           VerifyOffset(verifier, VT_FONTNAME) &&
+           verifier.VerifyString(fontName()) &&
            VerifyField<int32_t>(verifier, VT_FONTSIZE) &&
            VerifyField<Color>(verifier, VT_TEXTCOLOR) &&
            VerifyField<CapInsets>(verifier, VT_CAPINSETS) &&
@@ -1925,13 +1916,13 @@ struct ButtonOptionsBuilder {
   void add_strikethroughEnabled(bool strikethroughEnabled) {
     fbb_.AddElement<uint8_t>(ButtonOptions::VT_STRIKETHROUGHENABLED, static_cast<uint8_t>(strikethroughEnabled), 0);
   }
-  ButtonOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit ButtonOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
   ButtonOptionsBuilder &operator=(const ButtonOptionsBuilder &);
   flatbuffers::Offset<ButtonOptions> Finish() {
-    const auto end = fbb_.EndTable(start_, 28);
+    const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<ButtonOptions>(end);
     return o;
   }
@@ -2029,6 +2020,8 @@ inline flatbuffers::Offset<ButtonOptions> CreateButtonOptionsDirect(
     bool underlineEnabled = false,
     bool italicsEnabled = false,
     bool strikethroughEnabled = false) {
+  auto text__ = text ? _fbb.CreateString(text) : 0;
+  auto fontName__ = fontName ? _fbb.CreateString(fontName) : 0;
   return flatbuffers::CreateButtonOptions(
       _fbb,
       widgetOptions,
@@ -2036,8 +2029,8 @@ inline flatbuffers::Offset<ButtonOptions> CreateButtonOptionsDirect(
       pressedData,
       disabledData,
       fontResource,
-      text ? _fbb.CreateString(text) : 0,
-      fontName ? _fbb.CreateString(fontName) : 0,
+      text__,
+      fontName__,
       fontSize,
       textColor,
       capInsets,
@@ -2062,7 +2055,7 @@ inline flatbuffers::Offset<ButtonOptions> CreateButtonOptionsDirect(
 }
 
 struct CheckBoxOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  enum {
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_WIDGETOPTIONS = 4,
     VT_BACKGROUNDBOXDATA = 6,
     VT_BACKGROUNDBOXSELECTEDDATA = 8,
@@ -2098,17 +2091,17 @@ struct CheckBoxOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_WIDGETOPTIONS) &&
+           VerifyOffset(verifier, VT_WIDGETOPTIONS) &&
            verifier.VerifyTable(widgetOptions()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_BACKGROUNDBOXDATA) &&
+           VerifyOffset(verifier, VT_BACKGROUNDBOXDATA) &&
            verifier.VerifyTable(backGroundBoxData()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_BACKGROUNDBOXSELECTEDDATA) &&
+           VerifyOffset(verifier, VT_BACKGROUNDBOXSELECTEDDATA) &&
            verifier.VerifyTable(backGroundBoxSelectedData()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_FRONTCROSSDATA) &&
+           VerifyOffset(verifier, VT_FRONTCROSSDATA) &&
            verifier.VerifyTable(frontCrossData()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_BACKGROUNDBOXDISABLEDDATA) &&
+           VerifyOffset(verifier, VT_BACKGROUNDBOXDISABLEDDATA) &&
            verifier.VerifyTable(backGroundBoxDisabledData()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_FRONTCROSSDISABLEDDATA) &&
+           VerifyOffset(verifier, VT_FRONTCROSSDISABLEDDATA) &&
            verifier.VerifyTable(frontCrossDisabledData()) &&
            VerifyField<uint8_t>(verifier, VT_SELECTEDSTATE) &&
            VerifyField<uint8_t>(verifier, VT_DISPLAYSTATE) &&
@@ -2143,13 +2136,13 @@ struct CheckBoxOptionsBuilder {
   void add_displaystate(bool displaystate) {
     fbb_.AddElement<uint8_t>(CheckBoxOptions::VT_DISPLAYSTATE, static_cast<uint8_t>(displaystate), 1);
   }
-  CheckBoxOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit CheckBoxOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
   CheckBoxOptionsBuilder &operator=(const CheckBoxOptionsBuilder &);
   flatbuffers::Offset<CheckBoxOptions> Finish() {
-    const auto end = fbb_.EndTable(start_, 8);
+    const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<CheckBoxOptions>(end);
     return o;
   }
@@ -2178,7 +2171,7 @@ inline flatbuffers::Offset<CheckBoxOptions> CreateCheckBoxOptions(
 }
 
 struct RadioButtonOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  enum {
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_WIDGETOPTIONS = 4,
     VT_BACKGROUNDBOXDATA = 6,
     VT_BACKGROUNDBOXSELECTEDDATA = 8,
@@ -2214,17 +2207,17 @@ struct RadioButtonOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_WIDGETOPTIONS) &&
+           VerifyOffset(verifier, VT_WIDGETOPTIONS) &&
            verifier.VerifyTable(widgetOptions()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_BACKGROUNDBOXDATA) &&
+           VerifyOffset(verifier, VT_BACKGROUNDBOXDATA) &&
            verifier.VerifyTable(backGroundBoxData()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_BACKGROUNDBOXSELECTEDDATA) &&
+           VerifyOffset(verifier, VT_BACKGROUNDBOXSELECTEDDATA) &&
            verifier.VerifyTable(backGroundBoxSelectedData()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_FRONTCROSSDATA) &&
+           VerifyOffset(verifier, VT_FRONTCROSSDATA) &&
            verifier.VerifyTable(frontCrossData()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_BACKGROUNDBOXDISABLEDDATA) &&
+           VerifyOffset(verifier, VT_BACKGROUNDBOXDISABLEDDATA) &&
            verifier.VerifyTable(backGroundBoxDisabledData()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_FRONTCROSSDISABLEDDATA) &&
+           VerifyOffset(verifier, VT_FRONTCROSSDISABLEDDATA) &&
            verifier.VerifyTable(frontCrossDisabledData()) &&
            VerifyField<uint8_t>(verifier, VT_SELECTEDSTATE) &&
            VerifyField<uint8_t>(verifier, VT_DISPLAYSTATE) &&
@@ -2259,13 +2252,13 @@ struct RadioButtonOptionsBuilder {
   void add_displaystate(bool displaystate) {
     fbb_.AddElement<uint8_t>(RadioButtonOptions::VT_DISPLAYSTATE, static_cast<uint8_t>(displaystate), 0);
   }
-  RadioButtonOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit RadioButtonOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
   RadioButtonOptionsBuilder &operator=(const RadioButtonOptionsBuilder &);
   flatbuffers::Offset<RadioButtonOptions> Finish() {
-    const auto end = fbb_.EndTable(start_, 8);
+    const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<RadioButtonOptions>(end);
     return o;
   }
@@ -2294,7 +2287,7 @@ inline flatbuffers::Offset<RadioButtonOptions> CreateRadioButtonOptions(
 }
 
 struct RadioButtonGroupOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  enum {
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_WIDGETOPTIONS = 4,
     VT_ALLOWEDNOSELECTION = 6
   };
@@ -2306,7 +2299,7 @@ struct RadioButtonGroupOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Ta
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_WIDGETOPTIONS) &&
+           VerifyOffset(verifier, VT_WIDGETOPTIONS) &&
            verifier.VerifyTable(widgetOptions()) &&
            VerifyField<uint8_t>(verifier, VT_ALLOWEDNOSELECTION) &&
            verifier.EndTable();
@@ -2322,13 +2315,13 @@ struct RadioButtonGroupOptionsBuilder {
   void add_allowedNoSelection(bool allowedNoSelection) {
     fbb_.AddElement<uint8_t>(RadioButtonGroupOptions::VT_ALLOWEDNOSELECTION, static_cast<uint8_t>(allowedNoSelection), 0);
   }
-  RadioButtonGroupOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit RadioButtonGroupOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
   RadioButtonGroupOptionsBuilder &operator=(const RadioButtonGroupOptionsBuilder &);
   flatbuffers::Offset<RadioButtonGroupOptions> Finish() {
-    const auto end = fbb_.EndTable(start_, 2);
+    const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<RadioButtonGroupOptions>(end);
     return o;
   }
@@ -2345,7 +2338,7 @@ inline flatbuffers::Offset<RadioButtonGroupOptions> CreateRadioButtonGroupOption
 }
 
 struct ImageViewOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  enum {
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_WIDGETOPTIONS = 4,
     VT_FILENAMEDATA = 6,
     VT_CAPINSETS = 8,
@@ -2369,9 +2362,9 @@ struct ImageViewOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_WIDGETOPTIONS) &&
+           VerifyOffset(verifier, VT_WIDGETOPTIONS) &&
            verifier.VerifyTable(widgetOptions()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_FILENAMEDATA) &&
+           VerifyOffset(verifier, VT_FILENAMEDATA) &&
            verifier.VerifyTable(fileNameData()) &&
            VerifyField<CapInsets>(verifier, VT_CAPINSETS) &&
            VerifyField<FlatSize>(verifier, VT_SCALE9SIZE) &&
@@ -2398,13 +2391,13 @@ struct ImageViewOptionsBuilder {
   void add_scale9Enabled(bool scale9Enabled) {
     fbb_.AddElement<uint8_t>(ImageViewOptions::VT_SCALE9ENABLED, static_cast<uint8_t>(scale9Enabled), 0);
   }
-  ImageViewOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit ImageViewOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
   ImageViewOptionsBuilder &operator=(const ImageViewOptionsBuilder &);
   flatbuffers::Offset<ImageViewOptions> Finish() {
-    const auto end = fbb_.EndTable(start_, 5);
+    const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<ImageViewOptions>(end);
     return o;
   }
@@ -2427,7 +2420,7 @@ inline flatbuffers::Offset<ImageViewOptions> CreateImageViewOptions(
 }
 
 struct TextAtlasOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  enum {
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_WIDGETOPTIONS = 4,
     VT_CHARMAPFILEDATA = 6,
     VT_STRINGVALUE = 8,
@@ -2455,14 +2448,14 @@ struct TextAtlasOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_WIDGETOPTIONS) &&
+           VerifyOffset(verifier, VT_WIDGETOPTIONS) &&
            verifier.VerifyTable(widgetOptions()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_CHARMAPFILEDATA) &&
+           VerifyOffset(verifier, VT_CHARMAPFILEDATA) &&
            verifier.VerifyTable(charMapFileData()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_STRINGVALUE) &&
-           verifier.Verify(stringValue()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_STARTCHARMAP) &&
-           verifier.Verify(startCharMap()) &&
+           VerifyOffset(verifier, VT_STRINGVALUE) &&
+           verifier.VerifyString(stringValue()) &&
+           VerifyOffset(verifier, VT_STARTCHARMAP) &&
+           verifier.VerifyString(startCharMap()) &&
            VerifyField<int32_t>(verifier, VT_ITEMWIDTH) &&
            VerifyField<int32_t>(verifier, VT_ITEMHEIGHT) &&
            verifier.EndTable();
@@ -2490,13 +2483,13 @@ struct TextAtlasOptionsBuilder {
   void add_itemHeight(int32_t itemHeight) {
     fbb_.AddElement<int32_t>(TextAtlasOptions::VT_ITEMHEIGHT, itemHeight, 0);
   }
-  TextAtlasOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit TextAtlasOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
   TextAtlasOptionsBuilder &operator=(const TextAtlasOptionsBuilder &);
   flatbuffers::Offset<TextAtlasOptions> Finish() {
-    const auto end = fbb_.EndTable(start_, 6);
+    const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<TextAtlasOptions>(end);
     return o;
   }
@@ -2528,18 +2521,20 @@ inline flatbuffers::Offset<TextAtlasOptions> CreateTextAtlasOptionsDirect(
     const char *startCharMap = nullptr,
     int32_t itemWidth = 0,
     int32_t itemHeight = 0) {
+  auto stringValue__ = stringValue ? _fbb.CreateString(stringValue) : 0;
+  auto startCharMap__ = startCharMap ? _fbb.CreateString(startCharMap) : 0;
   return flatbuffers::CreateTextAtlasOptions(
       _fbb,
       widgetOptions,
       charMapFileData,
-      stringValue ? _fbb.CreateString(stringValue) : 0,
-      startCharMap ? _fbb.CreateString(startCharMap) : 0,
+      stringValue__,
+      startCharMap__,
       itemWidth,
       itemHeight);
 }
 
 struct TextBMFontOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  enum {
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_WIDGETOPTIONS = 4,
     VT_FILENAMEDATA = 6,
     VT_TEXT = 8,
@@ -2559,12 +2554,12 @@ struct TextBMFontOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_WIDGETOPTIONS) &&
+           VerifyOffset(verifier, VT_WIDGETOPTIONS) &&
            verifier.VerifyTable(widgetOptions()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_FILENAMEDATA) &&
+           VerifyOffset(verifier, VT_FILENAMEDATA) &&
            verifier.VerifyTable(fileNameData()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_TEXT) &&
-           verifier.Verify(text()) &&
+           VerifyOffset(verifier, VT_TEXT) &&
+           verifier.VerifyString(text()) &&
            VerifyField<uint8_t>(verifier, VT_ISLOCALIZED) &&
            verifier.EndTable();
   }
@@ -2585,13 +2580,13 @@ struct TextBMFontOptionsBuilder {
   void add_isLocalized(bool isLocalized) {
     fbb_.AddElement<uint8_t>(TextBMFontOptions::VT_ISLOCALIZED, static_cast<uint8_t>(isLocalized), 0);
   }
-  TextBMFontOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit TextBMFontOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
   TextBMFontOptionsBuilder &operator=(const TextBMFontOptionsBuilder &);
   flatbuffers::Offset<TextBMFontOptions> Finish() {
-    const auto end = fbb_.EndTable(start_, 4);
+    const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<TextBMFontOptions>(end);
     return o;
   }
@@ -2617,16 +2612,17 @@ inline flatbuffers::Offset<TextBMFontOptions> CreateTextBMFontOptionsDirect(
     flatbuffers::Offset<ResourceData> fileNameData = 0,
     const char *text = nullptr,
     bool isLocalized = false) {
+  auto text__ = text ? _fbb.CreateString(text) : 0;
   return flatbuffers::CreateTextBMFontOptions(
       _fbb,
       widgetOptions,
       fileNameData,
-      text ? _fbb.CreateString(text) : 0,
+      text__,
       isLocalized);
 }
 
 struct TextOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  enum {
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_WIDGETOPTIONS = 4,
     VT_FONTRESOURCE = 6,
     VT_FONTNAME = 8,
@@ -2734,15 +2730,15 @@ struct TextOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_WIDGETOPTIONS) &&
+           VerifyOffset(verifier, VT_WIDGETOPTIONS) &&
            verifier.VerifyTable(widgetOptions()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_FONTRESOURCE) &&
+           VerifyOffset(verifier, VT_FONTRESOURCE) &&
            verifier.VerifyTable(fontResource()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_FONTNAME) &&
-           verifier.Verify(fontName()) &&
+           VerifyOffset(verifier, VT_FONTNAME) &&
+           verifier.VerifyString(fontName()) &&
            VerifyField<int32_t>(verifier, VT_FONTSIZE) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_TEXT) &&
-           verifier.Verify(text()) &&
+           VerifyOffset(verifier, VT_TEXT) &&
+           verifier.VerifyString(text()) &&
            VerifyField<int32_t>(verifier, VT_AREAWIDTH) &&
            VerifyField<int32_t>(verifier, VT_AREAHEIGHT) &&
            VerifyField<int32_t>(verifier, VT_HALIGNMENT) &&
@@ -2849,13 +2845,13 @@ struct TextOptionsBuilder {
   void add_strikethroughEnabled(bool strikethroughEnabled) {
     fbb_.AddElement<uint8_t>(TextOptions::VT_STRIKETHROUGHENABLED, static_cast<uint8_t>(strikethroughEnabled), 0);
   }
-  TextOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit TextOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
   TextOptionsBuilder &operator=(const TextOptionsBuilder &);
   flatbuffers::Offset<TextOptions> Finish() {
-    const auto end = fbb_.EndTable(start_, 26);
+    const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<TextOptions>(end);
     return o;
   }
@@ -2947,13 +2943,15 @@ inline flatbuffers::Offset<TextOptions> CreateTextOptionsDirect(
     bool underlineEnabled = false,
     bool italicsEnabled = false,
     bool strikethroughEnabled = false) {
+  auto fontName__ = fontName ? _fbb.CreateString(fontName) : 0;
+  auto text__ = text ? _fbb.CreateString(text) : 0;
   return flatbuffers::CreateTextOptions(
       _fbb,
       widgetOptions,
       fontResource,
-      fontName ? _fbb.CreateString(fontName) : 0,
+      fontName__,
       fontSize,
-      text ? _fbb.CreateString(text) : 0,
+      text__,
       areaWidth,
       areaHeight,
       hAlignment,
@@ -2978,7 +2976,7 @@ inline flatbuffers::Offset<TextOptions> CreateTextOptionsDirect(
 }
 
 struct RichTextOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  enum {
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_WIDGETOPTIONS = 4,
     VT_XMLDEFINITION = 6
   };
@@ -2990,10 +2988,10 @@ struct RichTextOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_WIDGETOPTIONS) &&
+           VerifyOffset(verifier, VT_WIDGETOPTIONS) &&
            verifier.VerifyTable(widgetOptions()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_XMLDEFINITION) &&
-           verifier.Verify(xmlDefinition()) &&
+           VerifyOffset(verifier, VT_XMLDEFINITION) &&
+           verifier.VerifyString(xmlDefinition()) &&
            verifier.EndTable();
   }
 };
@@ -3007,13 +3005,13 @@ struct RichTextOptionsBuilder {
   void add_xmlDefinition(flatbuffers::Offset<flatbuffers::String> xmlDefinition) {
     fbb_.AddOffset(RichTextOptions::VT_XMLDEFINITION, xmlDefinition);
   }
-  RichTextOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit RichTextOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
   RichTextOptionsBuilder &operator=(const RichTextOptionsBuilder &);
   flatbuffers::Offset<RichTextOptions> Finish() {
-    const auto end = fbb_.EndTable(start_, 2);
+    const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<RichTextOptions>(end);
     return o;
   }
@@ -3033,14 +3031,15 @@ inline flatbuffers::Offset<RichTextOptions> CreateRichTextOptionsDirect(
     flatbuffers::FlatBufferBuilder &_fbb,
     flatbuffers::Offset<WidgetOptions> widgetOptions = 0,
     const char *xmlDefinition = nullptr) {
+  auto xmlDefinition__ = xmlDefinition ? _fbb.CreateString(xmlDefinition) : 0;
   return flatbuffers::CreateRichTextOptions(
       _fbb,
       widgetOptions,
-      xmlDefinition ? _fbb.CreateString(xmlDefinition) : 0);
+      xmlDefinition__);
 }
 
 struct TextFieldOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  enum {
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_WIDGETOPTIONS = 4,
     VT_FONTRESOURCE = 6,
     VT_FONTNAME = 8,
@@ -3100,20 +3099,20 @@ struct TextFieldOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_WIDGETOPTIONS) &&
+           VerifyOffset(verifier, VT_WIDGETOPTIONS) &&
            verifier.VerifyTable(widgetOptions()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_FONTRESOURCE) &&
+           VerifyOffset(verifier, VT_FONTRESOURCE) &&
            verifier.VerifyTable(fontResource()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_FONTNAME) &&
-           verifier.Verify(fontName()) &&
+           VerifyOffset(verifier, VT_FONTNAME) &&
+           verifier.VerifyString(fontName()) &&
            VerifyField<int32_t>(verifier, VT_FONTSIZE) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_TEXT) &&
-           verifier.Verify(text()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_PLACEHOLDER) &&
-           verifier.Verify(placeHolder()) &&
+           VerifyOffset(verifier, VT_TEXT) &&
+           verifier.VerifyString(text()) &&
+           VerifyOffset(verifier, VT_PLACEHOLDER) &&
+           verifier.VerifyString(placeHolder()) &&
            VerifyField<uint8_t>(verifier, VT_PASSWORDENABLED) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_PASSWORDSTYLETEXT) &&
-           verifier.Verify(passwordStyleText()) &&
+           VerifyOffset(verifier, VT_PASSWORDSTYLETEXT) &&
+           verifier.VerifyString(passwordStyleText()) &&
            VerifyField<uint8_t>(verifier, VT_MAXLENGTHENABLED) &&
            VerifyField<int32_t>(verifier, VT_MAXLENGTH) &&
            VerifyField<int32_t>(verifier, VT_AREAWIDTH) &&
@@ -3169,13 +3168,13 @@ struct TextFieldOptionsBuilder {
   void add_isLocalized(bool isLocalized) {
     fbb_.AddElement<uint8_t>(TextFieldOptions::VT_ISLOCALIZED, static_cast<uint8_t>(isLocalized), 0);
   }
-  TextFieldOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit TextFieldOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
   TextFieldOptionsBuilder &operator=(const TextFieldOptionsBuilder &);
   flatbuffers::Offset<TextFieldOptions> Finish() {
-    const auto end = fbb_.EndTable(start_, 14);
+    const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<TextFieldOptions>(end);
     return o;
   }
@@ -3231,16 +3230,20 @@ inline flatbuffers::Offset<TextFieldOptions> CreateTextFieldOptionsDirect(
     int32_t areaHeight = 0,
     bool isCustomSize = false,
     bool isLocalized = false) {
+  auto fontName__ = fontName ? _fbb.CreateString(fontName) : 0;
+  auto text__ = text ? _fbb.CreateString(text) : 0;
+  auto placeHolder__ = placeHolder ? _fbb.CreateString(placeHolder) : 0;
+  auto passwordStyleText__ = passwordStyleText ? _fbb.CreateString(passwordStyleText) : 0;
   return flatbuffers::CreateTextFieldOptions(
       _fbb,
       widgetOptions,
       fontResource,
-      fontName ? _fbb.CreateString(fontName) : 0,
+      fontName__,
       fontSize,
-      text ? _fbb.CreateString(text) : 0,
-      placeHolder ? _fbb.CreateString(placeHolder) : 0,
+      text__,
+      placeHolder__,
       passwordEnabled,
-      passwordStyleText ? _fbb.CreateString(passwordStyleText) : 0,
+      passwordStyleText__,
       maxLengthEnabled,
       maxLength,
       areaWidth,
@@ -3250,7 +3253,7 @@ inline flatbuffers::Offset<TextFieldOptions> CreateTextFieldOptionsDirect(
 }
 
 struct LoadingBarOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  enum {
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_WIDGETOPTIONS = 4,
     VT_TEXTUREDATA = 6,
     VT_PERCENT = 8,
@@ -3270,9 +3273,9 @@ struct LoadingBarOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_WIDGETOPTIONS) &&
+           VerifyOffset(verifier, VT_WIDGETOPTIONS) &&
            verifier.VerifyTable(widgetOptions()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_TEXTUREDATA) &&
+           VerifyOffset(verifier, VT_TEXTUREDATA) &&
            verifier.VerifyTable(textureData()) &&
            VerifyField<int32_t>(verifier, VT_PERCENT) &&
            VerifyField<int32_t>(verifier, VT_DIRECTION) &&
@@ -3295,13 +3298,13 @@ struct LoadingBarOptionsBuilder {
   void add_direction(int32_t direction) {
     fbb_.AddElement<int32_t>(LoadingBarOptions::VT_DIRECTION, direction, 0);
   }
-  LoadingBarOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit LoadingBarOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
   LoadingBarOptionsBuilder &operator=(const LoadingBarOptionsBuilder &);
   flatbuffers::Offset<LoadingBarOptions> Finish() {
-    const auto end = fbb_.EndTable(start_, 4);
+    const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<LoadingBarOptions>(end);
     return o;
   }
@@ -3322,7 +3325,7 @@ inline flatbuffers::Offset<LoadingBarOptions> CreateLoadingBarOptions(
 }
 
 struct SliderOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  enum {
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_WIDGETOPTIONS = 4,
     VT_BARFILENAMEDATA = 6,
     VT_BALLNORMALDATA = 8,
@@ -3358,17 +3361,17 @@ struct SliderOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_WIDGETOPTIONS) &&
+           VerifyOffset(verifier, VT_WIDGETOPTIONS) &&
            verifier.VerifyTable(widgetOptions()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_BARFILENAMEDATA) &&
+           VerifyOffset(verifier, VT_BARFILENAMEDATA) &&
            verifier.VerifyTable(barFileNameData()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_BALLNORMALDATA) &&
+           VerifyOffset(verifier, VT_BALLNORMALDATA) &&
            verifier.VerifyTable(ballNormalData()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_BALLPRESSEDDATA) &&
+           VerifyOffset(verifier, VT_BALLPRESSEDDATA) &&
            verifier.VerifyTable(ballPressedData()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_BALLDISABLEDDATA) &&
+           VerifyOffset(verifier, VT_BALLDISABLEDDATA) &&
            verifier.VerifyTable(ballDisabledData()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_PROGRESSBARDATA) &&
+           VerifyOffset(verifier, VT_PROGRESSBARDATA) &&
            verifier.VerifyTable(progressBarData()) &&
            VerifyField<int32_t>(verifier, VT_PERCENT) &&
            VerifyField<uint8_t>(verifier, VT_DISPLAYSTATE) &&
@@ -3403,13 +3406,13 @@ struct SliderOptionsBuilder {
   void add_displaystate(bool displaystate) {
     fbb_.AddElement<uint8_t>(SliderOptions::VT_DISPLAYSTATE, static_cast<uint8_t>(displaystate), 1);
   }
-  SliderOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit SliderOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
   SliderOptionsBuilder &operator=(const SliderOptionsBuilder &);
   flatbuffers::Offset<SliderOptions> Finish() {
-    const auto end = fbb_.EndTable(start_, 8);
+    const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<SliderOptions>(end);
     return o;
   }
@@ -3438,7 +3441,7 @@ inline flatbuffers::Offset<SliderOptions> CreateSliderOptions(
 }
 
 struct PanelOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  enum {
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_WIDGETOPTIONS = 4,
     VT_BACKGROUNDIMAGEDATA = 6,
     VT_CLIPENABLED = 8,
@@ -3490,9 +3493,9 @@ struct PanelOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_WIDGETOPTIONS) &&
+           VerifyOffset(verifier, VT_WIDGETOPTIONS) &&
            verifier.VerifyTable(widgetOptions()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_BACKGROUNDIMAGEDATA) &&
+           VerifyOffset(verifier, VT_BACKGROUNDIMAGEDATA) &&
            verifier.VerifyTable(backGroundImageData()) &&
            VerifyField<uint8_t>(verifier, VT_CLIPENABLED) &&
            VerifyField<Color>(verifier, VT_BGCOLOR) &&
@@ -3547,13 +3550,13 @@ struct PanelOptionsBuilder {
   void add_backGroundScale9Enabled(bool backGroundScale9Enabled) {
     fbb_.AddElement<uint8_t>(PanelOptions::VT_BACKGROUNDSCALE9ENABLED, static_cast<uint8_t>(backGroundScale9Enabled), 0);
   }
-  PanelOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit PanelOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
   PanelOptionsBuilder &operator=(const PanelOptionsBuilder &);
   flatbuffers::Offset<PanelOptions> Finish() {
-    const auto end = fbb_.EndTable(start_, 12);
+    const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<PanelOptions>(end);
     return o;
   }
@@ -3590,7 +3593,7 @@ inline flatbuffers::Offset<PanelOptions> CreatePanelOptions(
 }
 
 struct ScrollViewOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  enum {
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_WIDGETOPTIONS = 4,
     VT_BACKGROUNDIMAGEDATA = 6,
     VT_CLIPENABLED = 8,
@@ -3666,9 +3669,9 @@ struct ScrollViewOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_WIDGETOPTIONS) &&
+           VerifyOffset(verifier, VT_WIDGETOPTIONS) &&
            verifier.VerifyTable(widgetOptions()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_BACKGROUNDIMAGEDATA) &&
+           VerifyOffset(verifier, VT_BACKGROUNDIMAGEDATA) &&
            verifier.VerifyTable(backGroundImageData()) &&
            VerifyField<uint8_t>(verifier, VT_CLIPENABLED) &&
            VerifyField<Color>(verifier, VT_BGCOLOR) &&
@@ -3747,13 +3750,13 @@ struct ScrollViewOptionsBuilder {
   void add_scrollbarAutoHideTime(float scrollbarAutoHideTime) {
     fbb_.AddElement<float>(ScrollViewOptions::VT_SCROLLBARAUTOHIDETIME, scrollbarAutoHideTime, 0.2f);
   }
-  ScrollViewOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit ScrollViewOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
   ScrollViewOptionsBuilder &operator=(const ScrollViewOptionsBuilder &);
   flatbuffers::Offset<ScrollViewOptions> Finish() {
-    const auto end = fbb_.EndTable(start_, 18);
+    const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<ScrollViewOptions>(end);
     return o;
   }
@@ -3802,7 +3805,7 @@ inline flatbuffers::Offset<ScrollViewOptions> CreateScrollViewOptions(
 }
 
 struct PageViewOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  enum {
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_WIDGETOPTIONS = 4,
     VT_BACKGROUNDIMAGEDATA = 6,
     VT_CLIPENABLED = 8,
@@ -3854,9 +3857,9 @@ struct PageViewOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_WIDGETOPTIONS) &&
+           VerifyOffset(verifier, VT_WIDGETOPTIONS) &&
            verifier.VerifyTable(widgetOptions()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_BACKGROUNDIMAGEDATA) &&
+           VerifyOffset(verifier, VT_BACKGROUNDIMAGEDATA) &&
            verifier.VerifyTable(backGroundImageData()) &&
            VerifyField<uint8_t>(verifier, VT_CLIPENABLED) &&
            VerifyField<Color>(verifier, VT_BGCOLOR) &&
@@ -3911,13 +3914,13 @@ struct PageViewOptionsBuilder {
   void add_backGroundScale9Enabled(bool backGroundScale9Enabled) {
     fbb_.AddElement<uint8_t>(PageViewOptions::VT_BACKGROUNDSCALE9ENABLED, static_cast<uint8_t>(backGroundScale9Enabled), 0);
   }
-  PageViewOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit PageViewOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
   PageViewOptionsBuilder &operator=(const PageViewOptionsBuilder &);
   flatbuffers::Offset<PageViewOptions> Finish() {
-    const auto end = fbb_.EndTable(start_, 12);
+    const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<PageViewOptions>(end);
     return o;
   }
@@ -3954,7 +3957,7 @@ inline flatbuffers::Offset<PageViewOptions> CreatePageViewOptions(
 }
 
 struct ListViewOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  enum {
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_WIDGETOPTIONS = 4,
     VT_BACKGROUNDIMAGEDATA = 6,
     VT_CLIPENABLED = 8,
@@ -4034,9 +4037,9 @@ struct ListViewOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_WIDGETOPTIONS) &&
+           VerifyOffset(verifier, VT_WIDGETOPTIONS) &&
            verifier.VerifyTable(widgetOptions()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_BACKGROUNDIMAGEDATA) &&
+           VerifyOffset(verifier, VT_BACKGROUNDIMAGEDATA) &&
            verifier.VerifyTable(backGroundImageData()) &&
            VerifyField<uint8_t>(verifier, VT_CLIPENABLED) &&
            VerifyField<Color>(verifier, VT_BGCOLOR) &&
@@ -4052,12 +4055,12 @@ struct ListViewOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
            VerifyField<int32_t>(verifier, VT_DIRECTION) &&
            VerifyField<uint8_t>(verifier, VT_BOUNCEENABLED) &&
            VerifyField<int32_t>(verifier, VT_ITEMMARGIN) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_DIRECTIONTYPE) &&
-           verifier.Verify(directionType()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_HORIZONTALTYPE) &&
-           verifier.Verify(horizontalType()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_VERTICALTYPE) &&
-           verifier.Verify(verticalType()) &&
+           VerifyOffset(verifier, VT_DIRECTIONTYPE) &&
+           verifier.VerifyString(directionType()) &&
+           VerifyOffset(verifier, VT_HORIZONTALTYPE) &&
+           verifier.VerifyString(horizontalType()) &&
+           VerifyOffset(verifier, VT_VERTICALTYPE) &&
+           verifier.VerifyString(verticalType()) &&
            verifier.EndTable();
   }
 };
@@ -4122,13 +4125,13 @@ struct ListViewOptionsBuilder {
   void add_verticalType(flatbuffers::Offset<flatbuffers::String> verticalType) {
     fbb_.AddOffset(ListViewOptions::VT_VERTICALTYPE, verticalType);
   }
-  ListViewOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit ListViewOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
   ListViewOptionsBuilder &operator=(const ListViewOptionsBuilder &);
   flatbuffers::Offset<ListViewOptions> Finish() {
-    const auto end = fbb_.EndTable(start_, 19);
+    const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<ListViewOptions>(end);
     return o;
   }
@@ -4199,6 +4202,9 @@ inline flatbuffers::Offset<ListViewOptions> CreateListViewOptionsDirect(
     const char *directionType = nullptr,
     const char *horizontalType = nullptr,
     const char *verticalType = nullptr) {
+  auto directionType__ = directionType ? _fbb.CreateString(directionType) : 0;
+  auto horizontalType__ = horizontalType ? _fbb.CreateString(horizontalType) : 0;
+  auto verticalType__ = verticalType ? _fbb.CreateString(verticalType) : 0;
   return flatbuffers::CreateListViewOptions(
       _fbb,
       widgetOptions,
@@ -4217,13 +4223,13 @@ inline flatbuffers::Offset<ListViewOptions> CreateListViewOptionsDirect(
       direction,
       bounceEnabled,
       itemMargin,
-      directionType ? _fbb.CreateString(directionType) : 0,
-      horizontalType ? _fbb.CreateString(horizontalType) : 0,
-      verticalType ? _fbb.CreateString(verticalType) : 0);
+      directionType__,
+      horizontalType__,
+      verticalType__);
 }
 
 struct TextFieldExOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  enum {
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_NODEOPTIONS = 4,
     VT_FONTRESOURCE = 6,
     VT_FONTNAME = 8,
@@ -4287,20 +4293,20 @@ struct TextFieldExOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_NODEOPTIONS) &&
+           VerifyOffset(verifier, VT_NODEOPTIONS) &&
            verifier.VerifyTable(nodeOptions()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_FONTRESOURCE) &&
+           VerifyOffset(verifier, VT_FONTRESOURCE) &&
            verifier.VerifyTable(fontResource()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_FONTNAME) &&
-           verifier.Verify(fontName()) &&
+           VerifyOffset(verifier, VT_FONTNAME) &&
+           verifier.VerifyString(fontName()) &&
            VerifyField<int32_t>(verifier, VT_FONTSIZE) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_TEXT) &&
-           verifier.Verify(text()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_PLACEHOLDERTEXT) &&
-           verifier.Verify(placeholderText()) &&
+           VerifyOffset(verifier, VT_TEXT) &&
+           verifier.VerifyString(text()) &&
+           VerifyOffset(verifier, VT_PLACEHOLDERTEXT) &&
+           verifier.VerifyString(placeholderText()) &&
            VerifyField<uint8_t>(verifier, VT_PASSWORDENABLED) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_PASSWORDSTYLETEXT) &&
-           verifier.Verify(passwordStyleText()) &&
+           VerifyOffset(verifier, VT_PASSWORDSTYLETEXT) &&
+           verifier.VerifyString(passwordStyleText()) &&
            VerifyField<int32_t>(verifier, VT_MAXLENGTH) &&
            VerifyField<Color>(verifier, VT_TEXTCOLOR) &&
            VerifyField<Color>(verifier, VT_PLACEHOLDERCOLOR) &&
@@ -4360,13 +4366,13 @@ struct TextFieldExOptionsBuilder {
   void add_isLocalized(bool isLocalized) {
     fbb_.AddElement<uint8_t>(TextFieldExOptions::VT_ISLOCALIZED, static_cast<uint8_t>(isLocalized), 0);
   }
-  TextFieldExOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit TextFieldExOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
   TextFieldExOptionsBuilder &operator=(const TextFieldExOptionsBuilder &);
   flatbuffers::Offset<TextFieldExOptions> Finish() {
-    const auto end = fbb_.EndTable(start_, 15);
+    const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<TextFieldExOptions>(end);
     return o;
   }
@@ -4425,16 +4431,20 @@ inline flatbuffers::Offset<TextFieldExOptions> CreateTextFieldExOptionsDirect(
     bool enabled = true,
     bool editable = true,
     bool isLocalized = false) {
+  auto fontName__ = fontName ? _fbb.CreateString(fontName) : 0;
+  auto text__ = text ? _fbb.CreateString(text) : 0;
+  auto placeholderText__ = placeholderText ? _fbb.CreateString(placeholderText) : 0;
+  auto passwordStyleText__ = passwordStyleText ? _fbb.CreateString(passwordStyleText) : 0;
   return flatbuffers::CreateTextFieldExOptions(
       _fbb,
       nodeOptions,
       fontResource,
-      fontName ? _fbb.CreateString(fontName) : 0,
+      fontName__,
       fontSize,
-      text ? _fbb.CreateString(text) : 0,
-      placeholderText ? _fbb.CreateString(placeholderText) : 0,
+      text__,
+      placeholderText__,
       passwordEnabled,
-      passwordStyleText ? _fbb.CreateString(passwordStyleText) : 0,
+      passwordStyleText__,
       maxLength,
       textColor,
       placeholderColor,
@@ -4445,7 +4455,7 @@ inline flatbuffers::Offset<TextFieldExOptions> CreateTextFieldExOptionsDirect(
 }
 
 struct ProjectNodeOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  enum {
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_NODEOPTIONS = 4,
     VT_FILENAME = 6,
     VT_INNERACTIONSPEED = 8
@@ -4461,10 +4471,10 @@ struct ProjectNodeOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_NODEOPTIONS) &&
+           VerifyOffset(verifier, VT_NODEOPTIONS) &&
            verifier.VerifyTable(nodeOptions()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_FILENAME) &&
-           verifier.Verify(fileName()) &&
+           VerifyOffset(verifier, VT_FILENAME) &&
+           verifier.VerifyString(fileName()) &&
            VerifyField<float>(verifier, VT_INNERACTIONSPEED) &&
            verifier.EndTable();
   }
@@ -4482,13 +4492,13 @@ struct ProjectNodeOptionsBuilder {
   void add_innerActionSpeed(float innerActionSpeed) {
     fbb_.AddElement<float>(ProjectNodeOptions::VT_INNERACTIONSPEED, innerActionSpeed, 0.0f);
   }
-  ProjectNodeOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit ProjectNodeOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
   ProjectNodeOptionsBuilder &operator=(const ProjectNodeOptionsBuilder &);
   flatbuffers::Offset<ProjectNodeOptions> Finish() {
-    const auto end = fbb_.EndTable(start_, 3);
+    const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<ProjectNodeOptions>(end);
     return o;
   }
@@ -4511,15 +4521,16 @@ inline flatbuffers::Offset<ProjectNodeOptions> CreateProjectNodeOptionsDirect(
     flatbuffers::Offset<WidgetOptions> nodeOptions = 0,
     const char *fileName = nullptr,
     float innerActionSpeed = 0.0f) {
+  auto fileName__ = fileName ? _fbb.CreateString(fileName) : 0;
   return flatbuffers::CreateProjectNodeOptions(
       _fbb,
       nodeOptions,
-      fileName ? _fbb.CreateString(fileName) : 0,
+      fileName__,
       innerActionSpeed);
 }
 
 struct ComponentOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  enum {
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_NODEOPTIONS = 4,
     VT_TYPE = 6,
     VT_COMAUDIOOPTIONS = 8
@@ -4535,11 +4546,11 @@ struct ComponentOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_NODEOPTIONS) &&
+           VerifyOffset(verifier, VT_NODEOPTIONS) &&
            verifier.VerifyTable(nodeOptions()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_TYPE) &&
-           verifier.Verify(type()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_COMAUDIOOPTIONS) &&
+           VerifyOffset(verifier, VT_TYPE) &&
+           verifier.VerifyString(type()) &&
+           VerifyOffset(verifier, VT_COMAUDIOOPTIONS) &&
            verifier.VerifyTable(comAudioOptions()) &&
            verifier.EndTable();
   }
@@ -4557,13 +4568,13 @@ struct ComponentOptionsBuilder {
   void add_comAudioOptions(flatbuffers::Offset<ComAudioOptions> comAudioOptions) {
     fbb_.AddOffset(ComponentOptions::VT_COMAUDIOOPTIONS, comAudioOptions);
   }
-  ComponentOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit ComponentOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
   ComponentOptionsBuilder &operator=(const ComponentOptionsBuilder &);
   flatbuffers::Offset<ComponentOptions> Finish() {
-    const auto end = fbb_.EndTable(start_, 3);
+    const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<ComponentOptions>(end);
     return o;
   }
@@ -4586,15 +4597,16 @@ inline flatbuffers::Offset<ComponentOptions> CreateComponentOptionsDirect(
     flatbuffers::Offset<WidgetOptions> nodeOptions = 0,
     const char *type = nullptr,
     flatbuffers::Offset<ComAudioOptions> comAudioOptions = 0) {
+  auto type__ = type ? _fbb.CreateString(type) : 0;
   return flatbuffers::CreateComponentOptions(
       _fbb,
       nodeOptions,
-      type ? _fbb.CreateString(type) : 0,
+      type__,
       comAudioOptions);
 }
 
 struct ComAudioOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  enum {
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_NODEOPTIONS = 4,
     VT_NAME = 6,
     VT_ENABLED = 8,
@@ -4622,14 +4634,14 @@ struct ComAudioOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_NODEOPTIONS) &&
+           VerifyOffset(verifier, VT_NODEOPTIONS) &&
            verifier.VerifyTable(nodeOptions()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_NAME) &&
-           verifier.Verify(name()) &&
+           VerifyOffset(verifier, VT_NAME) &&
+           verifier.VerifyString(name()) &&
            VerifyField<uint8_t>(verifier, VT_ENABLED) &&
            VerifyField<uint8_t>(verifier, VT_LOOP) &&
            VerifyField<int32_t>(verifier, VT_VOLUME) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_FILENAMEDATA) &&
+           VerifyOffset(verifier, VT_FILENAMEDATA) &&
            verifier.VerifyTable(fileNameData()) &&
            verifier.EndTable();
   }
@@ -4656,13 +4668,13 @@ struct ComAudioOptionsBuilder {
   void add_fileNameData(flatbuffers::Offset<ResourceData> fileNameData) {
     fbb_.AddOffset(ComAudioOptions::VT_FILENAMEDATA, fileNameData);
   }
-  ComAudioOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit ComAudioOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
   ComAudioOptionsBuilder &operator=(const ComAudioOptionsBuilder &);
   flatbuffers::Offset<ComAudioOptions> Finish() {
-    const auto end = fbb_.EndTable(start_, 6);
+    const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<ComAudioOptions>(end);
     return o;
   }
@@ -4694,10 +4706,11 @@ inline flatbuffers::Offset<ComAudioOptions> CreateComAudioOptionsDirect(
     bool loop = false,
     int32_t volume = 0,
     flatbuffers::Offset<ResourceData> fileNameData = 0) {
+  auto name__ = name ? _fbb.CreateString(name) : 0;
   return flatbuffers::CreateComAudioOptions(
       _fbb,
       nodeOptions,
-      name ? _fbb.CreateString(name) : 0,
+      name__,
       enabled,
       loop,
       volume,
@@ -4705,7 +4718,7 @@ inline flatbuffers::Offset<ComAudioOptions> CreateComAudioOptionsDirect(
 }
 
 struct AnimationInfo FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  enum {
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_NAME = 4,
     VT_STARTINDEX = 6,
     VT_ENDINDEX = 8
@@ -4721,8 +4734,8 @@ struct AnimationInfo FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_NAME) &&
-           verifier.Verify(name()) &&
+           VerifyOffset(verifier, VT_NAME) &&
+           verifier.VerifyString(name()) &&
            VerifyField<int32_t>(verifier, VT_STARTINDEX) &&
            VerifyField<int32_t>(verifier, VT_ENDINDEX) &&
            verifier.EndTable();
@@ -4741,13 +4754,13 @@ struct AnimationInfoBuilder {
   void add_endIndex(int32_t endIndex) {
     fbb_.AddElement<int32_t>(AnimationInfo::VT_ENDINDEX, endIndex, 0);
   }
-  AnimationInfoBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit AnimationInfoBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
   AnimationInfoBuilder &operator=(const AnimationInfoBuilder &);
   flatbuffers::Offset<AnimationInfo> Finish() {
-    const auto end = fbb_.EndTable(start_, 3);
+    const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<AnimationInfo>(end);
     return o;
   }
@@ -4770,15 +4783,16 @@ inline flatbuffers::Offset<AnimationInfo> CreateAnimationInfoDirect(
     const char *name = nullptr,
     int32_t startIndex = 0,
     int32_t endIndex = 0) {
+  auto name__ = name ? _fbb.CreateString(name) : 0;
   return flatbuffers::CreateAnimationInfo(
       _fbb,
-      name ? _fbb.CreateString(name) : 0,
+      name__,
       startIndex,
       endIndex);
 }
 
 struct NodeAction FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  enum {
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_DURATION = 4,
     VT_SPEED = 6,
     VT_TIMELINES = 8,
@@ -4800,11 +4814,11 @@ struct NodeAction FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
     return VerifyTableStart(verifier) &&
            VerifyField<int32_t>(verifier, VT_DURATION) &&
            VerifyField<float>(verifier, VT_SPEED) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_TIMELINES) &&
-           verifier.Verify(timeLines()) &&
+           VerifyOffset(verifier, VT_TIMELINES) &&
+           verifier.VerifyVector(timeLines()) &&
            verifier.VerifyVectorOfTables(timeLines()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_CURRENTANIMATIONNAME) &&
-           verifier.Verify(currentAnimationName()) &&
+           VerifyOffset(verifier, VT_CURRENTANIMATIONNAME) &&
+           verifier.VerifyString(currentAnimationName()) &&
            verifier.EndTable();
   }
 };
@@ -4824,13 +4838,13 @@ struct NodeActionBuilder {
   void add_currentAnimationName(flatbuffers::Offset<flatbuffers::String> currentAnimationName) {
     fbb_.AddOffset(NodeAction::VT_CURRENTANIMATIONNAME, currentAnimationName);
   }
-  NodeActionBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit NodeActionBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
   NodeActionBuilder &operator=(const NodeActionBuilder &);
   flatbuffers::Offset<NodeAction> Finish() {
-    const auto end = fbb_.EndTable(start_, 4);
+    const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<NodeAction>(end);
     return o;
   }
@@ -4856,16 +4870,18 @@ inline flatbuffers::Offset<NodeAction> CreateNodeActionDirect(
     float speed = 0.0f,
     const std::vector<flatbuffers::Offset<TimeLine>> *timeLines = nullptr,
     const char *currentAnimationName = nullptr) {
+  auto timeLines__ = timeLines ? _fbb.CreateVector<flatbuffers::Offset<TimeLine>>(*timeLines) : 0;
+  auto currentAnimationName__ = currentAnimationName ? _fbb.CreateString(currentAnimationName) : 0;
   return flatbuffers::CreateNodeAction(
       _fbb,
       duration,
       speed,
-      timeLines ? _fbb.CreateVector<flatbuffers::Offset<TimeLine>>(*timeLines) : 0,
-      currentAnimationName ? _fbb.CreateString(currentAnimationName) : 0);
+      timeLines__,
+      currentAnimationName__);
 }
 
 struct TimeLine FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  enum {
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_PROPERTY = 4,
     VT_ACTIONTAG = 6,
     VT_FRAMES = 8
@@ -4881,11 +4897,11 @@ struct TimeLine FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_PROPERTY) &&
-           verifier.Verify(property()) &&
+           VerifyOffset(verifier, VT_PROPERTY) &&
+           verifier.VerifyString(property()) &&
            VerifyField<int32_t>(verifier, VT_ACTIONTAG) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_FRAMES) &&
-           verifier.Verify(frames()) &&
+           VerifyOffset(verifier, VT_FRAMES) &&
+           verifier.VerifyVector(frames()) &&
            verifier.VerifyVectorOfTables(frames()) &&
            verifier.EndTable();
   }
@@ -4903,13 +4919,13 @@ struct TimeLineBuilder {
   void add_frames(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<Frame>>> frames) {
     fbb_.AddOffset(TimeLine::VT_FRAMES, frames);
   }
-  TimeLineBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit TimeLineBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
   TimeLineBuilder &operator=(const TimeLineBuilder &);
   flatbuffers::Offset<TimeLine> Finish() {
-    const auto end = fbb_.EndTable(start_, 3);
+    const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<TimeLine>(end);
     return o;
   }
@@ -4932,15 +4948,17 @@ inline flatbuffers::Offset<TimeLine> CreateTimeLineDirect(
     const char *property = nullptr,
     int32_t actionTag = 0,
     const std::vector<flatbuffers::Offset<Frame>> *frames = nullptr) {
+  auto property__ = property ? _fbb.CreateString(property) : 0;
+  auto frames__ = frames ? _fbb.CreateVector<flatbuffers::Offset<Frame>>(*frames) : 0;
   return flatbuffers::CreateTimeLine(
       _fbb,
-      property ? _fbb.CreateString(property) : 0,
+      property__,
       actionTag,
-      frames ? _fbb.CreateVector<flatbuffers::Offset<Frame>>(*frames) : 0);
+      frames__);
 }
 
 struct Frame FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  enum {
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_POINTFRAME = 4,
     VT_SCALEFRAME = 6,
     VT_COLORFRAME = 8,
@@ -4980,23 +4998,23 @@ struct Frame FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_POINTFRAME) &&
+           VerifyOffset(verifier, VT_POINTFRAME) &&
            verifier.VerifyTable(pointFrame()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_SCALEFRAME) &&
+           VerifyOffset(verifier, VT_SCALEFRAME) &&
            verifier.VerifyTable(scaleFrame()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_COLORFRAME) &&
+           VerifyOffset(verifier, VT_COLORFRAME) &&
            verifier.VerifyTable(colorFrame()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_TEXTUREFRAME) &&
+           VerifyOffset(verifier, VT_TEXTUREFRAME) &&
            verifier.VerifyTable(textureFrame()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_EVENTFRAME) &&
+           VerifyOffset(verifier, VT_EVENTFRAME) &&
            verifier.VerifyTable(eventFrame()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_INTFRAME) &&
+           VerifyOffset(verifier, VT_INTFRAME) &&
            verifier.VerifyTable(intFrame()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_BOOLFRAME) &&
+           VerifyOffset(verifier, VT_BOOLFRAME) &&
            verifier.VerifyTable(boolFrame()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_INNERACTIONFRAME) &&
+           VerifyOffset(verifier, VT_INNERACTIONFRAME) &&
            verifier.VerifyTable(innerActionFrame()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_BLENDFRAME) &&
+           VerifyOffset(verifier, VT_BLENDFRAME) &&
            verifier.VerifyTable(blendFrame()) &&
            verifier.EndTable();
   }
@@ -5032,13 +5050,13 @@ struct FrameBuilder {
   void add_blendFrame(flatbuffers::Offset<BlendFrame> blendFrame) {
     fbb_.AddOffset(Frame::VT_BLENDFRAME, blendFrame);
   }
-  FrameBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit FrameBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
   FrameBuilder &operator=(const FrameBuilder &);
   flatbuffers::Offset<Frame> Finish() {
-    const auto end = fbb_.EndTable(start_, 9);
+    const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<Frame>(end);
     return o;
   }
@@ -5069,7 +5087,7 @@ inline flatbuffers::Offset<Frame> CreateFrame(
 }
 
 struct PointFrame FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  enum {
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_FRAMEINDEX = 4,
     VT_TWEEN = 6,
     VT_POSITION = 8,
@@ -5092,7 +5110,7 @@ struct PointFrame FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
            VerifyField<int32_t>(verifier, VT_FRAMEINDEX) &&
            VerifyField<uint8_t>(verifier, VT_TWEEN) &&
            VerifyField<Position>(verifier, VT_POSITION) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_EASINGDATA) &&
+           VerifyOffset(verifier, VT_EASINGDATA) &&
            verifier.VerifyTable(easingData()) &&
            verifier.EndTable();
   }
@@ -5113,13 +5131,13 @@ struct PointFrameBuilder {
   void add_easingData(flatbuffers::Offset<EasingData> easingData) {
     fbb_.AddOffset(PointFrame::VT_EASINGDATA, easingData);
   }
-  PointFrameBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit PointFrameBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
   PointFrameBuilder &operator=(const PointFrameBuilder &);
   flatbuffers::Offset<PointFrame> Finish() {
-    const auto end = fbb_.EndTable(start_, 4);
+    const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<PointFrame>(end);
     return o;
   }
@@ -5140,7 +5158,7 @@ inline flatbuffers::Offset<PointFrame> CreatePointFrame(
 }
 
 struct ScaleFrame FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  enum {
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_FRAMEINDEX = 4,
     VT_TWEEN = 6,
     VT_SCALE = 8,
@@ -5163,7 +5181,7 @@ struct ScaleFrame FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
            VerifyField<int32_t>(verifier, VT_FRAMEINDEX) &&
            VerifyField<uint8_t>(verifier, VT_TWEEN) &&
            VerifyField<Scale>(verifier, VT_SCALE) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_EASINGDATA) &&
+           VerifyOffset(verifier, VT_EASINGDATA) &&
            verifier.VerifyTable(easingData()) &&
            verifier.EndTable();
   }
@@ -5184,13 +5202,13 @@ struct ScaleFrameBuilder {
   void add_easingData(flatbuffers::Offset<EasingData> easingData) {
     fbb_.AddOffset(ScaleFrame::VT_EASINGDATA, easingData);
   }
-  ScaleFrameBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit ScaleFrameBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
   ScaleFrameBuilder &operator=(const ScaleFrameBuilder &);
   flatbuffers::Offset<ScaleFrame> Finish() {
-    const auto end = fbb_.EndTable(start_, 4);
+    const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<ScaleFrame>(end);
     return o;
   }
@@ -5211,7 +5229,7 @@ inline flatbuffers::Offset<ScaleFrame> CreateScaleFrame(
 }
 
 struct ColorFrame FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  enum {
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_FRAMEINDEX = 4,
     VT_TWEEN = 6,
     VT_COLOR = 8,
@@ -5234,7 +5252,7 @@ struct ColorFrame FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
            VerifyField<int32_t>(verifier, VT_FRAMEINDEX) &&
            VerifyField<uint8_t>(verifier, VT_TWEEN) &&
            VerifyField<Color>(verifier, VT_COLOR) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_EASINGDATA) &&
+           VerifyOffset(verifier, VT_EASINGDATA) &&
            verifier.VerifyTable(easingData()) &&
            verifier.EndTable();
   }
@@ -5255,13 +5273,13 @@ struct ColorFrameBuilder {
   void add_easingData(flatbuffers::Offset<EasingData> easingData) {
     fbb_.AddOffset(ColorFrame::VT_EASINGDATA, easingData);
   }
-  ColorFrameBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit ColorFrameBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
   ColorFrameBuilder &operator=(const ColorFrameBuilder &);
   flatbuffers::Offset<ColorFrame> Finish() {
-    const auto end = fbb_.EndTable(start_, 4);
+    const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<ColorFrame>(end);
     return o;
   }
@@ -5282,7 +5300,7 @@ inline flatbuffers::Offset<ColorFrame> CreateColorFrame(
 }
 
 struct TextureFrame FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  enum {
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_FRAMEINDEX = 4,
     VT_TWEEN = 6,
     VT_TEXTUREFILE = 8,
@@ -5304,9 +5322,9 @@ struct TextureFrame FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
     return VerifyTableStart(verifier) &&
            VerifyField<int32_t>(verifier, VT_FRAMEINDEX) &&
            VerifyField<uint8_t>(verifier, VT_TWEEN) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_TEXTUREFILE) &&
+           VerifyOffset(verifier, VT_TEXTUREFILE) &&
            verifier.VerifyTable(textureFile()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_EASINGDATA) &&
+           VerifyOffset(verifier, VT_EASINGDATA) &&
            verifier.VerifyTable(easingData()) &&
            verifier.EndTable();
   }
@@ -5327,13 +5345,13 @@ struct TextureFrameBuilder {
   void add_easingData(flatbuffers::Offset<EasingData> easingData) {
     fbb_.AddOffset(TextureFrame::VT_EASINGDATA, easingData);
   }
-  TextureFrameBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit TextureFrameBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
   TextureFrameBuilder &operator=(const TextureFrameBuilder &);
   flatbuffers::Offset<TextureFrame> Finish() {
-    const auto end = fbb_.EndTable(start_, 4);
+    const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<TextureFrame>(end);
     return o;
   }
@@ -5354,7 +5372,7 @@ inline flatbuffers::Offset<TextureFrame> CreateTextureFrame(
 }
 
 struct EventFrame FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  enum {
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_FRAMEINDEX = 4,
     VT_TWEEN = 6,
     VT_VALUE = 8,
@@ -5376,9 +5394,9 @@ struct EventFrame FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
     return VerifyTableStart(verifier) &&
            VerifyField<int32_t>(verifier, VT_FRAMEINDEX) &&
            VerifyField<uint8_t>(verifier, VT_TWEEN) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_VALUE) &&
-           verifier.Verify(value()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_EASINGDATA) &&
+           VerifyOffset(verifier, VT_VALUE) &&
+           verifier.VerifyString(value()) &&
+           VerifyOffset(verifier, VT_EASINGDATA) &&
            verifier.VerifyTable(easingData()) &&
            verifier.EndTable();
   }
@@ -5399,13 +5417,13 @@ struct EventFrameBuilder {
   void add_easingData(flatbuffers::Offset<EasingData> easingData) {
     fbb_.AddOffset(EventFrame::VT_EASINGDATA, easingData);
   }
-  EventFrameBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit EventFrameBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
   EventFrameBuilder &operator=(const EventFrameBuilder &);
   flatbuffers::Offset<EventFrame> Finish() {
-    const auto end = fbb_.EndTable(start_, 4);
+    const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<EventFrame>(end);
     return o;
   }
@@ -5431,16 +5449,17 @@ inline flatbuffers::Offset<EventFrame> CreateEventFrameDirect(
     bool tween = true,
     const char *value = nullptr,
     flatbuffers::Offset<EasingData> easingData = 0) {
+  auto value__ = value ? _fbb.CreateString(value) : 0;
   return flatbuffers::CreateEventFrame(
       _fbb,
       frameIndex,
       tween,
-      value ? _fbb.CreateString(value) : 0,
+      value__,
       easingData);
 }
 
 struct IntFrame FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  enum {
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_FRAMEINDEX = 4,
     VT_TWEEN = 6,
     VT_VALUE = 8,
@@ -5463,7 +5482,7 @@ struct IntFrame FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
            VerifyField<int32_t>(verifier, VT_FRAMEINDEX) &&
            VerifyField<uint8_t>(verifier, VT_TWEEN) &&
            VerifyField<int32_t>(verifier, VT_VALUE) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_EASINGDATA) &&
+           VerifyOffset(verifier, VT_EASINGDATA) &&
            verifier.VerifyTable(easingData()) &&
            verifier.EndTable();
   }
@@ -5484,13 +5503,13 @@ struct IntFrameBuilder {
   void add_easingData(flatbuffers::Offset<EasingData> easingData) {
     fbb_.AddOffset(IntFrame::VT_EASINGDATA, easingData);
   }
-  IntFrameBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit IntFrameBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
   IntFrameBuilder &operator=(const IntFrameBuilder &);
   flatbuffers::Offset<IntFrame> Finish() {
-    const auto end = fbb_.EndTable(start_, 4);
+    const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<IntFrame>(end);
     return o;
   }
@@ -5511,7 +5530,7 @@ inline flatbuffers::Offset<IntFrame> CreateIntFrame(
 }
 
 struct BoolFrame FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  enum {
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_FRAMEINDEX = 4,
     VT_TWEEN = 6,
     VT_VALUE = 8,
@@ -5534,7 +5553,7 @@ struct BoolFrame FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
            VerifyField<int32_t>(verifier, VT_FRAMEINDEX) &&
            VerifyField<uint8_t>(verifier, VT_TWEEN) &&
            VerifyField<uint8_t>(verifier, VT_VALUE) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_EASINGDATA) &&
+           VerifyOffset(verifier, VT_EASINGDATA) &&
            verifier.VerifyTable(easingData()) &&
            verifier.EndTable();
   }
@@ -5555,13 +5574,13 @@ struct BoolFrameBuilder {
   void add_easingData(flatbuffers::Offset<EasingData> easingData) {
     fbb_.AddOffset(BoolFrame::VT_EASINGDATA, easingData);
   }
-  BoolFrameBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit BoolFrameBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
   BoolFrameBuilder &operator=(const BoolFrameBuilder &);
   flatbuffers::Offset<BoolFrame> Finish() {
-    const auto end = fbb_.EndTable(start_, 4);
+    const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<BoolFrame>(end);
     return o;
   }
@@ -5582,7 +5601,7 @@ inline flatbuffers::Offset<BoolFrame> CreateBoolFrame(
 }
 
 struct InnerActionFrame FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  enum {
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_FRAMEINDEX = 4,
     VT_TWEEN = 6,
     VT_INNERACTIONTYPE = 8,
@@ -5613,10 +5632,10 @@ struct InnerActionFrame FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
            VerifyField<int32_t>(verifier, VT_FRAMEINDEX) &&
            VerifyField<uint8_t>(verifier, VT_TWEEN) &&
            VerifyField<int32_t>(verifier, VT_INNERACTIONTYPE) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_CURRENTANIAMTIONNAME) &&
-           verifier.Verify(currentAniamtionName()) &&
+           VerifyOffset(verifier, VT_CURRENTANIAMTIONNAME) &&
+           verifier.VerifyString(currentAniamtionName()) &&
            VerifyField<int32_t>(verifier, VT_SINGLEFRAMEINDEX) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_EASINGDATA) &&
+           VerifyOffset(verifier, VT_EASINGDATA) &&
            verifier.VerifyTable(easingData()) &&
            verifier.EndTable();
   }
@@ -5643,13 +5662,13 @@ struct InnerActionFrameBuilder {
   void add_easingData(flatbuffers::Offset<EasingData> easingData) {
     fbb_.AddOffset(InnerActionFrame::VT_EASINGDATA, easingData);
   }
-  InnerActionFrameBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit InnerActionFrameBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
   InnerActionFrameBuilder &operator=(const InnerActionFrameBuilder &);
   flatbuffers::Offset<InnerActionFrame> Finish() {
-    const auto end = fbb_.EndTable(start_, 6);
+    const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<InnerActionFrame>(end);
     return o;
   }
@@ -5681,18 +5700,19 @@ inline flatbuffers::Offset<InnerActionFrame> CreateInnerActionFrameDirect(
     const char *currentAniamtionName = nullptr,
     int32_t singleFrameIndex = 0,
     flatbuffers::Offset<EasingData> easingData = 0) {
+  auto currentAniamtionName__ = currentAniamtionName ? _fbb.CreateString(currentAniamtionName) : 0;
   return flatbuffers::CreateInnerActionFrame(
       _fbb,
       frameIndex,
       tween,
       innerActionType,
-      currentAniamtionName ? _fbb.CreateString(currentAniamtionName) : 0,
+      currentAniamtionName__,
       singleFrameIndex,
       easingData);
 }
 
 struct EasingData FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  enum {
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_TYPE = 4,
     VT_POINTS = 6
   };
@@ -5705,8 +5725,8 @@ struct EasingData FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyField<int32_t>(verifier, VT_TYPE) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_POINTS) &&
-           verifier.Verify(points()) &&
+           VerifyOffset(verifier, VT_POINTS) &&
+           verifier.VerifyVector(points()) &&
            verifier.EndTable();
   }
 };
@@ -5720,13 +5740,13 @@ struct EasingDataBuilder {
   void add_points(flatbuffers::Offset<flatbuffers::Vector<const Position *>> points) {
     fbb_.AddOffset(EasingData::VT_POINTS, points);
   }
-  EasingDataBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit EasingDataBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
   EasingDataBuilder &operator=(const EasingDataBuilder &);
   flatbuffers::Offset<EasingData> Finish() {
-    const auto end = fbb_.EndTable(start_, 2);
+    const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<EasingData>(end);
     return o;
   }
@@ -5745,15 +5765,16 @@ inline flatbuffers::Offset<EasingData> CreateEasingData(
 inline flatbuffers::Offset<EasingData> CreateEasingDataDirect(
     flatbuffers::FlatBufferBuilder &_fbb,
     int32_t type = -1,
-    const std::vector<const Position *> *points = nullptr) {
+    const std::vector<Position> *points = nullptr) {
+  auto points__ = points ? _fbb.CreateVectorOfStructs<Position>(*points) : 0;
   return flatbuffers::CreateEasingData(
       _fbb,
       type,
-      points ? _fbb.CreateVector<const Position *>(*points) : 0);
+      points__);
 }
 
 struct ResourceData FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  enum {
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_PATH = 4,
     VT_PLISTFILE = 6,
     VT_RESOURCETYPE = 8
@@ -5769,10 +5790,10 @@ struct ResourceData FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_PATH) &&
-           verifier.Verify(path()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_PLISTFILE) &&
-           verifier.Verify(plistFile()) &&
+           VerifyOffset(verifier, VT_PATH) &&
+           verifier.VerifyString(path()) &&
+           VerifyOffset(verifier, VT_PLISTFILE) &&
+           verifier.VerifyString(plistFile()) &&
            VerifyField<int32_t>(verifier, VT_RESOURCETYPE) &&
            verifier.EndTable();
   }
@@ -5790,13 +5811,13 @@ struct ResourceDataBuilder {
   void add_resourceType(int32_t resourceType) {
     fbb_.AddElement<int32_t>(ResourceData::VT_RESOURCETYPE, resourceType, 0);
   }
-  ResourceDataBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit ResourceDataBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
   ResourceDataBuilder &operator=(const ResourceDataBuilder &);
   flatbuffers::Offset<ResourceData> Finish() {
-    const auto end = fbb_.EndTable(start_, 3);
+    const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<ResourceData>(end);
     return o;
   }
@@ -5819,15 +5840,17 @@ inline flatbuffers::Offset<ResourceData> CreateResourceDataDirect(
     const char *path = nullptr,
     const char *plistFile = nullptr,
     int32_t resourceType = 0) {
+  auto path__ = path ? _fbb.CreateString(path) : 0;
+  auto plistFile__ = plistFile ? _fbb.CreateString(plistFile) : 0;
   return flatbuffers::CreateResourceData(
       _fbb,
-      path ? _fbb.CreateString(path) : 0,
-      plistFile ? _fbb.CreateString(plistFile) : 0,
+      path__,
+      plistFile__,
       resourceType);
 }
 
 struct BlendFrame FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  enum {
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_FRAMEINDEX = 4,
     VT_TWEEN = 6,
     VT_BLENDFUNC = 8,
@@ -5850,7 +5873,7 @@ struct BlendFrame FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
            VerifyField<int32_t>(verifier, VT_FRAMEINDEX) &&
            VerifyField<uint8_t>(verifier, VT_TWEEN) &&
            VerifyField<BlendFunc>(verifier, VT_BLENDFUNC) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_EASINGDATA) &&
+           VerifyOffset(verifier, VT_EASINGDATA) &&
            verifier.VerifyTable(easingData()) &&
            verifier.EndTable();
   }
@@ -5871,13 +5894,13 @@ struct BlendFrameBuilder {
   void add_easingData(flatbuffers::Offset<EasingData> easingData) {
     fbb_.AddOffset(BlendFrame::VT_EASINGDATA, easingData);
   }
-  BlendFrameBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit BlendFrameBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
   BlendFrameBuilder &operator=(const BlendFrameBuilder &);
   flatbuffers::Offset<BlendFrame> Finish() {
-    const auto end = fbb_.EndTable(start_, 4);
+    const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<BlendFrame>(end);
     return o;
   }
@@ -5898,7 +5921,7 @@ inline flatbuffers::Offset<BlendFrame> CreateBlendFrame(
 }
 
 struct FVec3 FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  enum {
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_X = 4,
     VT_Y = 6,
     VT_Z = 8
@@ -5933,13 +5956,13 @@ struct FVec3Builder {
   void add_z(float z) {
     fbb_.AddElement<float>(FVec3::VT_Z, z, 0.0f);
   }
-  FVec3Builder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit FVec3Builder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
   FVec3Builder &operator=(const FVec3Builder &);
   flatbuffers::Offset<FVec3> Finish() {
-    const auto end = fbb_.EndTable(start_, 3);
+    const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<FVec3>(end);
     return o;
   }
@@ -5961,15 +5984,30 @@ inline const flatbuffers::CSParseBinary *GetCSParseBinary(const void *buf) {
   return flatbuffers::GetRoot<flatbuffers::CSParseBinary>(buf);
 }
 
+inline const flatbuffers::CSParseBinary *GetSizePrefixedCSParseBinary(const void *buf) {
+  return flatbuffers::GetSizePrefixedRoot<flatbuffers::CSParseBinary>(buf);
+}
+
 inline bool VerifyCSParseBinaryBuffer(
     flatbuffers::Verifier &verifier) {
   return verifier.VerifyBuffer<flatbuffers::CSParseBinary>(nullptr);
+}
+
+inline bool VerifySizePrefixedCSParseBinaryBuffer(
+    flatbuffers::Verifier &verifier) {
+  return verifier.VerifySizePrefixedBuffer<flatbuffers::CSParseBinary>(nullptr);
 }
 
 inline void FinishCSParseBinaryBuffer(
     flatbuffers::FlatBufferBuilder &fbb,
     flatbuffers::Offset<flatbuffers::CSParseBinary> root) {
   fbb.Finish(root);
+}
+
+inline void FinishSizePrefixedCSParseBinaryBuffer(
+    flatbuffers::FlatBufferBuilder &fbb,
+    flatbuffers::Offset<flatbuffers::CSParseBinary> root) {
+  fbb.FinishSizePrefixed(root);
 }
 
 }  // namespace flatbuffers
