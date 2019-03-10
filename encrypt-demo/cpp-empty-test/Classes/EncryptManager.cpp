@@ -3,7 +3,6 @@
 //
 #include <stdio.h>
 #include <string>
-#include "cryptk/ibinarystream.h"
 #include "cryptk/nsconv.h"
 #include "cryptk/fastest_csv_parser.h"
 #include "cryptk/cryptk_wrapper.h"
@@ -121,7 +120,7 @@ public:
             cryptk::aes::privacy::mode_spec<>::decrypt(data.getBytes(), data.getSize() - encryptManager._encryptSignKey.size(), data.getBytes(), size, encryptManager._encryptKey.c_str(), AES_DEFAULT_KEY_BITS, encryptManager._encryptIvec.c_str());
 
             if (info.compressed) {
-                auto uncomprData = cryptk::zlib_inflate<cryptk::streambuf>(std::string_view((const char*)data.getBytes(), size), info.original_size);
+                auto uncomprData = cryptk::zlib_inflate<cryptk::streambuf>(stdport::string_view((const char*)data.getBytes(), size), info.original_size);
                 auto tempData = uncomprData.detach(size);
 
                 data.clear();
@@ -155,7 +154,7 @@ public:
                 cryptk::aes::privacy::mode_spec<>::decrypt(data, *size, data, outsize, encryptManager._encryptKey.c_str(), AES_DEFAULT_KEY_BITS, encryptManager._encryptIvec.c_str());
 
                 if (info.compressed) {
-                    auto uncomprData = cryptk::zlib_inflate<cryptk::streambuf>(std::string_view((const char*)data, outsize), info.original_size);
+                    auto uncomprData = cryptk::zlib_inflate<cryptk::streambuf>(stdport::string_view((const char*)data, outsize), info.original_size);
 
                     free(data);
                     data = (unsigned char*)(uncomprData.detach(*size));
@@ -176,15 +175,6 @@ public:
         return getValueMapFromData(strXml.c_str(), static_cast<int>(strXml.length()));
     }
 #endif
-
-    std::string fullPathForFilename(const std::string &filename) const override
-    {
-        auto iter = encryptManager._indexFileMap.find(filename);
-        if (iter != encryptManager._indexFileMap.end())
-            return iter->second;
-
-        return FileUtilsImpl::fullPathForFilename(filename);
-    }
 
     EncryptManager& encryptManager;
 };
@@ -211,7 +201,7 @@ std::string EncryptManager::decryptData(std::string data)
     return data;
 }
 
-void EncryptManager::setEncryptEnabled(bool bVal, std::string_view key, std::string_view ivec, int flags)
+void EncryptManager::setEncryptEnabled(bool bVal, stdport::string_view key, stdport::string_view ivec, int flags)
 {
     if (bVal && !key.empty()) {
         _encryptKey.clear();
@@ -302,47 +292,4 @@ void EncryptManager::setupHookFuncs()
     std::string writablePath = fileUtilsEncrypt->getWritablePath();
     cocos2d::log("Writable Path:%s", writablePath.c_str());
     fileUtilsEncrypt->addSearchPath(writablePath, true);
-}
-
-void EncryptManager::enableFileIndex(const std::string& indexFile, FileIndexFormat format)
-{
-    this->_indexFileMap.clear();
-
-    auto buffer = FileUtils::getInstance()->getStringFromFile(indexFile);
-    if (buffer.empty()) return;
-    if (format == FileIndexFormat::BINARY)
-    {
-        int fileCount = 0;
-        ibinarystream ibs(buffer.c_str(), buffer.size());
-        ibs.read_i(fileCount);
-        for (auto i = 0; i < fileCount; ++i)
-        {
-            std::string key, value;
-            ibs.read_v(key);
-            ibs.read_v(value);
-            this->_indexFileMap.emplace(std::move(key), std::move(value));
-        }
-    }
-    else if (format == FileIndexFormat::CSV)
-    {
-        char* endl = &buffer.front();
-        char* cursor = nullptr;
-        do {
-            std::string key, value;
-            cursor = endl;
-            auto counter = 0;
-            endl = fastest_csv_parser::csv_parse_line(cursor, [&](char* v_start, char* v_end) {
-                if (counter == 0)
-                {
-                    key.assign(v_start, v_end - v_start);
-                }
-                else {
-                    value.assign(v_start, v_end - v_start);
-                }
-                ++counter;
-            });
-
-            _indexFileMap.emplace(std::move(key), std::move(value));
-        } while ((endl - buffer.c_str()) < static_cast<int>(buffer.size()));
-    }
 }

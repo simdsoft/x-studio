@@ -59,8 +59,8 @@ bool AppDelegate::applicationDidFinishLaunching()
     unsigned char secret[] = { 0xdc,0x6a,0xd9,0x85,0x4a,0x8b,0xaf,0x62,0x0c,0xcb,0x2c,0x22,0xb1,0xfe,0x3b,0x39,0x03,0x99,0xab,0xe3,0x3d,0x2f,0x52,0x1e,0x64,0xcf,0xea,0xa9,0x96,0xa6,0x94,0x4d, };
 
     EncryptManager::getInstance()->setEncryptEnabled(true,
-                                                     std::string_view((char*)secret, sizeof(secret)),
-                                                     std::string_view((char*)ivec, sizeof(ivec)),
+                                                     stdport::string_view((char*)secret, sizeof(secret)),
+                                                     stdport::string_view((char*)ivec, sizeof(ivec)),
                                                      EncryptManager::ENCF_SIGNATURE | 5 << 16);
     // Initialize director
     auto director = Director::getInstance();

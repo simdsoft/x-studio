@@ -49,8 +49,8 @@ public:
     Then final package(.apk,.ipa,.appx) will small, both of platform app pacakge use zip algorithm.
     */
     void setEncryptEnabled(bool bVal, 
-        std::string_view key = "", 
-        std::string_view ivec = "",
+        stdport::string_view key = "",
+        stdport::string_view ivec = "",
         int flags = ENCF_NOFLAGS);
     bool isEncryptEnabled(void) const { return _encryptEnabled; }
 
@@ -67,16 +67,6 @@ private:
     std::string _encryptKey;
     std::string _encryptIvec; // required by CBC mode.
     std::string _encryptSignKey;
-    /// file index support, TODO: implement.
-public:
-    enum class FileIndexFormat {
-        BINARY,
-        CSV,
-    };
-    void enableFileIndex(const std::string& indexFile, FileIndexFormat format = FileIndexFormat::BINARY);
-private:
-    std::string _indexFilename;
-    std::unordered_map<std::string, std::string> _indexFileMap;
 };
 
 #endif

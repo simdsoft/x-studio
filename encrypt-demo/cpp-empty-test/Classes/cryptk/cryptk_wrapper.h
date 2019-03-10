@@ -230,7 +230,7 @@ namespace cryptk {
         /// encrypt decrypt APIs 
 
         template<CipherMode cipherMode = CipherMode::CBC, PaddingMode paddingMode = PaddingMode::PKCS7, typename _ByteSeqCont = std::string>
-        inline _BYTE_SEQ_CONT encrypt(std::string_view in, const void* key = DEFAULT_KEY, int keybits = 256, const void* ivec = nullptr)
+        inline _BYTE_SEQ_CONT encrypt(stdport::string_view in, const void* key = DEFAULT_KEY, int keybits = 256, const void* ivec = nullptr)
         {
             _BYTE_SEQ_CONT out(in.data(), in.length());
             privacy::padding_spec<paddingMode>::perform(out);
@@ -246,7 +246,7 @@ namespace cryptk {
         }
 
         template<CipherMode cipherMode = CipherMode::CBC, typename _ByteSeqCont = std::string>
-        inline _BYTE_SEQ_CONT decrypt(std::string_view in, const void* key = DEFAULT_KEY, int keybits = 256, const void* ivec = nullptr)
+        inline _BYTE_SEQ_CONT decrypt(stdport::string_view in, const void* key = DEFAULT_KEY, int keybits = 256, const void* ivec = nullptr)
         {
             size_t outlen = in.size();
             _BYTE_SEQ_CONT out(outlen, 0x0);
@@ -305,7 +305,7 @@ namespace cryptk {
         **
         */
     template<typename _ByteSeqCont>
-    _ByteSeqCont zlib_compress(std::string_view in, int level = -1)
+    _ByteSeqCont zlib_compress(stdport::string_view in, int level = -1)
     {
         // calc destLen
         auto destLen = ::compressBound(in.size());
@@ -322,7 +322,7 @@ namespace cryptk {
     }
 
     template<typename _ByteSeqCont>
-    _ByteSeqCont zlib_deflate(std::string_view in, int level = -1)
+    _ByteSeqCont zlib_deflate(stdport::string_view in, int level = -1)
     {
         int err;
         Bytef buffer[512];
@@ -388,7 +388,7 @@ namespace cryptk {
     }
 
     template<typename _ByteSeqCont>
-    _ByteSeqCont zlib_inflate(std::string_view compr, int expected_size = -1)
+    _ByteSeqCont zlib_inflate(stdport::string_view compr, int expected_size = -1)
     { // inflate
         int err;
         Bytef buffer[512];
@@ -453,7 +453,7 @@ namespace cryptk {
 
     // inflate alias
     template<typename _ByteSeqCont>
-    _ByteSeqCont zlib_uncompress(std::string_view in, int expected_size = -1)
+    _ByteSeqCont zlib_uncompress(stdport::string_view in, int expected_size = -1)
     {
         return zlib_inflate<_ByteSeqCont>(in, expected_size);
     }
@@ -463,7 +463,7 @@ namespace cryptk {
     reference: http://blog.csdn.net/rainharder/article/details/26342919
     */
     template<typename _ByteSeqCont>
-    _ByteSeqCont zlib_gzcompr(std::string_view in, int level = -1)
+    _ByteSeqCont zlib_gzcompr(stdport::string_view in, int level = -1)
     {
         int err;
         Bytef buffer[512];
@@ -524,7 +524,7 @@ namespace cryptk {
     }
 
     template<typename _ByteSeqCont>
-    _ByteSeqCont zlib_gzuncompr(std::string_view compr, int expected_size = -1)
+    _ByteSeqCont zlib_gzuncompr(stdport::string_view compr, int expected_size = -1)
     { // inflate
         int err;
         Bytef buffer[512];
@@ -589,26 +589,29 @@ namespace cryptk {
 #endif
 
     namespace http {
-        std::string b64dec(std::string_view ciphertext);
+        std::string b64dec(stdport::string_view ciphertext);
 
-        std::string b64enc(std::string_view  plaintext);
+        std::string b64enc(stdport::string_view  plaintext);
 
-        std::string urldecode(std::string_view ciphertext);
+        std::string urldecode(stdport::string_view ciphertext);
 
-        std::string urlencode(std::string_view input);
+        std::string urlencode(stdport::string_view input);
     };
 
     namespace hash {
 #if _HAS_MD5
-        std::string md5(std::string_view string);
-        std::string md5raw(std::string_view string);
+        std::string md5(stdport::string_view string);
+        std::string md5raw(stdport::string_view string);
         std::string fmd5(const char* filename);
 #endif
 
 #if _HAS_MD6
-        std::string md6(std::string_view data, size_t hashByteLen = 64); // small data
-        std::string md6raw(std::string_view data, size_t hashByteLen = 64);
+        std::string md6(stdport::string_view data, size_t hashByteLen = 64); // small data
+        std::string md6raw(stdport::string_view data, size_t hashByteLen = 64);
         std::string fmd6(const char* filename, int hashByteLen = 64);
+#endif
+#if _HAS_OPENSSL
+        std::string hmac_sha1(const std::string& message, const std::string& key);
 #endif
     };
 
@@ -626,22 +629,22 @@ namespace cryptk {
 
         namespace pub {
             // supported PaddingModes : RSA_PKCS1_PADDING, RSA_PKCS1_OAEP_PADDING, RSA_SSLV23_PADDING, RSA_NO_PADDING
-            std::string encrypt(std::string_view plaintext, std::string_view keystream, int paddingMode = PKCS1_OAEP_PADDING);
-            std::string decrypt(std::string_view cipertext, std::string_view keystream, int paddingMode = PKCS1_PADDING);
+            std::string encrypt(stdport::string_view plaintext, stdport::string_view keystream, int paddingMode = PKCS1_OAEP_PADDING);
+            std::string decrypt(stdport::string_view cipertext, stdport::string_view keystream, int paddingMode = PKCS1_PADDING);
 
             // supported PaddingModes : RSA_PKCS1_PADDING, RSA_PKCS1_OAEP_PADDING, RSA_SSLV23_PADDING, RSA_NO_PADDING
-            std::string encrypt2(std::string_view plaintext, std::string_view keyfile, int paddingMode = PKCS1_OAEP_PADDING);
-            std::string decrypt2(std::string_view cipertext, std::string_view keyfile, int paddingMode = PKCS1_PADDING);
+            std::string encrypt2(stdport::string_view plaintext, stdport::string_view keyfile, int paddingMode = PKCS1_OAEP_PADDING);
+            std::string decrypt2(stdport::string_view cipertext, stdport::string_view keyfile, int paddingMode = PKCS1_PADDING);
         }
 
         namespace pri {
             // supported PaddingModes : RSA_PKCS1_PADDING, RSA_X931_PADDING, RSA_NO_PADDING
-            std::string encrypt(std::string_view plaintext, std::string_view keystream, int paddingMode = PKCS1_PADDING);
-            std::string decrypt(std::string_view cipertext, std::string_view keystream, int paddingMode = PKCS1_OAEP_PADDING);
+            std::string encrypt(stdport::string_view plaintext, stdport::string_view keystream, int paddingMode = PKCS1_PADDING);
+            std::string decrypt(stdport::string_view cipertext, stdport::string_view keystream, int paddingMode = PKCS1_OAEP_PADDING);
 
             // supported PaddingModes : RSA_PKCS1_PADDING, RSA_X931_PADDING, RSA_NO_PADDING
-            std::string encrypt2(std::string_view plaintext, std::string_view keyfile, int paddingMode = PKCS1_PADDING);
-            std::string decrypt2(std::string_view cipertext, std::string_view keyfile, int paddingMode = PKCS1_OAEP_PADDING);
+            std::string encrypt2(stdport::string_view plaintext, stdport::string_view keyfile, int paddingMode = PKCS1_PADDING);
+            std::string decrypt2(stdport::string_view cipertext, stdport::string_view keyfile, int paddingMode = PKCS1_OAEP_PADDING);
         }
     }
 #endif
