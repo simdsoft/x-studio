@@ -3,6 +3,7 @@
 //
 #include <stdio.h>
 #include <string>
+#include "cryptk/endian_portable.h"
 #include "cryptk/nsconv.h"
 #include "cryptk/fastest_csv_parser.h"
 #include "cryptk/cryptk_wrapper.h"
