@@ -16,8 +16,7 @@ LOCAL_SRC_FILES := main.cpp \
 LOCAL_SRC_FILES += ../../../Classes/EncryptManager.cpp \
                    ../../../Classes/cryptk/aes_core.cpp \
                    ../../../Classes/cryptk/cryptk_utils.cpp \
-                   ../../../Classes/cryptk/cryptk_wrapper.cpp \
-                   ../../../Classes/cryptk/ibinarystream.cpp
+                   ../../../Classes/cryptk/cryptk_wrapper.cpp
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../../Classes \
                     $(LOCAL_PATH)/../../../../../extensions \
