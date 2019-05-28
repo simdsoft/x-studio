@@ -367,14 +367,14 @@ namespace ui {
             bool focus = (engine_inj_checkVisibility(this) && this->editable && this->enabled && engine_inj_containsTouchPoint(control, touch));
 
             if (this->_continuousTouchDelayTimerID != nullptr) {
-                simple_timer::kill(this->_continuousTouchDelayTimerID);
+                stimer::kill(this->_continuousTouchDelayTimerID);
                 this->_continuousTouchDelayTimerID = nullptr;
             }
 
             if (focus && this->cursorVisible) {
                 auto worldPoint = touch->getLocation();
                 if (this->_continuousTouchCallback) {
-                    this->_continuousTouchDelayTimerID = simple_timer::delay(this->_continuousTouchDelayTime, [=]() {
+                    this->_continuousTouchDelayTimerID = stimer::delay(this->_continuousTouchDelayTime, [=]() {
                         this->_continuousTouchCallback(worldPoint);
                     });
                 }
@@ -383,7 +383,7 @@ namespace ui {
         };
         touchListener->onTouchEnded = [control, this](Touch* touch, Event* e) {
             if (this->_continuousTouchDelayTimerID != nullptr) {
-                simple_timer::kill(this->_continuousTouchDelayTimerID);
+                stimer::kill(this->_continuousTouchDelayTimerID);
                 this->_continuousTouchDelayTimerID = nullptr;
             }
 
