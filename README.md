@@ -26,6 +26,7 @@ Download the latest version: http://en-us.x-studio365.com  http://cn.x-studio365
 * Support Open/Save Large file (more than 100M) fastly.
 * Support capture adb log to Output View with filter feature.
 * High-performance Output view.
+* Integrated with clang-fotmat 9.0, so support format cpp, java, objc, js
 
 #Code Editing Preview
 ![image](https://github.com/halx99/x-studio365/blob/master/showcase2.png)  
