@@ -192,6 +192,29 @@ std::string cryptk::hash::hmac_sha1(const std::string& message, const std::strin
 
     return std::string((const char*)result, outlen);
 }
+std::string cryptk::hash::hash(stdport::string_view data, stdport::string_view algorithm)
+{
+    const EVP_MD* md = nullptr;
+    unsigned char mdValue[EVP_MAX_MD_SIZE] = { 0 };
+    unsigned int mdLen = 0;
+
+    OpenSSL_add_all_digests();
+    md = EVP_get_digestbyname(algorithm.data());
+    if (!md)
+    {
+        return "";
+    }
+
+    EVP_MD_CTX* mdctx = EVP_MD_CTX_create();
+    EVP_DigestInit_ex(mdctx, md, nullptr);
+    EVP_DigestUpdate(mdctx, data.data(), data.size());
+    EVP_DigestFinal_ex(mdctx, mdValue, &mdLen);
+    EVP_MD_CTX_destroy(mdctx);
+
+    std::string result(mdLen << 1, '\0');
+    cryptk::bin2hex(mdValue, mdLen, &result.front(), result.size());
+    return result;
+}
 #endif
 
 #if _HAS_LIBB64

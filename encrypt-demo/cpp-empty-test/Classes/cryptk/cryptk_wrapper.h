@@ -612,6 +612,11 @@ namespace cryptk {
 #endif
 #if _HAS_OPENSSL
         std::string hmac_sha1(const std::string& message, const std::string& key);
+        /*
+        algorithm could be:
+        md4, md5, sha1, sha256, sha384, sha256, sha512
+        */
+        std::string hash(stdport::string_view data, stdport::string_view algorithm);
 #endif
     };
 
