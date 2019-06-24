@@ -1,8 +1,8 @@
 # x-studio365 2014 - 2019
 x-studio365 is a powerful,lightweight and fast development IDE. It support multi-programing languages Source Code Editing & Syntax Highlighting & Outlining & Auto-completation, Great Lua Debugging. In the future, it will support other languages debugging, such is PHP. It support Cocos2d-x Particle editing, Scene(UI) editing & Screen Adapting preview, CocosStudio .csb recovery.  
-+ Revisions download: https://dl.x-studio365.com  
 + Official website(cn): http://cn.x-studio365.com  
 + Official website(en): https://en.x-studio365.com  
++ Revisions download: https://dl.x-studio365.com  
 
  
 # Great Text editing features:
