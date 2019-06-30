@@ -27,12 +27,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 See: https://github.com/bitwizeshift/string_view-standalone
 */
-#if !defined(_YASIO_STRING_VIEW_HPP_)
-#  define _YASIO_STRING_VIEW_HPP_
+#if !defined(YASIO__STRING_VIEW_HPP)
+#  define YASIO__STRING_VIEW_HPP
 #  include <string>
 
-#  define _to_literal(s) #  s
-#  define to_literal(s) _to_literal(s)
+#  define __YASIO_SYM2LITERAL(s) #  s
+#  define YASIO_SYM2LITERAL(s) __YASIO_SYM2LITERAL(s)
 
 #  if (defined(__cplusplus) && __cplusplus == 201703L) ||                                          \
       (defined(_MSC_VER) && _MSC_VER > 1900 &&                                                     \
@@ -56,11 +56,11 @@ See: https://github.com/bitwizeshift/string_view-standalone
 #    if __has_include(<string_view>)
 #      include <string_view>
 #    endif
-namespace stdport
+namespace cxx17
 {
 using std::string_view;
 using std::wstring_view;
-} // namespace stdport
+} // namespace cxx17
 #  else
 //#pragma message("_HAS_STD_STRING_VIEW = 0")
 
@@ -68,7 +68,7 @@ using std::wstring_view;
 #    include <exception>
 #    include <stdexcept>
 #    include <string.h>
-namespace stdport
+namespace cxx17
 {
 template <class _Traits>
 inline size_t __xxtraits_find(const typename _Traits::char_type *_Haystack, const size_t _Hay_size,
@@ -1352,7 +1352,7 @@ inline bool operator>=(const basic_string_view<CharT, Traits> &lhs,
 {
   return lhs >= basic_string_view<CharT, Traits>(rhs);
 }
-} // namespace stdport
+} // namespace cxx17
 
 #  endif
 

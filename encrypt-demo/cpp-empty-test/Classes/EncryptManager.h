@@ -49,8 +49,8 @@ public:
     Then final package(.apk,.ipa,.appx) will small, both of platform app pacakge use zip algorithm.
     */
     void setEncryptEnabled(bool bVal, 
-        stdport::string_view key = "",
-        stdport::string_view ivec = "",
+        cxx17::string_view key = "",
+        cxx17::string_view ivec = "",
         int flags = ENCF_NOFLAGS);
     bool isEncryptEnabled(void) const { return _encryptEnabled; }
 

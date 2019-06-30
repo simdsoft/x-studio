@@ -121,7 +121,7 @@ public:
             cryptk::aes::privacy::mode_spec<>::decrypt(data.getBytes(), data.getSize() - encryptManager._encryptSignKey.size(), data.getBytes(), size, encryptManager._encryptKey.c_str(), AES_DEFAULT_KEY_BITS, encryptManager._encryptIvec.c_str());
 
             if (info.compressed) {
-                auto uncomprData = cryptk::zlib_inflate<cryptk::streambuf>(stdport::string_view((const char*)data.getBytes(), size), info.original_size);
+                auto uncomprData = cryptk::zlib_inflate<cryptk::streambuf>(cxx17::string_view((const char*)data.getBytes(), size), info.original_size);
                 auto tempData = uncomprData.detach(size);
 
                 data.clear();
@@ -155,7 +155,7 @@ public:
                 cryptk::aes::privacy::mode_spec<>::decrypt(data, *size, data, outsize, encryptManager._encryptKey.c_str(), AES_DEFAULT_KEY_BITS, encryptManager._encryptIvec.c_str());
 
                 if (info.compressed) {
-                    auto uncomprData = cryptk::zlib_inflate<cryptk::streambuf>(stdport::string_view((const char*)data, outsize), info.original_size);
+                    auto uncomprData = cryptk::zlib_inflate<cryptk::streambuf>(cxx17::string_view((const char*)data, outsize), info.original_size);
 
                     free(data);
                     data = (unsigned char*)(uncomprData.detach(*size));
@@ -202,7 +202,7 @@ std::string EncryptManager::decryptData(std::string data)
     return data;
 }
 
-void EncryptManager::setEncryptEnabled(bool bVal, stdport::string_view key, stdport::string_view ivec, int flags)
+void EncryptManager::setEncryptEnabled(bool bVal, cxx17::string_view key, cxx17::string_view ivec, int flags)
 {
     if (bVal && !key.empty()) {
         _encryptKey.clear();
