@@ -1,5 +1,5 @@
 ﻿//
-// Copyright (c) 2014-2018 halx99 - All Rights Reserved
+// Copyright (c) 2014-2019 halx99 - All Rights Reserved
 //
 #ifndef _CRYPTO_UTILS_H_
 #define _CRYPTO_UTILS_H_
@@ -128,11 +128,11 @@ namespace padding {
 
 template <typename _ByteSeqCont>
 inline size_t PKCS7(_BYTE_SEQ_CONT &plaintext,
-                    size_t blocksize = AES_BLOCK_SIZE) {
+    size_t offset = 0) {
   static_assert(sizeof(typename _BYTE_SEQ_CONT::value_type) == 1,
                 "PKCS7: only allow stl sequently byte conatiner!");
-  size_t padding_size = blocksize - plaintext.size() % blocksize;
-  for (size_t offst = 0; offst < padding_size; ++offst) {
+  size_t padding_size = AES_BLOCK_SIZE - (plaintext.size() - offset) % AES_BLOCK_SIZE;
+  for (size_t i = 0; i < padding_size; ++i) {
     plaintext.push_back((char)padding_size);
   }
   return padding_size;
@@ -140,11 +140,11 @@ inline size_t PKCS7(_BYTE_SEQ_CONT &plaintext,
 
 template <typename _ByteSeqCont>
 inline size_t ZEROS(_BYTE_SEQ_CONT &plaintext,
-                    size_t blocksize = AES_BLOCK_SIZE) {
+    size_t offset = 0) {
   static_assert(sizeof(_BYTE_SEQ_CONT::value_type) == 1,
                 "ZEROS: only allow stl sequently byte conatiner!");
-  size_t padding_size = blocksize - plaintext.size() % blocksize;
-  for (size_t offst = 0; offst < padding_size; ++offst) {
+  size_t padding_size = AES_BLOCK_SIZE - (plaintext.size() - offset) % AES_BLOCK_SIZE;
+  for (size_t i = 0; i < padding_size; ++i) {
     plaintext.push_back((char)0);
   }
   return padding_size;
@@ -152,11 +152,11 @@ inline size_t ZEROS(_BYTE_SEQ_CONT &plaintext,
 
 template <typename _ByteSeqCont>
 inline size_t ANSIX923(_BYTE_SEQ_CONT &plaintext,
-                       size_t blocksize = AES_BLOCK_SIZE) {
+    size_t offset = 0) {
   static_assert(sizeof(_BYTE_SEQ_CONT::value_type) == 1,
                 "ANSIX923: only allow stl sequently byte conatiner!");
-  size_t padding_size = blocksize - plaintext.size() % blocksize;
-  for (size_t offst = 0; offst < padding_size - 1; ++offst) {
+  size_t padding_size = AES_BLOCK_SIZE - (plaintext.size() - offset) % AES_BLOCK_SIZE;
+  for (size_t i = 0; i < padding_size - 1; ++i) {
     plaintext.push_back((char)0);
   }
   plaintext.push_back((char)padding_size);
@@ -165,11 +165,11 @@ inline size_t ANSIX923(_BYTE_SEQ_CONT &plaintext,
 
 template <typename _ByteSeqCont>
 inline size_t ISO10126(_BYTE_SEQ_CONT &plaintext,
-                       size_t blocksize = AES_BLOCK_SIZE) {
+    size_t offset = 0) {
   static_assert(sizeof(_BYTE_SEQ_CONT::value_type) == 1,
                 "ISO10126: only allow stl sequently byte conatiner!");
-  size_t padding_size = blocksize - plaintext.size() % blocksize;
-  for (size_t offst = 0; offst < padding_size - 1; ++offst) {
+  size_t padding_size = AES_BLOCK_SIZE - (plaintext.size() - offset) % AES_BLOCK_SIZE;
+  for (size_t i = 0; i < padding_size - 1; ++i) {
     plaintext.push_back((char)(unsigned char)mathext::rrand(0, 256));
   }
   plaintext.push_back((char)padding_size);
@@ -178,12 +178,12 @@ inline size_t ISO10126(_BYTE_SEQ_CONT &plaintext,
 
 template <typename _ByteSeqCont = std::string>
 inline _BYTE_SEQ_CONT PKCS7(size_t datasize,
-                            size_t blocksize = AES_BLOCK_SIZE) {
+    size_t offset = 0) {
   static_assert(sizeof(_BYTE_SEQ_CONT::value_type) == 1,
                 "ISO10126: only allow stl sequently byte conatiner!");
   _BYTE_SEQ_CONT padding;
   size_t padding_size = blocksize - datasize % blocksize;
-  for (size_t offst = 0; offst < padding_size; ++offst) {
+  for (size_t i = 0; i < padding_size; ++i) {
     padding.push_back((char)padding_size);
   }
   return (padding);
@@ -191,12 +191,12 @@ inline _BYTE_SEQ_CONT PKCS7(size_t datasize,
 
 template <typename _ByteSeqCont = std::string>
 inline _BYTE_SEQ_CONT ZEROS(size_t datasize,
-                            size_t blocksize = AES_BLOCK_SIZE) {
+    size_t offset = 0) {
   static_assert(sizeof(_BYTE_SEQ_CONT::value_type) == 1,
                 "ISO10126: only allow stl sequently byte conatiner!");
   _BYTE_SEQ_CONT padding;
   size_t padding_size = blocksize - datasize % blocksize;
-  for (size_t offst = 0; offst < padding_size; ++offst) {
+  for (size_t i = 0; i < padding_size; ++i) {
     padding.push_back((char)0);
   }
   return (padding);
@@ -204,12 +204,12 @@ inline _BYTE_SEQ_CONT ZEROS(size_t datasize,
 
 template <typename _ByteSeqCont = std::string>
 inline _BYTE_SEQ_CONT ANSIX923(size_t datasize,
-                               size_t blocksize = AES_BLOCK_SIZE) {
+    size_t offset = 0) {
   static_assert(sizeof(_BYTE_SEQ_CONT::value_type) == 1,
                 "ISO10126: only allow stl sequently byte conatiner!");
   _BYTE_SEQ_CONT padding;
   size_t padding_size = blocksize - datasize % blocksize;
-  for (size_t offst = 0; offst < padding_size - 1; ++offst) {
+  for (size_t i = 0; i < padding_size - 1; ++i) {
     padding.push_back((char)0);
   }
   padding.push_back((char)padding_size);
@@ -218,52 +218,48 @@ inline _BYTE_SEQ_CONT ANSIX923(size_t datasize,
 
 template <typename _ByteSeqCont = std::string>
 inline _BYTE_SEQ_CONT ISO10126(size_t datasize,
-                               size_t blocksize = AES_BLOCK_SIZE) {
+    size_t offset = 0) {
   static_assert(sizeof(_BYTE_SEQ_CONT::value_type) == 1,
                 "ISO10126: only allow stl sequently byte conatiner!");
   _BYTE_SEQ_CONT padding;
   size_t padding_size = blocksize - datasize % blocksize;
-  for (size_t offst = 0; offst < padding_size - 1; ++offst) {
+  for (size_t i = 0; i < padding_size - 1; ++i) {
     padding.push_back((char)(unsigned char)mathext::rrand(0, 256));
   }
   padding.push_back((char)padding_size);
   return (padding);
 }
 
-inline size_t PKCS7(size_t datasize, char padding[16],
-                    size_t blocksize = AES_BLOCK_SIZE) {
-  size_t padding_size = blocksize - datasize % blocksize;
-  for (size_t offst = 0; offst < padding_size; ++offst) {
-    padding[AES_BLOCK_SIZE - 1 - offst] = (unsigned char)padding_size;
+inline size_t PKCS7(size_t datasize, char padding[16]) {
+  size_t padding_size = AES_BLOCK_SIZE - datasize % AES_BLOCK_SIZE;
+  for (size_t i = 0; i < padding_size; ++i) {
+    padding[AES_BLOCK_SIZE - 1 - i] = (unsigned char)padding_size;
   }
   return padding_size;
 }
 
-inline size_t ZEROS(size_t datasize, char padding[16],
-                    size_t blocksize = AES_BLOCK_SIZE) {
-  size_t padding_size = blocksize - datasize % blocksize;
-  for (size_t offst = 0; offst < padding_size; ++offst) {
-    padding[AES_BLOCK_SIZE - 1 - offst] = 0;
+inline size_t ZEROS(size_t datasize, char padding[16]) {
+  size_t padding_size = AES_BLOCK_SIZE - datasize % AES_BLOCK_SIZE;
+  for (size_t i = 0; i < padding_size; ++i) {
+    padding[AES_BLOCK_SIZE - 1 - i] = 0;
   }
   return padding_size;
 }
 
-inline size_t ANSIX923(size_t datasize, char padding[16],
-                       size_t blocksize = AES_BLOCK_SIZE) {
-  size_t padding_size = blocksize - datasize % blocksize;
+inline size_t ANSIX923(size_t datasize, char padding[16]) {
+  size_t padding_size = AES_BLOCK_SIZE - datasize % AES_BLOCK_SIZE;
   padding[AES_BLOCK_SIZE - 1] = (unsigned char)padding_size;
-  for (size_t offst = 1; offst < padding_size; ++offst) {
-    padding[AES_BLOCK_SIZE - 1 - offst] = 0;
+  for (size_t i = 1; i < padding_size; ++i) {
+    padding[AES_BLOCK_SIZE - 1 - i] = 0;
   }
   return padding_size;
 }
 
-inline size_t ISO10126(size_t datasize, char padding[16],
-                       size_t blocksize = AES_BLOCK_SIZE) {
-  size_t padding_size = blocksize - datasize % blocksize;
+inline size_t ISO10126(size_t datasize, char padding[16]) {
+  size_t padding_size = AES_BLOCK_SIZE - datasize % AES_BLOCK_SIZE;
   padding[AES_BLOCK_SIZE - 1] = (unsigned char)padding_size;
-  for (size_t offst = 1; offst < padding_size; ++offst) {
-    padding[AES_BLOCK_SIZE - 1 - offst] = (unsigned char)mathext::rrand(0, 256);
+  for (size_t i = 1; i < padding_size; ++i) {
+    padding[AES_BLOCK_SIZE - 1 - i] = (unsigned char)mathext::rrand(0, 256);
   }
   return padding_size;
 }

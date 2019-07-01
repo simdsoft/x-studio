@@ -163,35 +163,35 @@ namespace cryptk {
             struct padding_spec
             {
                 template<typename _ByteSeqCont>
-                inline static size_t perform(_BYTE_SEQ_CONT& plaintext, size_t blocksize = AES_BLOCK_SIZE) { return detail::padding::PKCS7(plaintext, blocksize); }
+                inline static size_t perform(_BYTE_SEQ_CONT& plaintext, size_t offset = 0) { return detail::padding::PKCS7(plaintext, offset); }
             };
 
             template<>
             struct padding_spec < PaddingMode::ISO10126>
             {
                 template<typename _ByteSeqCont>
-                inline static size_t perform(_BYTE_SEQ_CONT& plaintext, size_t blocksize = AES_BLOCK_SIZE) { return detail::padding::ISO10126(plaintext, blocksize); }
+                inline static size_t perform(_BYTE_SEQ_CONT& plaintext, size_t offset = 0) { return detail::padding::ISO10126(plaintext, offset); }
             };
 
             template<>
             struct padding_spec < PaddingMode::ANSIX923>
             {
                 template<typename _ByteSeqCont>
-                inline static size_t perform(_BYTE_SEQ_CONT& plaintext, size_t blocksize = AES_BLOCK_SIZE) { return detail::padding::ANSIX923(plaintext, blocksize); }
+                inline static size_t perform(_BYTE_SEQ_CONT& plaintext, size_t offset = 0) { return detail::padding::ANSIX923(plaintext, offset); }
             };
 
             template<>
             struct padding_spec < PaddingMode::Zeros>
             {
                 template<typename _ByteSeqCont>
-                inline static size_t perform(_BYTE_SEQ_CONT& plaintext, size_t blocksize = AES_BLOCK_SIZE) { return detail::padding::ZEROS(plaintext, blocksize); }
+                inline static size_t perform(_BYTE_SEQ_CONT& plaintext, size_t offset = 0) { return detail::padding::ZEROS(plaintext, offset); }
             };
 
             template<>
             struct padding_spec < PaddingMode::None>
             {
                 template<typename _ByteSeqCont>
-                inline static size_t perform(_BYTE_SEQ_CONT& plaintext, size_t blocksize = AES_BLOCK_SIZE) { return 0; }
+                inline static size_t perform(_BYTE_SEQ_CONT& plaintext, size_t offset = 0) { return 0; }
             };
 
             template<CipherMode = CipherMode::CBC>
@@ -267,7 +267,7 @@ namespace cryptk {
             template<CipherMode cipherMode = CipherMode::CBC, PaddingMode paddingMode = PaddingMode::PKCS7, typename _ByteSeqCont = std::string>
             inline void encrypt(_BYTE_SEQ_CONT& inout, const void* key = DEFAULT_KEY, int keybits = 256, const void* ivec = nullptr, size_t offset = 0)
             {
-                privacy::padding_spec<paddingMode>::perform(inout);
+                privacy::padding_spec<paddingMode>::perform(inout, offset);
 
                 privacy::mode_spec<cipherMode>::encrypt(inout.data() + offset,
                     inout.size() - offset,
