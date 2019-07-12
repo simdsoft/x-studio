@@ -177,12 +177,11 @@ inline size_t ISO10126(_BYTE_SEQ_CONT &plaintext,
 }
 
 template <typename _ByteSeqCont = std::string>
-inline _BYTE_SEQ_CONT PKCS7(size_t datasize,
-    size_t offset = 0) {
+inline _BYTE_SEQ_CONT PKCS7(size_t datasize) {
   static_assert(sizeof(_BYTE_SEQ_CONT::value_type) == 1,
                 "ISO10126: only allow stl sequently byte conatiner!");
   _BYTE_SEQ_CONT padding;
-  size_t padding_size = blocksize - datasize % blocksize;
+  size_t padding_size = AES_BLOCK_SIZE - datasize % AES_BLOCK_SIZE;
   for (size_t i = 0; i < padding_size; ++i) {
     padding.push_back((char)padding_size);
   }
@@ -190,12 +189,11 @@ inline _BYTE_SEQ_CONT PKCS7(size_t datasize,
 }
 
 template <typename _ByteSeqCont = std::string>
-inline _BYTE_SEQ_CONT ZEROS(size_t datasize,
-    size_t offset = 0) {
+inline _BYTE_SEQ_CONT ZEROS(size_t datasize) {
   static_assert(sizeof(_BYTE_SEQ_CONT::value_type) == 1,
                 "ISO10126: only allow stl sequently byte conatiner!");
   _BYTE_SEQ_CONT padding;
-  size_t padding_size = blocksize - datasize % blocksize;
+  size_t padding_size = AES_BLOCK_SIZE - datasize % AES_BLOCK_SIZE;
   for (size_t i = 0; i < padding_size; ++i) {
     padding.push_back((char)0);
   }
@@ -203,12 +201,11 @@ inline _BYTE_SEQ_CONT ZEROS(size_t datasize,
 }
 
 template <typename _ByteSeqCont = std::string>
-inline _BYTE_SEQ_CONT ANSIX923(size_t datasize,
-    size_t offset = 0) {
+inline _BYTE_SEQ_CONT ANSIX923(size_t datasize) {
   static_assert(sizeof(_BYTE_SEQ_CONT::value_type) == 1,
                 "ISO10126: only allow stl sequently byte conatiner!");
   _BYTE_SEQ_CONT padding;
-  size_t padding_size = blocksize - datasize % blocksize;
+  size_t padding_size = AES_BLOCK_SIZE - datasize % AES_BLOCK_SIZE;
   for (size_t i = 0; i < padding_size - 1; ++i) {
     padding.push_back((char)0);
   }
@@ -217,12 +214,11 @@ inline _BYTE_SEQ_CONT ANSIX923(size_t datasize,
 }
 
 template <typename _ByteSeqCont = std::string>
-inline _BYTE_SEQ_CONT ISO10126(size_t datasize,
-    size_t offset = 0) {
+inline _BYTE_SEQ_CONT ISO10126(size_t datasize) {
   static_assert(sizeof(_BYTE_SEQ_CONT::value_type) == 1,
                 "ISO10126: only allow stl sequently byte conatiner!");
   _BYTE_SEQ_CONT padding;
-  size_t padding_size = blocksize - datasize % blocksize;
+  size_t padding_size = AES_BLOCK_SIZE - datasize % AES_BLOCK_SIZE;
   for (size_t i = 0; i < padding_size - 1; ++i) {
     padding.push_back((char)(unsigned char)mathext::rrand(0, 256));
   }
