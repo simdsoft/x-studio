@@ -6,7 +6,7 @@ x-studio365 is a powerful,lightweight and fast development IDE. It support multi
 + Revisions download: https://dl.x-studio365.com/  
 
  
-# Great Text editing features:
+# Great Code editing features:
 * Support Auto detect UTF-8 encoding, and support mutli-encodings convertion.
 * Support vscode/sublime Open Folder… feature, and support multi-program-languages syntax highlight.
 * Support 5 code themes, Hotkey: Ctrl+Alt+NUM9
