@@ -1,0 +1,246 @@
+<table border="0" summary="Keyboard commands">
+      <tbody>
+        <tr>
+          <td><code>SCI_LINEDOWN</code></td>
+
+          <td><code>SCI_LINEDOWNEXTEND</code></td>
+
+          <td><code>SCI_LINEDOWNRECTEXTEND</code></td>
+
+          <td><code>SCI_LINESCROLLDOWN</code></td>
+        </tr>
+
+        <tr>
+          <td><code>SCI_LINEUP</code></td>
+
+          <td><code>SCI_LINEUPEXTEND</code></td>
+
+          <td><code>SCI_LINEUPRECTEXTEND</code></td>
+
+          <td><code>SCI_LINESCROLLUP</code></td>
+        </tr>
+
+        <tr>
+          <td><code>SCI_PARADOWN</code></td>
+
+          <td><code>SCI_PARADOWNEXTEND</code></td>
+
+          <td><code>SCI_PARAUP</code></td>
+
+          <td><code>SCI_PARAUPEXTEND</code></td>
+        </tr>
+
+        <tr>
+          <td><code>SCI_CHARLEFT</code></td>
+
+          <td><code>SCI_CHARLEFTEXTEND</code></td>
+
+          <td><code>SCI_CHARLEFTRECTEXTEND</code></td>
+        </tr>
+
+        <tr>
+          <td><code>SCI_CHARRIGHT</code></td>
+
+          <td><code>SCI_CHARRIGHTEXTEND</code></td>
+
+          <td><code>SCI_CHARRIGHTRECTEXTEND</code></td>
+        </tr>
+
+        <tr>
+          <td><code>SCI_WORDLEFT</code></td>
+
+          <td><code>SCI_WORDLEFTEXTEND</code></td>
+
+          <td><code>SCI_WORDRIGHT</code></td>
+
+          <td><code>SCI_WORDRIGHTEXTEND</code></td>
+        </tr>
+
+        <tr>
+          <td><code>SCI_WORDLEFTEND</code></td>
+
+          <td><code>SCI_WORDLEFTENDEXTEND</code></td>
+
+          <td><code>SCI_WORDRIGHTEND</code></td>
+
+          <td><code>SCI_WORDRIGHTENDEXTEND</code></td>
+        </tr>
+
+        <tr>
+          <td><code>SCI_WORDPARTLEFT</code></td>
+
+          <td><code>SCI_WORDPARTLEFTEXTEND</code></td>
+
+          <td><code>SCI_WORDPARTRIGHT</code></td>
+
+          <td><code>SCI_WORDPARTRIGHTEXTEND</code></td>
+        </tr>
+
+        <tr>
+          <td><code>SCI_HOME</code></td>
+
+          <td><code>SCI_HOMEEXTEND</code></td>
+
+          <td><code>SCI_HOMERECTEXTEND</code></td>
+        </tr>
+
+        <tr>
+          <td><code>SCI_HOMEDISPLAY</code></td>
+
+          <td><code>SCI_HOMEDISPLAYEXTEND</code></td>
+
+          <td><code>SCI_HOMEWRAP</code></td>
+
+          <td><code>SCI_HOMEWRAPEXTEND</code></td>
+        </tr>
+
+        <tr>
+          <td><code>SCI_VCHOME</code></td>
+
+          <td><code>SCI_VCHOMEEXTEND</code></td>
+
+          <td><code>SCI_VCHOMERECTEXTEND</code></td>
+        </tr>
+
+        <tr>
+          <td><code>SCI_VCHOMEWRAP</code></td>
+
+          <td><code>SCI_VCHOMEWRAPEXTEND</code></td>
+
+          <td><code>SCI_VCHOMEDISPLAY</code></td>
+
+          <td><code>SCI_VCHOMEDISPLAYEXTEND</code></td>
+        </tr>
+
+        <tr>
+          <td><code>SCI_LINEEND</code></td>
+
+          <td><code>SCI_LINEENDEXTEND</code></td>
+
+          <td><code>SCI_LINEENDRECTEXTEND</code></td>
+        </tr>
+
+        <tr>
+          <td><code>SCI_LINEENDDISPLAY</code></td>
+
+          <td><code>SCI_LINEENDDISPLAYEXTEND</code></td>
+
+          <td><code>SCI_LINEENDWRAP</code></td>
+
+          <td><code>SCI_LINEENDWRAPEXTEND</code></td>
+        </tr>
+
+        <tr>
+          <td><code>SCI_DOCUMENTSTART</code></td>
+
+          <td><code>SCI_DOCUMENTSTARTEXTEND</code></td>
+
+          <td><code>SCI_DOCUMENTEND</code></td>
+
+          <td><code>SCI_DOCUMENTENDEXTEND</code></td>
+        </tr>
+
+        <tr>
+          <td><code>SCI_PAGEUP</code></td>
+
+          <td><code>SCI_PAGEUPEXTEND</code></td>
+
+          <td><code>SCI_PAGEUPRECTEXTEND</code></td>
+        </tr>
+
+        <tr>
+          <td><code>SCI_PAGEDOWN</code></td>
+
+          <td><code>SCI_PAGEDOWNEXTEND</code></td>
+
+          <td><code>SCI_PAGEDOWNRECTEXTEND</code></td>
+        </tr>
+
+
+        <tr>
+          <td><code>SCI_STUTTEREDPAGEUP</code></td>
+
+          <td><code>SCI_STUTTEREDPAGEUPEXTEND</code></td>
+        </tr>
+
+        <tr>
+          <td><code>SCI_STUTTEREDPAGEDOWN</code></td>
+
+          <td><code>SCI_STUTTEREDPAGEDOWNEXTEND</code></td>
+        </tr>
+
+        <tr>
+          <td><code>SCI_DELETEBACK</code></td>
+
+          <td><code>SCI_DELETEBACKNOTLINE</code></td>
+        </tr>
+
+        <tr>
+          <td><code>SCI_DELWORDLEFT</code></td>
+
+          <td><code>SCI_DELWORDRIGHT</code></td>
+
+          <td><code>SCI_DELWORDRIGHTEND</code></td>
+        </tr>
+
+        <tr>
+          <td><code>SCI_DELLINELEFT</code></td>
+
+          <td><code>SCI_DELLINERIGHT</code></td>
+
+          <td><code>SCI_LINEDELETE</code></td>
+
+          <td><code>SCI_LINECUT</code></td>
+        </tr>
+
+        <tr>
+
+          <td><code>SCI_LINECOPY</code></td>
+
+          <td><code>SCI_LINETRANSPOSE</code></td>
+
+          <td><code>SCI_LINEREVERSE</code></td>
+
+          <td><code>SCI_LINEDUPLICATE</code></td>
+        </tr>
+
+        <tr>
+          <td><code>SCI_LOWERCASE</code></td>
+
+          <td><code>SCI_UPPERCASE</code></td>
+
+          <td><code>SCI_CANCEL</code></td>
+
+          <td><code>SCI_EDITTOGGLEOVERTYPE</code></td>
+        </tr>
+
+        <tr>
+          <td><code>SCI_NEWLINE</code></td>
+
+          <td><code>SCI_FORMFEED</code></td>
+
+          <td><code>SCI_TAB</code></td>
+
+          <td><code>SCI_BACKTAB</code></td>
+        </tr>
+
+        <tr>
+          <td><code>SCI_SELECTIONDUPLICATE</code></td>
+
+          <td><code>SCI_VERTICALCENTRECARET</code></td>
+
+        </tr>
+
+        <tr>
+          <td><code>SCI_MOVESELECTEDLINESUP</code></td>
+
+          <td><code>SCI_MOVESELECTEDLINESDOWN</code></td>
+        </tr>
+
+        <tr>
+          <td><code>SCI_SCROLLTOSTART</code></td>
+
+          <td><code>SCI_SCROLLTOEND</code></td>
+        </tr>
+     </tbody>
+    </table>
