@@ -2,11 +2,6 @@
 
 require 'lsapi_conf'
 
-for _,v in ipairs(KeyMap) do
-    v.cmd = scicmds[v.cmd] -- string to number
-    v.key = string.byte(v.key)
-end
-
 local file = io.open('xsapiLuaEXT.xml', "wb")
 
 string.split = require('split').split
