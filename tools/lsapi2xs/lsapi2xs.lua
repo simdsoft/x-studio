@@ -12,10 +12,10 @@ for k,v in pairs(Lua_BaseLibFuncTip) do
     buffer = buffer .. k 
     buffer = buffer .. '" func="yes">\n'
     buffer = buffer .. '<overload '
-    
+
     -- parse return type
     local rettype = 'void'
-    
+
     local nameEnd = v:find(' ')
     local guess = string.sub(v, 1, nameEnd - 1)
     local descPos = 1
@@ -47,27 +47,27 @@ for k,v in pairs(Lua_BaseLibFuncTip) do
             end
         end
     end
-    
+
     local desc = v:sub(descPos):gsub('\n', '&#x0A;') -- replace
-    
+
     -- now parse done, write buffer
     buffer = buffer .. ' retval="' 
     buffer = buffer .. rettype
-    buffer = buffer .. '" descr="'
+    buffer = buffer .. '" desc="'
     buffer = buffer .. desc
     buffer = buffer .. '">\n'
-    
+
     for _,paramName in ipairs(nparams) do
         buffer = buffer .. '<param name="'
         buffer = buffer .. paramName
         buffer = buffer .. '" />\n'
     end
-    
+
     -- buffer = buffer ..  
-    
+
     buffer = buffer .. '</overload>\n'
     buffer = buffer .. '</keyword>\n'
-    
+
     str = str .. buffer
 end
 

@@ -1,12 +1,10 @@
 <Project fullMode="0">
   <assets>
     <item path="lsapi2xs.lua" dflag="131076"/>
-    <item path="lsapi_conf.lua" dflag="131076"/>
-    <item path="dummy.lua" dflag="131076"/>
-    <item path="lua.xml" dflag="131076"/>
-    <item path="split.lua" dflag="131076"/>
-    <item path="xsapiLuaEXT.xml" dflag="131076"/>
     <item path="luaEXT.xml" dflag="131076"/>
+    <item path="split.lua" dflag="131076"/>
+    <item path="lsapi_conf.lua" dflag="131076"/>
+    <item path="lua.xml" dflag="131076"/>
   </assets>
   <debug-options>
     <start-program>lua53.exe</start-program>
