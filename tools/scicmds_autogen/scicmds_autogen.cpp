@@ -269,6 +269,7 @@ int main()
 {
     std::unordered_map<std::string, std::string> macros;
     std::vector<std::pair<std::string, std::string>> scicmds;
+    std::vector<std::pair<std::string, std::string>> scikeys;
 
     /// Step.1: parse macros from Scintilla.h & ScintillaExt.h
     parseMacros("Scintilla.h", macros);
@@ -286,6 +287,13 @@ int main()
         }
     }
     scicmds.push_back(std::make_pair("SCI_QUICKADDNEXT", "2911"));
+    // Filter SCI keys
+    for (auto& macro : macros) {
+        using namespace std;
+        if (macro.first._Starts_with("SCK_"sv)) {
+            scikeys.push_back(macro);
+        }
+    }
 
     /// Step.3: generate lua code
     std::stringstream ss;
@@ -297,10 +305,17 @@ int main()
         ss << "    " << cmd.first << " = " << cmd.second << ",\n";
     }
 
+    ss << "}\n\n";
+
+    ss << "scikeys = {\n";
+    for (auto& keydef : scikeys) {
+        ss << "    " << keydef.first << " = " << keydef.second << ",\n";
+    }
     ss << "}";
     
+    /// Step.4: write the code to sciext.lua
     std::string code = ss.str();
-    std::ofstream outf("scicmds.lua");
+    std::ofstream outf("sciext.lua");
     if (outf.is_open()) {
         outf << code;
         outf.close();
