@@ -285,7 +285,7 @@ int main()
             scicmds.push_back(std::make_pair(std::move(macroName), it->second));
         }
     }
-    scicmds.push_back(std::make_pair("SCI_FINDANDADDSELECTION", "2911"));
+    scicmds.push_back(std::make_pair("SCI_QUICKADDNEXT", "2911"));
 
     /// Step.3: generate lua code
     std::stringstream ss;
