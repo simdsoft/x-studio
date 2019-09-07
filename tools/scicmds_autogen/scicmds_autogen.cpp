@@ -1,5 +1,5 @@
 // scicmds_autogen.cpp : This file contains the 'main' function. Program execution begins and ends there.
-// v0.0.1
+// v0.0.3
 
 #include <iostream>
 #include <fstream>
@@ -315,7 +315,7 @@ int main()
     
     /// Step.4: write the code to sciext.lua
     std::string code = ss.str();
-    std::ofstream outf("sciext.lua");
+    std::ofstream outf("scicmds.lua");
     if (outf.is_open()) {
         outf << code;
         outf.close();
