@@ -157,4 +157,5 @@ local translateKeyMap = function(keyMap)
     end
 end
 
+local SHIFT,CTRL,ALT = 1,2,4
 return {SHIFT,CTRL,ALT,translateKeyMap}
