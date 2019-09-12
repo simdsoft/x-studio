@@ -1,8 +1,8 @@
---- LuaStudio到x-studio365 API转换程序V0.1 by x-studio365软件作者 -----------
+--- LuaStudio到x-studio365 API转换程序V0.2 by x-studio365软件作者 -----------
 
 require 'lsapi_conf'
 
-local file = io.open('xsapiLuaEXT.xml', "wb")
+local file = io.open('xs-autoc.xml', "wb")
 
 string.split = require('split').split
 
