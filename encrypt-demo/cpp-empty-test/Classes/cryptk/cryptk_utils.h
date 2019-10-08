@@ -296,4 +296,4 @@ extern void (*cbc_decrypt_block)(cbc_block_state* state, const void *in, size_t 
 }; // namespace aes
 }; // namespace cryptk
 
-#endif /* _CRYPTO_UTILS_H_ */
+#endif /* _CRYPTK_UTILS_H_ */
