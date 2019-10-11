@@ -254,9 +254,7 @@ void EncryptManager::setEncryptEnabled(bool bVal, cxx17::string_view key, cxx17:
 bool EncryptManager::parseSignInfo(const char* data, size_t len, SignInfo* info) const
 {
     if (_encryptFlags & ENCF_SIGNATURE) {
-        if (len > 
-	   ) {
-
+        if (len > AES_BLOCK_SIZE) {
             char signbuf[AES_BLOCK_SIZE];
             memcpy(signbuf, data + len - AES_BLOCK_SIZE, AES_BLOCK_SIZE);
             auto rwptr = signbuf;
