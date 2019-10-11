@@ -106,12 +106,6 @@ namespace cryptk {
                         in = (const char*)in + slice_size;
                         out = (char*)out + slice_size;
                         remain_bytes -= slice_size;
-                        //}
-                        //else {
-                        //    // encrypt last less AES_BLOCK_SIZE bytes
-                        //    AES_encrypt((const unsigned char*)in, (unsigned char*)out, &aes_key); 
-                        //    remain_bytes = 0;
-                        //}
                     }
                 }
 
@@ -218,9 +212,9 @@ namespace cryptk {
                 };
 
                 static ecb_encdec_t ecb_decrypt_bits[]{
-                    intel_AES_enc128,
-                    intel_AES_enc192,
-                    intel_AES_enc256,
+                    intel_AES_dec128,
+                    intel_AES_dec192,
+                    intel_AES_dec256,
                 };
 
                 static cbc_encdec_t cbc_encrypt_bits[] = {
