@@ -192,7 +192,7 @@ std::string cryptk::hash::hmac_sha1(const std::string& message, const std::strin
 
     return std::string((const char*)result, outlen);
 }
-std::string cryptk::hash::hash(cxx17::string_view data, cxx17::string_view algorithm)
+std::string cryptk::hash::compute_digest(cxx17::string_view data, cxx17::string_view algorithm)
 {
     const EVP_MD* md = nullptr;
     unsigned char mdValue[EVP_MAX_MD_SIZE] = { 0 };

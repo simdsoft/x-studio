@@ -258,20 +258,20 @@ bool EncryptManager::parseSignInfo(const char* data, size_t len, SignInfo* info)
 
             char signbuf[16];
             memcpy(signbuf, data + len - 16, 16);
-            auto wrptr = signbuf;
-            cryptk::aes::detail::ecb_decrypt_block(wrptr,
+            auto rwptr = signbuf;
+            cryptk::aes::detail::ecb_decrypt_block(rwptr,
                 16,
-                wrptr,
+                rwptr,
                 _encryptSignKey.c_str(),
                 128);
 
-            memcpy(&info->mask, wrptr, sizeof(info->mask));
-            wrptr += sizeof(info->mask);
-            memcpy(&info->sigval, wrptr, sizeof(info->sigval));
-            wrptr += sizeof(info->sigval);
+            memcpy(&info->mask, rwptr, sizeof(info->mask));
+            rwptr += sizeof(info->mask);
+            memcpy(&info->sigval, rwptr, sizeof(info->sigval));
+            rwptr += sizeof(info->sigval);
             if((info->mask ^ info->sigval) == 0xdeadbeef) {
-                info->flags = *((uint8_t*)wrptr++);
-                memcpy(&info->original_size, wrptr, sizeof(info->original_size));
+                info->flags = *((uint8_t*)rwptr++);
+                memcpy(&info->original_size, rwptr, sizeof(info->original_size));
                 return true;
             }
         }

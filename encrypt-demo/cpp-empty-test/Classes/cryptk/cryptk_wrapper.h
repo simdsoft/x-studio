@@ -616,7 +616,7 @@ namespace cryptk {
         algorithm could be:
         md4, md5, sha1, sha256, sha384, sha256, sha512
         */
-        std::string hash(cxx17::string_view data, cxx17::string_view algorithm);
+        std::string compute_digest(cxx17::string_view data, cxx17::string_view algorithm);
 #endif
     };
 
