@@ -216,8 +216,8 @@ void EncryptManager::setEncryptEnabled(bool bVal, cxx17::string_view key, cxx17:
         ::memcpy(&_encryptKey.front(), key.data(), keysize);
 
         if (!ivec.empty()) {
-            _encryptIvec.resize(16);
-            ::memcpy(&_encryptIvec.front(), ivec.data(), (std::min)(16, (int)ivec.size()));
+            _encryptIvec.resize(AES_BLOCK_SIZE);
+            ::memcpy(&_encryptIvec.front(), ivec.data(), (std::min)(AES_BLOCK_SIZE, (int)ivec.size()));
         }
         else {
             _encryptIvec = nsc::hex2bin("00234b89aa96fecdaf80fbf178a25621");
@@ -230,7 +230,7 @@ void EncryptManager::setEncryptEnabled(bool bVal, cxx17::string_view key, cxx17:
         if (flags & ENCF_SIGNATURE)
         {
             _encryptSignKey = _encryptIvec;
-            int roll = (flags >> 16 & 0xffff); 
+            int roll = (flags >> AES_BLOCK_SIZE & 0xffff); 
             std::string signvec(this->_encryptKey.c_str(), (std::min)(key.size(), ivec.size()));
             do {
                 cryptk::aes::detail::ecb_encrypt_block(_encryptSignKey.c_str(),
@@ -254,13 +254,14 @@ void EncryptManager::setEncryptEnabled(bool bVal, cxx17::string_view key, cxx17:
 bool EncryptManager::parseSignInfo(const char* data, size_t len, SignInfo* info) const
 {
     if (_encryptFlags & ENCF_SIGNATURE) {
-        if (len > 16) {
+        if (len > 
+	   ) {
 
-            char signbuf[16];
-            memcpy(signbuf, data + len - 16, 16);
+            char signbuf[AES_BLOCK_SIZE];
+            memcpy(signbuf, data + len - AES_BLOCK_SIZE, AES_BLOCK_SIZE);
             auto rwptr = signbuf;
             cryptk::aes::detail::ecb_decrypt_block(rwptr,
-                16,
+                AES_BLOCK_SIZE,
                 rwptr,
                 _encryptSignKey.c_str(),
                 128);
