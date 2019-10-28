@@ -18,7 +18,7 @@
 
 #include "string_view.hpp"
 
-namespace purelib {
+namespace pulib {
 
 namespace nsconv {};
 namespace nsc = nsconv;
@@ -1215,9 +1215,11 @@ std::basic_string<_Elem> create_guid_v3(void)
 #endif
 
 
-}; // namespace: purelib::nsconv
+}; // namespace: pulib::nsconv
 
-}; // namespace: purelib
+}; // namespace: pulib
+
+using namespace pulib;
 
 #endif /* _NSCONV_ */
 /*
