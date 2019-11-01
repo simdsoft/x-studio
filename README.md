@@ -1,9 +1,9 @@
 # x-studio 2014 - 2019
 x-studio is a powerful,lightweight and fast development IDE. It support multi-programing languages Source Code Editing & Syntax Highlighting & Outlining & Auto-completation, Great Lua Debugging. In the future, it will support other languages debugging, such is PHP. It support Cocos2d-x Particle editing, Scene(UI) editing & Screen Adapting preview, CocosStudio .csb recovery.  
-+ Official website(zh_CN): https://x-studio365.com/  
-+ Official documentation(zh_CN): https://docs.x-studio365.com/  
-+ Official website(en): https://en.x-studio365.com/  (building)
-+ Revisions download: https://dl.x-studio365.com/  
++ Official website(zh_CN): https://x-studio.net/  
++ Official documentation(zh_CN): https://docs.x-studio.net/  
++ Official website(en): https://en.x-studio.net/  (building)
++ Revisions download: https://dl.x-studio.net/  
 
  
 # Great Code editing features:
@@ -103,9 +103,9 @@ remove ```$(call import-module,flatbuffers)``` from cocos/Android.mk
 because, flatbuffers only need header at runtime. so remove the .cpp from xcode project.
 
 showcase  
-![image](https://github.com/halx99/x-studio365/blob/master/showcase.png)  
+![image](https://github.com/simdsoft/x-studio/blob/master/showcase.png)  
 ### Purchase Professional License
  
  If you are interest in this software, please purchase.
  
- <a href='http://cn.x-studio365.com/buy.php?buy_type=1001&lang=437'>Purchase Professional License</a>
+ <a href='http://x-studio.net/buy.php?buy_type=1001&lang=437'>Purchase Professional License</a>
