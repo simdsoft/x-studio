@@ -1,4 +1,7 @@
 # x-studio 2014 - 2019
+
+[![Powered]https://img.shields.io/badge/x%C2%AD%C2%AD%C2%AD%C2%AD%C2%AD%C2%AD%EF%B9%A3studio-powered-blue.svg][https://github.com/simdsoft/x-studio]
+
 x-studio is a powerful,lightweight and fast development IDE. It support multi-programing languages Source Code Editing & Syntax Highlighting & Outlining & Auto-completation, Great Lua Debugging. In the future, it will support other languages debugging, such is PHP. It support Cocos2d-x Particle editing, Scene(UI) editing & Screen Adapting preview, CocosStudio .csb recovery.  
 + Official website(zh_CN): https://x-studio.net/  
 + Official documentation(zh_CN): https://docs.x-studio.net/  
