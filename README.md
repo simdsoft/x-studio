@@ -8,6 +8,8 @@ x-studio is a powerful,lightweight and fast development IDE. It support multi-pr
 + Official website(en): https://en.x-studio.net/  (building)
 + Revisions download: https://dl.x-studio.net/  
 
+# Software Framework
+![image](https://github.com/simdsoft/x-studio/blob/master/showcase5.png)  
  
 # Great Code editing features:
 * Support Auto detect UTF-8 encoding, and support mutli-encodings convertion.
@@ -36,9 +38,9 @@ x-studio is a powerful,lightweight and fast development IDE. It support multi-pr
 * Integrated with clang-fotmat 9.0, so support format cpp, java, objc, js
 
 #Code Editing Preview
-![image](https://github.com/halx99/x-studio365/blob/master/showcase2.png)  
-![image](https://github.com/halx99/x-studio365/blob/master/showcase3.png)  
-![image](https://github.com/halx99/x-studio365/blob/master/showcase4.png)  
+![image](https://github.com/simdsoft/x-studio/blob/master/showcase2.png)  
+![image](https://github.com/simdsoft/x-studio/blob/master/showcase3.png)  
+![image](https://github.com/simdsoft/x-studio/blob/master/showcase4.png)  
 
 # Cocos2d-x scene editing features:
 1. Using cocos2d-x to render the main editor UI directly.
@@ -49,7 +51,7 @@ x-studio is a powerful,lightweight and fast development IDE. It support multi-pr
 6. Supports import .csb, and publish designed ui to cocosstudio(ccs), json, csd formats.
 7. Provide command line common assets(.png,.lua,.json and any other files) encrypt solution.(since 10.0.3300.1001)
    usage: x-studio365.exe -c -enc -i=d:\projects\project0\res -o=d:\projects\project0\res-enc
-    will encrypt all files with aes256 cbc and compress with zlib, the enctypt config will be stored to C:\Users\%USERNAME%\AppData\Local\x-studio365\encrypt-cfg.xml whitch contains encrypt key & ivec, it's reqiured by the runtime: https://github.com/halx99/x-studio365/tree/master/encrypt-demo/cpp-empty-test/Classes
+    will encrypt all files with aes256 cbc and compress with zlib, the enctypt config will be stored to C:\Users\%USERNAME%\AppData\Local\x-studio365\encrypt-cfg.xml whitch contains encrypt key & ivec, it's reqiured by the runtime: https://github.com/simdsoft/x-studio/tree/master/encrypt-demo/cpp-empty-test/Classes
 8. Supports Chinese and English.
 9. Supports SpriteSheet creation.
 
