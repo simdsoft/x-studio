@@ -1,7 +1,7 @@
 //*******************************************************************************
 // COPYRIGHT NOTES
 // ---------------
-// Copyright (C) 2014-2019 x-studio365.com, HALX99
+// Copyright (C) 2014-2019 x-studio.net, HALX99
 // All rights reserved.
 //
 // This source code can be used, distributed or modified
@@ -10,7 +10,7 @@
 //*******************************************************************************
 //
 /*
-The x-sutdio365 Pro EncryptSystemPlugin interface
+The x-sutdio Pro EncryptSystemPlugin interface
 The plugin should export API: "XSPESSIoControl"
 */
 #pragma once
