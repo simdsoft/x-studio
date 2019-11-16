@@ -4,6 +4,8 @@
 
 ### Since v10.0.5900.299, the software name will be rename from ```x-studio365``` to ```x-studio```
 
+### x-studio self development tools is: ```Microsoft Visual Studio Community 2019```
+
 x-studio is a powerful,lightweight and fast development IDE. It support multi-programing languages Source Code Editing & Syntax Highlighting & Outlining & Auto-completation, Great Lua Debugging. In the future, it will support other languages debugging, such is PHP. It support Cocos2d-x Particle editing, Scene(UI) editing & Screen Adapting preview, CocosStudio .csb recovery.  
 + Official website(zh_CN): https://x-studio.net/  
 + Official documentation(zh_CN): https://docs.x-studio.net/  
