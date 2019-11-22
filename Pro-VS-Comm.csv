@@ -23,7 +23,6 @@ Code Sinppets,yes,no,ready
 加密扁平化文件,yes,no,ready
 加密插件化,yes,no,ready
 Lua调试可视化工具,yes,no,ready
-Lua调试二进制显示数值,yes,no,ready
 Lua调试QuickInfo悬浮,yes,no,ready
 Lua调试显示C++堆栈,yes,no,ready
 资源视图按住Shift/Ctrl单击鼠标左键呼出系统桌面菜单,yes,no,ready
