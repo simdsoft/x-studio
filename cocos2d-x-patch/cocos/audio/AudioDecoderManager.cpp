@@ -33,7 +33,6 @@ THE SOFTWARE.
 #include "audio/include/AudioMacros.h"
 #include "platform/CCFileUtils.h"
 #include "base/CCConsole.h"
-#include "mpg123.h"
 
 namespace cocos2d { namespace experimental {
 

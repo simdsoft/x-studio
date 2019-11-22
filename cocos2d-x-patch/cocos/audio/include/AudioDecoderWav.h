@@ -27,7 +27,7 @@
 #pragma once
 
 #include "audio/include/AudioDecoder.h"
-#include "audio/include/AudioFileStream.h"
+#include "platform/PXFileStream.h"
 
 #pragma pack(push,1)
 // http://soundfile.sapp.org/doc/WaveFormat/
@@ -56,7 +56,7 @@ struct WAV_FILE
     uint16_t ExtraParamSize;
     uint32_t Samples;
     uint32_t ChannelMask;
-    cocos2d::AudioFileStream FileStream;
+    cocos2d::PXFileStream FileStream;
 };
 
 namespace cocos2d { namespace experimental {

@@ -199,7 +199,7 @@ namespace cocos2d { namespace experimental {
     {
         std::string fullPath = FileUtils::getInstance()->fullPathForFilename(path);
 
-        if (wav_open(FileUtils::getInstance()->getSuitableFOpen(fullPath).c_str(), &_wavf))
+        if (wav_open(fullPath, &_wavf))
         {
             _sampleRate = _wavf.FileHeader.SampleRate;
             _channelCount = _wavf.FileHeader.NumChannels;

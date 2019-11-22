@@ -29,6 +29,8 @@
 #include "platform/CCFileUtils.h"
 
 #include "base/CCConsole.h"
+ // because the cocos2d-x engine has ssize_t typedef, so disable mpg123 ssize_t
+#define MPG123_DEF_SSIZE_T
 #include "mpg123.h"
 
 #if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
@@ -42,16 +44,16 @@ namespace cocos2d { namespace experimental {
     
     static ssize_t mpg123_read_r(void * handle, void * buffer, size_t count)
     {
-        return ((AudioFileStream*)handle)->read(buffer, count);
+        return ((PXFileStream*)handle)->read(buffer, count);
     }
 
     static off_t mpg123_lseek_r(void * handle, off_t offset, int whence)
     {
-        return ((AudioFileStream*)handle)->seek(offset, whence);
+        return ((PXFileStream*)handle)->seek(offset, whence);
     }
 
     void mpg123_close_r(void* handle) {
-        ((AudioFileStream*)handle)->close();
+        ((PXFileStream*)handle)->close();
     }
     
     bool AudioDecoderMp3::lazyInit()
@@ -110,7 +112,7 @@ namespace cocos2d { namespace experimental {
                 break;
             }
             
-            if (!_fileStream.open(FileUtils::getInstance()->getSuitableFOpen(fullPath)))
+            if (!_fileStream.open(fullPath))
             {
                 ALOGE("Trouble with mpg123(1): %s\n", strerror(errno));
                 break;
