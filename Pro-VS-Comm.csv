@@ -25,7 +25,7 @@ Code Sinppets,yes,no,ready
 Lua调试可视化工具,yes,no,ready
 Lua调试QuickInfo悬浮,yes,no,ready
 Lua调试显示C++堆栈,yes,no,ready
-资源视图按住Shift/Ctrl单击鼠标左键呼出系统桌面菜单,yes,no,ready
+资源视图按住Shift/Ctrl单击鼠标右键呼出系统桌面菜单,yes,no,ready
 MinMap ScrollBar,yes,no,ready
 记录最近附加进程exe名,yes,no,ready
 取色器工具,yes,no,ready
