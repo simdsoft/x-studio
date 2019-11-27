@@ -816,9 +816,22 @@ void ZipFile::uzfsClose(UnzFileStream* uzfs)
     }
 }
 
-bool ZipFile::initWithBuffer(const void */*buffer*/, uLong /*size*/)
-{ // minizip-1.2.0 no API: unzOpenBuffer
-    return false;
+bool ZipFile::initWithBuffer(const void *buffer, uLong size)
+{
+    if (!buffer || size == 0) return false;
+
+    zlib_filefunc_def memory_file = { 0 };
+    
+    std::unique_ptr<ourmemory_t> memfs(new(std::nothrow) ourmemory_t{ (char*)const_cast<void*>(buffer), static_cast<uint32_t>(size), 0, 0, 0 });
+    if (!memfs) return false;
+    fill_memory_filefunc(&memory_file, memfs.get());
+    
+    _data->zipFile = unzOpen2(nullptr, &memory_file);
+    if (!_data->zipFile) return false;
+    _data->memfs = std::move(memfs);
+
+    setFilter(emptyFilename);
+    return true;
 }
 
 NS_CC_END
