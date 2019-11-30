@@ -31,6 +31,8 @@
 #else // from our embedded sources
 #include "unzip.h"
 #endif
+#include "ioapi_mem.h"
+#include <memory>
 
 #include <zlib.h>
 #include <assert.h>
@@ -41,10 +43,9 @@
 #include "base/ccMacros.h"
 #include "platform/CCFileUtils.h"
 #include <map>
-
 #include <mutex>
 
-// MINIZIP v1.2 no unzGoToFirstFile64, unzGoToNextFile64
+// minizip 1.2.0 is same with other platforms
 #define unzGoToFirstFile64(A,B,C,D) unzGoToFirstFile2(A,B,C,D, NULL, 0, NULL, 0)
 #define unzGoToNextFile64(A,B,C,D) unzGoToNextFile2(A,B,C,D, NULL, 0, NULL, 0)
 
@@ -256,7 +257,7 @@ int ZipUtils::inflateGZipFile(const char *path, unsigned char **out)
     CCASSERT(out, "out can't be nullptr.");
     CCASSERT(&*out, "&*out can't be nullptr.");
     
-    gzFile inFile = gzopen(FileUtils::getInstance()->getSuitableFOpen(path).c_str(), "rb");
+    gzFile inFile = gzopen(path, "rb");
     if( inFile == nullptr ) {
         CCLOG("cocos2d: ZipUtils: error open gzip file: %s", path);
         return -1;
@@ -267,7 +268,7 @@ int ZipUtils::inflateGZipFile(const char *path, unsigned char **out)
     unsigned int totalBufferSize = bufferSize;
     
     *out = (unsigned char*)malloc( bufferSize );
-    if( ! out )
+    if(*out == NULL)
     {
         CCLOG("cocos2d: ZipUtils: out of memory");
         return -1;
@@ -507,16 +508,12 @@ struct ZipEntryInfo
     uLong uncompressed_size;
 };
 
-struct UnzFileStream {
-    ZipEntryInfo* entry;
-    long offset;
-};
-
 class ZipFilePrivate
 {
 public:
     unzFile zipFile;
     std::mutex zipFileMtx;
+    std::unique_ptr<ourmemory_s> memfs;
     
     // std::unordered_map is faster if available on the platform
     typedef std::unordered_map<std::string, struct ZipEntryInfo> FileListContainer;
@@ -529,7 +526,7 @@ ZipFile *ZipFile::createWithBuffer(const void* buffer, uLong size)
     if (zip && zip->initWithBuffer(buffer, size)) {
         return zip;
     } else {
-        if (zip) delete zip;
+        delete zip;
         return nullptr;
     }
 }
@@ -543,7 +540,7 @@ ZipFile::ZipFile()
 ZipFile::ZipFile(const std::string &zipFile, const std::string &filter)
 : _data(new ZipFilePrivate)
 {
-    _data->zipFile = unzOpen(FileUtils::getInstance()->getSuitableFOpen(zipFile).c_str());
+    _data->zipFile = unzOpen(zipFile.c_str());
     setFilter(filter);
 }
 
@@ -633,7 +630,7 @@ std::vector<std::string> ZipFile::listFiles(const std::string &pathname) const
         if(filename.substr(0, dirname.length()) == dirname)
         {
             std::string suffix = filename.substr(dirname.length());
-            auto pos = suffix.find("/");
+            auto pos = suffix.find('/');
             if (pos == std::string::npos)
             {
                 fileSet.insert(suffix);
@@ -660,10 +657,10 @@ unsigned char *ZipFile::getFileData(const std::string &fileName, ssize_t *size)
         CC_BREAK_IF(!_data->zipFile);
         CC_BREAK_IF(fileName.empty());
         
-        ZipFilePrivate::FileListContainer::const_iterator it = _data->fileList.find(fileName);
+        ZipFilePrivate::FileListContainer::iterator it = _data->fileList.find(fileName);
         CC_BREAK_IF(it ==  _data->fileList.end());
         
-        const ZipEntryInfo& fileInfo = it->second;
+        ZipEntryInfo& fileInfo = it->second;
 
         std::unique_lock<std::mutex> lck(_data->zipFileMtx);
         
@@ -695,10 +692,10 @@ bool ZipFile::getFileData(const std::string &fileName, ResizableBuffer* buffer)
         CC_BREAK_IF(!_data->zipFile);
         CC_BREAK_IF(fileName.empty());
         
-        ZipFilePrivate::FileListContainer::const_iterator it = _data->fileList.find(fileName);
+        ZipFilePrivate::FileListContainer::iterator it = _data->fileList.find(fileName);
         CC_BREAK_IF(it ==  _data->fileList.end());
         
-        const ZipEntryInfo& fileInfo = it->second;
+        ZipEntryInfo& fileInfo = it->second;
         
         std::unique_lock<std::mutex> lck(_data->zipFileMtx);
 
@@ -748,74 +745,6 @@ int ZipFile::getCurrentFileInfo(std::string *filename, unz_file_info *info)
     return ret;
 }
 
-UnzFileStream* ZipFile::uzfsOpen(const std::string& fileName)
-{
-    auto it = _data->fileList.find(fileName);
-    if (it != _data->fileList.end()) {
-        auto uzfs = (UnzFileStream*)calloc(1, sizeof(UnzFileStream));
-        if (uzfs != nullptr) {
-            uzfs->entry = &it->second;
-        }
-        return uzfs;
-    }
-    return nullptr;
-}
-int ZipFile::uzfsRead(UnzFileStream* uzfs, void* buf, unsigned int size)
-{
-    int n = 0;
-    do {
-        CC_BREAK_IF(uzfs == nullptr || uzfs->offset >= uzfs->entry->uncompressed_size);
-
-        std::unique_lock<std::mutex> lck(_data->zipFileMtx);
-
-        int nRet = unzGoToFilePos(_data->zipFile, &uzfs->entry->pos);
-        CC_BREAK_IF(UNZ_OK != nRet);
-
-        nRet = unzOpenCurrentFile(_data->zipFile);
-        unzSeek64(_data->zipFile, uzfs->offset, SEEK_SET);
-        n = unzReadCurrentFile(_data->zipFile, buf, size);
-        if (n > 0)
-            uzfs->offset += n;
-
-        unzCloseCurrentFile(_data->zipFile);
-
-    } while (false);
-
-    return n;
-}
-long ZipFile::uzfsSeek(UnzFileStream* uzfs, long offset, int origin)
-{
-    long result = -1;
-    if (uzfs != nullptr) {
-        switch (origin) {
-        case SEEK_SET:
-            result = offset;
-            break;
-        case SEEK_CUR:
-            result = uzfs->offset + offset;
-            break;
-        case SEEK_END:
-            result = (long)uzfs->entry->uncompressed_size + offset;
-            break;
-        default:;
-        }
-
-        if (result >= 0) {
-            uzfs->offset = result;
-        }
-        else
-            result = -1;
-    }
-
-    return result;
-}
-void ZipFile::uzfsClose(UnzFileStream* uzfs)
-{
-    if (uzfs != nullptr) {
-        free(uzfs);
-    }
-}
-
 bool ZipFile::initWithBuffer(const void *buffer, uLong size)
 {
     if (!buffer || size == 0) return false;
@@ -833,5 +762,78 @@ bool ZipFile::initWithBuffer(const void *buffer, uLong size)
     setFilter(emptyFilename);
     return true;
 }
+
+bool ZipFile::zfopen(const std::string& fileName, ZipFileStream* zfs)
+{
+    if (!zfs) return false;
+    auto it = _data->fileList.find(fileName);
+    if (it != _data->fileList.end()) {
+        zfs->entry = &it->second;
+        zfs->offset = 0;
+        return true;
+    }
+    zfs->entry = nullptr;
+    zfs->offset = -1;
+    return false;
+}
+
+int ZipFile::zfread(ZipFileStream* zfs, void* buf, unsigned int size)
+{
+    int n = 0;
+    do {
+        CC_BREAK_IF(zfs == nullptr || zfs->offset >= zfs->entry->uncompressed_size);
+
+        std::unique_lock<std::mutex> lck(_data->zipFileMtx);
+
+        int nRet = unzGoToFilePos(_data->zipFile, &zfs->entry->pos);
+        CC_BREAK_IF(UNZ_OK != nRet);
+
+        nRet = unzOpenCurrentFile(_data->zipFile);
+        unzSeek64(_data->zipFile, zfs->offset, SEEK_SET);
+        n = unzReadCurrentFile(_data->zipFile, buf, size);
+        if (n > 0)
+            zfs->offset += n;
+
+        unzCloseCurrentFile(_data->zipFile);
+
+    } while (false);
+
+    return n;
+}
+
+long ZipFile::zfseek(ZipFileStream* zfs, long offset, int origin)
+{
+    long result = -1;
+    if (zfs != nullptr) {
+        switch (origin) {
+        case SEEK_SET:
+            result = offset;
+            break;
+        case SEEK_CUR:
+            result = zfs->offset + offset;
+            break;
+        case SEEK_END:
+            result = (long)zfs->entry->uncompressed_size + offset;
+            break;
+        default:;
+        }
+
+        if (result >= 0) {
+            zfs->offset = result;
+        }
+        else
+            result = -1;
+    }
+
+    return result;
+}
+void ZipFile::zfclose(ZipFileStream* zfs)
+{
+    if (zfs != nullptr && zfs->entry != nullptr) {
+        zfs->entry = nullptr;
+        zfs->offset = -1;
+    }
+}
+
 
 NS_CC_END
