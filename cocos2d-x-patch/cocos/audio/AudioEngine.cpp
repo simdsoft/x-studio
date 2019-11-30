@@ -32,18 +32,10 @@
 #include "platform/CCFileUtils.h"
 #include "base/ccUtils.h"
 
-#if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
-#include "audio/include/AudioEngineImpl.h"
-#elif CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_MAC
+#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_MAC
 #include "audio/apple/AudioEngineImpl.h"
-#elif CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
+#else
 #include "audio/include/AudioEngineImpl.h"
-#elif CC_TARGET_PLATFORM == CC_PLATFORM_WINRT
-#include "audio/winrt/AudioEngine-winrt.h"
-#elif CC_TARGET_PLATFORM == CC_PLATFORM_LINUX
-#include "audio/include/AudioEngineImpl.h"
-#elif CC_TARGET_PLATFORM == CC_PLATFORM_TIZEN
-#include "audio/tizen/AudioEngine-tizen.h"
 #endif
 
 #define TIME_DELAY_PRECISION 0.0001
@@ -71,8 +63,7 @@ AudioEngine::AudioEngineThreadPool* AudioEngine::s_threadPool = nullptr;
 bool AudioEngine::_isEnabled = true;
 
 AudioEngine::AudioInfo::AudioInfo()
-: filePath(nullptr)
-, profileHelper(nullptr)
+: profileHelper(nullptr)
 , volume(1.0f)
 , loop(false)
 , duration(TIME_UNKNOWN)
@@ -246,7 +237,7 @@ AUDIO_ID AudioEngine::play2d(const std::string& filePath, bool loop, float volum
             auto& audioRef = _audioIDInfoMap[ret];
             audioRef.volume = volume;
             audioRef.loop = loop;
-            audioRef.filePath = &it->first;
+            audioRef.filePath = it->first;
 
             if (profileHelper) {
                 profileHelper->lastPlayTime = utils::gettime();
@@ -347,7 +338,7 @@ void AudioEngine::remove(AUDIO_ID audioID)
         if (it->second.profileHelper) {
             it->second.profileHelper->audioIDs.remove(audioID);
         }
-        _audioPathIDMap[*it->second.filePath].remove(audioID);
+        _audioPathIDMap[it->second.filePath].remove(audioID);
         _audioIDInfoMap.erase(audioID);
     }
 }
@@ -588,4 +579,3 @@ bool AudioEngine::isEnabled()
 {
     return _isEnabled;
 }
-

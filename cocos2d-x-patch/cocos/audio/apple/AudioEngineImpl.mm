@@ -449,10 +449,10 @@ AUDIO_ID AudioEngineImpl::play2d(const std::string &filePath ,bool loop ,float v
 
 void AudioEngineImpl::_play2d(AudioCache *cache, AUDIO_ID audioID)
 {
-    _threadMutex.lock();
     //Note: It maybe in sub thread or main thread :(
     if (!*cache->_isDestroyed && cache->_state == AudioCache::State::READY)
     {
+        _threadMutex.lock();
         auto playerIt = _audioPlayers.find(audioID);
         if (playerIt != _audioPlayers.end() && playerIt->second->play2d()) {
             _scheduler->performFunctionInCocosThread([audioID](){
@@ -462,6 +462,7 @@ void AudioEngineImpl::_play2d(AudioCache *cache, AUDIO_ID audioID)
                 }
             });
         }
+        _threadMutex.unlock();
     }
     else
     {
@@ -472,7 +473,6 @@ void AudioEngineImpl::_play2d(AudioCache *cache, AUDIO_ID audioID)
             iter->second->_removeByAudioEngine = true;
         }
     }
-    _threadMutex.unlock();
 }
 
 ALuint AudioEngineImpl::findValidSource()
@@ -504,7 +504,7 @@ void AudioEngineImpl::setVolume(AUDIO_ID audioID,float volume)
 
         auto error = alGetError();
         if (error != AL_NO_ERROR) {
-            ALOGE("%s: audio id = %zu, error = %x", __PRETTY_FUNCTION__,audioID,error);
+            ALOGE("%s: audio id = " AUDIO_ID_PRID ", error = %x", __PRETTY_FUNCTION__,audioID,error);
         }
     }
 }
@@ -532,7 +532,7 @@ void AudioEngineImpl::setLoop(AUDIO_ID audioID, bool loop)
 
             auto error = alGetError();
             if (error != AL_NO_ERROR) {
-                ALOGE("%s: audio id = %zu, error = %x", __PRETTY_FUNCTION__,audioID,error);
+                ALOGE("%s: audio id = " AUDIO_ID_PRID ", error = %x", __PRETTY_FUNCTION__,audioID,error);
             }
         }
     }
@@ -558,7 +558,7 @@ bool AudioEngineImpl::pause(AUDIO_ID audioID)
     auto error = alGetError();
     if (error != AL_NO_ERROR) {
         ret = false;
-        ALOGE("%s: audio id = %zu, error = %x", __PRETTY_FUNCTION__,audioID,error);
+        ALOGE("%s: audio id = " AUDIO_ID_PRID ", error = %x", __PRETTY_FUNCTION__,audioID,error);
     }
 
     return ret;
@@ -580,7 +580,7 @@ bool AudioEngineImpl::resume(AUDIO_ID audioID)
     auto error = alGetError();
     if (error != AL_NO_ERROR) {
         ret = false;
-        ALOGE("%s: audio id = %zu, error = %x", __PRETTY_FUNCTION__,audioID,error);
+        ALOGE("%s: audio id = " AUDIO_ID_PRID ", error = %x", __PRETTY_FUNCTION__,audioID,error);
     }
 
     return ret;
@@ -635,7 +635,7 @@ float AudioEngineImpl::getCurrentTime(AUDIO_ID audioID)
 
             auto error = alGetError();
             if (error != AL_NO_ERROR) {
-                ALOGE("%s, audio id:%zu,error code:%x", __PRETTY_FUNCTION__,audioID,error);
+                ALOGE("%s, audio id:" AUDIO_ID_PRID ",error code:%x", __PRETTY_FUNCTION__,audioID,error);
             }
         }
     }
@@ -660,7 +660,7 @@ bool AudioEngineImpl::setCurrentTime(AUDIO_ID audioID, float time)
         else {
             if (player->_audioCache->_framesRead != player->_audioCache->_totalFrames &&
                 (time * player->_audioCache->_sampleRate) > player->_audioCache->_framesRead) {
-                ALOGE("%s: audio id = %zu", __PRETTY_FUNCTION__,audioID);
+                ALOGE("%s: audio id = " AUDIO_ID_PRID, __PRETTY_FUNCTION__,audioID);
                 break;
             }
 
@@ -668,7 +668,7 @@ bool AudioEngineImpl::setCurrentTime(AUDIO_ID audioID, float time)
 
             auto error = alGetError();
             if (error != AL_NO_ERROR) {
-                ALOGE("%s: audio id = %zu, error = %x", __PRETTY_FUNCTION__,audioID,error);
+                ALOGE("%s: audio id = " AUDIO_ID_PRID ", error = %x", __PRETTY_FUNCTION__,audioID,error);
             }
             ret = true;
         }
@@ -712,12 +712,12 @@ void AudioEngineImpl::update(float dt)
             delete player;
             _unusedSourcesPool.push_back(alSource);
         }
-        else if (player->_ready && sourceState == AL_STOPPED) {
+        else if (player->_ready && player->isFinished()) {
 
             std::string filePath;
             if (player->_finishCallbak) {
                 auto& audioInfo = AudioEngine::_audioIDInfoMap[audioID];
-                filePath = *audioInfo.filePath;
+                filePath = audioInfo.filePath;
             }
 
             AudioEngine::remove(audioID);

@@ -40,7 +40,7 @@ namespace cocos2d { namespace experimental {
 
     static size_t ov_fread_r(void* buffer, size_t element_size, size_t element_count, void* handle)
     {
-        return ((PXFileStream*)handle)->read(buffer, element_size * element_count);
+        return ((PXFileStream*)handle)->read(buffer, static_cast<uint32_t>(element_size * element_count));
     }
 
     static int ov_fseek_r(void * handle, ogg_int64_t offset, int whence)
@@ -68,9 +68,8 @@ namespace cocos2d { namespace experimental {
         close();
     }
 
-    bool AudioDecoderOgg::open(const char* path)
+    bool AudioDecoderOgg::open(const std::string& fullPath)
     {
-        std::string fullPath = FileUtils::getInstance()->fullPathForFilename(path);
         if (!_fileStream.open(fullPath))
         {
             ALOGE("Trouble with ogg(1): %s\n", strerror(errno));

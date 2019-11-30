@@ -1,6 +1,7 @@
 /****************************************************************************
  Copyright (c) 2014-2016 Chukong Technologies Inc.
  Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+ Copyright (c) 2018-2020 simdsoft.com, @HALX99
 
  http://www.cocos2d-x.org
 
@@ -31,11 +32,20 @@
 #include <mutex>
 #include <vector>
 #include <memory>
+
+#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_MAC
+#import <OpenAL/al.h>
+
+#else
+
 #ifdef OPENAL_PLAIN_INCLUDES
 #include <al.h>
 #else
 #include <AL/al.h>
 #endif
+
+#endif
+
 #include "platform/CCPlatformMacros.h"
 #include "audio/include/AudioMacros.h"
 

@@ -27,6 +27,7 @@
 
 #include "platform/CCPlatformConfig.h"
 #include "platform/CCPlatformMacros.h"
+#include "audio/include/AudioMacros.h"
 #include "audio/include/Export.h"
 #include <functional>
 #include <list>
@@ -36,10 +37,6 @@
 #ifdef ERROR
 #undef ERROR
 #endif // ERROR
-
-#if !defined(AUDIO_ID)
-#define AUDIO_ID int
-#endif
 
 /**
  * @addtogroup audio
@@ -332,7 +329,7 @@ protected:
     
     struct AudioInfo
     {
-        const std::string* filePath;
+        std::string filePath;
         ProfileHelper* profileHelper;
         
         float volume;
