@@ -1,4 +1,4 @@
-# x-studio 2014 - 2019
+# x-studio 2014 - 2020
 
 [![Powered](https://img.shields.io/badge/x﹣studio%20Pro-Powered-blue.svg)](https://github.com/simdsoft/x-studio)
 
