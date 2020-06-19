@@ -1,5 +1,7 @@
 # x-studio 2014 - 2020
 
+[简体中文](https://github.com/simdsoft/x-studio/blob/master/README_CN.md)
+
 [![Release](https://img.shields.io/badge/x﹣studio%20Pro%2010.0.9000.1-released-blue.svg)](https://github.com/simdsoft/x-studio)
 
 ### Since v10.0.5900.299, the software name will be rename from ```x-studio365``` to ```x-studio```
