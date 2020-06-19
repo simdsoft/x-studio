@@ -41,6 +41,7 @@ x-studio is a powerful,lightweight and fast development IDE. It support multi-pr
 * High-performance Output view.
 * Integrated with clang-fotmat 11.0, so format cpp, java, objc, js is very easy.
 * Chould config a custom tool for android logcat to redirect to OutputView.
+* Shell integrated support to calculate digest with usually algorithms, shuch as md5,sha1,sha512 and etc.
 
 #Code Editing Preview
 ![image](https://github.com/simdsoft/x-studio/blob/master/showcase2.png)  
