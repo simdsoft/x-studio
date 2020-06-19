@@ -36,7 +36,7 @@ x-studio is a powerful,lightweight and fast development IDE. It support multi-pr
 * Support Comment lua source code with hotkey: Ctrl+/
 * Support View file as binary Ascii-View.
 * Support CTRL+RightClick to show shell context menu at 'Project Explorer'
-* Support Open/Save Large file (more than 100M) fastly.
+* Support Open/Save Large file (more than 100M~1GB) at few seconds.
 * Support capture adb log to Output View with filter feature.
 * High-performance Output view.
 * Integrated with clang-fotmat 11.0, so format cpp, java, objc, js is very easy.
