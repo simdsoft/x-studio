@@ -14,7 +14,7 @@ sqlite3                                                         Public Domain
 wow64helper                                                     MIT
 uchardet                                                        MOZILLA PUBLIC LICENSE 1.1
 zlib                                                            zlib License
-duilib                                                          directui license/duilib license
+REDM                                                            Apache License v2.0
 glad                                                            MIT
 antlr4                                                          BSD 3-clause license
 LLVM                                                            Apache License v2.0 with LLVM Exceptions
@@ -23,3 +23,5 @@ LuaJIT                                                          MIT
 minhook                                                         Tsuda Kageyu
 OpenSSL                                                         Apache License v2.0
 curl                                                            The curl license https://curl.haxx.se/docs/copyright.html
+libiconv, LGPL
+boost.regex,Boost Software License
