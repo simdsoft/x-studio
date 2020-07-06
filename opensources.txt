@@ -23,5 +23,5 @@ LuaJIT                                                          MIT
 minhook                                                         Tsuda Kageyu
 OpenSSL                                                         Apache License v2.0
 curl                                                            The curl license https://curl.haxx.se/docs/copyright.html
-libiconv, LGPL
-boost.regex,Boost Software License
+libiconv,                                                       LGPL
+boost.regex,                                                    Boost Software License
