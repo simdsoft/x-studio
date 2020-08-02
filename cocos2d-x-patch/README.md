@@ -1,4 +1,5 @@
 # The cocos2d-x patch, support cocos2d-x 3.15 or later.
+## [DEPRECATED], all features should be implemented at https://github.com/c4games/engine-x
 **Features:**
 1. x-studio runtime extension ui loader (based on cocostudio, compatible with cocostudio).
 2. Refactor audio engine module, replace backend with OpenAL for android and linux. Unify win32,android,linux framework implementation sources.
