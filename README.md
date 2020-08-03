@@ -103,18 +103,6 @@ x-studio is a powerful,lightweight and fast development IDE. It support multi-pr
 |Ctrl + RightClick Project Explorer| Display desktop shell context menu|
 |Shift + F9|Quick Watch|
 
-# How to use this editor with cocos2d-x
-1. Create a empty project by official cocos2d-x engine console command, such as x365app1
-2. Overrite 'editor-support' & 'external/flatbuffers'
-3. (Win32) Exclude 'cocostudio',GameNode3DReader.cpp,Light3DReader.cpp from libcocos2d project explorer.  
-4. (Win32) Add 'editor-support/cocostudio/proj.win32/libxreader.vcxproj' and 'editor-support/dragonBones/proj.win32/libDragonBones.vcxproj' to solution  
-5. (Win32) Add libxreader project as reference of x365app1 project
-
-## Android: 
-remove ```$(call import-module,flatbuffers)``` from cocos/Android.mk
-## iOS: 
-because, flatbuffers only need header at runtime. so remove the .cpp from xcode project.
-
 showcase  
 ![image](https://github.com/simdsoft/x-studio/blob/master/showcase.png)  
 ### Purchase Professional License
