@@ -2,7 +2,7 @@
 
 [简体中文](https://github.com/simdsoft/x-studio/blob/master/README_CN.md)
 
-[![Release](https://img.shields.io/badge/x﹣studio%20Pro%2010.0.9000.11-released-blue.svg)](https://github.com/simdsoft/x-studio)
+[![Release](https://img.shields.io/badge/x﹣studio%20Pro%2010.0.9000.12-released-blue.svg)](https://github.com/simdsoft/x-studio)
 
 ### Since v10.0.5900.299, the software name will be rename from ```x-studio365``` to ```x-studio```
 
@@ -58,8 +58,8 @@ x-studio is a powerful,lightweight and fast development IDE. It support multi-pr
 5. Supports import CocosStudio ccs project, and json format ui published by CocosStudio.
 6. Supports import .csb, and publish designed ui to cocosstudio(ccs), json, csd formats.
 7. Provide command line common assets(.png,.lua,.json and any other files) encrypt solution.(since 10.0.3300.1001)
-   usage: x-studio365.exe -c -enc -i=d:\projects\project0\res -o=d:\projects\project0\res-enc
-    will encrypt all files with aes256 cbc and compress with zlib, the enctypt config will be stored to C:\Users\%USERNAME%\AppData\Local\x-studio365\encrypt-cfg.xml whitch contains encrypt key & ivec, it's reqiured by the runtime: https://github.com/simdsoft/x-studio/tree/master/encrypt-demo/cpp-empty-test/Classes
+   usage: "%XS_INSTDIR%\x-studio.exe" -c -enc -i=d:\projects\project0\res -o=d:\projects\project0\res-enc
+    will encrypt all files with aes256 cbc and compress with zlib, the enctypt config will be stored to C:\Users\%USERNAME%\AppData\Local\x-studio\encrypt-cfg.xml whitch contains encrypt key & ivec, it's reqiured by the runtime: https://github.com/simdsoft/x-studio/tree/master/encrypt-demo/cpp-empty-test/Classes
 8. Supports Chinese and English.
 9. Supports SpriteSheet creation.
 
