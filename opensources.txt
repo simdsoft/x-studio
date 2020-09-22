@@ -14,7 +14,7 @@ sqlite3                                                         Public Domain
 wow64helper                                                     MIT
 uchardet                                                        MOZILLA PUBLIC LICENSE 1.1
 zlib                                                            zlib License
-REDM                                                            Apache License v2.0
+REDM                                                            MIT
 glad                                                            MIT
 antlr4                                                          BSD 3-clause license
 LLVM                                                            Apache License v2.0 with LLVM Exceptions
