@@ -8,7 +8,7 @@
 ### 新建工程
 
   将Unity3D项目文件拖入编辑器即可，如图所示：
-  ![image](/assets/images/c2s2_01.png)
+  ![image](../assets/images/c2s2_01.png)
 
 ### 启动调试
 
@@ -16,9 +16,9 @@
   因此按F5会直接附加到Unity进程，Unity编辑器中启动预览游戏，命中断点后可查看调用堆栈，鼠标悬浮变量监视，
   或者将变量拖入变量监视窗口，也可以按Shift+F9打开快速监视对话框，如图所示：
 
-  ![image](/assets/images/c2s2_02a.png)
+  ![image](../assets/images/c2s2_02a.png)
 
-  ![image](/assets/images/c2s2_02b.png)
+  ![image](../assets/images/c2s2_02b.png)
 
 !!! attention "注意事项"
 
