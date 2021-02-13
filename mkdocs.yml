@@ -7,6 +7,9 @@ copyright: Copyright &copy; 2014 - 2021 Simdsoft Limited.
 theme:
   name: material
   language: zh
+  palette:
+    scheme: preference
+    primary: black
   logo: assets/images/logo.png
   favicon: assets/images/logo.png
 nav:
