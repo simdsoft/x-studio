@@ -16,4 +16,4 @@
 
     变量监视过程中查看大字符串或者具有特定格式的字符串，例如json, xml等特定格式字符串，
     可在变量监视窗口右键菜单【可视化工具】的弹出菜单选择相应格式预览完整字符串，如图所示：
-    ![image](/assets/images/c2s0_tip01.png)
+    ![image](../assets/images/c2s0_tip01.png)
