@@ -1,4 +1,4 @@
-# x-studio 2014 - 2020
+# x-studio 2014 - 2021
 
 [简体中文](https://github.com/simdsoft/x-studio/blob/master/README_CN.md)
 

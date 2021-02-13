@@ -1,7 +1,7 @@
 //*******************************************************************************
 // COPYRIGHT NOTES
 // ---------------
-// Copyright (C) 2014-2020 Simdsoft Limited.
+// Copyright (C) 2014-2021 Simdsoft Limited.
 // All rights reserved.
 //
 // This source code can be used, distributed or modified
