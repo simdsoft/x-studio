@@ -32,6 +32,6 @@
 * 如果指定encrypt-cfg.xml已存在, 并且需要变更密钥，那么你只需要从配置文件中删除ivec和key元素即可
 * Cocos2d-X Demo地址: https://github.com/simdsoft/x-studio/tree/master/encrypt-demo/cpp-empty-test ， 基于Cocos2d-X-3.17.1
 * 对于Lua工程，Win32平台请将加密密钥设置代码移动至:SimulatorWin.cpp文件的SimulatorWin::run()中，同时AppDelegate.cpp添加预处理器判断，如图所示:
-  ![image](/assets/images/c4s1_01a.png)
-  ![image](/assets/images/c4s1_01b.png)
+  ![image](../assets/images/c4s1_01a.png)
+  ![image](../assets/images/c4s1_01b.png)
 

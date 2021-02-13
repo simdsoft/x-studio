@@ -35,7 +35,7 @@
 然后选择 ``Edit Global Coding Settings`` 打开全局代码配置文件，找到 ``global.font-face`` ， 
 修改字体后保存即可立即生效，如图所示：
 
-![image](/assets/images/c1_01.png)  
+![image](../assets/images/c1_01.png)  
 
 ## 编辑器快捷键
 
@@ -44,7 +44,7 @@
 通过Ctrl+Shift+P调出快捷菜单，选择 ``Edit Key Bindings Settings`` 打开并编辑快捷键配置文件保存后立即生效,
 如图所示:
 
-![image](/assets/images/c1_02.png)
+![image](../assets/images/c1_02.png)
 
 !!! note ""
 
@@ -199,4 +199,4 @@
 例如修改Lua, 则先随便打开一个Lua文件，然后通过Ctrl+Shift+P调出快捷菜单，选择 ``Edit Current AutoComplete Settings`` 打开文件编辑相应keyword，保存后重启编辑器生效,
 如图所示:
 
-![image](/assets/images/c1_03.png)
+![image](../assets/images/c1_03.png)

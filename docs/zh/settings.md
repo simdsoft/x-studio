@@ -4,9 +4,9 @@
 
    通过软件主菜单【文件】【打开】【打开软件配置文件】即可快速打开软件配置进行编辑，如图所示：
 
-   ![image](/assets/images/c6s1_01a.png)
+   ![image](assets/images/c6s1_01a.png)
 
-   ![image](/assets/images/c6s1_01b.png)
+   ![image](assets/images/c6s1_01b.png)
 
 ## 软件各配置说明
 
