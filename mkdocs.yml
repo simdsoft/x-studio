@@ -9,7 +9,7 @@ theme:
   language: zh
   palette:
     scheme: preference
-    primary: black
+    primary: indigo
   logo: assets/images/logo.png
   favicon: assets/images/logo.png
 nav:
