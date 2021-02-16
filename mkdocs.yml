@@ -31,6 +31,7 @@ nav:
   - x-studio - 软件快捷键: shortcuts.md
   - x-studio - 软件设置: settings.md
   - x-studio - 常见问题: faq.md
+  - x-studio - 版本历史: changelog.md
 markdown_extensions:
   - admonition
   - abbr
