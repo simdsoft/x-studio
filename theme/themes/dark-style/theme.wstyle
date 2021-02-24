@@ -1,0 +1,133 @@
+﻿# The dark-style/theme
+
+# The mainframe theme, supported: dark,blue,light
+theme.base=dark
+
+global.back=#1B1D2D
+global.fore=#9a9dbf
+global.comment=#50537d
+
+# link URL
+url.fore=#5281e8
+
+# Call Tips macro
+calltip.fore=#9a9dbf
+calltip.back=#363957
+calltip.highlight.fore=#aeb1d4
+
+autoc.fore=$(global.fore)
+autoc.back=$(global.back)
+autoc.highlight.fore=$(global.fore)
+autoc.highlight.back=#5d61a0
+
+#光标颜色
+caret.fore=$(global.fore)
+caret.line.back=#5d61a0
+caret.line.back.alpha=90
+edge.color=#C0DCC0
+# DADADA used as background because it yields standard silver C0C0C0
+# on low color displays and a reasonable light grey on higher bit depths
+# 选中文本颜色配置 #007ACC
+selection.alpha=128
+# selection.fore=#690000
+selection.back=#6970DC
+
+#selection.additional.fore=#0000A0
+#selection.additional.back=#000080
+#selection.additional.alpha=20
+#whitespace.fore=#FF0000
+#whitespace.back=#FFF0F0
+#error.marker.fore=#0000A0
+#error.marker.back=#DADAFF
+
+bookmark.fore=#BE0000
+#bookmark.back=#FFFFA0
+#bookmark.alpha=
+#find.mark=#0000FF
+#find.mark.indicator=style:compositionthick,color:#FFB700,under
+
+highlight.current.word.color=#6970DC
+highlight.current.word.indicator=style:roundbox,color:#0080FF,under,outlinealpha:140,fillalpha:80
+indicators.alpha=72
+indicators.under=1
+
+# Sizes and visibility in edit pane
+
+fold.margin.color=$(global.back)
+fold.margin.highlight.color=$(global.back)
+
+# Folding
+# enable folding, and show lines below when collapsed.
+
+# Avoid lua fold close bug
+
+
+fold.fore=#50537d
+fold.back=$(global.back)
+
+#fold.highlight.color=#00C0C0
+
+# Give symbolic names to the set of colors used in the standard styles.
+color.code.comment.box=fore:$(global.comment)
+color.code.comment.line=fore:$(global.comment)
+color.code.comment.doc=fore:#3F703F
+color.code.comment.nested=fore:#A0C0A0
+color.text.comment=fore:$(global.comment),back:$(global.back)
+color.other.comment=fore:$(global.comment)
+color.embedded.comment=back:#E0EEFF
+color.embedded.js=back:#F0F0FF
+color.notused=back:#FF0000
+
+color.number=fore:#de8973
+color.keyword=fore:#7981f4
+color.keywordclass=fore:#c76aa2
+color.string=fore:#c6a765
+color.char=fore:#98C379
+#操作符，Lua大括
+color.operator=fore:#B4B4B4
+color.preproc=fore:#7F7F00
+color.error=fore:#FFFF00,back:#FF0000
+
+# End of line where string is not closed
+color.ncs.eol=back:#363957
+
+# Function Name & argument, color.function, color.argument
+color.function=fore:#43a9d7
+color.argument=fore:#3eb187
+
+# Global default styles for all languages
+# Default,默认背景
+style.*.32=back:$(global.back),fore:$(global.fore),$(font.base)
+# Line number
+style.*.33=back:$(global.back),fore:#5d61a0,$(font.base)
+# Brace highlight
+style.*.34=fore:#43b195,bold
+# Brace incomplete highlight
+style.*.35=fore:#c95180,bold
+# Control characters
+style.*.36=
+# Indentation guides
+style.*.37=fore:#717171,back:$(global.back)
+#Call tips
+style.*.38=fore:$(calltip.fore),back:$(calltip.back)
+
+#search result styles
+# search header
+style.fr.1=fore:#d29863
+# file header
+style.fr.2=fore:#5281e8
+# line number
+# style.fr.3=fore:#FF0000
+# match words
+style.fr.4=fore:#5281e8
+
+#Output view styles
+# info
+style.output.1=fore:#43b195
+# warning
+style.output.2=fore:#d29863
+# error
+style.output.3=fore:#c95180
+
+# Import all the language specific properties files in this directory
+import cprops\*
