@@ -1,16 +1,18 @@
 ## x-studio 更新历史
 
 ## x-studio Pro 10.0.9000.21 (2021年3月XX日更新)
-- 【代码编辑】 更新luacheck至0.24.0
-- 【代码编辑】 当文件在外部删除时，显示状态
-- 【代码编辑】 增加默认行尾符号配置支持，配置名称: defaultEOL, 默认值为"LF"
-- 【软件注册】 修复不支持 xxx.xxx@xxx.com 邮箱格式注册问题
-- 【UI编辑】 UIScrollView滚动条属性未发布
-- 【UI编辑】 修复csd Skeleton类型签名不正确问题
-- 【UI编辑】 移除过时的 ControlSwitch 控件
-- 【UI编辑】 修复csd恢复时，帧动画 ColorFrame 无法正确还原问题
-- 【UI编辑】 将Text控件TouchEnabled默认设置为false
-- 【软件系统】 同步默认主题
+- 【代码编辑】升级Scintilla至4.4.5
+- 【代码编辑】升级boost.regex至1.75.0
+- 【代码编辑】升级luacheck至0.24.0
+- 【代码编辑】当文件在外部删除时，显示状态
+- 【代码编辑】增加默认行尾符号配置支持，配置名称: defaultEOL, 默认值为"LF"
+- 【软件注册】修复不支持 xxx.xxx@xxx.com 邮箱格式注册问题
+- 【UI编辑】UIScrollView滚动条属性未发布
+- 【UI编辑】修复csd Skeleton类型签名不正确问题
+- 【UI编辑】移除过时的 ControlSwitch 控件
+- 【UI编辑】修复csd恢复时，帧动画 ColorFrame 无法正确还原问题
+- 【UI编辑】将Text控件TouchEnabled默认设置为false
+- 【软件系统】同步默认主题
 
 
 ## x-studio Pro 10.0.9000.12 (2020年8月3日更新) size:17298352 md5:616fae56a8de3b64a1ec046446abad95
