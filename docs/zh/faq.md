@@ -2,7 +2,7 @@
 
 !!! question "启动x-studio报0x000000c1怎们办?"
 
-    您的系统是windows XP, x-studio不支持，请升级系统至win7或者win10
+    x-studio和VisualStudio一样是32位软件，请务必确保安装[vc2019_x86 redist](https://x-studio.net/fdl2.php?file=VC_redist.x86.exe)运行库后再重试
 
 !!! question "启动x-studio报0x0000007e错误怎么办?"
 	
