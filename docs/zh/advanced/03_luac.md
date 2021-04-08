@@ -6,15 +6,15 @@
 
 ### 基本用法
 
-`%XS_INSTDIR%\tools\lua-compile.bat IN_DIR OUT_DIR TARGET_CPU KEEP_EXT`
+`%XS_INSTDIR%\tools\lua-compile.bat IN_DIR OUT_DIR KEEP_EXT BC_TYPE TARGET_CPU`
 
 ### 参数说明
 
 *IN_DIR*: 输入目录<br/>
 *OUT_DIR*: 输出目录<br/>
-*KEEP_EXT*: 输出文件保持`.lua`后缀，否则字节码文件后缀为`.luac`
+*KEEP_EXT*: 输出文件保持`.lua`后缀，否则字节码文件后缀为`.luac`<br/>
 *BC_TYPE*: 字节码类型， 取值`plain`(官方lua),`jit`(LuaJIT) <br/>
-*TARGET_CPU*: 目标字节码CPU架构，可取值: `x86`或`arm64`， 仅字节码类型为`jit`时有效
+*TARGET_CPU*: 目标字节码CPU架构，可取值: `x86`或`arm64`， 仅字节码类型为`jit`时有效<br/>
 
 ### 其他说明
 
