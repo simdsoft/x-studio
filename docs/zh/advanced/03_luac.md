@@ -6,7 +6,7 @@
 
 ### 基本用法
 
-`%XS_INSTDIR%\tools\lua-compile.bat IN_DIR OUT_DIR KEEP_EXT BC_TYPE TARGET_CPU`
+`"%XS_INSTDIR%\tools\lua-compile.bat" IN_DIR OUT_DIR KEEP_EXT BC_TYPE TARGET_CPU`
 
 ### 参数说明
 
