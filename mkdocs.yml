@@ -27,6 +27,7 @@ nav:
   - x-studio - 高级篇:
     - 加密解决方案: advanced/01_encrypt.md
     - 软件升级: advanced/02_upgrade.md
+    - Lua字节码编译: advanced/03_luac.md
   - x-studio - 使用技巧: use-skills.md
   - x-studio - 软件快捷键: shortcuts.md
   - x-studio - 软件设置: settings.md
