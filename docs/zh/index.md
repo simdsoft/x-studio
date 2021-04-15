@@ -12,6 +12,10 @@
 
     作者利用业余时间开发维护x-studio软件长达5年，正是由于作者的耐力和对软件开发的热爱，使其完成了从“业余”到“专业”的蜕变。
 
+!!! note ""
+
+    历史版本下载: https://dl.x-studio.net/
+
 *x-studio是一款强大的开发人员IDE；支持Unity32/64(xlua, slua, ulua/tolua)和Cococ2d-x Lua/Quick-Cocos2dx-Community调试。
 支持类似VSCode，SublimeText的多种编程语言高亮语法着色，打开文件夹，自动完成，自动识别UTF-8/GBK编码，自动识别换行符等功能。
 支持Cocos2d-x场景（UI）和2D粒子编辑，屏幕适配预览功能（让手动适配问题彻底解放）。
