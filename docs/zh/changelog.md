@@ -16,6 +16,7 @@
 - 【UI编辑】修复csd恢复时，帧动画 ColorFrame 无法正确还原问题
 - 【UI编辑】将Text控件TouchEnabled默认设置为false
 - 【软件视觉】修复TreeView控件fold按钮绘制问题
+- 【软件账号】增加忘记密码支持
 - 【软件系统】同步默认主题
 
 
