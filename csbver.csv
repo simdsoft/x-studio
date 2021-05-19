@@ -1,4 +1,4 @@
-Cocos Studio,cocos2d-x,serialization lib
+Cocos Studio,Cocos2d-x,File Format
 older, < 3.3rc0, custom binary format
 v2.0.2,"3.3rc0;3.3rc1",protobuf
 v2.0.6,3.3rc2,flatbuffer
