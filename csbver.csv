@@ -1,0 +1,4 @@
+Cocos Studio,cocos2d-x,serialization lib
+v2.0.2,3.3rc1,protobuf
+v2.0.6,3.3rc2,flatbuffer
+v2.1+,v3.4beta0+,flatbuffer
