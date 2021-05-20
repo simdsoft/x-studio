@@ -4,7 +4,7 @@ x-studio是一款强大的开发人员IDE；支持Unity32/64(xlua, slua, ulua/to
 
 ## 软件运行效果
 
-![image](https://github.com/simdsoft/x-studio/blob/master/showcase4.png)
+![image](https://github.com/simdsoft/x-studio/blob/master/showcase21-1.png)
 
 ## x-studio 相关资源:
 
