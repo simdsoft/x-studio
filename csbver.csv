@@ -1,5 +1,5 @@
 Cocos Studio,Cocos2d-x,File Format
 older, < 3.3rc0, custom binary format
 v2.0.2,3.3rc0;3.3rc1,protobuf
-v2.0.6,3.3rc2;3.3,flatbuffer
-v2.1+,v3.4beta0+,flatbuffer
+v2.0.6,3.3rc2;3.3;3.4beta0;3.4rc0,flatbuffer
+v2.1+,v3.4rc1+,flatbuffer
