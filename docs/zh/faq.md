@@ -1,5 +1,12 @@
 # x-studio - 常见问题
 
+!!! question "打开文件乱码怎么办?"
+
+    1. 出现乱码原因，如果不是文件本身编码问题，就是软件检测编码失败了，属于正常现象，例如字符串 "fdsfdsfsd 你好吗啊啊啊" 如果保存为GBK，
+    
+       vscode打开自动编码检测也无法正确识别编码，详见: https://github.com/simdsoft/x-studio/issues/798
+    2. 解决方案: 通过软件主菜单【文件】【以指定编码保存/重新加载】，选择编码，加载即可
+    
 !!! question "启动x-studio报0x000000c1怎们办?"
 
     x-studio和VisualStudio一样是32位软件，请务必确保安装[vc2019_x86 redist](https://x-studio.net/fdl2.php?file=VC_redist.x86.exe)运行库后再重试
