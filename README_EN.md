@@ -1,6 +1,6 @@
 # x-studio 2014 - 2021
 
-[简体中文](https://github.com/simdsoft/x-studio/blob/master/README_CN.md)
+[简体中文](https://github.com/simdsoft/x-studio/blob/master/README.md)
 
 [![Release](https://img.shields.io/badge/x﹣studio%20Pro%20-10.0.9000.31-blue.svg)](https://github.com/simdsoft/x-studio)
 
