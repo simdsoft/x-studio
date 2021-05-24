@@ -23,17 +23,6 @@
 
     这种情况99.9999%是由于调试过程中修改代码造成的，不必重启软件，按 **CTRL+W** 关闭代码文档，重新打开即可
 
-!!! question "如何使用最新版x-studio编译luajit arm64位字节码?"
-
-    1. 首先下载最新版x-studio并安装
-    2. 打开命令行输入 ``pushd "%XS_INSTDIR%\tools\lj-compiler\2.1"`` 并回车
-    3. 使用命令编译字节码, 例如:
-
-        - 编译arm64为字节码(iPhone5S及以上设备):
-          ``lj-compile D:\dev\projects\LuaDemo\src D:\dev\projects\LuaDemo\jit-arm64 arm64``
-        - 编译32为通用字节码(win32 iPhone5和所有Android设备):
-          ``lj-compile D:\dev\projects\LuaDemo\src D:\dev\projects\LuaDemo\jit-cpu32 x86``
-
 !!! question "使用x-studio启动调试，调试目标程序闪退怎么办?"
 
     删除exe同目录下.dcache文件，再试试。
