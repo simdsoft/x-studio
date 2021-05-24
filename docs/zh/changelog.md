@@ -6,9 +6,9 @@
 3. 【代码编辑】 增加类似vs的文件过滤规则支持
 4. 【代码编辑】 完善cmake脚本高亮关键字
 5. 【代码编辑】 修复另存文件后，关闭文档闪退问题
-6. 【代码编辑】 Ctrl + D加选下一个符号支持MatchCase和MatchWholeWorld
-7. 【代码编辑】 增强编码识别，使用'uchardet'库和系统库'MLang2'库检测文件编码
-8. 【代码编辑】 增加软件配置 'fallbackEncoding'， 当无法识别文件编码是，回滚编码
+6. 【代码编辑】 `Ctrl + D`加选下一个符号支持`MatchCase`和`MatchWholeWorld`
+7. 【代码编辑】 增强编码识别，使用`uchardet`库和系统库`MLang2`库检测文件编码
+8. 【代码编辑】 增加软件配置 `fallbackEncoding`， 当无法识别文件编码时，回滚编码
 9. 【UI编辑】 修复HSV颜色无效问题
 10. 【UI编辑】 资源路径本地代码页，以支持非ANSI字符路径
 11. 【UI编辑】 匹配csb加载器和生成器版本信息
