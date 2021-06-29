@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2014-2019 x-studio - All Rights Reserved
+// Copyright (c) 2014-2021 x-studio - All Rights Reserved
 //
 #include <stdio.h>
 #include <string>
@@ -135,6 +135,7 @@ public:
         return data;
     }
 
+#if !defined(ADXE_VERSION)
     /**
     *  Gets resource file data
     *
@@ -167,6 +168,7 @@ public:
         }
         return data;
     }
+#endif
 
 #if COCOS2D_VERSION <= 0x00031200 && (CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
     // COCOS2D_VERSION <= v3.12, Apple needed
