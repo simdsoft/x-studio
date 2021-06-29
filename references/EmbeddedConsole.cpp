@@ -102,3 +102,22 @@ private:
   CONSOLE_SCREEN_BUFFER_INFOEX _info = {0};
   BOOL _bAttachToParent              = FALSE;
 };
+
+
+static BOOL setConsoleColor(HANDLE hConsole, WORD wAttributes)
+{
+  if (hConsole == INVALID_HANDLE_VALUE)
+    return FALSE;
+
+  return SetConsoleTextAttribute(hConsole, wAttributes);
+}
+
+static void setConsoleTextColor(HANDLE hConsole, COLORREF color)
+{
+  CONSOLE_SCREEN_BUFFER_INFOEX info;
+  info.cbSize = sizeof(info);
+  GetConsoleScreenBufferInfoEx(hConsole, &info);
+  info.ColorTable[14] = color; // Replace yellow
+  SetConsoleScreenBufferInfoEx(hConsole, &info);
+  SetConsoleTextAttribute(hConsole, FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_GREEN);
+}
