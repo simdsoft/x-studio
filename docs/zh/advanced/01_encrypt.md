@@ -21,8 +21,8 @@
 * ``-eflags=1```: 1: 使用md5扁平化文件名并存储至eflags.csv; 2: 计算文件原始数据摘要并存储至eflags.csv; 4: 计算处理有文件数据摘要并存储至eflags.csv ; 8: 取文件名md5照样前两个字符分目录存储处理后资源
 * ``-plugin``: 指定加密插件DLL，插件编写，详见: https://github.com/simdsoft/x-studio/blob/master/plugin/EncryptSystemPlugin.h
 
- 示例命令： ``"%XS_INSTDIR%\x-studio.exe" -c -enc -cfg=D:\encrypt-cfg.xml -i=D:\OriginalRes1 -o=D:\EncryptedRes1``
- 更多参数，请使用如下命令查看： ``"%XS_INSTDIR%\x-studio.exe" -c --help``
+ 示例命令： ``"%XS_INSTDIR%\x-studio" -c -enc -cfg=D:\encrypt-cfg.xml -i=D:\OriginalRes1 -o=D:\EncryptedRes1``
+ 更多参数，请使用如下命令查看： ``"%XS_INSTDIR%\x-studio" -c --help``
 
 ## 注意事项
 
