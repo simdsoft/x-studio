@@ -4,7 +4,7 @@ Scintilla                                                       Scintilla and Sc
 openal-soft                                                     LGPL
 BCGControlBar Pro For MFC                                       Commercial License
 angle                                                           The ANGLE Project
-cocos2d-x                                                       MIT
+adxe                                                            MIT
 nsis                                                            zlib/libpng License
 Lua                                                             MIT
 pugixml                                                         MIT
