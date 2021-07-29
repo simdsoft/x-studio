@@ -17,10 +17,7 @@ x-studio是一款强大的开发人员IDE；支持Unity32/64(xlua, slua, ulua/to
 - 官网: https://x-studio.net/
 - 文档: https://docs.x-studio.net/
 - 最新版本下载: 
-  - [2021.3p1/2021.3.1](https://x-studio.net/dl.php?version=10.0.9000.40) - (2021.5.27)
-  - [2021.3/2021.3.0](https://x-studio.net/dl.php?version=10.0.9000.39) - (2021.5.25)
-  - [10.0.9000.31/2021.2.0](https://x-studio.net/dl.php?version=10.0.9000.31) - (2021.5.6)
-  - [10.0.9000.29/2021.1.0](https://x-studio.net/dl.php?version=10.0.9000.29) - (2021.4.14)
+  - [2021.3.1](https://x-studio.net/dl.php?version=10.0.9000.40) - (2021.5.27)
 - 历史版本下载: https://dl.x-studio.net/
 - 更新日志: https://x-studio.net/updates.html
 
