@@ -1,6 +1,6 @@
 # 仓库介绍
 
-本仓库仅用于`x-studio ide`的问题跟踪，研发计划，官方文档更新，并非`x-studio ide`软件源码
+本仓库仅用于`x-studio ide`软件的问题跟踪，研发计划，官方文档更新，并非软件源码
 
 [![Release](https://img.shields.io/badge/版本-v2021.3.1-blue.svg)](https://github.com/simdsoft/x-studio/releases)
 
