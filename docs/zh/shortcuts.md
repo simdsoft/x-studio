@@ -38,7 +38,7 @@
 | Ctrl+Q               | 在x-studio多个进程实例之间快速切换               |
 | Ctrl+B               | Luacheck静态分析Lua代码                          |
 | Ctrl+Shfit+P       | 打开快捷命令对话框                               |
-| 按住Ctrl+Shift       | 点击大纲+/-号按钮 切换全部大纲显示               |
+| 按住Ctrl+Shift       | 点击大纲`+/-`号按钮 切换全部大纲显示               |
 | Shift+F9             | 打开快速监视对话框                               |
 | 按住Ctrl/Shift         | 右键资源视图文件,可弹出桌面Shell菜单             |
 
