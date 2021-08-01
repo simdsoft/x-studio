@@ -1,31 +1,31 @@
 Feature,Pro,Community,Feature Status
-基础代码编辑,yes,yes,ready
-Lua基础调试,yes,yes,ready
-Cocos2d-X UI编辑,yes,yes,ready
-Cocos2d-X 粒子编辑器,yes,yes,ready
-CocosStudio2.x csb/json UI布局导入,yes,yes,ready
-基础AES资源加密,yes,yes,ready
-当前文档单词自动完成,yes,yes,ready
-自定义API提示,yes,yes,ready
-ClangFormat集成,yes,yes,ready
-"软件语言(英语,简体中文)",yes,yes,ready
-在输出窗口定位文件,yes,yes,ready
-选择指定窗口显示查找结果集合,yes,yes,ready
-Luacheck集成,yes,yes,ready
-以管理员身份编辑保存文件,yes,no,ready
-Lua附加进程调试,yes,no,ready
-自动更新,yes,no,ready
-360和腾讯软件中心安全监测,yes,no,ready
-Code Sinppets,yes,no,ready
-以二进制显示变量值,yes,no,ready
-搜索结果行号映射支持,yes,no,ready
-发布csd,yes,no,ready
-加密扁平化文件,yes,no,ready
-加密插件化,yes,no,ready
-Lua调试可视化工具,yes,no,ready
-Lua调试QuickInfo悬浮,yes,no,ready
-Lua调试显示C++堆栈,yes,no,ready
-资源视图按住Shift/Ctrl单击鼠标右键呼出系统桌面菜单,yes,no,ready
-MinMap ScrollBar,yes,no,ready
-记录最近附加进程exe名,yes,no,ready
-取色器工具,yes,no,ready
+基础代码编辑,✔,✔,ready
+Lua基础调试,✔,✔,ready
+Cocos2d-X UI编辑,✔,✔,ready
+Cocos2d-X 粒子编辑器,✔,✔,ready
+CocosStudio2.x csb/json UI布局导入,✔,✔,ready
+基础AES资源加密,✔,✔,ready
+当前文档单词自动完成,✔,✔,ready
+自定义API提示,✔,✔,ready
+ClangFormat集成,✔,✔,ready
+"软件语言(英语,简体中文)",✔,✔,ready
+在输出窗口定位文件,✔,✔,ready
+选择指定窗口显示查找结果集合,✔,✔,ready
+Luacheck集成,✔,✔,ready
+以管理员身份编辑保存文件,✔,❌,ready
+Lua附加进程调试,✔,❌,ready
+自动更新,✔,❌,ready
+360和腾讯软件中心安全监测,✔,❌,ready
+Code Sinppets,✔,❌,ready
+以二进制显示变量值,✔,❌,ready
+搜索结果行号映射支持,✔,❌,ready
+发布csd,✔,❌,ready
+加密扁平化文件,✔,❌,ready
+加密插件化,✔,❌,ready
+Lua调试可视化工具,✔,❌,ready
+Lua调试QuickInfo悬浮,✔,❌,ready
+Lua调试显示C++堆栈,✔,❌,ready
+资源视图按住Shift/Ctrl单击鼠标右键呼出系统桌面菜单,✔,❌,ready
+MinMap ScrollBar,✔,❌,ready
+记录最近附加进程exe名,✔,❌,ready
+取色器工具,✔,❌,ready

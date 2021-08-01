@@ -1,29 +1,29 @@
 Feature,Pro,Community,Feature Status
-Base Coding,yes,yes,ready
-Base Lua Debugging,yes,yes,ready
-Cocos2d-X UI Editing,yes,yes,ready
-Cocos2d-X Particle2D Editing,yes,yes,ready
-CocosStudio2.x csb/json UI Import,yes,yes,ready
-AES CBC EncryptSystem,yes,yes,ready
-Auto word complete,yes,yes,ready
-API complete,yes,yes,ready
-ClangFormat Integration,yes,yes,ready
-Languages EN & CN,yes,yes,ready
-Locate file at output view,yes,yes,ready
-Select Find result pane,yes,yes,ready
-Luacheck Integration,yes,yes,ready
-Save File As Admin,yes,no,ready
-Lua Attach To Process,yes,no,ready
-Auto Upgrade,yes,no,ready
-Code Sinppets,yes,no,ready
-Display Watch value as binary,yes,no,ready
-Mapping find results lines,yes,no,ready
-Publish to cocostudio(.ccs),yes,no,ready
-EncryptSystem Flat file,yes,no,ready
-EncryptSystem plugin support,yes,no,ready
-Lua Debugging watch Visualized Tools,yes,no,ready
-Lua Debugging QuickInfo support,yes,no,ready
-Lua Debugging display c++ stack,yes,no,ready
-Press Shift/Ctrl to display shell context menu,yes,no,ready
-MinMap ScrollBar,yes,no,ready
-Color picker tool,yes,no,ready
+Base Coding,✔,✔,ready
+Base Lua Debugging,✔,✔,ready
+Cocos2d-X UI Editing,✔,✔,ready
+Cocos2d-X Particle2D Editing,✔,✔,ready
+CocosStudio2.x csb/json UI Import,✔,✔,ready
+AES CBC EncryptSystem,✔,✔,ready
+Auto word complete,✔,✔,ready
+API complete,✔,✔,ready
+ClangFormat Integration,✔,✔,ready
+Languages EN & CN,✔,✔,ready
+Locate file at output view,✔,✔,ready
+Select Find result pane,✔,✔,ready
+Luacheck Integration,✔,✔,ready
+Save File As Admin,✔,❌,ready
+Lua Attach To Process,✔,❌,ready
+Auto Upgrade,✔,❌,ready
+Code Sinppets,✔,❌,ready
+Display Watch value as binary,✔,❌,ready
+Mapping find results lines,✔,❌,ready
+Publish to cocostudio(.ccs),✔,❌,ready
+EncryptSystem Flat file,✔,❌,ready
+EncryptSystem plugin support,✔,❌,ready
+Lua Debugging watch Visualized Tools,✔,❌,ready
+Lua Debugging QuickInfo support,✔,❌,ready
+Lua Debugging display c++ stack,✔,❌,ready
+Press Shift/Ctrl to display shell context menu,✔,❌,ready
+MinMap ScrollBar,✔,❌,ready
+Color picker tool,✔,❌,ready
