@@ -33,3 +33,4 @@ x-studio是一款强大的开发人员IDE；支持Unity32/64(xlua, slua, ulua/to
 
 - [点击链接加入群聊【x-studio IDE官方群2】](https://jq.qq.com/?_wv=1027&k=eSrJrTIV)
 - [点击链接加入群聊【x-studio Pro VIP群】](https://jq.qq.com/?_wv=1027&k=F10LQSJt)
+  - 加入VIP可提前体验新版本
