@@ -6,7 +6,7 @@
 
 !!! note ""
 
-    自10.0.5900.299起，软件名称将正式更名为x-studio, 新域名x-studio.net已全面启用，旧域名x-studio365.com将在未来某天失效。
+    自10.0.5900.299起，软件名称将正式更名为x-studio, 新域名x-studio.net已全面启用，旧域名x-studio365.com已废除失效。
     
 !!! note ""
 
