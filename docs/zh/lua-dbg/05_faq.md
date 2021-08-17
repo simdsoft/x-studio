@@ -1,5 +1,16 @@
 # 调试常见问题
 
+!!! Unity或Unreal Engine调试断点不命中怎么办？
+
+    在输出窗口搜索 ``x-studio Debug System:`` 查看关于lua代码文件路径的打印，检查是否是相对于工程路径，理论上，只要是相对于工程的路径，都可以命中断点，否则就需要手动修改 ``xxx.xsxproj`` 文件，在 ``debug-options`` 节点下添加代码搜索路径, 如下配置表示将工程 ``Assets\MyLuaFolder`` 添加为搜索路径(其实就类似VS C++调试器里的sourceSearchPaths):
+    <search-paths>
+      <item>Assets\MyLuaFolder</item>
+    </search-paths>
+
+!!! 如何让调试器在指定dll中搜索Lua虚拟机核心API?
+
+    通过添加 ``debug-options/lvm-dll-pattern`` 设置正则表达式搜索即可，默认值: ``((\b(lib)?lua5[1-9])|plainlua|xlua|slua|tolua|(UE4Editor\-(slua_unreal|UnLua)[\-A-Za-z0-9]*))\.dll`` ， 正则表达式语法可以参考: [C++11 ECMAScript](http://www.cplusplus.com/reference/regex/ECMAScript/)
+
 !!! question "如何传递将设备尺寸参数传递给被调试程序?"
 
     在游戏开发过程中，通常都有设计尺寸和设备尺寸以及朝向，那么，使用x-studio启动调试时
