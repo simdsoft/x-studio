@@ -17,5 +17,6 @@
 ## 3. 附加进程调试
 
 由于调试对被调试程序性能本身会有一定影响，当我们调试游戏，登录加载过程比较慢时，可以直接启动游戏，当进入游戏后，我们在附加
-到游戏进程，在我们需要调试的游戏场景代码文件打断点调试即可，tips: 每次附加调试后，调试进程会记录在快速启动调试菜单按钮(Quick Menu Button)里方便选择，
-Visual Studio也有Menu Button, 但是是固定的，例如(Local Window Debugger, Attach To Unity等)
+到游戏进程，在我们需要调试的游戏场景代码文件打断点调试即可。  
+**tips: 每次附加调试后，调试进程会记录在快速启动调试菜单按钮(Quick Menu Button)里方便选择，
+Visual Studio也有Menu Button, 但是是固定的，例如(Local Window Debugger, Attach To Unity等)**
