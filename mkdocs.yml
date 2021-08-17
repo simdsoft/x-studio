@@ -18,9 +18,10 @@ nav:
   - x-studio - Lua调试: 
     - 前言: lua-dbg/index.md
     - Unity3D Lua调试: lua-dbg/01_unity3d.md
-    - Cocos2d-x Lua调试: lua-dbg/02_cclua.md
-    - 标准Lua调试: lua-dbg/03_olua.md
-    - 常见问题: lua-dbg/04_faq.md
+    - 虚幻引擎 Lua调试: lua-dbg/02_unreal.md
+    - Cocos2d-x Lua调试: lua-dbg/03_cclua.md
+    - 标准Lua调试: lua-dbg/04_olua.md
+    - 常见问题: lua-dbg/05_faq.md
   - x-studio - UI编辑: 
     - CSD恢复: ui-editing/02_csd-recov.md
     - 常见问题: ui-editing/03_faq.md
