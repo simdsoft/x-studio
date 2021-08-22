@@ -2,7 +2,7 @@
 
 本仓库仅用于`x-studio ide`软件的问题跟踪，研发计划，官方文档更新，并非软件源码
 
-[![Release](https://img.shields.io/badge/版本-v2021.4.1-blue.svg)](https://github.com/simdsoft/x-studio/releases)
+[![Release](https://img.shields.io/badge/版本-v2021.4.2-blue.svg)](https://github.com/simdsoft/x-studio/releases)
 
 ## x-studio 简介
 
