@@ -1,5 +1,9 @@
 # x-studio - 常见问题
 
+!!! question "登录失败返回-26错误码怎么办?"
+
+    可能是路由器网络DNS有问题，尝试关闭VMware等虚拟机网络适配器后重试
+
 !!! question "打开文件乱码怎么办?"
 
     1. 出现乱码原因，如果不是文件本身编码问题，就是软件检测编码失败了，属于正常现象，例如字符串 "fdsfdsfsd 你好吗啊啊啊" 如果保存为GBK，vscode打开自动编码检测也无法正确识别编码，详见: https://github.com/simdsoft/x-studio/issues/798
