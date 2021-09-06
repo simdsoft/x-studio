@@ -1,6 +1,6 @@
 ## x-studio 版本历史
 
-## x-studio Pro 2021.4.4 (2021.9.?更新) `md5: 8f72f4f4eb740bef3b11a7fc0886b61e`
+## x-studio Pro 2021.4.4 (2021.9.6更新) `md5: 8f72f4f4eb740bef3b11a7fc0886b61e`
 1. 【代码编辑】修复虚幻引擎和Unity工程先Attach不能断点问题
 2. 【代码编辑】修复虚幻引擎UnLua工程不能断点问题
 
