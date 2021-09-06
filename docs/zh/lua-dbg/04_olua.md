@@ -5,7 +5,7 @@
 
 ### 新建工程
 
-   通过软件主菜单【新建】【新建工程】在新建工程对话框 ``Lua脚本引擎`` 选择`luajit/lua51/lua52/lua53`，
+   通过软件主菜单【新建】【新建工程】在新建工程对话框 ``Lua脚本引擎`` 选择`luajit/lua51/lua52/lua53/lua54`，
    本教程选择 `luajit`，如图所示：
    ![image](../assets/images/c2s3_01.png)
 
