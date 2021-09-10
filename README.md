@@ -6,7 +6,7 @@
 
 ## x-studio 简介
 
-x-studio是一款强大的开发人员IDE；支持Unity32/64(xlua, slua, ulua/tolua)、虚幻引擎(sluaunreal, UnLua)和Cococ2d-x Lua/Quick-Cocos2dx-Community调试。 支持类似VSCode，SublimeText的多种编程语言高亮语法着色，打开文件夹，自动完成，自动识别UTF-8/GBK编码，自动识别换行符等功能。 支持Cocos2d-x场景（UI）和2D粒子编辑。Spine运行库版本3.8, DragonBones运行库版本5.5。
+x-studio是一款强大的开发人员IDE；支持Unity32/64(xlua, slua, ulua/tolua)、虚幻引擎(sluaunreal, UnLua)和Cococ2d-x（Lua）调试。 支持类似VSCode，SublimeText的多种编程语言高亮语法着色，打开文件夹，自动完成，自动识别UTF-8/GBK编码，自动识别换行符等功能。 支持Cocos2d-x场景（UI）和2D粒子编辑。Spine运行库版本3.8, DragonBones运行库版本5.5。
 
 ## 软件运行效果
 
