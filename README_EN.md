@@ -1,3 +1,5 @@
+[简体中文](https://github.com/simdsoft/x-studio/blob/master/README.md)
+
 # Repo Introduction
 
 This repo is for `x-studio ide` issues track, develop plan, official documentation update, not source code of x-studio software.
@@ -6,7 +8,7 @@ This repo is for `x-studio ide` issues track, develop plan, official documentati
 
 ## x-studio Introduction
 
-x-studio is a powerful developer IDE and very lightweight; It support Lua debug such Unity32/64(xlua, slua, ulua/tolua)、UnrealEngine(sluaunreal, UnLua) and Cococ2d-x(Lua), support VSCode，SublimeText multi program languages highligh, auto complete, auto detect text encoding and etc. It also support cocos2d-x UI and particle system editing.
+x-studio is a powerful developer IDE and very lightweight; It support Lua debug such Unity32/64(xlua, slua, ulua/tolua)、UnrealEngine(sluaunreal, UnLua) and Cococ2d-x(Lua), support VSCode，SublimeText multi program languages highlight, auto complete, auto detect text encoding and etc. It also support cocos2d-x UI and particle system editing.
 
 ## Software showcase
 
