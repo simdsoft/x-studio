@@ -32,9 +32,10 @@ x-studio是一款强大的开发人员IDE；支持Unity32/64(xlua, slua, ulua/to
 
 ## x-studio 2022 未来版本计划
 
+- 将调试体验做到极致
 - 全新重构调试器统一调试器
 - 一套调试核心支持本机注入调试和远程调试
-- 多语言混合调试(Lua,Unity C#)，（标语：unity开发调试，x-studio足以）
+- 多语言混合调试
 
 ## x-studio 官方QQ群:
 
