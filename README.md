@@ -1,3 +1,5 @@
+[English](https://github.com/simdsoft/x-studio/blob/master/README_EN.md)
+
 # 仓库介绍
 
 本仓库仅用于`x-studio ide`软件的问题跟踪，研发计划，官方文档更新，并非软件源码
