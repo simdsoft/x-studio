@@ -37,3 +37,7 @@ x-studio is a powerful developer IDE and very lightweight; It support Lua debug 
 - Best debug experience
 - Unify debug kernel, support both inject and remote debug, bring missing features: `condition breakpoints` and `step out`
 - Support Multi program languages mix debug
+
+## About software code signing
+
+`This software was signed by digit-cert provided by Sectigo Limited or Digicert Inc since V10.0.9000.11, Simdsoft Limited does not assume any responsibility for any loss caused by users who use the version without digital signature or the digital signature is damaged. `
