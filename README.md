@@ -12,7 +12,7 @@ x-studio是一款强大的开发人员IDE；支持Unity32/64(xlua, slua, ulua/to
 
 ## 关于软件数字签名
 
-x-studio软件安装包以及程序文件均采用国际通用数字签名进行软件代码签名，证书供应商为`Digicert Inc`或者`Sectigo Limited`，下载安装包后，请通过系统属性查看证书状态是否正常
+本软件自`V10.0.9000.11`起使用`Sectigo Limited`或`Digicert Inc`提供数字证书签名，用户在使用无数字签名或者数字签名遭到破坏的版本过程中，造成任何损失，`Simdsoft Limited`不承担任何责任。 
 
 ## 软件运行效果
 
