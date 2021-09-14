@@ -10,6 +10,10 @@
 
 x-studio是一款强大的开发人员IDE；支持Unity32/64(xlua, slua, ulua/tolua)、虚幻引擎(sluaunreal, UnLua)和Cococ2d-x（Lua）调试。 支持类似VSCode，SublimeText的多种编程语言高亮语法着色，打开文件夹，自动完成，自动识别UTF-8/GBK编码，自动识别换行符等功能。 支持Cocos2d-x场景（UI）和2D粒子编辑。Spine运行库版本3.8, DragonBones运行库版本5.5。
 
+## 关于软件数字签名
+
+x-studio软件安装包以及程序文件均采用国际通用数字签名进行软件代码签名，证书供应商为`Digicert Inc`或者`Sectigo Limited`，下载安装包后，请通过系统属性查看证书状态是否正常
+
 ## 软件运行效果
 
 ![image](https://github.com/simdsoft/x-studio/blob/master/showcase21-1.png)
