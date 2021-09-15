@@ -10,7 +10,7 @@
 version: 2
 
 build:
-  image: test
+  image: testing
 
 # Build documentation with MkDocs
 mkdocs:
