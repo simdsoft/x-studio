@@ -6,6 +6,12 @@
 #sphinx:
 #  configuration: conf.py
 
+# Required
+version: 2
+
+build:
+  image: test
+
 # Build documentation with MkDocs
 mkdocs:
   configuration: mkdocs.yml
@@ -17,6 +23,5 @@ formats: all
 python:
   version: 3.7
   setup_py_install: false
-  pip_install: true
   install:
     - requirements: docs/zh/requirements.txt
