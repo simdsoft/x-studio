@@ -21,7 +21,6 @@ formats: all
 
 # Optionally set the version of Python and requirements required to build your docs
 python:
-  version: 3.7
-  setup_py_install: false
+  version: 3.9
   install:
     - requirements: docs/zh/requirements.txt
