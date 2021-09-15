@@ -1,4 +1,4 @@
-jsmin>=2.2.2
+setuptools==57.5.0
 pymdown-extensions>=8.1
 cffi==1.14.6
 pytest-runner==5.3.1
