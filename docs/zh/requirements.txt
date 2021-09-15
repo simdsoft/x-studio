@@ -1,9 +1,8 @@
-cffi
-pytest-runner
-WeasyPrint==53.0
-mkdocs-material==7.2.6
-mike>=1.0.0
-mkdocs-git-revision-date-localized-plugin
-mkdocs-pdf-export-plugin
+mkdocs-material>=7.2.6
+pymdown-extensions>=8.1
+mkdocs-git-revision-date-localized-plugin==0.9.3
+cffi==1.14.6
+pytest-runner==5.3.1
+WeasyPrint==53.2
+mkdocs-pdf-export-plugin>=0.5.9
 mkdocs-minify-plugin>=0.3.0
-mkdocs-redirects>=1.0
