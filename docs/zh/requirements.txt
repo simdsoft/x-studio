@@ -5,5 +5,5 @@ mkdocs-material==7.2.6
 mike>=1.0.0
 mkdocs-git-revision-date-localized-plugin
 mkdocs-pdf-export-plugin
-mkdocs-minify-plugin>=0.4.0
+mkdocs-minify-plugin>=0.3.0
 mkdocs-redirects>=1.0
