@@ -1,0 +1,13 @@
+- setuptools-57.5.0 must < 58.0
+- mkdocs-material
+  - mkdocs
+  - py
+- mkdocs-pdf-export-plugin
+  - mkdocs
+  - WeasyPrint
+- WeasyPrint
+  - cffi
+  - pytest-runner
+- mkdocs-minify-plugin
+  - mkdocs
+  - jsmin==2.2.2 can't be installed when setuptools >= 58.x
