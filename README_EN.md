@@ -8,7 +8,7 @@ This repo is for `x-studio ide` issues track, develop plan, official documentati
 
 ## x-studio Introduction
 
-x-studio is a powerful developer IDE and very lightweight; It support Lua debug such Unity32/64(xlua, slua, ulua/tolua)、UnrealEngine(sluaunreal, UnLua) and Cococ2d-x(Lua), support VSCode，SublimeText multi program languages highlight, auto complete, auto detect text encoding and etc. It also support cocos2d-x UI and particle system editing.
+x-studio is a powerful developer IDE and very lightweight; It support Lua debug such Unity32/64(xlua, slua, ulua/tolua)、UnrealEngine(sluaunreal, UnLua) and Cococ2d-x(Lua), support VSCode，SublimeText like multi program languages highlight, auto complete, auto detect text encoding and etc. It also support cocos2d-x UI and particle system editing.
 
 ## Software showcase
 
