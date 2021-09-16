@@ -23,4 +23,5 @@ formats: all
 python:
   version: 3.9
   install:
+    - requirements: setuptools.txt
     - requirements: docs/zh/requirements.txt
