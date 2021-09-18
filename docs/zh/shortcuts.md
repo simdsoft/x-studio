@@ -22,7 +22,7 @@
 | Ctrl+D                    | 加选下一个匹配字符串                             |
 | Ctrl+E                    | 复制当前选中文本并粘贴到行尾                     |
 | Ctrl+I或Ctrl+K,Ctrl+F     | 格式化选中代码                                  |
-| Ctrl+Shift+I或Ctrl+K,Ctrl+D | 修正文档                                        |
+| Ctrl+Shift+I或Ctrl+K,Ctrl+D | 格式化当前文档                                |
 | Ctrl+/                    | 切换注释选中代码段                                |
 | Ctrl+K,Ctrl+C             | 注释选中代码段                                   |
 | Ctrl+K,Ctrl+U             | 取消注释选中代码段                                |
