@@ -49,6 +49,7 @@ png                                                           PNG Reference Libr
 poly2tri                                                      BSD-3-Clause
 rapidjson                                                     MIT
 recast                                                        zlib
+VMProtect                                                     Commercial License
 stb_image                                                     MIT
 tinydir                                                       BSD-2-Clause
 robin-map                                                     MIT
