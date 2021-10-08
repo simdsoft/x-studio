@@ -1,6 +1,7 @@
 Software                                                      License
-yasio(https://github.com/yasio/yasio)                           MIT
-Scintilla                                                       Scintilla and SciTE
+yasio                                                           MIT
+Scintilla                                                       Lexilla, Scintilla, and SciTE
+Lexilla                                                         Lexilla, Scintilla, and SciTE
 openal-soft                                                     LGPL-2.1
 BCGControlBar Pro For MFC                                       Commercial License
 angle                                                           The ANGLE Project
