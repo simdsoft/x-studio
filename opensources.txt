@@ -1,65 +1,64 @@
 Software                                                      License
-yasio                                                           MIT
-Scintilla                                                       Lexilla, Scintilla, and SciTE
-Lexilla                                                         Lexilla, Scintilla, and SciTE
-llvm-project                                                    Apache License v2.0 with LLVM Exceptions
-OpenSSL                                                         Apache License v2.0
-nsis                                                            zlib/libpng License
-BCGControlBar Pro For MFC                                       Commercial License
-angle                                                           The ANGLE Project
-adxe                                                            MIT
-Lua                                                             MIT
-pugixml                                                         MIT
-rapidxml                                                        BSL-1.0
-wow64ext                                                        LGPL-3.0
-sqlite3                                                         Public Domain
-wow64helper                                                     MIT
-uchardet                                                        MOZILLA PUBLIC LICENSE 1.1
-zlib                                                            zlib License
-REDM                                                            MIT
-glad                                                            MIT
-antlr4                                                          BSD-3-Clause
-luacheck                                                        MIT
-LuaJIT                                                          MIT
-minhook                                                         Tsuda Kageyu
-curl                                                            The curl license https://curl.haxx.se/docs/copyright.html
-libiconv                                                        LGPL
-boost.regex                                                     BSL-1.0
-ZeroBraneStudio                                                 MIT
-astc                                                            Apache-2.0
-Box2D                                                           MIT
-Bullet                                                          zlib
-c-ares                                                          MIT
-Chipmunk2D                                                      MIT
-Clipper                                                         BSL-1.0
-flatbuffers                                                     Apache-2.0
-{fmt}                                                           MIT
-FreeType                                                        BSD-style (The FreeType Project)
-Glad                                                            MIT
-glfw                                                            zlib
-libjpeg-turbo                                                   BSD-style (IJG,BSD-3-Clause,zlib)
-llhttp                                                          MIT
-tolua                                                           MIT
-lua-cjson                                                       MIT
-sol2                                                            MIT
-lz4                                                             BSD-2-Clause
-minimp3                                                         CC0-1.0
-mio                                                             MIT
-ogg                                                             BSD-3-Clause
-vorbis                                                          BSD-3-Clause
-png                                                             PNG Reference Library License version 2
-poly2tri                                                        BSD-3-Clause
-rapidjson                                                       MIT
-recast                                                          zlib
-stb_image                                                       MIT
-tinydir                                                         BSD-2-Clause
-robin-map                                                       MIT
-unzip                                                           zlib
-webp                                                            Google Inc
-xxHash                                                          BSD-2-Clause
-yaml-cpp                                                        MIT
-zlib                                                            zlib
-ntcvt                                                           Apache-2.0
-xsbase                                                          MIT
-libiconv                                                        LGPL-2.1
-openal-soft                                                     LGPL-2.1
+BCGControlBar Pro For MFC                                     Commercial License
+yasio                                                         MIT
+Scintilla                                                     Lexilla, Scintilla, and SciTE
+Lexilla                                                       Lexilla, Scintilla, and SciTE
+llvm-project                                                  Apache License v2.0 with LLVM Exceptions
+boost.regex                                                   BSL-1.0
+OpenSSL                                                       Apache License v2.0
+nsis                                                          zlib/libpng License
+angle                                                         The ANGLE Project
+adxe                                                          MIT
+Lua                                                           MIT
+pugixml                                                       MIT
+rapidxml                                                      BSL-1.0
+sqlite3                                                       Public Domain
+wow64helper                                                   MIT
+uchardet                                                      MOZILLA PUBLIC LICENSE 1.1
+zlib                                                          zlib License
+REDM                                                          MIT
+glad                                                          MIT
+antlr4                                                        BSD-3-Clause
+luacheck                                                      MIT
+LuaJIT                                                        MIT
+minhook                                                       Tsuda Kageyu
+curl                                                          The curl license https://curl.haxx.se/docs/copyright.html
+ZeroBraneStudio                                               MIT
+astc                                                          Apache-2.0
+Box2D                                                         MIT
+Bullet                                                        zlib
+c-ares                                                        MIT
+Chipmunk2D                                                    MIT
+Clipper                                                       BSL-1.0
+flatbuffers                                                   Apache-2.0
+{fmt}                                                         MIT
+FreeType                                                      BSD-style (The FreeType Project)
+Glad                                                          MIT
+glfw                                                          zlib
+libjpeg-turbo                                                 BSD-style (IJG,BSD-3-Clause,zlib)
+llhttp                                                        MIT
+tolua                                                         MIT
+lua-cjson                                                     MIT
+sol2                                                          MIT
+lz4                                                           BSD-2-Clause
+minimp3                                                       CC0-1.0
+mio                                                           MIT
+ogg                                                           BSD-3-Clause
+vorbis                                                        BSD-3-Clause
+png                                                           PNG Reference Library License version 2
+poly2tri                                                      BSD-3-Clause
+rapidjson                                                     MIT
+recast                                                        zlib
+stb_image                                                     MIT
+tinydir                                                       BSD-2-Clause
+robin-map                                                     MIT
+unzip                                                         zlib
+webp                                                          Google Inc
+xxHash                                                        BSD-2-Clause
+yaml-cpp                                                      MIT
+zlib                                                          zlib
+ntcvt                                                         Apache-2.0
+xsbase                                                        MIT
+libiconv                                                      LGPL-2.1
+openal-soft                                                   LGPL-2.1
+wow64ext                                                      LGPL-3.0
