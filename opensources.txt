@@ -2,11 +2,12 @@ Software                                                      License
 yasio                                                           MIT
 Scintilla                                                       Lexilla, Scintilla, and SciTE
 Lexilla                                                         Lexilla, Scintilla, and SciTE
-openal-soft                                                     LGPL-2.1
+llvm-project                                                    Apache License v2.0 with LLVM Exceptions
+OpenSSL                                                         Apache License v2.0
+nsis                                                            zlib/libpng License
 BCGControlBar Pro For MFC                                       Commercial License
 angle                                                           The ANGLE Project
 adxe                                                            MIT
-nsis                                                            zlib/libpng License
 Lua                                                             MIT
 pugixml                                                         MIT
 rapidxml                                                        BSL-1.0
@@ -18,11 +19,9 @@ zlib                                                            zlib License
 REDM                                                            MIT
 glad                                                            MIT
 antlr4                                                          BSD-3-Clause
-llvm-project                                                    Apache License v2.0 with LLVM Exceptions
 luacheck                                                        MIT
 LuaJIT                                                          MIT
 minhook                                                         Tsuda Kageyu
-OpenSSL                                                         Apache License v2.0
 curl                                                            The curl license https://curl.haxx.se/docs/copyright.html
 libiconv                                                        LGPL
 boost.regex                                                     BSL-1.0
@@ -60,6 +59,7 @@ webp                                                            Google Inc
 xxHash                                                          BSD-2-Clause
 yaml-cpp                                                        MIT
 zlib                                                            zlib
-libiconv                                                        LGPL-2.1
 ntcvt                                                           Apache-2.0
 xsbase                                                          MIT
+libiconv                                                        LGPL-2.1
+openal-soft                                                     LGPL-2.1
