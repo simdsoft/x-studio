@@ -1,5 +1,5 @@
 @rem Copyright (c) 2014-2021 Simdsoft Limited, All rights reserved.
-@rem usage: lua-compile.bat IN_DIR OUT_DIR [STRIP] [KEEP_EXT] [BC_TYPE]
+@rem Usage: "%XS_INSTDIR%\tools\lua-compile.bat" IN_DIR OUT_DIR [STRIP] [KEEP_EXT] [BC_TYPE]
 @rem reference links:
 @rem   a. https://lua.org
 @rem   b. https://luajit.org/running.html#opt_b
@@ -72,6 +72,6 @@ if "%KEEP_EXT%"=="true" (
 
 :L_exit
 if %INVALARG% NEQ 0 (
-  echo usage: "%%XS_INSTDIR%%\tools\lua-compile.bat" IN_DIR OUT_DIR [STRIP] [KEEP_EXT] [BC_TYPE]
+  echo Usage: "%%XS_INSTDIR%%\tools\lua-compile.bat" IN_DIR OUT_DIR [STRIP] [KEEP_EXT] [BC_TYPE]
 )
 ping /n 2 127.0.1>nul && goto :eof
