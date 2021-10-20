@@ -1,4 +1,4 @@
-## x-studio 版本历史
+## x-studio 版本更新
 
 ## x-studio Pro 2022.1.0(Build 9100.0)
 - 更新时间: 2021.??.??
