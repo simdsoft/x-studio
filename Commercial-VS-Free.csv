@@ -1,4 +1,4 @@
-Feature,Pro,Community,Feature Status
+Feature,付费版本,免费版本,Feature Status
 基础代码编辑,✔,✔,ready
 Lua基础调试,✔,✔,ready
 Cocos2d-X UI编辑,✔,✔,ready
