@@ -1,4 +1,4 @@
-Feature,Pro,Community,Feature Status
+Feature,Commercial License,Free,Feature Status
 Base Coding,✔,✔,ready
 Base Lua Debugging,✔,✔,ready
 Cocos2d-X UI Editing,✔,✔,ready
@@ -27,3 +27,4 @@ Lua Debugging display c++ stack,✔,❌,ready
 Press Shift/Ctrl to display shell context menu,✔,❌,ready
 MinMap ScrollBar,✔,❌,ready
 Color picker tool,✔,❌,ready
+Always Update,✔,❌,ready
