@@ -49,7 +49,7 @@ x-studio is a powerful developer IDE and very lightweight; It support Lua debug 
 ### Pruchase step
 1. Finish your payment on: https://www.paypal.com/paypalme/simdsoft
 2. Send your payment order and x-studio account to support@simdsoft.com
-3. We will verify and authorize your account and reply email to you
+3. We will verify and authorize your account, then reply email to you
 4. You can relogin again or restart software to update the license
 
 ## About software code signing
