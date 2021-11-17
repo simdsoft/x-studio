@@ -39,18 +39,7 @@ x-studio is a powerful developer IDE and very lightweight; It support Lua debug 
 - Support Multi program languages mix debug
 
 ## How to purchase x-studio with PayPal
-### Price Table
-|  Subscription Period    |   Price              |
-| ------------------------ |:----------------:|
-|  1 Month                     |  $5                   |
-|  6 Month                     |  $29                 |
-|  12 Month                   |  $57                 |
-
-### Pruchase step
-1. Finish your payment on: https://www.paypal.com/paypalme/simdsoft
-2. Send your payment order and x-studio account to support@simdsoft.com
-3. We will verify and authorize your account, then reply email to you
-4. You can relogin again or restart software to update the license
+Please visit: https://github.com/simdsoft/x-studio/discussions/858
 
 ## About software code signing
 
