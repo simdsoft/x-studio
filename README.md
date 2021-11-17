@@ -39,18 +39,7 @@ x-studio是一款强大的开发人员IDE；支持Unity32/64(xlua, slua, ulua/to
 - 多语言混合调试
 
 ## 如何通过PayPal购买x-studio
-### 价格表
-|  Subscription Period    |   Price              |
-| ------------------------ |:----------------:|
-|  1 Month                     |  $5                   |
-|  6 Month                     |  $29                 |
-|  12 Month                   |  $57                 |
-
-### 购买步骤
-1. Finish your payment on: https://www.paypal.com/paypalme/simdsoft
-2. Send your payment order and x-studio account to support@simdsoft.com
-3. We will verify and authorize your account, then reply email to you
-4. You can relogin again or restart software to update the license
+请访问: https://github.com/simdsoft/x-studio/discussions/858
 
 ## x-studio 官方QQ群:
 
