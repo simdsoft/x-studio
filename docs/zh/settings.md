@@ -30,7 +30,7 @@
     | commandTimeout                          | 命令超时时间，毫秒                                                                                                             |
     | cacheFindData                           | 是否缓存全工程内容搜索文件数据                                                                                                 |
     | cacheFindDataThreshold                  | 缓存全工程内容搜索最大文件数                                                                                                   |
-    | showFindingProgress                     | 是否显示全工程搜索进度对话框                                                                                                   |
+    | showFindProgressDlg                     | 是否显示全工程搜索进度对话框                                                                                                   |
     | signatureSourceFile                     | 新建文件是否带UTF-8签名                                                                                                        |
     | inspectFileFilters                      | 支持检索代码文件的文件类型                                                                                                     |
     | maxActiveFileStack                      | 最大活动文件栈大小                                                                                                             |
