@@ -20,6 +20,7 @@ x-studio is a powerful developer IDE and very lightweight; It support Lua debug 
 - documetation: https://docs.x-studio.net/
 - Dowload urls
   - official
+    - V2022.1.0 (Build 9900.0) coming soon
     - [V2021.4.5 (Build 9000.107)](https://x-studio.net/dl.php?version=10.0.9000.107) - 2021.9.16
   - 360 software store: http://soft.360.cn/static/baoku/info_7_0/softinfo_104947374.html
   - Lenovo software store: https://lestore.lenovo.com/detail/25457
