@@ -30,8 +30,8 @@ x-studio is a powerful developer IDE and very lightweight; It support Lua debug 
 
 ## x-studio New version format
 
-- The Display version format is `[Year].[Quarter].[Patch number]` such as `2021.4.4`
-- The original build version such `10.0.9000.103` only for software update
+- Display version: `202x.x.x`
+- Build version: `10.0.9900.x`
 
 ## x-studio 2022 (the future)
 
