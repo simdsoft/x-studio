@@ -3,6 +3,7 @@ BCGControlBar Pro For MFC                                     Commercial License
 yasio                                                         MIT
 Scintilla                                                     Lexilla, Scintilla, and SciTE
 Lexilla                                                       Lexilla, Scintilla, and SciTE
+scintillawrappers                                             PJ Naughter
 llvm-project                                                  Apache License v2.0 with LLVM Exceptions
 boost.regex                                                   BSL-1.0
 OpenSSL                                                       Apache License v2.0
