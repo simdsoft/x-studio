@@ -20,3 +20,16 @@
 到游戏进程，在我们需要调试的游戏场景代码文件打断点调试即可。  
 **tips: 每次附加调试后，调试进程会记录在快速启动调试菜单按钮(Quick Menu Button)里方便选择，
 Visual Studio也有Menu Button, 但是是固定的，例如(Local Window Debugger, Attach To Unity等)**
+
+## 4. 使用x-studio计算文件的md5、sha1、sha256、sha512值，支持4GB+超大文件
+
+1. 右键菜单，`Hash with x-studio`下拉菜单选择hash算法
+    ![image](assets/images/c7_01.png)  
+
+2. 计算进度对话框
+
+    ![image](assets/images/c7_02.png)  
+
+3. 计算完成后结果显示
+
+    ![image](assets/images/c7_03.png)  
