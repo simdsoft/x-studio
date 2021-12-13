@@ -9,9 +9,9 @@ CocosStudio2.x csb/json UI布局导入,✔,✔,ready
 自定义API提示,✔,✔,ready
 ClangFormat集成,✔,✔,ready
 "软件语言(英语,简体中文)",✔,✔,ready
-在输出窗口定位文件,✔,✔,ready
-选择指定窗口显示查找结果集合,✔,✔,ready
 Luacheck集成,✔,✔,ready
+在输出窗口定位文件,✔,❌,ready
+选择指定窗口显示查找结果集合,✔,❌,ready
 以管理员身份编辑保存文件,✔,❌,ready
 Lua附加进程调试,✔,❌,ready
 自动更新,✔,❌,ready
