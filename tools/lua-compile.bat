@@ -1,5 +1,5 @@
 @rem Copyright (c) 2014-2021 Simdsoft Limited, All rights reserved.
-@rem Usage: "%XS_INSTDIR%\tools\lua-compile.bat" IN_DIR OUT_DIR [STRIP] [KEEP_EXT] [BC_TYPE]
+@rem Usage: "%XS_INSTDIR%\tools\lua-compile.bat" IN_DIR OUT_DIR [STRIP] [KEEP_EXT] [BC_TYPE] [NO_GC64]
 @rem reference links:
 @rem   a. https://lua.org
 @rem   b. https://luajit.org/running.html#opt_b
@@ -10,6 +10,7 @@ set OUT_DIR=%2
 set STRIP=%3
 set KEEP_EXT=%4
 set BC_TYPE=%5
+set NO_GC64=%6
 
 if not defined IN_DIR set /p IN_DIR=Please input source directory:
 if not defined OUT_DIR set /p OUT_DIR=Please input destination directory:
@@ -39,7 +40,11 @@ if "%BC_TYPE%"=="plain" (
   set LUAC_TOOL="%XS_INSTDIR%\luac.exe" 
   set LUAC_WORKDIR="%XS_INSTDIR%" 
 ) else if "%BC_TYPE%"=="jit" (
-  set LUAC_TOOL="%TOOLS_DIR%luajit\luajit.exe"
+  if "%NO_GC64%"=="true" (
+    set LUAC_TOOL="%TOOLS_DIR%luajit\luajit.exe"
+  ) else (
+    set LUAC_TOOL="%TOOLS_DIR%luajit\gc64\luajit.exe"
+  )
   set LUAC_WORKDIR="%TOOLS_DIR%scripts"
 ) else (
   echo "Invalid BC_TYPE, must be 'plain' or 'jit'"
@@ -60,7 +65,7 @@ pushd %LUAC_WORKDIR%
 if "%BC_TYPE%"=="plain" (
   for /f "usebackq" %%i in (`"%TOOLS_DIR%scripts\find_lua" %IN_DIR%`) do (echo %%i&&call %LUAC_TOOL% %STRIP_OPT% -o "%%~dpi%%~ni%%~xic" "%%i")
 ) else (
-  for /f "usebackq" %%i in (`"%TOOLS_DIR%scripts\find_lua" %IN_DIR%`) do (echo %%i&&call %LUAC_TOOL% -b %STRIP_OPT% "%%i" "%%~dpi%%~ni.raw"&&rename "%%~dpi%%~ni.raw" "%%~ni%%~xic")
+  for /f "usebackq" %%i in (`"%TOOLS_DIR%scripts\find_lua" %IN_DIR%`) do (echo %%i&&call %LUAC_TOOL% -b %STRIP_OPT% "%%i" "%%~dpi%%~ni%%~xic")
 )
 popd
 
@@ -72,6 +77,6 @@ if "%KEEP_EXT%"=="true" (
 
 :L_exit
 if %INVALARG% NEQ 0 (
-  echo Usage: "%%XS_INSTDIR%%\tools\lua-compile.bat" IN_DIR OUT_DIR [STRIP] [KEEP_EXT] [BC_TYPE]
+  echo Usage: "%%XS_INSTDIR%%\tools\lua-compile.bat" IN_DIR OUT_DIR [STRIP] [KEEP_EXT] [BC_TYPE] [NO_GC64]
 )
 ping /n 2 127.0.1>nul && goto :eof
