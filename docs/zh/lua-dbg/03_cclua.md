@@ -5,7 +5,7 @@
 ### 新建工程
 
    通过软件主菜单【文件】【新建工程】，在弹出的新建工程对话框中，工程类型设置为Lua Debug, 然后点【自定义引擎脚本…】按钮，选择游戏exe，
-   工程路径请选择cocos项目的根目录，工程名随便起一个，例如GloryProjectDev，如下图所示：
+   工程路径请选择cocos项目的根目录，工程名随便起一个，例如 `HellLua`，如下图所示：
 
    ![image](../assets/images/c2s1_01.png)
 
@@ -38,6 +38,17 @@
    ![image](../assets/images/c2s1_04a.png)
 
    ![image](../assets/images/c2s1_04b.png)
+
+
+### 通过以上配置断点不能命中，可通过如下步骤添加代码文件搜索路径
+
+#### 1. 通过系统右键菜单 `Open with x-studio` 打开项目工程文件 `xxx.xsxproj`
+
+![image](../assets/images/c2s1_05a.png)  
+
+#### 2. xsxproj工程文件是xml格式，在 `Project/debug-options/search-paths` 节点下添加搜索路径即可，如果没有，手动创建，如图所示
+
+![image](../assets/images/c2s1_05b.png)
 
 
 !!! attention "注意事项"
