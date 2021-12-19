@@ -25,6 +25,7 @@ x-studio is a powerful developer IDE and very lightweight; It support Lua debug 
   - 360 software store: http://soft.360.cn/static/baoku/info_7_0/softinfo_104947374.html
   - Lenovo software store: https://lestore.lenovo.com/detail/25457
   - Tecent software center: https://pc.qq.com/detail/17/detail_25457.html
+  - Github release page: https://github.com/simdsoft/x-studio/releases
   - More version could be download at: https://dl.x-studio.net/
 - Update history: https://x-studio.net/updates.html
 
