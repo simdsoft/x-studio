@@ -9,10 +9,14 @@
 在写代码过程中，如果需要更新或者提交到SVN，可以直接在资源视图按住Ctrl或者Shift, 单击鼠标右键呼出系统桌面菜单
 直接操作SVN即可，不必切换到桌面，非常棒的体验。
 
+![image](assets/images/c7_01.png)
+
 ## 2. 在x-studio进程实例之间切换
 
 在多分支开发过程中， 有时候需要同时打开项目的多个分支，进行开发调试，此时可以通过软件快捷键 ``Ctrl+Q`` 快速在x-studio
 进程实例之间切换，切换列表中会显示其他x-studio进程实例所打开的工程路径。
+
+![image](assets/images/c7_02.png)
 
 ## 3. 附加进程调试
 
@@ -24,12 +28,12 @@ Visual Studio也有Menu Button, 但是是固定的，例如(Local Window Debugge
 ## 4. 使用x-studio计算文件的md5、sha1、sha256、sha512值，支持4GB+超大文件
 
 1. 右键菜单，`Hash with x-studio`下拉菜单选择hash算法
-    ![image](assets/images/c7_01.png)  
+    ![image](assets/images/c7_04a.png)  
 
 2. 计算进度对话框
 
-    ![image](assets/images/c7_02.png)  
+    ![image](assets/images/c7_04b.png)  
 
 3. 计算完成后结果显示
 
-    ![image](assets/images/c7_03.png)  
+    ![image](assets/images/c7_04c.png)  
