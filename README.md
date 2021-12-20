@@ -22,8 +22,7 @@ x-studio是一款强大的开发人员IDE；支持Unity32/64(xlua, slua, ulua/to
 - 文档: https://docs.x-studio.net/
 - 软件下载地址
   - 官方
-    - [V2022.1.0(Build 9900.1)](https://github.com/simdsoft/x-studio/releases/download/10.0.9900.1/x-studio_2022.1.0.9900.1.exe) - 12/19/2022
-    - [V2021.4.5(Build 9000.107)](https://x-studio.net/dl.php?version=10.0.9000.107) - 12/19/2022
+    - [V2022.1.0(Build 9900.1)](https://x-studio.net/dl.php?version=10.0.9900.1) - 12/19/2022
   - 360软件宝库: http://soft.360.cn/static/baoku/info_7_0/softinfo_104947374.html
   - 联想软件商店: https://lestore.lenovo.com/detail/25457
   - 腾讯软件中心: https://pc.qq.com/detail/17/detail_25457.html
