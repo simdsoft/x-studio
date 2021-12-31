@@ -78,7 +78,7 @@ plugins:
       verbose: false
       media_type: print
       combined: true
-      combined_output_path: pdf/yasio-latest.pdf
+      combined_output_path: pdf/x-studio-latest.pdf
       enabled_if_env: DOCS_CI
   - minify:
       minify_html: true
