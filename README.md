@@ -27,7 +27,7 @@ x-studio是一款强大的开发人员IDE；支持Unity32/64(xlua, slua, ulua/to
   - 联想软件商店: https://lestore.lenovo.com/detail/25457
   - 腾讯软件中心: https://pc.qq.com/detail/17/detail_25457.html
   - Github发布页面: https://github.com/simdsoft/x-studio/releases
-  - 更多版本: https://dl.x-studio.net/
+  - 更多版本: https://www.x-studio.net/downloads/
 - 新版本前瞻: https://x-studio.net/updates.html
 
 ## x-studio 新版本号格式
