@@ -4,7 +4,7 @@
 
 本仓库仅用于`x-studio ide`软件的问题跟踪，研发计划，官方文档更新，并非软件源码
 
-[![Release](https://img.shields.io/badge/版本-v2022.1.1-blue.svg)](https://github.com/simdsoft/x-studio/releases)
+[![Release](https://img.shields.io/badge/版本-v2022.1.2-blue.svg)](https://github.com/simdsoft/x-studio/releases)
 
 ## x-studio 简介
 
@@ -22,7 +22,7 @@ x-studio是一款强大的开发人员IDE；支持Unity32/64(xlua, slua, ulua/to
 - 文档: https://docs.x-studio.net/
 - 软件下载地址
   - 官方
-    - [V2022.1.1 (Build 9900.3)](https://x-studio.net/dl.php?version=10.0.9900.3) - 12/21/2021
+    - [V2022.1.2 (Build 9900.11)](https://x-studio.net/dl.php?version=10.0.9900.11) - 1/6/2021
   - 360软件宝库: http://soft.360.cn/static/baoku/info_7_0/softinfo_104947374.html
   - 联想软件商店: https://lestore.lenovo.com/detail/25457
   - 腾讯软件中心: https://pc.qq.com/detail/17/detail_25457.html
