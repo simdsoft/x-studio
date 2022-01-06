@@ -4,7 +4,7 @@
 
 This repo is for `x-studio ide` issues track, develop plan, official documentation update, not source code of x-studio software.
 
-[![Release](https://img.shields.io/badge/release-v2022.1.1-blue.svg)](https://github.com/simdsoft/x-studio/releases)
+[![Release](https://img.shields.io/badge/release-v2022.1.2-blue.svg)](https://github.com/simdsoft/x-studio/releases)
 
 ## x-studio Introduction
 
@@ -20,7 +20,7 @@ x-studio is a powerful developer IDE and very lightweight; It support Lua debug 
 - documetation: https://docs.x-studio.net/
 - Dowload urls
   - official
-    - [V2022.1.1 (Build 9900.3)](https://x-studio.net/dl.php?version=10.0.9900.3) - 12/21/2021
+    - [V2022.1.2 (Build 9900.11)](https://x-studio.net/dl.php?version=10.0.9900.11) - 1/6/2021
   - 360 software store: http://soft.360.cn/static/baoku/info_7_0/softinfo_104947374.html
   - Lenovo software store: https://lestore.lenovo.com/detail/25457
   - Tecent software center: https://pc.qq.com/detail/17/detail_25457.html
