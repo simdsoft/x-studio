@@ -36,9 +36,10 @@
 - [10.0.5900.33](https://x-studio.net/dl.php?version=10.0.5900.33)  
 - [10.0.5900.11](https://x-studio.net/dl.php?version=10.0.5900.11)  
 
-## VS2019 Redists
+## VS2019 Redists & DirectX Redists
 - [VS2019_Redist(x86)](https://x-studio.net/fdl2.php?file=VC_redist.x86.exe)  (You must install this redist for use x-studio ide)  
 - [VS2019_Redist(x64)](https://x-studio.net/fdl2.php?file=VC_redist.x64.exe) (If you want debug Unity3D Editor(x64), you need install this redist)
+- [DirectX Redists](https://download.microsoft.com/download/8/4/A/84A35BF1-DAFE-4AE8-82AF-AD2AE20B6B14/directx_Jun2010_redist.exe)
 
 
 ## Chrome Latest Offline Download
