@@ -2,11 +2,11 @@
 
 !!! question "在win11运行滚动条卡顿怎么办？"
 
-    请升级至x-studio 2022.1.0(build 9900.0)
+    请升级至x-studio 2022.1.0+
 
 !!! question "登录失败返回-26错误码怎么办?"
 
-    请升级至x-studio 2022.1.0(build 9900.0)
+    请升级至x-studio 2022.1.0+
 
 !!! question "打开文件乱码怎么办?"
 
@@ -21,7 +21,7 @@
 !!! question "启动x-studio报0x0000007e错误怎么办?"
 	
     1. 前往 https://dl.x-studio.net 下载最新微软vs2019运行库并安装
-    2. 检查dx环境，百度搜索 **dx修复工具** 修复下
+    2. 请下载并安装[DirectX运行库](https://download.microsoft.com/download/8/4/A/84A35BF1-DAFE-4AE8-82AF-AD2AE20B6B14/directx_Jun2010_redist.exe)
 
 !!! question "启动x-studio启动报998错误码怎么办？"
 
