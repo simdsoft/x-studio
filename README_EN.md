@@ -35,10 +35,10 @@ x-studio is a powerful developer IDE and very lightweight; It support Lua debug 
 
 ## x-studio 2022 (the future)
 
--[ ] Best debug experience
--[ ] Unify debug kernel, support both inject and remote debug
--[ ] Support Multi program languages mix debug
--[x] Bring missing features: `condition breakpoints` and `step out`
+- [ ] Best debug experience
+- [ ] Unify debug kernel, support both inject and remote debug
+- [ ] Support Multi program languages mix debug
+- [x] Bring missing features: `condition breakpoints` and `step out`
 
 
 ## How to purchase x-studio with PayPal
