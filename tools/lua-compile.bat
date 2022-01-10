@@ -1,4 +1,4 @@
-@rem Copyright (c) 2014-2021 Simdsoft Limited, All rights reserved.
+@rem Copyright (c) 2014-2022 Simdsoft Limited, All rights reserved.
 @rem Usage: "%XS_INSTDIR%\tools\lua-compile.bat" IN_DIR OUT_DIR [STRIP] [KEEP_EXT] [BC_TYPE] [NO_GC64]
 @rem reference links:
 @rem   a. https://lua.org
