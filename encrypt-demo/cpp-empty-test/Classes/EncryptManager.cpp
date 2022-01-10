@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2014-2021 x-studio - All Rights Reserved
+// Copyright (c) 2014-2022 x-studio - All Rights Reserved
 //
 #include <stdio.h>
 #include <string>
