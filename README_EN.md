@@ -4,7 +4,8 @@
 
 This repo is for `x-studio ide` issues track, develop plan, official documentation update, not source code of x-studio software.
 
-[![Release](https://img.shields.io/badge/release-v2022.1.2-blue.svg)](https://github.com/simdsoft/x-studio/releases)
+[![Latest Release](https://img.shields.io/badge/dynamic/json.svg?label=Latest%20Release&url=https%3A%2F%2Fapi.github.com%2Frepos%2Fsimdsoft%2Fx-studio.github.io%2Freleases%2Flatest&query=%24.name&colorB=blue)](../../releases/latest)
+[![Downloads](https://img.shields.io/github/downloads/simdsoft/x-studio.github.io/total.svg?label=Downloads&colorB=orange)](../../releases/latest)
 
 ## x-studio Introduction
 
