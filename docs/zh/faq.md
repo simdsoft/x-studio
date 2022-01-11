@@ -34,6 +34,11 @@
 !!! question "使用x-studio启动调试，调试目标程序闪退怎么办?"
 
     删除exe同目录下.dcache文件，再试试。
+    
+!!! question "安装过程报错`Download Microsoft Visual C++ 2019 Redistributable (x86) failed: Security Channel Error(12157), please download at https://x-studio.net/`怎么办?"
+
+    1. 修改【Internet 选项】【高级】，勾选所有全部TLS和SSL相关选项
+    2. 未来版本将解决此问题
 
 !!! question "x-studio csb导入如果出现拷贝资源失败怎么办?"
 
