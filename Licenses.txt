@@ -33,6 +33,7 @@ Chipmunk2D                                                    MIT
 Clipper                                                       BSL-1.0
 flatbuffers                                                   Apache-2.0
 {fmt}                                                         MIT
+msvcr14x                                                      Apache-2.0
 FreeType                                                      BSD-style (The FreeType Project)
 Glad                                                          MIT
 glfw                                                          zlib
