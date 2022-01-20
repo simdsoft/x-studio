@@ -2,6 +2,7 @@
 
 ## x-studio 2022
 
+- [V2022.1.3](https://x-studio.net/dl.php?version=10.0.9900.13) - (1/20/2022)
 - [V2022.1.2](https://x-studio.net/dl.php?version=10.0.9900.11) - (1/6/2022)
 - [V2022.1.1](https://x-studio.net/dl.php?version=10.0.9900.3) - (12/21/2021)
 - [V2022.1.0](https://x-studio.net/dl.php?version=10.0.9900.1) - (12/19/2021)
