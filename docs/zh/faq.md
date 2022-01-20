@@ -4,7 +4,7 @@
 
     请升级至x-studio 2022.1.0+
 
-!!! question "登录失败返回-26错误码怎么办?"
+!!! question "总是登录失败返回-26错误码怎么办?"
 
     请升级至x-studio 2022.1.0+
 
@@ -13,15 +13,6 @@
     1. 出现乱码原因，如果不是文件本身编码问题，就是软件检测编码失败了，属于正常现象，例如字符串 "fdsfdsfsd 你好吗啊啊啊" 如果保存为GBK，vscode打开自动编码检测也无法正确识别编码，详见: https://github.com/simdsoft/x-studio/issues/798
     2. 解决方案: 通过软件主菜单【文件】【以指定编码保存/重新加载】，选择编码，加载即可。
     3. x-studio将努力保证大多数代码文件编码识别的正确性，如发现不能识别，如果方便，请将无法识别的编码文件发给我们。
-    
-!!! question "启动x-studio报0x000000c1怎们办?"
-
-    x-studio目前是32位软件，请务必确保安装[vc2019_x86 redist](https://x-studio.net/fdl2.php?file=VC_redist.x86.exe)运行库后再重试
-
-!!! question "启动x-studio报0x0000007e错误怎么办?"
-	
-    1. 前往 https://dl.x-studio.net 下载最新微软vs2019运行库并安装
-    2. 请下载并安装[DirectX运行库](https://download.microsoft.com/download/8/4/A/84A35BF1-DAFE-4AE8-82AF-AD2AE20B6B14/directx_Jun2010_redist.exe)
 
 !!! question "启动x-studio启动报998错误码怎么办？"
 
@@ -34,11 +25,6 @@
 !!! question "使用x-studio启动调试，调试目标程序闪退怎么办?"
 
     删除exe同目录下.dcache文件，再试试。
-    
-!!! question "安装过程报错`Download Microsoft Visual C++ 2019 Redistributable (x86) failed: Security Channel Error(12157), please download at https://x-studio.net/`怎么办?"
-
-    1. 修改【Internet 选项】【高级】，勾选所有全部TLS和SSL相关选项
-    2. 未来版本将解决此问题
 
 !!! question "x-studio csb导入如果出现拷贝资源失败怎么办?"
 
