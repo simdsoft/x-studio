@@ -2,18 +2,11 @@
 
 # Repo Introduction
 
-This repo is for `x-studio ide` issues track, develop plan, official documentation update, not source code of x-studio software.
-
+This repo is for `x-studio ide` issues track, develop plan, official documentation update.
+  
 [![Latest Release](https://img.shields.io/badge/dynamic/json.svg?label=Latest%20Release&url=https%3A%2F%2Fapi.github.com%2Frepos%2Fsimdsoft%2Fx-studio.github.io%2Freleases%2Flatest&query=%24.name&colorB=blue)](../../releases/latest)
 [![Downloads](https://img.shields.io/github/downloads/simdsoft/x-studio.github.io/total.svg?label=Downloads&colorB=orange)](../../releases/latest)
 
-## x-studio Introduction
-
-x-studio is a powerful developer IDE and very lightweight; It support Lua debug such Unity32/64(xlua, slua, ulua/tolua)、UnrealEngine(sluaunreal, UnLua) and Cococ2d-x(Lua), support VSCode，SublimeText like multi program languages highlight, auto complete, auto detect text encoding and etc. It also support cocos2d-x UI and particle system editing.
-
-## Software showcase
-
-![image](https://github.com/simdsoft/x-studio/blob/master/showcase21-1.png)
 
 ## x-studio Resources:
 
@@ -22,13 +15,21 @@ x-studio is a powerful developer IDE and very lightweight; It support Lua debug 
 - Dowload urls
   - official
     - [V2022.1.3 (Build 9900.13)](https://x-studio.net/dl.php?version=10.0.9900.13) - 1/20/2021
-  - [Microsoft Store](ms-windows-store://pdp/?productid=XP9KHKZS1M19ZP): ms-windows-store://pdp/?productid=XP9KHKZS1M19ZP
+  - Microsoft Store: <a href="ms-windows-store://pdp/?productid=XP9KHKZS1M19ZP">ms-windows-store://pdp/?productid=XP9KHKZS1M19ZP</a>
   - 360 software store: http://soft.360.cn/static/baoku/info_7_0/softinfo_104947374.html
   - Lenovo software store: https://lestore.lenovo.com/detail/25457
   - Tecent software center: https://pc.qq.com/detail/17/detail_25457.html
   - Github release page: https://github.com/simdsoft/x-studio/releases
   - More version could be download at: https://dl.x-studio.net/
 - Update history: https://x-studio.net/updates.html
+
+## x-studio Introduction
+
+x-studio is a powerful developer IDE and very lightweight; It support Lua debug such Unity32/64(xlua, slua, ulua/tolua)、UnrealEngine(sluaunreal, UnLua) and Cococ2d-x(Lua), support VSCode，SublimeText like multi program languages highlight, auto complete, auto detect text encoding and etc. It also support cocos2d-x UI and particle system editing.
+
+## Software showcase
+
+![image](showcase21-1.png)
 
 ## x-studio New version format
 

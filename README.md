@@ -2,10 +2,25 @@
 
 # 仓库介绍
 
-本仓库仅用于`x-studio ide`软件的问题跟踪，研发计划，官方文档更新，并非软件源码
-
+本仓库仅用于`x-studio ide`软件的问题跟踪，研发计划，官方文档更新
+  
 [![Latest Release](https://img.shields.io/badge/dynamic/json.svg?label=Latest%20Release&url=https%3A%2F%2Fapi.github.com%2Frepos%2Fsimdsoft%2Fx-studio.github.io%2Freleases%2Flatest&query=%24.name&colorB=blue)](../../releases/latest)
 [![Downloads](https://img.shields.io/github/downloads/simdsoft/x-studio.github.io/total.svg?label=Downloads&colorB=orange)](../../releases/latest)
+
+## x-studio 相关资源:
+
+- 官网: https://x-studio.net/
+- 文档: https://docs.x-studio.net/
+- 软件下载地址
+  - 官方
+    - [V2022.1.3 (Build 9900.13)](https://x-studio.net/dl.php?version=10.0.9900.13) - 1/20/2021
+  - 微软应用商店: <a href="ms-windows-store://pdp/?productid=XP9KHKZS1M19ZP">ms-windows-store://pdp/?productid=XP9KHKZS1M19ZP</a>
+  - 360软件宝库: http://soft.360.cn/static/baoku/info_7_0/softinfo_104947374.html
+  - 联想软件商店: https://lestore.lenovo.com/detail/25457
+  - 腾讯软件中心: https://pc.qq.com/detail/17/detail_25457.html
+  - Github发布页面: https://github.com/simdsoft/x-studio/releases
+  - 更多版本: https://www.x-studio.net/downloads/
+- 新版本前瞻: https://x-studio.net/updates.html
 
 ## x-studio 简介
 
@@ -16,21 +31,6 @@ x-studio是一款强大的开发人员IDE；支持Unity32/64(xlua, slua, ulua/to
 ![image](showcase22-1.png)  
 
 ![image](showcase21-1.png)
-
-## x-studio 相关资源:
-
-- 官网: https://x-studio.net/
-- 文档: https://docs.x-studio.net/
-- 软件下载地址
-  - 官方
-    - [V2022.1.3 (Build 9900.13)](https://x-studio.net/dl.php?version=10.0.9900.13) - 1/20/2021
-  - 微软应用商店: ms-windows-store://pdp/?productid=XP9KHKZS1M19ZP
-  - 360软件宝库: http://soft.360.cn/static/baoku/info_7_0/softinfo_104947374.html
-  - 联想软件商店: https://lestore.lenovo.com/detail/25457
-  - 腾讯软件中心: https://pc.qq.com/detail/17/detail_25457.html
-  - Github发布页面: https://github.com/simdsoft/x-studio/releases
-  - 更多版本: https://www.x-studio.net/downloads/
-- 新版本前瞻: https://x-studio.net/updates.html
 
 ## x-studio 新版本号格式
 
