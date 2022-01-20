@@ -37,20 +37,9 @@
 - [10.0.5900.33](https://x-studio.net/dl.php?version=10.0.5900.33)  
 - [10.0.5900.11](https://x-studio.net/dl.php?version=10.0.5900.11)  
 
-## VS2019 Redists & DirectX Redists
-- [VS2019_Redist(x86)](https://x-studio.net/fdl2.php?file=VC_redist.x86.exe)  (You must install this redist for use x-studio ide)  
-- [VS2019_Redist(x64)](https://x-studio.net/fdl2.php?file=VC_redist.x64.exe) (If you want debug Unity3D Editor(x64), you need install this redist)
-- DirectX Redists
-    - [Standalone](https://download.microsoft.com/download/8/4/A/84A35BF1-DAFE-4AE8-82AF-AD2AE20B6B14/directx_Jun2010_redist.exe)
-    - [websetup](https://download.microsoft.com/download/1/7/1/1718CCC4-6315-4D8E-9543-8E28A4E18C4C/dxwebsetup.exe)
-
-
 ## Chrome Latest Offline Download
 - cn: [ChromeStandaloneSetup64.exe](https://www.google.cn/chrome/?standalone=1&platform=win64)
 - en: [ChromeStandaloneSetup64.exe](https://www.google.com/chrome/?standalone=1&platform=win64)
-
-## Direct3D HLSL Compiler for Redists
-- 10.0.19041.685: [d3dcompiler_47.dll](https://simdsoft.gitee.io/xsdl2/19041.685/d3dcompiler_47.dll) 
 
 ## Digicert Code signing for win7, needs install digicert root cert manually
 - [https://cacerts.digicert.com/DigiCertTrustedRootG4.crt](https://cacerts.digicert.com/DigiCertTrustedRootG4.crt) MD5: 78f2fcaa601f2fb4ebc937ba532e7549
