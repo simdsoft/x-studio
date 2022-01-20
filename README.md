@@ -23,7 +23,9 @@ x-studio是一款强大的开发人员IDE；支持Unity32/64(xlua, slua, ulua/to
 - 文档: https://docs.x-studio.net/
 - 软件下载地址
   - 官方
+    - V2022.1.3 (Build 9900.13): 当前可在微软应用商店下载
     - [V2022.1.2 (Build 9900.11)](https://x-studio.net/dl.php?version=10.0.9900.11) - 1/6/2021
+  - 微软应用商店: ms-windows-store://pdp/?productid=XP9KHKZS1M19ZP
   - 360软件宝库: http://soft.360.cn/static/baoku/info_7_0/softinfo_104947374.html
   - 联想软件商店: https://lestore.lenovo.com/detail/25457
   - 腾讯软件中心: https://pc.qq.com/detail/17/detail_25457.html
