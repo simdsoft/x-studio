@@ -23,6 +23,15 @@ This repo is for `x-studio ide` issues track, develop plan, official documentati
   - More version could be download at: https://dl.x-studio.net/
 - Update history: https://x-studio.net/updates.html
 
+## x-studio heavy depends opensource or Commercial softwares
+
+- [Scintilla](https://www.scintilla.org/)
+- [msvcr14x](https://github.com/sonyps5201314/msvcr14x)
+- [yasio](https://github.com/yasio/yasio)
+- [adxe](https://github.com/adxeproject/adxe)
+- [BCGControlBar Pro For MFC](https://bcgsoft.com/)
+- Full List: https://www.x-studio.net/Licenses.txt
+
 ## x-studio Introduction
 
 x-studio is a powerful developer IDE and very lightweight; It support Lua debug such Unity32/64(xlua, slua, ulua/tolua)、UnrealEngine(sluaunreal, UnLua) and Cococ2d-x(Lua), support VSCode，SublimeText like multi program languages highlight, auto complete, auto detect text encoding and etc. It also support cocos2d-x UI and particle system editing.
