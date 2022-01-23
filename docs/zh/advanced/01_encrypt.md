@@ -31,7 +31,18 @@
 * 如果由-cfg选项指定的加密配置文件已存在, 那么工具从中读取加密选项, 但是如果相同选项在配置文件和命令行参数中都有指定，那么命令行参数会覆盖加密配置文件中的参数, 并更新配置文件
 * 如果指定encrypt-cfg.xml已存在, 并且需要变更密钥，那么你只需要从配置文件中删除ivec和key元素即可
 * adxe/cocos2d-x Demo地址: https://github.com/simdsoft/CryptoHelloLuaAdxe ， 基于adxe-1.0-b5
-* 对于Lua工程，Win32平台请将加密密钥设置代码移动至:SimulatorWin.cpp文件的SimulatorWin::run()中，同时AppDelegate.cpp添加预处理器判断，如图所示:  
-  ![image](../assets/images/c4s1_01a.png)  
-  ![image](../assets/images/c4s1_01b.png)
+* 对于Lua工程，Win32平台请将加密密钥设置代码移动至:SimulatorWin.cpp文件的SimulatorWin::run()中，同时AppDelegate.cpp添加预处理器判断
+  ```cpp
+  bool AppDelegate::applicationDidFinishLaunching()
+  {
+    unsigned char key[] = { 0xe7,0x89,0x5c,0xe8,0x09,0x04,0xfc,0xed,0x15,0x14,0x32,0x02,0x6e,0xd6,0xaf,0xb9,0x8d,0x42,0x09,0xc9,0xf1,0x69,0xbf,0x03,0x7f,0xb4,0x54,0xe7,0xd7,0x4a,0xf2,0xba };
+    unsigned char iv[] = { 0x9f,0x9d,0xa8,0x0f,0xee,0x32,0x90,0xbf,0x62,0xf2,0x06,0x1b,0x59,0xe5,0x5f,0x37 };
+    EncryptManager::getInstance()->setEncryptEnabled(true,
+      cxx17::string_view{ (const char*)key, sizeof(key) },
+      cxx17::string_view{ (const char*)iv, sizeof(iv) },
+      EncryptManager::ENCF_COMPRESS | EncryptManager::ENCF_SIGNATURE | 5 << 16
+      );
+    /// ...
+  }
+  ```
 
