@@ -23,7 +23,7 @@ This repo is for `x-studio ide` issues track, develop plan, official documentati
   - More version could be download at: https://dl.x-studio.net/
 - Update history: https://x-studio.net/updates.html
 
-## x-studio heavy depends opensource or Commercial softwares
+## x-studio powered by opensource or commercial softwares
 
 - [Scintilla](https://www.scintilla.org/)
 - [msvcr14x](https://github.com/sonyps5201314/msvcr14x)
