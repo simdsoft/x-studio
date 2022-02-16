@@ -27,6 +27,8 @@ This repo is for `x-studio ide` issues track, develop plan, official documentati
 
 - [Scintilla](https://www.scintilla.org/)
 - [msvcr14x](https://github.com/sonyps5201314/msvcr14x)
+- [angle](https://github.com/google/angle)
+  - [angle-patch](https://github.com/simdsoft/angle-patch)
 - [yasio](https://github.com/yasio/yasio)
 - [adxe](https://github.com/adxeproject/adxe)
 - [BCGControlBar Pro For MFC](https://bcgsoft.com/)
