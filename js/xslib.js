@@ -20,6 +20,6 @@ function getFullYear() {
 
 // Get copyright info
 function getCopyrightInfo() {
-    var info = "Copyright © 2014-{0} x-studio. All rights reserved.";
+    var info = "Copyright © 2022 Simdsoft Limited. All rights reserved.";
     return info.format(getFullYear());
 }
