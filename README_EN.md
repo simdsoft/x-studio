@@ -10,7 +10,7 @@ This repo is for `x-studio ide` issues track, develop plan, official documentati
 
 ## x-studio Resources:
 
-- official website: https://x-studio.net/
+- official website: https://en.x-studio.net/
 - documetation: https://docs.x-studio.net/
 - Dowload urls
   - official
@@ -32,7 +32,7 @@ This repo is for `x-studio ide` issues track, develop plan, official documentati
 - [yasio](https://github.com/yasio/yasio)
 - [adxe](https://github.com/adxeproject/adxe)
 - [BCGControlBar Pro For MFC](https://bcgsoft.com/)
-- Full List: https://www.x-studio.net/Licenses.txt
+- Full List: https://en.x-studio.net/Licenses.txt
 
 ## x-studio Introduction
 
