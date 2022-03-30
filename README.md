@@ -31,7 +31,7 @@
 - [yasio](https://github.com/yasio/yasio)
 - [adxe](https://github.com/adxeproject/adxe)
 - [BCGControlBar Pro For MFC](https://bcgsoft.com/)
-- 完整列表: https://www.x-studio.net/Licenses.txt
+- 完整列表: https://en.x-studio.net/Licenses.txt
 
 ## x-studio 简介
 
