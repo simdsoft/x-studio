@@ -20,7 +20,7 @@
 * `-eflags=1`: 
     - *1*: 使用md5扁平化文件名并存储至 `eflags.csv`
     - *2*: 计算文件原始数据摘要并存储至 `eflags.csv`
-    - *4*: 计算处理有文件数据摘要并存储至 `eflags.csv`
+    - *4*: 计算文件加密后数据摘要并存储至 `eflags.csv`
     - *8*: 取文件名md5摘要的前两个字符分割目录存储处理后资源，以提高文件系统的存取性能，类似git存储，例如 `7e4323de834e87836c4478b2fdd9c1e5` 将分割存储在 `7e/4323de834e87836c4478b2fdd9c1e5`
 * `-plugin`: 指定加密插件DLL，插件编写，详见: https://github.com/simdsoft/x-studio/blob/master/plugin/EncryptSystemPlugin.h
 
