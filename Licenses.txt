@@ -22,8 +22,10 @@ glad                                                          MIT
 antlr4                                                        BSD-3-Clause
 luacheck                                                      MIT
 LuaJIT                                                        MIT
-minhook                                                       Tsuda Kageyu
-curl                                                          The curl license https://curl.haxx.se/docs/copyright.html
+Detours                                                       MIT
+minhook                                                       MIT-like
+PolyHook_2_0                                                  MIT
+curl                                                          MIT-like https://curl.haxx.se/docs/copyright.html
 ZeroBraneStudio                                               MIT
 astc                                                          Apache-2.0
 Box2D                                                         MIT
