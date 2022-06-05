@@ -1,14 +1,14 @@
 ## x-studio 版本更新
 
-## x-studio 2022.1.6(Build 9900.29)
-- 更新时间: 2022/06/??
+## x-studio 2022.1.7(Build 9900.31)
+- 更新时间: 2022/06/06
 - 更新内容: 
     1. 【代码编辑】虚幻Lua调试：增加虚幻引擎UnLua-2.x支持
     2. 【代码编辑】虚幻Lua调试：Local Lua Debugger增加直接启动虚幻工程并调试支持
     3. 【代码编辑】虚幻Lua调试：统一附加调试虚幻4或5编辑器菜单为`Attach To UnrealEditor`
     4. 【代码编辑】Lua调试，增强附加到虚幻和Unity编辑器进程自动查找和选择策略
 
-- MD5: ??
+- MD5: ec2ebbd8f06a3550a6ede8898bb789fe
 
 ## x-studio 2022.1.5(Build 9900.19)
 - 更新时间: 2022/05/20
