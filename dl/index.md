@@ -2,13 +2,13 @@
 
 ## x-studio 2022
 
-- [V2022.1.7](https://x-studio.net/dl.php?version=10.0.9900.31) - (6/6/2022)
+- [**V2022.1.7**](https://x-studio.net/dl.php?version=10.0.9900.31) - (**6/6/2022**)
 - [V2022.1.5](https://x-studio.net/dl.php?version=10.0.9900.19) - (5/20/2022)
 - [V2022.1.4](https://x-studio.net/dl.php?version=10.0.9900.15) - (2/21/2022)
 - [V2022.1.3](https://x-studio.net/dl.php?version=10.0.9900.13) - (1/20/2022)
 - [V2022.1.2](https://x-studio.net/dl.php?version=10.0.9900.11) - (1/6/2022)
 - [V2022.1.1](https://x-studio.net/dl.php?version=10.0.9900.3) - (12/21/2021)
-- [V2022.1.0](https://x-studio.net/dl.php?version=10.0.9900.1) - (12/19/2021)
+- [**V2022.1.0**](https://x-studio.net/dl.php?version=10.0.9900.1) - (**12/19/2021**)
 
 ## x-studio Pro 2021
 
@@ -17,7 +17,7 @@
 - [V2021.4.3](https://x-studio.net/dl.php?version=10.0.9000.102) - (2021.9.1)
 - [V2021.4.2](https://x-studio.net/dl.php?version=10.0.9000.99) - (2021.8.23)
 - [V2021.4.1](https://x-studio.net/dl.php?version=10.0.9000.92) - (2021.8.9)
-- [V2021.4.0](https://x-studio.net/dl.php?version=10.0.9000.67) - (2021.8.2)
+- [**V2021.4.0**](https://x-studio.net/dl.php?version=10.0.9000.67) - (**2021.8.2**)
 - [V2021.3.1](https://x-studio.net/dl.php?version=10.0.9000.40) - (2021.5.27)
 - [V2021.3.0](https://x-studio.net/dl.php?version=10.0.9000.39) - (2021.5.25)
 - [V2021.2.0](https://x-studio.net/dl.php?version=10.0.9000.31) - (2021.5.6)
