@@ -9,7 +9,7 @@ boost.regex                                                   BSL-1.0
 OpenSSL                                                       Apache License v2.0
 nsis                                                          zlib/libpng License
 angle                                                         The ANGLE Project
-adxe                                                          MIT
+axis-project                                                  MIT
 Lua                                                           MIT
 pugixml                                                       MIT
 rapidxml                                                      BSL-1.0
