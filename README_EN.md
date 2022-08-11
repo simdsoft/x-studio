@@ -15,7 +15,7 @@ This repo is for `x-studio ide` issues track, develop plan, official documentati
 - Dowload urls
   - official
     - [Latest](https://x-studio.net/v2022/setup.exe)
-  - Microsoft Store: <a href="ms-windows-store://pdp/?productid=XP9KHKZS1M19ZP">ms-windows-store://pdp/?productid=XP9KHKZS1M19ZP</a>
+  - Microsoft Store: https://apps.microsoft.com/store/detail/xstudio/XP9KHKZS1M19ZP
   - 360 software store: http://soft.360.cn/static/baoku/info_7_0/softinfo_104947374.html
   - Lenovo software store: https://lestore.lenovo.com/detail/25457
   - Tecent software center: https://pc.qq.com/detail/17/detail_25457.html
