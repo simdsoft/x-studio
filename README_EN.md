@@ -30,7 +30,7 @@ This repo is for `x-studio ide` issues track, develop plan, official documentati
 - [angle](https://github.com/google/angle)
   - [angle-patch](https://github.com/simdsoft/angle-patch)
 - [yasio](https://github.com/yasio/yasio)
-- [adxe](https://github.com/adxeproject/adxe)
+- [axmol](https://github.com/axmolengine/axmol)
 - [BCGControlBar Pro For MFC](https://bcgsoft.com/)
 - Full List: https://en.x-studio.net/Licenses.txt
 
