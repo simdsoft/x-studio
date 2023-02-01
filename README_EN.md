@@ -10,7 +10,7 @@ This repo is for `x-studio ide` issues track, develop plan, official documentati
 
 ## x-studio Resources:
 
-- official website: https://en.x-studio.net/
+- official website: https://x-studio.simdsoft.com/?lang=en
 - documetation: https://docs.x-studio.net/
 - Dowload urls
   - official
