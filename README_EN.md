@@ -32,7 +32,7 @@ This repo is for `x-studio ide` issues track, develop plan, official documentati
 - [yasio](https://github.com/yasio/yasio)
 - [axmol](https://github.com/axmolengine/axmol)
 - [BCGControlBar Pro For MFC](https://bcgsoft.com/)
-- Full List: [https://x-studio.simdsoft.com/Licenses.txt](https://global.simdsoft.com/x-studio/Licenses.txt)
+- Full List: https://global.simdsoft.com/x-studio/Licenses.txt
 
 ## x-studio Introduction
 
