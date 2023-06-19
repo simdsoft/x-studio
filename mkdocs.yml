@@ -12,6 +12,15 @@ theme:
     primary: indigo
   logo: assets/images/logo.png
   favicon: assets/images/logo.png
+  features:
+    - content.action.edit
+    - content.action.view
+    - content.code.copy
+    - navigation.footer
+  icon:
+    edit: material/pencil 
+    view: material/eye
+    repo: fontawesome/brands/github
 nav:
   - 主页: index.md
   - x-studio - 代码编辑篇: coding/index.md
@@ -35,12 +44,11 @@ nav:
   - x-studio - 常见问题: faq.md
   - x-studio - 版本更新: changelog.md
 markdown_extensions:
-  - admonition
   - abbr
+  - admonition
   - attr_list
   - def_list
   - footnotes
-  - meta
   - md_in_html
   - toc:
       permalink: true
@@ -49,10 +57,14 @@ markdown_extensions:
   - pymdownx.betterem:
       smart_enable: all
   - pymdownx.caret
-  - pymdownx.critic
   - pymdownx.details
-  - pymdownx.emoji
-  - pymdownx.highlight
+  - pymdownx.emoji:
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+      emoji_index: !!python/name:materialx.emoji.twemoji
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
   - pymdownx.inlinehilite
   - pymdownx.keys
   - pymdownx.magiclink:
@@ -61,18 +73,18 @@ markdown_extensions:
       repo: x-studio
   - pymdownx.mark
   - pymdownx.smartsymbols
-  - pymdownx.snippets:
-      check_paths: true
-  - pymdownx.superfences
-  - pymdownx.tabbed
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
   - pymdownx.tasklist:
       custom_checkbox: true
   - pymdownx.tilde
 plugins:
   - search:
-      lang:
-        - en
-        - ja
       separator: '[\s\-\，\。]+'
   - pdf-export:
       verbose: false
