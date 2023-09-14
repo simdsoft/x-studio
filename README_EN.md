@@ -47,8 +47,9 @@ x-studio is a powerful developer IDE and very lightweight; It support Lua debug 
 - Display version: `202x.x.x`
 - Build version: `10.0.9900.x`
 
-## x-studio 2022 (the future)
+## x-studio Future
 
+- [ ] x64 build
 - [ ] Best debug experience
 - [ ] Unify debug kernel, support both inject and remote debug
 - [ ] Support Multi program languages mix debug
