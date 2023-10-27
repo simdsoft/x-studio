@@ -5,7 +5,7 @@
 本仓库仅用于`x-studio ide`软件的问题跟踪，研发计划，官方文档更新
   
 [![版本](https://img.shields.io/github/v/release/simdsoft/x-studio.github.io?include_prereleases&label=%E7%89%88%E6%9C%AC)](../../releases/latest)
-[![下载](https://img.shields.io/github/downloads/simdsoft/x-studio.github.io/total.svg?label=下载&colorB=orange)](../../releases/latest)
+[![下载](https://img.shields.io/github/downloads/simdsoft/x-studio.github.io/total.svg?label=下载122k%2B&colorB=orange)](../../releases/latest)
 
 ## x-studio 相关资源:
 
