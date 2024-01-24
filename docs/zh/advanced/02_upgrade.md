@@ -2,7 +2,7 @@
 
 ## 外网升级
 
-联网状态下， 软件会自动检查更新，并下载升级，最新版本下载地址: https://x-studio.net/dl.php?host=local, 版本信息查询: https://x-studio.net/query_latest.php
+联网状态下， 软件会自动检查更新，并下载升级，最新版本下载地址: https://x-studio.simdsoft.com/dl.php?host=local, 版本信息查询: https://x-studio.simdsoft.com/query_latest.php
 
 ## 内网升级
 
