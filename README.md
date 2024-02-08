@@ -9,7 +9,7 @@
 
 ## x-studio 相关资源:
 
-- 官网: https://x-studio.net/
+- 官网: https://simdsoft.com/x-studio
 - 文档: https://docs.x-studio.net/
 - 软件下载地址
   - 官方
@@ -20,7 +20,6 @@
   - 腾讯软件中心: https://pc.qq.com/detail/17/detail_25457.html
   - Github发布页面: https://github.com/simdsoft/x-studio/releases
   - 更多版本: https://dl.x-studio.net/
-- 新版本前瞻: https://x-studio.net/updates.html
 
 ## x-studio 中使用的开源或商业软件
 
