@@ -2,7 +2,7 @@
 
 !!! question "忘记账号密码怎么办？"
 
-    请前往 https://x-studio.net/user/forget.php 进行重置。
+    请前往 https://simdsoft.com/user/forget.php 进行重置。
 
 !!! note ""
 
@@ -10,14 +10,14 @@
 
 !!! note ""
 
-    历史版本下载: https://dl.x-studio.net/
+    历史版本下载: https://global.simdsoft.com/x-studio/dl/
 
 **x-studio是一款强大的开发人员IDE；支持Unity32/64(xlua, slua, ulua/tolua)、虚幻引擎(sluaunreal, UnLua)和Cococ2d-x Lua调试。
 支持类似VSCode，SublimeText的多种编程语言高亮语法着色，打开文件夹，自动完成，自动识别UTF-8/GBK编码，自动识别换行符等功能。
 支持Cocos2d-x场景（UI）和2D粒子编辑。
 Spine运行库版本3.8, DragonBones运行库版本5.5。**
 
-* x-studio软件官网：https://x-studio.net/
+* x-studio软件官网：https://simdsoft.com/x-studio
 
 * 为方便描述，文档正文中会将x-studio简称为“软件”
 
