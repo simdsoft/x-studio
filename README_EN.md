@@ -10,7 +10,7 @@ This repo is for `x-studio ide` issues track, develop plan, official documentati
 
 ## x-studio Resources:
 
-- official website: https://x-studio.simdsoft.com/?lang=en
+- official website: https://simdsoft.com/x-studio?lang=en
 - documetation: https://docs.x-studio.net/
 - Dowload urls
   - official
@@ -21,8 +21,7 @@ This repo is for `x-studio ide` issues track, develop plan, official documentati
   - Tecent software center: https://pc.qq.com/detail/17/detail_25457.html
   - Github release page: https://github.com/simdsoft/x-studio/releases
   - More version could be download at: https://dl.x-studio.net/
-- Update history: https://x-studio.net/updates.html
-
+- Update history: https://docs.x-studio.net/zh-cn/latest/changelog/
 ## x-studio powered by opensource or commercial softwares
 
 - [Scintilla](https://www.scintilla.org/)
