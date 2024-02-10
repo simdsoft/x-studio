@@ -10,7 +10,8 @@
 version: 2
 
 build:
-  image: testing
+  os: ubuntu-22.04
+  python: 3.9
 
 # Build documentation with MkDocs
 mkdocs:
@@ -21,7 +22,6 @@ formats: all
 
 # Optionally set the version of Python and requirements required to build your docs
 python:
-  version: 3.9
   install:
     - requirements: docs/prerequisites.txt
     - requirements: docs/zh/requirements.txt
