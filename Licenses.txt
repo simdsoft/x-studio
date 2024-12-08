@@ -11,6 +11,7 @@ nsis                                                          zlib/libpng Licens
 angle                                                         The ANGLE Project
 axmol                                                         MIT
 Lua                                                           MIT
+simdjson                                                      MIT
 pugixml                                                       MIT
 rapidxml                                                      BSL-1.0
 sqlite3                                                       Public Domain
@@ -63,7 +64,6 @@ xxHash                                                        BSD-2-Clause
 yaml-cpp                                                      MIT
 zlib                                                          zlib
 ntcvt                                                         Apache-2.0
-xsbase                                                        MIT
 Dear ImGui                                                    MIT
 libiconv                                                      LGPL-2.1
 openal-soft                                                   LGPL-2.1

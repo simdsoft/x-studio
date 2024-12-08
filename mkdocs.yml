@@ -3,7 +3,7 @@ site_name: x-studio
 repo_url: https://github.com/simdsoft/x-studio.github.io
 repo_name: GitHub
 edit_uri: edit/master/docs/zh
-copyright: Copyright &copy; 2014 - 2023 Simdsoft Limited.
+copyright: Copyright &copy; 2014 - 2024 Simdsoft Limited.
 theme:
   name: material
   language: zh
