@@ -2,7 +2,7 @@
 
 !!! question "忘记账号密码怎么办？"
 
-    请前往 https://simdsoft.com/user/forget.php 进行重置。
+    请前往 https://simdsoft.com/password_reset/ 进行重置。
 
 !!! note ""
 
