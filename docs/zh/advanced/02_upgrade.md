@@ -2,7 +2,10 @@
 
 ## 外网升级
 
-联网状态下， 软件会自动检查更新，并下载升级，最新版本下载地址: [https://x-studio.simdsoft.com/dl.php?host=local](https://simdsoft.com/x-studio/download.php?host=local), 版本信息查询: [https://portal.simdsoft.com/?api=query_rel&return=representation](https://portal.simdsoft.com/?api=query_rel&return=representation)
+联网状态下， 软件会自动检查更新，并下载升级  
+
+- 最新版本下载地址: [https://x-studio.simdsoft.com/dl.php?host=local](https://simdsoft.com/x-studio/download.php?host=local)
+- 版本信息查询: [https://portal.simdsoft.com/?api=query_rel&return=representation](https://portal.simdsoft.com/?api=query_rel&return=representation)
 
 ## 内网升级
 
