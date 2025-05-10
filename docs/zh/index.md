@@ -10,7 +10,7 @@
 
 !!! note ""
 
-    历史版本下载: https://global.simdsoft.com/x-studio/dl/
+    历史版本下载: https://x-studio.net/aka/?id=1012
 
 **x-studio 是一款强大的开发人员IDE；支持 Unity32/64(xlua, slua, ulua/tolua)、虚幻引擎(sluaunreal, UnLua)和 Axmol/Cococ2d-x Lua调试。
 支持类似 VSCode，SublimeText 的多种编程语言高亮语法着色，打开文件夹，自动完成，自动识别UTF-8/GBK编码，自动识别换行符等功能。
