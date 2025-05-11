@@ -19,7 +19,7 @@
   - 联想软件商店: https://lestore.lenovo.com/detail/25457
   - 腾讯软件中心: https://pc.qq.com/detail/17/detail_25457.html
   - Github发布页面: https://github.com/simdsoft/x-studio/releases
-  - 更多版本: https://dl.x-studio.net/
+  - 更多版本: https://simdsoft.com/x-studio/releases
 
 ## x-studio 中使用的开源或商业软件
 

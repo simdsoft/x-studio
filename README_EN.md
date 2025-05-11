@@ -20,7 +20,7 @@ This repo is for `x-studio ide` issues track, develop plan, official documentati
   - Lenovo software store: https://lestore.lenovo.com/detail/25457
   - Tecent software center: https://pc.qq.com/detail/17/detail_25457.html
   - Github release page: https://github.com/simdsoft/x-studio/releases
-  - More version could be download at: https://dl.x-studio.net/
+  - More version could be download at: https://simdsoft.com/x-studio/releases
 - Update history: https://docs.x-studio.net/zh-cn/latest/changelog/
 ## x-studio powered by opensource or commercial softwares
 
