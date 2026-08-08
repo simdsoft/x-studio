@@ -15,7 +15,7 @@
   - 官方
     - [Latest](https://x-studio.net/dl.php?host=local)
   - 微软应用商店: <a href="https://apps.microsoft.com/store/detail/xstudio/XP9KHKZS1M19ZP">https://apps.microsoft.com/store/detail/xstudio/XP9KHKZS1M19ZP</a>
-  - 360软件宝库: http://soft.360.cn/static/baoku/info_7_0/softinfo_104947374.html
+  - 360软件宝库: https://baoku.360.cn/qbfl/104947374.html
   - 联想软件商店: https://lestore.lenovo.com/detail/25457
   - 腾讯软件中心: https://pc.qq.com/detail/17/detail_25457.html
   - Github发布页面: https://github.com/simdsoft/x-studio/releases
