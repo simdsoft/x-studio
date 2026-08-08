@@ -16,7 +16,7 @@ This repo is for `x-studio ide` issues track, develop plan, official documentati
   - official
     - [Latest](https://x-studio.net/v2022/setup.exe)
   - Microsoft Store: https://apps.microsoft.com/store/detail/xstudio/XP9KHKZS1M19ZP
-  - 360 software store: http://soft.360.cn/static/baoku/info_7_0/softinfo_104947374.html
+  - 360 software store: https://baoku.360.cn/qbfl/104947374.html
   - Lenovo software store: https://lestore.lenovo.com/detail/25457
   - Tecent software center: https://pc.qq.com/detail/17/detail_25457.html
   - Github release page: https://github.com/simdsoft/x-studio/releases
